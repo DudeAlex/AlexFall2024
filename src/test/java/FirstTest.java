@@ -22,7 +22,6 @@ public class FirstTest extends BaseTest{
     }
 
     @Test
-
     public void testShoppingCartIconValidationTest() {
         driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
         driver.findElement(By.xpath("//a[contains(@href, '?add-to-cart=1205')]")).click();
@@ -34,7 +33,6 @@ public class FirstTest extends BaseTest{
     }
 
     @Test
-
     public void ShoppingCartPopUpValidationTest() {
         driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
         driver.findElement(By.xpath("//a[@aria-label='Add “Anchor Bracelet” to your cart']")).click();
