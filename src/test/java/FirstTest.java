@@ -45,6 +45,15 @@ public class FirstTest extends BaseTest{
 
         Assert.assertEquals(text, "Anchor Bracelet");
 
+      @Test
+    public void testClickOnStoreButton() throws InterruptedException {
+        String url = "https://askomdch.com/store";
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+        String actualResult = driver.getCurrentUrl();
+
+        Assert.assertEquals(actualResult, url);
+
+
     }
 }
 
