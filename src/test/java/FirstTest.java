@@ -30,4 +30,18 @@ public class FirstTest extends BaseTest{
         Assert.assertEquals(actualResult, url);
 
     }
+
+    @Test
+    public void testFeaturedProductAddToCart() throws InterruptedException {
+        String testProduct = "Anchor Bracelet";
+
+        driver.findElement(By.xpath("//a[contains(@aria-label, '" + testProduct + "')]")).click();
+
+        driver.findElement(By.xpath("//a[contains(@title,'View cart')]")).click();
+
+        String actualResult = driver.findElement(By.xpath("//td[@data-title='Product']")).getText();
+
+        Assert.assertEquals(actualResult, testProduct);
+
+    }
 }
