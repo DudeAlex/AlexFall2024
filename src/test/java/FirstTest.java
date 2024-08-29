@@ -53,7 +53,7 @@ public class FirstTest extends BaseTest{
     @Test
     public void testHomeButtonText() {
 
-        String expectedButtonName = driver.findElement(By.xpath("//li[@id='menu-item-1226']"))
+        String expectedButtonName = driver.findElement(By.id("menu-item-1226"))
                 .getText();
 
         Assert.assertTrue(expectedButtonName.contains("Home"));
