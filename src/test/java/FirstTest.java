@@ -58,4 +58,29 @@ public class FirstTest extends BaseTest{
 
         Assert.assertTrue(expectedButtonName.contains("Home"));
     }
+
+    @Test
+
+    public void testKet() throws Exception {
+
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+
+        driver.findElement(By.xpath("//a[@href='?add-to-cart=1198']")).click();
+
+        driver.findElement(By.xpath("//a[@class='cart-container']")).click();
+
+
+
+
+
+
+
+
+
+
+        //Assert.assertEquals(name,"Anchor Bracelet");
+
+
+    }
+
 }
