@@ -58,4 +58,30 @@ public class FirstTest extends BaseTest{
 
         Assert.assertTrue(expectedButtonName.contains("Home"));
     }
+
+    @Test
+    public void testAddShoesToCartConfirmationMessage() {
+
+        driver.findElement(By.linkText("Blue Shoes")).click();
+        driver.findElement(By.xpath("//button[@type='submit']")).click();
+
+        String actualNotice = driver.findElement(By.className("woocommerce-message")).getText();
+
+        Assert.assertTrue(actualNotice.contains("“Blue Shoes” has been added to your cart."));
+    }
+
+    @Test
+    public void testAddShortsToCartAndCheckout() {
+
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+        driver.findElement(By.xpath("//*[@id='main']//li[4]")).click();
+        driver.findElement(By.className("woocommerce-product-gallery__trigger")).click();
+        driver.findElement(By.xpath("//button[@class='pswp__button pswp__button--close']")).click();
+        driver.findElement(By.xpath("//button[@name='add-to-cart']")).click();
+        driver.findElement(By.xpath("//div[@class='woocommerce-message']/a[.='View cart']")).click();
+
+        String actualProductName = driver.findElement(By.linkText("Blue Denim Shorts")).getText();
+
+        Assert.assertEquals(actualProductName,"Blue Denim Shorts");
+    }
 }
