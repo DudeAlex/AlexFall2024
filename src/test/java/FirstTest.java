@@ -50,4 +50,48 @@ public class FirstTest extends BaseTest{
         Assert.assertEquals(actualButtonNames, expectedButtonNames, "Button names do not match!");
     }
 
+    @Test
+    public void testCheckButtonsClickRedirect() {
+        List<WebElement> buttons = driver.findElements(By.cssSelector(".wp-block-buttons .wp-block-button__link"));
+        buttons.get(0).click();
+        String StorePageName = driver.findElement(By.tagName("h1")).getText().trim();
+        String ExpectedStorePageName = "Store";
+
+        Assert.assertEquals(StorePageName, ExpectedStorePageName, "Store page names do not match!");
+
+        driver.navigate().back();
+        buttons.get(1).click();
+        String ContactUsPageName = driver.findElement(By.tagName("h1")).getText().trim();
+        String ExpectedContactUs = "Contact Us";
+
+        Assert.assertEquals(ContactUsPageName, ExpectedContactUs, "Contact Us page names do not match!");
+
+        driver.navigate().back();
+        buttons.get(2).click();
+        String WomenPageName = driver.findElement(By.tagName("h1")).getText().trim();
+        String ExpectedWomen = "Women";
+
+        Assert.assertEquals(WomenPageName, ExpectedWomen, "Women page names do not match!");
+
+        driver.navigate().back();
+        buttons.get(3).click();
+        String MenPageName = driver.findElement(By.tagName("h1")).getText().trim();
+        String ExpectedMen = "Men";
+
+        Assert.assertEquals(ContactUsPageName, ExpectedContactUs, "Men page names do not match!");
+
+        driver.navigate().back();
+        buttons.get(4).click();
+        String AccessoriesName = driver.findElement(By.tagName("h1")).getText().trim();
+        String ExpectedAccessories = "Accessories";
+
+        Assert.assertEquals(AccessoriesName, ExpectedAccessories, "Accessories page names do not match!");
+
+        driver.navigate().back();
+        String MainPageName = driver.findElement(By.tagName("h1")).getText().trim();
+        String ExpectedMainPage = "AskOmDch";
+
+        Assert.assertEquals(MainPageName, ExpectedMainPage, "Main page names do not match!");
+
+    }
 }
