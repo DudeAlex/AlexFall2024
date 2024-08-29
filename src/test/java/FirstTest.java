@@ -50,4 +50,12 @@ public class FirstTest extends BaseTest{
         Assert.assertEquals(actualButtonNames, expectedButtonNames, "Button names do not match!");
     }
 
+    @Test
+    public void testHomeButtonText() {
+
+        String expectedButtonName = driver.findElement(By.id("menu-item-1226"))
+                .getText();
+
+        Assert.assertTrue(expectedButtonName.contains("Home"));
+    }
 }
