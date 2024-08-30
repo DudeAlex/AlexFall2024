@@ -1,6 +1,7 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -57,5 +58,26 @@ public class FirstTest extends BaseTest{
                 .getText();
 
         Assert.assertTrue(expectedButtonName.contains("Home"));
+    }
+
+    @DataProvider(name="navigationData")
+    public Object[][] getNavigationMenuData() {
+        return new Object[][] {
+                {"Home", "https://askomdch.com/", "AskOmDch – Become a Selenium automation expert!"},
+                {"Store", "https://askomdch.com/store/", "Products – AskOmDch"},
+                {"Men", "https://askomdch.com/product-category/men/", "Men – AskOmDch"},
+                {"Women", "https://askomdch.com/product-category/women/", "Women – AskOmDch"},
+                {"Accessories", "https://askomdch.com/product-category/accessories/", "Accessories – AskOmDch"},
+                {"Account", "https://askomdch.com/account/", "Account – AskOmDch"},
+                {"About", "https://askomdch.com/about/", "About – AskOmDch"},
+                {"Contact Us", "https://askomdch.com/contact-us/", "Contact Us – AskOmDch"}
+        };
+    }
+    @Test(dataProvider = "navigationData")
+    public void testNavigationMenu(String linkText, String url, String title){
+        driver.findElement(By.linkText(linkText)).click();
+
+        Assert.assertEquals(url, driver.getCurrentUrl());
+        Assert.assertEquals(title, driver.getTitle());
     }
 }
