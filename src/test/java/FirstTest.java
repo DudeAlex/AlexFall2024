@@ -129,7 +129,7 @@ public class FirstTest extends BaseTest{
 
         Assert.assertEquals(actualProductName,"Blue Denim Shorts");
     }
-  
+
     @DataProvider(name="navigationData")
     public Object[][] getNavigationMenuData() {
         return new Object[][] {
@@ -143,7 +143,7 @@ public class FirstTest extends BaseTest{
                 {"Contact Us", "https://askomdch.com/contact-us/", "Contact Us – AskOmDch"}
         };
     }
-   
+
     @Test(dataProvider = "navigationData")
     public void testNavigationMenu(String linkText, String url, String title){
         driver.findElement(By.linkText(linkText)).click();
@@ -152,4 +152,29 @@ public class FirstTest extends BaseTest{
         Assert.assertEquals(title, driver.getTitle());
 
     }
+
+    @Test
+
+    public void testKet() throws Exception {
+
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+
+        driver.findElement(By.xpath("//a[@href='?add-to-cart=1198']")).click();
+
+        driver.findElement(By.xpath("//a[@class='cart-container']")).click();
+
+
+
+
+
+
+
+
+
+
+        //Assert.assertEquals(name,"Anchor Bracelet");
+
+
+    }
+
 }
