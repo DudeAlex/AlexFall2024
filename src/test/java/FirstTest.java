@@ -37,6 +37,19 @@ public class FirstTest extends BaseTest{
     }
 
     @Test
+    public void testFeaturedProductAddToCart() throws InterruptedException {
+        String testProduct = "Anchor Bracelet";
+
+        driver.findElement(By.xpath("//a[contains(@aria-label, '" + testProduct + "')]")).click();
+
+        driver.findElement(By.xpath("//a[contains(@title,'View cart')]")).click();
+
+        String actualResult = driver.findElement(By.xpath("//td[@data-title='Product']")).getText();
+
+        Assert.assertEquals(actualResult, testProduct);
+
+    }
+    @Test
     public void testCheckButtonsName() {
         List<WebElement> buttons = driver.findElements(By.cssSelector(".wp-block-buttons .wp-block-button__link"));
 
@@ -176,5 +189,4 @@ public class FirstTest extends BaseTest{
 
 
     }
-
 }
