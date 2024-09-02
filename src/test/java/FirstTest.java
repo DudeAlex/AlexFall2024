@@ -204,18 +204,22 @@ public class FirstTest extends BaseTest{
 
         driver.findElement(By.xpath("//a[@class='cart-container']")).click();
 
-
-
-
-
-
-
-
-
-
         //Assert.assertEquals(name,"Anchor Bracelet");
+    }
 
+    @Test
+    public void testAddProductToCart() {
+        driver.findElement(By.xpath("//a[@class= 'wp-block-button__link']")).click();
+        driver.findElement(By.linkText("Basic Blue Jeans")).click();
+        String itemName = driver.findElement(By.tagName("h1")).getText();
+
+        driver.findElement(By.xpath("//button[@name='add-to-cart']")).click();
+        driver.findElement(By.xpath("(//a[@title='View your shopping cart'])[1]")).click();
+        String itemInTheCart = driver.findElement(By.xpath("//td[@class = 'product-name']/a")).getText();
+
+        Assert.assertEquals(itemName, itemInTheCart);
 
     }
+
 }
 
