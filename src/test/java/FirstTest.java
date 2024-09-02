@@ -218,8 +218,6 @@ public class FirstTest extends BaseTest{
         String itemInTheCart = driver.findElement(By.xpath("//td[@class = 'product-name']/a")).getText();
 
         Assert.assertEquals(itemName, itemInTheCart);
-
     }
-
 }
 
