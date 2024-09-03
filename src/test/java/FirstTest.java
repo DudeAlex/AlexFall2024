@@ -2,6 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -218,6 +219,29 @@ public class FirstTest extends BaseTest{
         String itemInTheCart = driver.findElement(By.xpath("//td[@class = 'product-name']/a")).getText();
 
         Assert.assertEquals(itemName, itemInTheCart);
+    }
+
+    @Test
+    public void testSortingItemsByPrice() throws InterruptedException {
+        driver.findElement(By.xpath("//a[@class= 'wp-block-button__link']")).click();
+        WebElement dropdown = driver.findElement(By.xpath("//select[@name='orderby']"));
+
+        Select select = new Select(dropdown);
+        //select.selectByVisibleText("Sort by price: high to low");
+        //select.selectByValue("price-desc");
+        select.selectByIndex(5);
+
+        //div[@ class='ast-woocommerce-container']//span/span/bdi
+        List<WebElement> allProducts = driver.findElements(By.xpath("//div[@class='astra-shop-summary-wrap']"));
+        for (WebElement product : allProducts)
+            {
+                System.out.println(product.getText());
+
+            }
+
+
+        Thread.sleep(5000);
+
     }
 }
 
