@@ -29,13 +29,29 @@ public class EndToEndTest  extends BaseTest{
         Assert.assertEquals(sameItem, item);
 
         driver.findElement(By.xpath("//a[@class='checkout-button button alt wc-forward']")).click();
+        driver.findElement(By.xpath("//input[@name='billing_first_name']")).sendKeys("Mihai");
+        driver.findElement(By.xpath("//input[@name='billing_last_name']")).sendKeys("B");
+        driver.findElement(By.xpath("//input[@name='billing_company']")).sendKeys("TBMH Radio");
 
+        driver.findElement(By.xpath("//span[@id='select2-billing_country-container']")).click();
+        driver.findElement(By.xpath("//li[contains(text(),'United States (US)')]")).click();
 
-        Thread.sleep(2000);
+        driver.findElement(By.xpath("//input[@name='billing_address_1']")).sendKeys("32 Main st");
+        driver.findElement(By.xpath("//input[@name='billing_city']")).sendKeys("Redmond");
 
+        driver.findElement(By.xpath("//span[@id='select2-billing_state-container']")).click();
+        driver.findElement(By.xpath("//li[contains(text(),'California')]")).click();
 
+        driver.findElement(By.xpath("//input[@id='billing_postcode']")).sendKeys("98052");
+        driver.findElement(By.xpath("//input[@id='billing_email']")).sendKeys("Testemail@gmail.com");
 
+        String productOrder = driver.findElement(By.xpath("//td[@class='product-name']")).getText();
+        Assert.assertEquals(productOrder, "Blue Shoes  × 1");
 
+        driver.findElement(By.xpath("//button[@id='place_order']")).click();
+
+        String checkOrder = driver.findElement(By.xpath("//p[@class='woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received']")).getText();
+        Assert.assertEquals(checkOrder, "Thank you. Your order has been received.");
 
     }
 
