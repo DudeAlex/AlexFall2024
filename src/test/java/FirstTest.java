@@ -251,5 +251,35 @@ public class FirstTest extends BaseTest{
         Assert.assertEquals(products.size(), 5, "The number of products displayed is not 5");
     }
 
+    @Test
+    public void testFilteredPrices() {
+        int min = 20;
+        int max = 50;
+        String setMinValue = "arguments[0].value='" + min + "';";
+        String setMaxValue = "arguments[0].value='" + max + "';";
+        List<WebElement> currentPricesElements;
+        List<String> texts = new ArrayList<>();
+        List<Double> prices = new ArrayList<>();
+        JavascriptExecutor jse = ((JavascriptExecutor)driver);
+
+        driver.findElement(By.cssSelector("a[href*='/store'")).click();
+
+        jse.executeScript("window. scrollBy(0,550)", "");
+        jse.executeScript(setMinValue, driver.findElement(By.id("min_price")));
+        jse.executeScript(setMaxValue, driver.findElement(By.id("max_price")));
+
+        driver.findElement(By.cssSelector("div:has(#max_price)>button")).click();
+
+        currentPricesElements = driver.findElements(
+                By.xpath("//span[@class='price']/ins | //span[@class='price']/span"));
+
+        currentPricesElements.forEach(el -> texts.add(el.getText()));
+        texts.forEach(text -> prices.add(Double.parseDouble(text.replace("$", ""))));
+        prices.forEach(price -> {
+            Assert.assertTrue(price >= min && price <= max,
+                    "The price $" + price + " is not within the range of $" + min + " to $" + max + ".");
+        });
+    }
+
 }
 
