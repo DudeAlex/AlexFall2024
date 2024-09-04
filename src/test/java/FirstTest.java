@@ -236,5 +236,20 @@ public class FirstTest extends BaseTest{
         String itemRemovedMassage = driver.findElement(By.xpath("//*[contains(text(),'removed')]")).getText();
         Assert.assertTrue(itemRemovedMassage.contains("removed"));
     }
+
+    @Test
+    public void testSearchForJeans() {
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+        WebElement searchBox = driver.findElement(By.xpath("//input[@name='s']"));
+        searchBox.sendKeys("jeans");
+
+        WebElement searchButton = driver.findElement(By.xpath("//button[@value='Search']"));
+        searchButton.click();
+
+        List<WebElement> products = driver.findElements(By.cssSelector(".products .product"));
+
+        Assert.assertEquals(products.size(), 5, "The number of products displayed is not 5");
+    }
+
 }
 
