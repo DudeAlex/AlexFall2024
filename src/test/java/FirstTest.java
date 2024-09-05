@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.WebElement;
@@ -281,5 +282,21 @@ public class FirstTest extends BaseTest{
         });
     }
 
+    @Test
+    public void testSearchFieldInput() {
+
+        String URL_BOHO = "https://askomdch.com/product/boho-bangle-bracelet/";
+
+        WebElement shopNowButton = driver.findElement(By.className("wp-block-button"));
+        shopNowButton.click();
+        WebElement searchField = driver.findElement(By.className("search-field"));
+        searchField.sendKeys(("boho"));
+        WebElement searchButton = driver.findElement(By.xpath("//button[@value='Search']"));
+        searchButton.click();
+        String bohoBracelet = driver.findElement(By.tagName("h1")).getText();
+
+        Assert.assertEquals("Boho Bangle Bracelet", bohoBracelet);
+        Assert.assertEquals(driver.getCurrentUrl(), URL_BOHO);
+    }
 }
 
