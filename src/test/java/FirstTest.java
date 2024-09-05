@@ -8,6 +8,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FirstTest extends BaseTest{
@@ -297,6 +298,30 @@ public class FirstTest extends BaseTest{
 
         Assert.assertEquals("Boho Bangle Bracelet", bohoBracelet);
         Assert.assertEquals(driver.getCurrentUrl(), URL_BOHO);
+    }
+
+    @Test
+    public void testBrowseByCategoriesDropdownItems() {
+        WebElement shopNowButton = driver.findElement(By.className("wp-block-button"));
+        shopNowButton.click();
+        driver.findElement(By.className("dropdown_product_cat")).click();
+
+        List<String> expectedProductCategories = new ArrayList<>(Arrays.asList("Accessories  (3)", "Men  (7)"
+                , "Men’s Jeans  (4)", "Men’s Shirts  (1)", "Men’s Shoes  (1)", "Purses And Handbags  (1)", "Women  (7)"
+                , "Women’s Jeans  (2)", "Women’s Shirts  (1)", "Women’s Shoes  (1)"));
+
+        List<WebElement> productCategories = driver.findElements(By.xpath("//*[@class='level-0']"));
+        List<String> actualProductCategories = WebElementToString(productCategories);
+
+        Assert.assertEquals(actualProductCategories, expectedProductCategories);
+    }
+
+    public static List<String> WebElementToString(List<WebElement> elementList) {
+        List<String> stringList = new ArrayList<>();
+        for (WebElement element : elementList) {
+            stringList.add(element.getText());
+        }
+        return stringList;
     }
 }
 
