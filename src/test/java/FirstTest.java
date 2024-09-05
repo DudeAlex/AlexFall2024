@@ -1,15 +1,17 @@
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
-public class FirstTest extends BaseTest {
+public class FirstTest extends BaseTest{
 
     @Test
     public void testFirst() throws InterruptedException {
@@ -77,7 +79,6 @@ public class FirstTest extends BaseTest {
         Assert.assertEquals(actualResult, testProduct);
 
     }
-
     @Test
     public void testCheckButtonsName() {
         List<WebElement> buttons = driver.findElements(By.cssSelector(".wp-block-buttons .wp-block-button__link"));
@@ -169,12 +170,12 @@ public class FirstTest extends BaseTest {
 
         String actualProductName = driver.findElement(By.linkText("Blue Denim Shorts")).getText();
 
-        Assert.assertEquals(actualProductName, "Blue Denim Shorts");
+        Assert.assertEquals(actualProductName,"Blue Denim Shorts");
     }
 
-    @DataProvider(name = "navigationData")
+    @DataProvider(name="navigationData")
     public Object[][] getNavigationMenuData() {
-        return new Object[][]{
+        return new Object[][] {
                 {"Home", "https://askomdch.com/", "AskOmDch – Become a Selenium automation expert!"},
                 {"Store", "https://askomdch.com/store/", "Products – AskOmDch"},
                 {"Men", "https://askomdch.com/product-category/men/", "Men – AskOmDch"},
@@ -187,7 +188,7 @@ public class FirstTest extends BaseTest {
     }
 
     @Test(dataProvider = "navigationData")
-    public void testNavigationMenu(String linkText, String url, String title) {
+    public void testNavigationMenu(String linkText, String url, String title){
         driver.findElement(By.linkText(linkText)).click();
 
         Assert.assertEquals(url, driver.getCurrentUrl());
@@ -261,7 +262,7 @@ public class FirstTest extends BaseTest {
         List<WebElement> currentPricesElements;
         List<String> texts = new ArrayList<>();
         List<Double> prices = new ArrayList<>();
-        JavascriptExecutor jse = ((JavascriptExecutor) driver);
+        JavascriptExecutor jse = ((JavascriptExecutor)driver);
 
         driver.findElement(By.cssSelector("a[href*='/store'")).click();
 
@@ -323,24 +324,58 @@ public class FirstTest extends BaseTest {
         return stringList;
     }
 
-
     @Test
-    public void testNumberLinksOnStorePage() {
-        driver.findElement(By.xpath("//a[@href='/store']")).click();
-        List<WebElement> links = driver.findElements(By.tagName("a"));
-        System.out.println("Total number of links: "+ links.size());
+    public void emptyPasswordFieldErrorMessage() {
+        String emptyPasswordErrorMsg = "Error: The password field is empty.";
+        String email = "qae15355@gmail.com";
 
-        Assert.assertEquals(links.size(), 68, "The number of links is not 68");
+        driver.findElement(By.xpath("//a[contains(text(), 'Account')]")).click();
+        driver.findElement(By.xpath("//input[@id='username']")).sendKeys(email);
+        driver.findElement(By.xpath("//button[@name='login']")).click();
+        String errorText = driver.findElement(By.xpath("//ul[@class='woocommerce-error']")).getText();
+
+        Assert.assertEquals(errorText, emptyPasswordErrorMsg);
     }
-
     @Test
-    public void testNumberImagesOnStorePage() {
-        driver.findElement(By.xpath("//a[@href='/store']")).click();
-        List<WebElement> images = driver.findElements(By.tagName("img"));
-        System.out.println("Total number of images: "+ images.size());
+    public void emptyUserNameFieldErrorMessage() {
+        String emptyUserNameErrorMsg = "Error: Username is required.";
+        String password = "1111";
 
-        Assert.assertEquals(images.size(), 13, "The number of images is not 13");
+        driver.findElement(By.xpath("//a[contains(text(), 'Account')]")).click();
+        driver.findElement(By.xpath("//input[@id='password']")).sendKeys(password);
+        driver.findElement(By.xpath("//button[@name='login']")).click();
+        String errorText = driver.findElement(By.xpath("//ul[@class='woocommerce-error']")).getText();
+
+        Assert.assertEquals(errorText, emptyUserNameErrorMsg);
     }
+    @Test
+    public void invalidUserNameErrorMessage() {
+        String invalidUserName = "11111";
+        String password = "1111";
+        String invalidUserNameErrorMsgTemplate = "Error: The username %s is not registered on this site. If you are unsure of your username, try your email address instead.";
+        String invalidUserNameErrorMsg = String.format(invalidUserNameErrorMsgTemplate, invalidUserName);
 
+        driver.findElement(By.xpath("//a[contains(text(), 'Account')]")).click();
+        driver.findElement(By.xpath("//input[@id='password']")).sendKeys(password);
+        driver.findElement(By.xpath("//input[@id='username']")).sendKeys(invalidUserName);
+        driver.findElement(By.xpath("//button[@name='login']")).click();
+        String errorText = driver.findElement(By.xpath("//ul[@class='woocommerce-error']")).getText();
+
+        Assert.assertEquals(errorText, invalidUserNameErrorMsg);
+    }
+    @Test
+    public void invalidEmailErrorMessage() {
+        String invalidEmailErrorMsg = "Unknown email address. Check again or try your username.";
+        String invalidEmail = "q@gmai.co";
+        String password = "1111";
+
+        driver.findElement(By.xpath("//a[contains(text(), 'Account')]")).click();
+        driver.findElement(By.xpath("//input[@id='username']")).sendKeys(invalidEmail);
+        driver.findElement(By.xpath("//input[@id='password']")).sendKeys(password);
+        driver.findElement(By.xpath("//button[@name='login']")).click();
+        String errorText = driver.findElement(By.xpath("//ul[@class='woocommerce-error']")).getText();
+
+        Assert.assertEquals(errorText, invalidEmailErrorMsg);
+    }
 }
 
