@@ -354,6 +354,7 @@ public class FirstTest extends BaseTest {
 
         Assert.assertEquals(errorText, emptyPasswordErrorMsg);
     }
+
     @Test
     public void emptyUserNameFieldErrorMessage() {
         String emptyUserNameErrorMsg = "Error: Username is required.";
@@ -366,13 +367,14 @@ public class FirstTest extends BaseTest {
 
         Assert.assertEquals(errorText, emptyUserNameErrorMsg);
     }
+
     @Test
     public void invalidUserNameErrorMessage() {
         String invalidUserName = "11111";
         String password = "1111";
-
         String invalidUserNameErrorMsgTemplate = "Error: The username %s is not registered on this site. If you are unsure of your username, try your email address instead.";
         String invalidUserNameErrorMsg = String.format(invalidUserNameErrorMsgTemplate, invalidUserName);
+
         driver.findElement(By.xpath("//a[contains(text(), 'Account')]")).click();
         driver.findElement(By.xpath("//input[@id='password']")).sendKeys(password);
         driver.findElement(By.xpath("//input[@id='username']")).sendKeys(invalidUserName);
@@ -381,12 +383,13 @@ public class FirstTest extends BaseTest {
 
         Assert.assertEquals(errorText, invalidUserNameErrorMsg);
     }
+
     @Test
     public void invalidEmailErrorMessage() {
         String invalidEmailErrorMsg = "Unknown email address. Check again or try your username.";
         String invalidEmail = "q@gmai.co";
-
         String password = "1111";
+
         driver.findElement(By.xpath("//a[contains(text(), 'Account')]")).click();
         driver.findElement(By.xpath("//input[@id='username']")).sendKeys(invalidEmail);
         driver.findElement(By.xpath("//input[@id='password']")).sendKeys(password);
@@ -395,6 +398,5 @@ public class FirstTest extends BaseTest {
         
         Assert.assertEquals(errorText, invalidEmailErrorMsg);
     }
-
 }
 
