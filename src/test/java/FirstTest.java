@@ -418,5 +418,22 @@ public class FirstTest extends BaseTest {
         Assert.assertTrue(expectedProductNames.containsAll(actualProductNames),
                 "The product names on the page don't meet expectations");
     }
+
+    @Test
+    public void testSearchFieldInputFromTheMenuStore() {
+
+        String URL_t_shirt = "https://askomdch.com/product/blue-tshirt/";
+
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+        WebElement searchBox = driver.findElement(By.xpath("//input[@type='search']"));
+        searchBox.sendKeys("Blue Tshirt");
+
+        WebElement searchButton = driver.findElement(By.xpath("//button[@value='Search']"));
+        searchButton.click();
+        String t_shirt = driver.findElement(By.tagName("h1")).getText();
+
+        Assert.assertEquals("Blue Tshirt", t_shirt);
+        Assert.assertEquals(driver.getCurrentUrl(), URL_t_shirt);
+    }
 }
 
