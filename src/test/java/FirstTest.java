@@ -398,5 +398,25 @@ public class FirstTest extends BaseTest {
         
         Assert.assertEquals(errorText, invalidEmailErrorMsg);
     }
+    @Test
+    public void testProductNames() {
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+        List<WebElement> products = driver.findElements(By.xpath("//h2[@class='woocommerce-loop-product__title']"));
+        List<String> expectedProductNames = Arrays.asList(
+                "Anchor Bracelet",
+                "Basic Blue Jeans",
+                "Black Over-the-shoulder Handbag",
+                "Blue Denim Shorts",
+                "Blue Shoes",
+                "Blue Tshirt",
+                "Boho Bangle Bracelet",
+                "Dark Brown Jeans"
+        );
+        List<String> actualProductNames = products.stream()
+                .map(WebElement::getText)
+                .toList();
+        Assert.assertTrue(expectedProductNames.containsAll(actualProductNames),
+                "The product names on the page don't meet expectations");
+    }
 }
 
