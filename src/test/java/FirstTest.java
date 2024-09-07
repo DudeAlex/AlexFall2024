@@ -486,5 +486,18 @@ public class FirstTest extends BaseTest {
         Assert.assertTrue(currentUrl.endsWith(checkUrlEnding), "URL does not end with the expected endpoint: " + checkUrlEnding);
     }
 
+
+    @Test
+    public void testFilterWomenByPopularity() {
+        driver.findElement(By.cssSelector("#menu-item-1229")).click();
+        driver.findElement(By.xpath("//select[@name = 'orderby']")).click();
+        driver.findElement(By.xpath("//option[contains(text(), 'popularity')]")).click();
+
+        String currentUrl = driver.getCurrentUrl();
+        String expectedUrlEnding = "?orderby=popularity";
+
+        Assert.assertTrue(currentUrl.endsWith(expectedUrlEnding), "URL does not end with expected endpoint: "
+                + expectedUrlEnding);
+    }
 }
 
