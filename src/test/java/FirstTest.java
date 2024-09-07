@@ -490,7 +490,8 @@ public class FirstTest extends BaseTest {
         String accountText = driver.findElement(By.xpath("//p[2]")).getText();
 
         Assert.assertEquals(accountText,
-                "From your account dashboard you can view your recent orders, manage your shipping and billing addresses, and edit your password and account details.");
+                "From your account dashboard you can view your recent orders, " +
+                        "manage your shipping and billing addresses, and edit your password and account details.");
     }
 }
 
