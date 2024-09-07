@@ -4,6 +4,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -175,14 +176,14 @@ public class FirstTest extends BaseTest {
     @DataProvider(name = "navigationData")
     public Object[][] getNavigationMenuData() {
         return new Object[][]{
-                {"Home", "https://askomdch.com/", "AskOmDch – Become a Selenium automation expert!"},
-                {"Store", "https://askomdch.com/store/", "Products – AskOmDch"},
-                {"Men", "https://askomdch.com/product-category/men/", "Men – AskOmDch"},
-                {"Women", "https://askomdch.com/product-category/women/", "Women – AskOmDch"},
-                {"Accessories", "https://askomdch.com/product-category/accessories/", "Accessories – AskOmDch"},
-                {"Account", "https://askomdch.com/account/", "Account – AskOmDch"},
-                {"About", "https://askomdch.com/about/", "About – AskOmDch"},
-                {"Contact Us", "https://askomdch.com/contact-us/", "Contact Us – AskOmDch"}
+                {"Home", "https://askomdch.com/", "AskOmDch – Become a Selenium automation expert!" },
+                {"Store", "https://askomdch.com/store/", "Products – AskOmDch" },
+                {"Men", "https://askomdch.com/product-category/men/", "Men – AskOmDch" },
+                {"Women", "https://askomdch.com/product-category/women/", "Women – AskOmDch" },
+                {"Accessories", "https://askomdch.com/product-category/accessories/", "Accessories – AskOmDch" },
+                {"Account", "https://askomdch.com/account/", "Account – AskOmDch" },
+                {"About", "https://askomdch.com/about/", "About – AskOmDch" },
+                {"Contact Us", "https://askomdch.com/contact-us/", "Contact Us – AskOmDch" }
         };
     }
 
@@ -328,7 +329,7 @@ public class FirstTest extends BaseTest {
     public void testNumberLinksOnStorePage() {
         driver.findElement(By.xpath("//a[@href='/store']")).click();
         List<WebElement> links = driver.findElements(By.tagName("a"));
-        System.out.println("Total number of links: "+ links.size());
+        System.out.println("Total number of links: " + links.size());
 
         Assert.assertEquals(links.size(), 68, "The number of links is not 68");
     }
@@ -337,7 +338,7 @@ public class FirstTest extends BaseTest {
     public void testNumberImagesOnStorePage() {
         driver.findElement(By.xpath("//a[@href='/store']")).click();
         List<WebElement> images = driver.findElements(By.tagName("img"));
-        System.out.println("Total number of images: "+ images.size());
+        System.out.println("Total number of images: " + images.size());
 
         Assert.assertEquals(images.size(), 13, "The number of images is not 13");
     }
@@ -395,9 +396,10 @@ public class FirstTest extends BaseTest {
         driver.findElement(By.xpath("//input[@id='password']")).sendKeys(password);
         driver.findElement(By.xpath("//button[@name='login']")).click();
         String errorText = driver.findElement(By.xpath("//ul[@class='woocommerce-error']")).getText();
-        
+
         Assert.assertEquals(errorText, invalidEmailErrorMsg);
     }
+
     @Test
     public void testProductNames() {
         driver.findElement(By.xpath("//a[@href='/store']")).click();
@@ -434,6 +436,42 @@ public class FirstTest extends BaseTest {
 
         Assert.assertEquals("Blue Tshirt", t_shirt);
         Assert.assertEquals(driver.getCurrentUrl(), URL_t_shirt);
+    }
+
+    @Test
+    public void testSearchReturnsAllItemsInCategories() {
+        final String itemToSearch = "jeans";
+
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+        driver.findElement(By.xpath("//input[@type='search']")).sendKeys(itemToSearch);
+        driver.findElement(By.xpath("//button[@type='submit']")).click();
+
+        List<WebElement> searchResultList = driver.findElements(By.xpath("//ul//h2"));
+        Assert.assertFalse(searchResultList.isEmpty(), "Search results are empty.");
+        int countItemBySearch = countItemsContainingItemText(searchResultList, itemToSearch);
+
+        driver.findElement(By.xpath("//li[@id='menu-item-1228']//a[text()='Men']")).click();
+        List<WebElement> menItemsList = driver.findElements(By.xpath("//ul//h2"));
+        int countItemInMenResult = countItemsContainingItemText(menItemsList, itemToSearch);
+
+        driver.findElement(By.xpath("//li[@id='menu-item-1229']//a[text()='Women']")).click();
+        List<WebElement> womenItemsList = driver.findElements(By.xpath("//ul//h2"));
+        int countItemInWomenResult = countItemsContainingItemText(womenItemsList, itemToSearch);
+
+        Assert.assertEquals(countItemBySearch, countItemInMenResult + countItemInWomenResult,
+                "Search box did not find all the items with item name '"
+                        + itemToSearch + "' or find extra items");
+    }
+
+    private int countItemsContainingItemText(List<WebElement> items, String text) {
+        int count = 0;
+        for (WebElement item : items) {
+            String itemText = item.getText().toLowerCase();
+            if (itemText.contains(text.toLowerCase())) {
+                count++;
+            }
+        }
+        return count;
     }
 }
 
