@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -472,6 +473,19 @@ public class FirstTest extends BaseTest {
             }
         }
         return count;
+    }
+
+    @Test
+    public void testFilterWomenByPopularity() {
+        driver.findElement(By.cssSelector("#menu-item-1229")).click();
+        driver.findElement(By.xpath("//select[@name = 'orderby']")).click();
+        driver.findElement(By.xpath("//option[contains(text(), 'popularity')]")).click();
+
+        String currentUrl = driver.getCurrentUrl();
+        String expectedUrlEnding = "?orderby=popularity";
+
+        Assert.assertTrue(currentUrl.endsWith(expectedUrlEnding), "URL does not end with expected endpoint: "
+                + expectedUrlEnding);
     }
 }
 
