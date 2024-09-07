@@ -473,5 +473,18 @@ public class FirstTest extends BaseTest {
         }
         return count;
     }
+
+    @Test
+    public void testFilterAccessoriesItem() {
+        driver.findElement(By.id("menu-item-1230")).click();
+        driver.findElement(By.xpath("//select[@name='orderby']"));
+        driver.findElement(By.xpath("//option[text() ='Sort by average rating']")).click();
+
+        String currentUrl = driver.getCurrentUrl();
+        String checkUrlEnding = "?orderby=rating";
+
+        Assert.assertTrue(currentUrl.endsWith(checkUrlEnding), "URL does not end with the expected endpoint: " + checkUrlEnding);
+    }
+
 }
 
