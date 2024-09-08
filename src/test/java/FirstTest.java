@@ -570,5 +570,63 @@ public class FirstTest extends BaseTest {
         Assert.assertTrue(currentUrl.endsWith(expectedUrlEnding), "URL does not end with expected endpoint: "
                 + expectedUrlEnding);
     }
+
+    @Test
+/*    The test verifies that items in the shop are ordered in the descending order (from high to low) according to
+      their prices, when "Sort by price: high to low" option is choosen in the drop-down menu on the "Store" page.
+ */
+
+    public void testSortingItemsByPrice() {
+        driver.findElement(By.xpath("//a[@class= 'wp-block-button__link']")).click();
+        WebElement dropdown = driver.findElement(By.xpath("//select[@name='orderby']"));
+
+        Select select = new Select(dropdown);
+        select.selectByIndex(5);
+
+        List<WebElement> allProductsPage1 = driver.findElements(By.xpath("//span[@class='price']"));
+        List<String> allPrices = new ArrayList<>();
+        for (WebElement product : allProductsPage1) {
+            try {
+                String attributeValue = product.findElement(By.
+                        xpath(".//ins")).getText();
+                allPrices.add(attributeValue);
+//                System.out.println(attributeValue);
+            } catch (NoSuchElementException e) {
+                // If the specific element is not found, just continue to the next product
+//                System.out.println(product.getText());
+                allPrices.add(product.getText());
+            }
+        }
+        driver.findElement(By.xpath("//a[@class='next page-numbers']")).click();
+
+        List<WebElement> allProductsPage2 = driver.findElements(By.xpath("//span[@class='price']"));
+
+        for (WebElement product : allProductsPage2) {
+            try {
+                String attributeValue = product.findElement(By.
+                        xpath(".//ins")).getText();
+                allPrices.add(attributeValue);
+//                System.out.println(attributeValue);
+            } catch (NoSuchElementException e) {
+                // If the specific element is not found, just continue to the next product
+//                System.out.println(product.getText());
+                allPrices.add(product.getText());
+            }
+        }
+        System.out.println(allPrices);
+        List<Double> pricesNumeric = new ArrayList<>();
+        for (String price: allPrices) {
+            pricesNumeric.add(Double.parseDouble(price.replace("$", "")));
+        }
+        System.out.println(pricesNumeric);
+        boolean isDescending = true;
+        for (int i = 0; i < pricesNumeric.size() - 1; i++) {
+            if (pricesNumeric.get(i) < pricesNumeric.get(i + 1)) {
+                isDescending = false;
+                break;
+            }
+            Assert.assertTrue(isDescending, "The prices are NOT in descending order!");
+        }
+    }
 }
 
