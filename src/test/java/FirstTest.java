@@ -1,15 +1,35 @@
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
 public class FirstTest extends BaseTest {
+
+    private static final String LOGIN_TEST = "Testlogin";
+    private static final String PASSWORD_TEST = "Testpassword";
+    private static final String EMAIL_TEST = "test@gmail.com";
+    private static final String ITEM_CATEGORY = "jeans";
+
+    private int countItemsContainingItemText(List<WebElement> items) {
+        int count = 0;
+        for (WebElement item : items) {
+            String itemText = item.getText().toLowerCase();
+            if (itemText.contains(ITEM_CATEGORY.toLowerCase())) {
+                count++;
+            }
+        }
+
+        return count;
+    }
 
     @Test
     public void testFirst() throws InterruptedException {
@@ -328,7 +348,7 @@ public class FirstTest extends BaseTest {
     public void testNumberLinksOnStorePage() {
         driver.findElement(By.xpath("//a[@href='/store']")).click();
         List<WebElement> links = driver.findElements(By.tagName("a"));
-        System.out.println("Total number of links: "+ links.size());
+        System.out.println("Total number of links: " + links.size());
 
         Assert.assertEquals(links.size(), 68, "The number of links is not 68");
     }
@@ -337,7 +357,7 @@ public class FirstTest extends BaseTest {
     public void testNumberImagesOnStorePage() {
         driver.findElement(By.xpath("//a[@href='/store']")).click();
         List<WebElement> images = driver.findElements(By.tagName("img"));
-        System.out.println("Total number of images: "+ images.size());
+        System.out.println("Total number of images: " + images.size());
 
         Assert.assertEquals(images.size(), 13, "The number of images is not 13");
     }
@@ -395,9 +415,10 @@ public class FirstTest extends BaseTest {
         driver.findElement(By.xpath("//input[@id='password']")).sendKeys(password);
         driver.findElement(By.xpath("//button[@name='login']")).click();
         String errorText = driver.findElement(By.xpath("//ul[@class='woocommerce-error']")).getText();
-        
+
         Assert.assertEquals(errorText, invalidEmailErrorMsg);
     }
+
     @Test
     public void testProductNames() {
         driver.findElement(By.xpath("//a[@href='/store']")).click();
@@ -434,6 +455,120 @@ public class FirstTest extends BaseTest {
 
         Assert.assertEquals("Blue Tshirt", t_shirt);
         Assert.assertEquals(driver.getCurrentUrl(), URL_t_shirt);
+    }
+
+    @Test
+    public void testSearchReturnsAllItemsInCategories() {
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+        driver.findElement(By.xpath("//input[@type='search']")).sendKeys(ITEM_CATEGORY);
+        driver.findElement(By.xpath("//button[@type='submit']")).click();
+
+        List<WebElement> searchResultList = driver.findElements(By.xpath("//ul//h2"));
+        Assert.assertFalse(searchResultList.isEmpty(), "Search results are empty.");
+        int countItemBySearch = countItemsContainingItemText(searchResultList);
+
+        driver.findElement(By.xpath("//li[@id='menu-item-1228']//a[text()='Men']")).click();
+        List<WebElement> menItemsList = driver.findElements(By.xpath("//ul//h2"));
+        int countItemInMenResult = countItemsContainingItemText(menItemsList);
+
+        driver.findElement(By.xpath("//li[@id='menu-item-1229']//a[text()='Women']")).click();
+        List<WebElement> womenItemsList = driver.findElements(By.xpath("//ul//h2"));
+        int countItemInWomenResult = countItemsContainingItemText(womenItemsList);
+
+        Assert.assertEquals(countItemBySearch, countItemInMenResult + countItemInWomenResult,
+                "Search box did not find all the items with item name '"
+                        + ITEM_CATEGORY + "' or find extra items");
+    }
+
+    @Test
+    public void testVerifyItemsAlphabeticalOrder() {
+        driver.findElement(By.xpath("//li[@id='menu-item-1227']")).click();
+
+        List<String> allItemList = new ArrayList<>();
+        boolean hasNextPage = true;
+
+        while (hasNextPage) {
+            List<WebElement> itemList = driver.findElements(By.xpath("//ul//h2"));
+            for (WebElement item : itemList) {
+                allItemList.add(item.getText());
+            }
+
+            try {
+                WebElement nextPageArrow = driver.findElement(By.xpath("//a[@class='next page-numbers']"));
+                nextPageArrow.click();
+
+            } catch (NoSuchElementException e) {
+                hasNextPage = false;
+            }
+        }
+
+        List<String> alphabeticalAllItemList = new ArrayList<>(allItemList);
+        Collections.sort(alphabeticalAllItemList);
+
+        Assert.assertEquals(allItemList, alphabeticalAllItemList, "Items are not in alphabetical order");
+    }
+
+    @Test
+    public void testSortByPriceLowToHigh() {
+        driver.findElement(By.id("menu-item-1230")).click();
+
+        WebElement dropdown = driver.findElement(By.xpath("//select[@name='orderby']"));
+        Select select = new Select(dropdown);
+        select.selectByVisibleText("Sort by price: low to high");
+
+        List<String> actualPriceList = new ArrayList<>();
+        List<WebElement> priceList = driver.findElements(
+                By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"));
+        for (WebElement price : priceList) {
+            actualPriceList.add(price.getText());
+        }
+
+        List<String> expectedLowToHighPriceList = new ArrayList<>(actualPriceList);
+        Collections.sort(expectedLowToHighPriceList);
+
+        Assert.assertEquals(actualPriceList, expectedLowToHighPriceList,
+                "Prices are not sorted from high to low as expected");
+    }
+
+    @Test
+    public void testUserRegistration() {
+        driver.findElement(By
+                        .xpath("//li[@id='menu-item-1237']//a[@class='menu-link'][normalize-space()='Account']"))
+                .click();
+        driver.findElement(By.xpath("//input[@id='reg_username']")).sendKeys(LOGIN_TEST);
+        driver.findElement(By.xpath("//input[@id='reg_email']")).sendKeys(EMAIL_TEST);
+        driver.findElement(By.xpath("//input[@id='reg_password']")).sendKeys(PASSWORD_TEST);
+        driver.findElement(By.xpath("//button[@name='register']")).click();
+        String accountText = driver.findElement(By.xpath("//p[2]")).getText();
+
+        Assert.assertEquals(accountText,
+                "From your account dashboard you can view your recent orders, " +
+                        "manage your shipping and billing addresses, and edit your password and account details.");
+    }
+
+    @Test
+    public void testFilterAccessoriesItem() {
+        driver.findElement(By.id("menu-item-1230")).click();
+        driver.findElement(By.xpath("//select[@name='orderby']"));
+        driver.findElement(By.xpath("//option[text() ='Sort by average rating']")).click();
+
+        String currentUrl = driver.getCurrentUrl();
+        String checkUrlEnding = "?orderby=rating";
+
+        Assert.assertTrue(currentUrl.endsWith(checkUrlEnding), "URL does not end with the expected endpoint: " + checkUrlEnding);
+    }
+
+    @Test
+    public void testFilterWomenByPopularity() {
+        driver.findElement(By.cssSelector("#menu-item-1229")).click();
+        driver.findElement(By.xpath("//select[@name = 'orderby']")).click();
+        driver.findElement(By.xpath("//option[contains(text(), 'popularity')]")).click();
+
+        String currentUrl = driver.getCurrentUrl();
+        String expectedUrlEnding = "?orderby=popularity";
+
+        Assert.assertTrue(currentUrl.endsWith(expectedUrlEnding), "URL does not end with expected endpoint: "
+                + expectedUrlEnding);
     }
 }
 
