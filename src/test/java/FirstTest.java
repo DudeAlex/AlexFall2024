@@ -1,6 +1,7 @@
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -16,8 +17,6 @@ public class FirstTest extends BaseTest {
     private static final String LOGIN_TEST = "Testlogin";
     private static final String PASSWORD_TEST = "Testpassword";
     private static final String EMAIL_TEST = "test@gmail.com";
-
-
     private static final String ITEM_CATEGORY = "jeans";
 
     private int countItemsContainingItemText(List<WebElement> items) {
@@ -195,14 +194,14 @@ public class FirstTest extends BaseTest {
     @DataProvider(name = "navigationData")
     public Object[][] getNavigationMenuData() {
         return new Object[][]{
-                {"Home", "https://askomdch.com/", "AskOmDch – Become a Selenium automation expert!" },
-                {"Store", "https://askomdch.com/store/", "Products – AskOmDch" },
-                {"Men", "https://askomdch.com/product-category/men/", "Men – AskOmDch" },
-                {"Women", "https://askomdch.com/product-category/women/", "Women – AskOmDch" },
-                {"Accessories", "https://askomdch.com/product-category/accessories/", "Accessories – AskOmDch" },
-                {"Account", "https://askomdch.com/account/", "Account – AskOmDch" },
-                {"About", "https://askomdch.com/about/", "About – AskOmDch" },
-                {"Contact Us", "https://askomdch.com/contact-us/", "Contact Us – AskOmDch" }
+                {"Home", "https://askomdch.com/", "AskOmDch – Become a Selenium automation expert!"},
+                {"Store", "https://askomdch.com/store/", "Products – AskOmDch"},
+                {"Men", "https://askomdch.com/product-category/men/", "Men – AskOmDch"},
+                {"Women", "https://askomdch.com/product-category/women/", "Women – AskOmDch"},
+                {"Accessories", "https://askomdch.com/product-category/accessories/", "Accessories – AskOmDch"},
+                {"Account", "https://askomdch.com/account/", "Account – AskOmDch"},
+                {"About", "https://askomdch.com/about/", "About – AskOmDch"},
+                {"Contact Us", "https://askomdch.com/contact-us/", "Contact Us – AskOmDch"}
         };
     }
 
@@ -507,10 +506,33 @@ public class FirstTest extends BaseTest {
 
         Assert.assertEquals(allItemList, alphabeticalAllItemList, "Items are not in alphabetical order");
     }
+
+    @Test
+    public void testSortByPriceLowToHigh() {
+        driver.findElement(By.id("menu-item-1230")).click();
+
+        WebElement dropdown = driver.findElement(By.xpath("//select[@name='orderby']"));
+        Select select = new Select(dropdown);
+        select.selectByVisibleText("Sort by price: low to high");
+
+        List<String> actualPriceList = new ArrayList<>();
+        List<WebElement> priceList = driver.findElements(
+                By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"));
+        for (WebElement price : priceList) {
+            actualPriceList.add(price.getText());
+        }
+
+        List<String> expectedLowToHighPriceList = new ArrayList<>(actualPriceList);
+        Collections.sort(expectedLowToHighPriceList);
+
+        Assert.assertEquals(actualPriceList, expectedLowToHighPriceList,
+                "Prices are not sorted from high to low as expected");
+    }
+
     @Test
     public void testUserRegistration() {
         driver.findElement(By
-                .xpath("//li[@id='menu-item-1237']//a[@class='menu-link'][normalize-space()='Account']"))
+                        .xpath("//li[@id='menu-item-1237']//a[@class='menu-link'][normalize-space()='Account']"))
                 .click();
         driver.findElement(By.xpath("//input[@id='reg_username']")).sendKeys(LOGIN_TEST);
         driver.findElement(By.xpath("//input[@id='reg_email']")).sendKeys(EMAIL_TEST);
