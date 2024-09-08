@@ -160,8 +160,7 @@ public class FirstTest extends BaseTest {
     @Test
     public void testHomeButtonText() {
 
-        String expectedButtonName = driver.findElement(By.id("menu-item-1226"))
-                .getText();
+        String expectedButtonName = driver.findElement(By.id("menu-item-1226")).getText();
 
         Assert.assertTrue(expectedButtonName.contains("Home"));
     }
@@ -194,16 +193,7 @@ public class FirstTest extends BaseTest {
 
     @DataProvider(name = "navigationData")
     public Object[][] getNavigationMenuData() {
-        return new Object[][]{
-                {"Home", "https://askomdch.com/", "AskOmDch – Become a Selenium automation expert!"},
-                {"Store", "https://askomdch.com/store/", "Products – AskOmDch"},
-                {"Men", "https://askomdch.com/product-category/men/", "Men – AskOmDch"},
-                {"Women", "https://askomdch.com/product-category/women/", "Women – AskOmDch"},
-                {"Accessories", "https://askomdch.com/product-category/accessories/", "Accessories – AskOmDch"},
-                {"Account", "https://askomdch.com/account/", "Account – AskOmDch"},
-                {"About", "https://askomdch.com/about/", "About – AskOmDch"},
-                {"Contact Us", "https://askomdch.com/contact-us/", "Contact Us – AskOmDch"}
-        };
+        return new Object[][]{{"Home", "https://askomdch.com/", "AskOmDch – Become a Selenium automation expert!"}, {"Store", "https://askomdch.com/store/", "Products – AskOmDch"}, {"Men", "https://askomdch.com/product-category/men/", "Men – AskOmDch"}, {"Women", "https://askomdch.com/product-category/women/", "Women – AskOmDch"}, {"Accessories", "https://askomdch.com/product-category/accessories/", "Accessories – AskOmDch"}, {"Account", "https://askomdch.com/account/", "Account – AskOmDch"}, {"About", "https://askomdch.com/about/", "About – AskOmDch"}, {"Contact Us", "https://askomdch.com/contact-us/", "Contact Us – AskOmDch"}};
     }
 
     @Test(dataProvider = "navigationData")
@@ -291,14 +281,12 @@ public class FirstTest extends BaseTest {
 
         driver.findElement(By.cssSelector("div:has(#max_price)>button")).click();
 
-        currentPricesElements = driver.findElements(
-                By.xpath("//span[@class='price']/ins | //span[@class='price']/span"));
+        currentPricesElements = driver.findElements(By.xpath("//span[@class='price']/ins | //span[@class='price']/span"));
 
         currentPricesElements.forEach(el -> texts.add(el.getText()));
         texts.forEach(text -> prices.add(Double.parseDouble(text.replace("$", ""))));
         prices.forEach(price -> {
-            Assert.assertTrue(price >= min && price <= max,
-                    "The price $" + price + " is not within the range of $" + min + " to $" + max + ".");
+            Assert.assertTrue(price >= min && price <= max, "The price $" + price + " is not within the range of $" + min + " to $" + max + ".");
         });
     }
 
@@ -325,9 +313,7 @@ public class FirstTest extends BaseTest {
         shopNowButton.click();
         driver.findElement(By.className("dropdown_product_cat")).click();
 
-        List<String> expectedProductCategories = new ArrayList<>(Arrays.asList("Accessories  (3)", "Men  (7)"
-                , "Men’s Jeans  (4)", "Men’s Shirts  (1)", "Men’s Shoes  (1)", "Purses And Handbags  (1)", "Women  (7)"
-                , "Women’s Jeans  (2)", "Women’s Shirts  (1)", "Women’s Shoes  (1)"));
+        List<String> expectedProductCategories = new ArrayList<>(Arrays.asList("Accessories  (3)", "Men  (7)", "Men’s Jeans  (4)", "Men’s Shirts  (1)", "Men’s Shoes  (1)", "Purses And Handbags  (1)", "Women  (7)", "Women’s Jeans  (2)", "Women’s Shirts  (1)", "Women’s Shoes  (1)"));
 
         List<WebElement> productCategories = driver.findElements(By.xpath("//*[@class='level-0']"));
         List<String> actualProductCategories = WebElementToString(productCategories);
@@ -423,21 +409,9 @@ public class FirstTest extends BaseTest {
     public void testProductNames() {
         driver.findElement(By.xpath("//a[@href='/store']")).click();
         List<WebElement> products = driver.findElements(By.xpath("//h2[@class='woocommerce-loop-product__title']"));
-        List<String> expectedProductNames = Arrays.asList(
-                "Anchor Bracelet",
-                "Basic Blue Jeans",
-                "Black Over-the-shoulder Handbag",
-                "Blue Denim Shorts",
-                "Blue Shoes",
-                "Blue Tshirt",
-                "Boho Bangle Bracelet",
-                "Dark Brown Jeans"
-        );
-        List<String> actualProductNames = products.stream()
-                .map(WebElement::getText)
-                .toList();
-        Assert.assertTrue(expectedProductNames.containsAll(actualProductNames),
-                "The product names on the page don't meet expectations");
+        List<String> expectedProductNames = Arrays.asList("Anchor Bracelet", "Basic Blue Jeans", "Black Over-the-shoulder Handbag", "Blue Denim Shorts", "Blue Shoes", "Blue Tshirt", "Boho Bangle Bracelet", "Dark Brown Jeans");
+        List<String> actualProductNames = products.stream().map(WebElement::getText).toList();
+        Assert.assertTrue(expectedProductNames.containsAll(actualProductNames), "The product names on the page don't meet expectations");
     }
 
     @Test
@@ -475,9 +449,7 @@ public class FirstTest extends BaseTest {
         List<WebElement> womenItemsList = driver.findElements(By.xpath("//ul//h2"));
         int countItemInWomenResult = countItemsContainingItemText(womenItemsList);
 
-        Assert.assertEquals(countItemBySearch, countItemInMenResult + countItemInWomenResult,
-                "Search box did not find all the items with item name '"
-                        + ITEM_CATEGORY + "' or find extra items");
+        Assert.assertEquals(countItemBySearch, countItemInMenResult + countItemInWomenResult, "Search box did not find all the items with item name '" + ITEM_CATEGORY + "' or find extra items");
     }
 
     @Test
@@ -517,8 +489,7 @@ public class FirstTest extends BaseTest {
         select.selectByVisibleText("Sort by price: low to high");
 
         List<String> actualPriceList = new ArrayList<>();
-        List<WebElement> priceList = driver.findElements(
-                By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"));
+        List<WebElement> priceList = driver.findElements(By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"));
         for (WebElement price : priceList) {
             actualPriceList.add(price.getText());
         }
@@ -526,24 +497,19 @@ public class FirstTest extends BaseTest {
         List<String> expectedLowToHighPriceList = new ArrayList<>(actualPriceList);
         Collections.sort(expectedLowToHighPriceList);
 
-        Assert.assertEquals(actualPriceList, expectedLowToHighPriceList,
-                "Prices are not sorted from high to low as expected");
+        Assert.assertEquals(actualPriceList, expectedLowToHighPriceList, "Prices are not sorted from high to low as expected");
     }
 
     @Test
     public void testUserRegistration() {
-        driver.findElement(By
-                        .xpath("//li[@id='menu-item-1237']//a[@class='menu-link'][normalize-space()='Account']"))
-                .click();
+        driver.findElement(By.xpath("//li[@id='menu-item-1237']//a[@class='menu-link'][normalize-space()='Account']")).click();
         driver.findElement(By.xpath("//input[@id='reg_username']")).sendKeys(LOGIN_TEST);
         driver.findElement(By.xpath("//input[@id='reg_email']")).sendKeys(EMAIL_TEST);
         driver.findElement(By.xpath("//input[@id='reg_password']")).sendKeys(PASSWORD_TEST);
         driver.findElement(By.xpath("//button[@name='register']")).click();
         String accountText = driver.findElement(By.xpath("//p[2]")).getText();
 
-        Assert.assertEquals(accountText,
-                "From your account dashboard you can view your recent orders, " +
-                        "manage your shipping and billing addresses, and edit your password and account details.");
+        Assert.assertEquals(accountText, "From your account dashboard you can view your recent orders, " + "manage your shipping and billing addresses, and edit your password and account details.");
     }
 
     @Test
@@ -567,58 +533,65 @@ public class FirstTest extends BaseTest {
         String currentUrl = driver.getCurrentUrl();
         String expectedUrlEnding = "?orderby=popularity";
 
-        Assert.assertTrue(currentUrl.endsWith(expectedUrlEnding), "URL does not end with expected endpoint: "
-                + expectedUrlEnding);
+        Assert.assertTrue(currentUrl.endsWith(expectedUrlEnding), "URL does not end with expected endpoint: " + expectedUrlEnding);
     }
 
     @Test
 /*    The test verifies that items in the shop are ordered in the descending order (from high to low) according to
-      their prices, when "Sort by price: high to low" option is choosen in the drop-down menu on the "Store" page.
+      their prices, when "Sort by price: high to low" option is chosen in the drop-down menu on the "Store" page.
  */
-
     public void testSortingItemsByPrice() {
+//      Going from the Home page to the "Store" page and finding the dropdown menu
         driver.findElement(By.xpath("//a[@class= 'wp-block-button__link']")).click();
         WebElement dropdown = driver.findElement(By.xpath("//select[@name='orderby']"));
 
+//      Selecting the menu option that we need for this test
         Select select = new Select(dropdown);
-        select.selectByIndex(5);
+        select.selectByVisibleText("Sort by price: high to low");
 
+//      Creating a list of all items shown on the page 1 of the Store after the sorting; Then, initializing
+//      the array where all the prices will be added
         List<WebElement> allProductsPage1 = driver.findElements(By.xpath("//span[@class='price']"));
         List<String> allPrices = new ArrayList<>();
+
+//      Collecting the prices into the array. If there is a discount, the discounted price is taken (try block)
+//      If there is no discount, regular price is taken
         for (WebElement product : allProductsPage1) {
             try {
-                String attributeValue = product.findElement(By.
-                        xpath(".//ins")).getText();
-                allPrices.add(attributeValue);
-//                System.out.println(attributeValue);
+                String discountedPrice = product.findElement(By.xpath(".//ins")).getText();
+                allPrices.add(discountedPrice);
             } catch (NoSuchElementException e) {
-                // If the specific element is not found, just continue to the next product
-//                System.out.println(product.getText());
-                allPrices.add(product.getText());
+                String regularPrice = product.getText();
+                allPrices.add(regularPrice);
             }
         }
+
+//      Going to the 2nd page of the webstore
         driver.findElement(By.xpath("//a[@class='next page-numbers']")).click();
 
+//      Creating a list with all the products on the 2nd page
         List<WebElement> allProductsPage2 = driver.findElements(By.xpath("//span[@class='price']"));
 
+//      Collecting all the prices from the 2nd page to the 'allPrices' array
         for (WebElement product : allProductsPage2) {
             try {
-                String attributeValue = product.findElement(By.
-                        xpath(".//ins")).getText();
-                allPrices.add(attributeValue);
-//                System.out.println(attributeValue);
+                String discountedPrice = product.findElement(By.xpath(".//ins")).getText();
+                allPrices.add(discountedPrice);
             } catch (NoSuchElementException e) {
-                // If the specific element is not found, just continue to the next product
-//                System.out.println(product.getText());
-                allPrices.add(product.getText());
+                String regularPrice = product.getText();
+                allPrices.add(regularPrice);
             }
         }
-        System.out.println(allPrices);
+
+//      Initializing the list of Double values to put prices in the numeric type to it
         List<Double> pricesNumeric = new ArrayList<>();
-        for (String price: allPrices) {
+
+//      Parcing String prices to Double format, removing the '$' sign, populating pricesNumeric list
+        for (String price : allPrices) {
             pricesNumeric.add(Double.parseDouble(price.replace("$", "")));
         }
-        System.out.println(pricesNumeric);
+
+//      Verifying that the order of the prices in the pricesNumeric list is descending
         boolean isDescending = true;
         for (int i = 0; i < pricesNumeric.size() - 1; i++) {
             if (pricesNumeric.get(i) < pricesNumeric.get(i + 1)) {
