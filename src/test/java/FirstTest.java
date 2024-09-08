@@ -10,7 +10,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+
 public class FirstTest extends BaseTest {
+
+    private static final String LOGIN_TEST = "Testlogin";
+    private static final String PASSWORD_TEST = "Testpassword";
+    private static final String EMAIL_TEST = "test@gmail.com";
+
 
     private static final String ITEM_CATEGORY = "jeans";
 
@@ -500,6 +506,21 @@ public class FirstTest extends BaseTest {
         Collections.sort(alphabeticalAllItemList);
 
         Assert.assertEquals(allItemList, alphabeticalAllItemList, "Items are not in alphabetical order");
+    }
+    @Test
+    public void testUserRegistration() {
+        driver.findElement(By
+                .xpath("//li[@id='menu-item-1237']//a[@class='menu-link'][normalize-space()='Account']"))
+                .click();
+        driver.findElement(By.xpath("//input[@id='reg_username']")).sendKeys(LOGIN_TEST);
+        driver.findElement(By.xpath("//input[@id='reg_email']")).sendKeys(EMAIL_TEST);
+        driver.findElement(By.xpath("//input[@id='reg_password']")).sendKeys(PASSWORD_TEST);
+        driver.findElement(By.xpath("//button[@name='register']")).click();
+        String accountText = driver.findElement(By.xpath("//p[2]")).getText();
+
+        Assert.assertEquals(accountText,
+                "From your account dashboard you can view your recent orders, " +
+                        "manage your shipping and billing addresses, and edit your password and account details.");
     }
 
     @Test
