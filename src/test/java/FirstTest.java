@@ -7,10 +7,23 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-
 public class FirstTest extends BaseTest {
+
+    private static final String ITEM_CATEGORY = "jeans";
+
+    private int countItemsContainingItemText(List<WebElement> items) {
+        int count = 0;
+        for (WebElement item : items) {
+            String itemText = item.getText().toLowerCase();
+            if (itemText.contains(ITEM_CATEGORY.toLowerCase())) {
+                count++;
+            }
+        }
+        return count;
+    }
 
     @Test
     public void testFirst() throws InterruptedException {
@@ -440,38 +453,53 @@ public class FirstTest extends BaseTest {
 
     @Test
     public void testSearchReturnsAllItemsInCategories() {
-        final String itemToSearch = "jeans";
-
         driver.findElement(By.xpath("//a[@href='/store']")).click();
-        driver.findElement(By.xpath("//input[@type='search']")).sendKeys(itemToSearch);
+        driver.findElement(By.xpath("//input[@type='search']")).sendKeys(ITEM_CATEGORY);
         driver.findElement(By.xpath("//button[@type='submit']")).click();
 
         List<WebElement> searchResultList = driver.findElements(By.xpath("//ul//h2"));
         Assert.assertFalse(searchResultList.isEmpty(), "Search results are empty.");
-        int countItemBySearch = countItemsContainingItemText(searchResultList, itemToSearch);
+        int countItemBySearch = countItemsContainingItemText(searchResultList);
 
         driver.findElement(By.xpath("//li[@id='menu-item-1228']//a[text()='Men']")).click();
         List<WebElement> menItemsList = driver.findElements(By.xpath("//ul//h2"));
-        int countItemInMenResult = countItemsContainingItemText(menItemsList, itemToSearch);
+        int countItemInMenResult = countItemsContainingItemText(menItemsList);
 
         driver.findElement(By.xpath("//li[@id='menu-item-1229']//a[text()='Women']")).click();
         List<WebElement> womenItemsList = driver.findElements(By.xpath("//ul//h2"));
-        int countItemInWomenResult = countItemsContainingItemText(womenItemsList, itemToSearch);
+        int countItemInWomenResult = countItemsContainingItemText(womenItemsList);
 
         Assert.assertEquals(countItemBySearch, countItemInMenResult + countItemInWomenResult,
                 "Search box did not find all the items with item name '"
-                        + itemToSearch + "' or find extra items");
+                        + ITEM_CATEGORY + "' or find extra items");
     }
 
-    private int countItemsContainingItemText(List<WebElement> items, String text) {
-        int count = 0;
-        for (WebElement item : items) {
-            String itemText = item.getText().toLowerCase();
-            if (itemText.contains(text.toLowerCase())) {
-                count++;
+    @Test
+    public void testVerifyItemsAlphabeticalOrder() {
+        driver.findElement(By.xpath("//li[@id='menu-item-1227']")).click();
+
+        List<String> allItemList = new ArrayList<>();
+        boolean hasNextPage = true;
+
+        while (hasNextPage) {
+            List<WebElement> itemList = driver.findElements(By.xpath("//ul//h2"));
+            for (WebElement item : itemList) {
+                allItemList.add(item.getText());
+            }
+
+            try {
+                WebElement nextPageArrow = driver.findElement(By.xpath("//a[@class='next page-numbers']"));
+                nextPageArrow.click();
+
+            } catch (NoSuchElementException e) {
+                hasNextPage = false;
             }
         }
-        return count;
+
+        List<String> alphabeticalAllItemList = new ArrayList<>(allItemList);
+        Collections.sort(alphabeticalAllItemList);
+
+        Assert.assertEquals(allItemList, alphabeticalAllItemList, "Items are not in alphabetical order");
     }
 
     @Test
@@ -485,7 +513,6 @@ public class FirstTest extends BaseTest {
 
         Assert.assertTrue(currentUrl.endsWith(checkUrlEnding), "URL does not end with the expected endpoint: " + checkUrlEnding);
     }
-
 
     @Test
     public void testFilterWomenByPopularity() {
