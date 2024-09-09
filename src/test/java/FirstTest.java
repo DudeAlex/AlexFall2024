@@ -482,5 +482,12 @@ public class FirstTest extends BaseTest {
         Assert.assertTrue(currentUrl.endsWith(expectedUrlEnding), "URL does not end with expected endpoint: "
                 + expectedUrlEnding);
     }
+    @Test
+    public void ButtonShopNow() throws InterruptedException {
+        driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
+        Thread.sleep(4000);
+        String correctUrl = driver.getCurrentUrl();
+        Assert.assertEquals(correctUrl, "https://askomdch.com/store");
+    }
 }
 
