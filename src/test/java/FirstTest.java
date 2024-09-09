@@ -1,11 +1,14 @@
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -160,7 +163,8 @@ public class FirstTest extends BaseTest {
     @Test
     public void testHomeButtonText() {
 
-        String expectedButtonName = driver.findElement(By.id("menu-item-1226")).getText();
+        String expectedButtonName = driver.findElement(By.id("menu-item-1226"))
+                .getText();
 
         Assert.assertTrue(expectedButtonName.contains("Home"));
     }
@@ -193,7 +197,16 @@ public class FirstTest extends BaseTest {
 
     @DataProvider(name = "navigationData")
     public Object[][] getNavigationMenuData() {
-        return new Object[][]{{"Home", "https://askomdch.com/", "AskOmDch – Become a Selenium automation expert!"}, {"Store", "https://askomdch.com/store/", "Products – AskOmDch"}, {"Men", "https://askomdch.com/product-category/men/", "Men – AskOmDch"}, {"Women", "https://askomdch.com/product-category/women/", "Women – AskOmDch"}, {"Accessories", "https://askomdch.com/product-category/accessories/", "Accessories – AskOmDch"}, {"Account", "https://askomdch.com/account/", "Account – AskOmDch"}, {"About", "https://askomdch.com/about/", "About – AskOmDch"}, {"Contact Us", "https://askomdch.com/contact-us/", "Contact Us – AskOmDch"}};
+        return new Object[][]{
+                {"Home", "https://askomdch.com/", "AskOmDch – Become a Selenium automation expert!"},
+                {"Store", "https://askomdch.com/store/", "Products – AskOmDch"},
+                {"Men", "https://askomdch.com/product-category/men/", "Men – AskOmDch"},
+                {"Women", "https://askomdch.com/product-category/women/", "Women – AskOmDch"},
+                {"Accessories", "https://askomdch.com/product-category/accessories/", "Accessories – AskOmDch"},
+                {"Account", "https://askomdch.com/account/", "Account – AskOmDch"},
+                {"About", "https://askomdch.com/about/", "About – AskOmDch"},
+                {"Contact Us", "https://askomdch.com/contact-us/", "Contact Us – AskOmDch"}
+        };
     }
 
     @Test(dataProvider = "navigationData")
@@ -281,12 +294,14 @@ public class FirstTest extends BaseTest {
 
         driver.findElement(By.cssSelector("div:has(#max_price)>button")).click();
 
-        currentPricesElements = driver.findElements(By.xpath("//span[@class='price']/ins | //span[@class='price']/span"));
+        currentPricesElements = driver.findElements(
+                By.xpath("//span[@class='price']/ins | //span[@class='price']/span"));
 
         currentPricesElements.forEach(el -> texts.add(el.getText()));
         texts.forEach(text -> prices.add(Double.parseDouble(text.replace("$", ""))));
         prices.forEach(price -> {
-            Assert.assertTrue(price >= min && price <= max, "The price $" + price + " is not within the range of $" + min + " to $" + max + ".");
+            Assert.assertTrue(price >= min && price <= max,
+                    "The price $" + price + " is not within the range of $" + min + " to $" + max + ".");
         });
     }
 
@@ -313,7 +328,9 @@ public class FirstTest extends BaseTest {
         shopNowButton.click();
         driver.findElement(By.className("dropdown_product_cat")).click();
 
-        List<String> expectedProductCategories = new ArrayList<>(Arrays.asList("Accessories  (3)", "Men  (7)", "Men’s Jeans  (4)", "Men’s Shirts  (1)", "Men’s Shoes  (1)", "Purses And Handbags  (1)", "Women  (7)", "Women’s Jeans  (2)", "Women’s Shirts  (1)", "Women’s Shoes  (1)"));
+        List<String> expectedProductCategories = new ArrayList<>(Arrays.asList("Accessories  (3)", "Men  (7)"
+                , "Men’s Jeans  (4)", "Men’s Shirts  (1)", "Men’s Shoes  (1)", "Purses And Handbags  (1)", "Women  (7)"
+                , "Women’s Jeans  (2)", "Women’s Shirts  (1)", "Women’s Shoes  (1)"));
 
         List<WebElement> productCategories = driver.findElements(By.xpath("//*[@class='level-0']"));
         List<String> actualProductCategories = WebElementToString(productCategories);
@@ -409,9 +426,21 @@ public class FirstTest extends BaseTest {
     public void testProductNames() {
         driver.findElement(By.xpath("//a[@href='/store']")).click();
         List<WebElement> products = driver.findElements(By.xpath("//h2[@class='woocommerce-loop-product__title']"));
-        List<String> expectedProductNames = Arrays.asList("Anchor Bracelet", "Basic Blue Jeans", "Black Over-the-shoulder Handbag", "Blue Denim Shorts", "Blue Shoes", "Blue Tshirt", "Boho Bangle Bracelet", "Dark Brown Jeans");
-        List<String> actualProductNames = products.stream().map(WebElement::getText).toList();
-        Assert.assertTrue(expectedProductNames.containsAll(actualProductNames), "The product names on the page don't meet expectations");
+        List<String> expectedProductNames = Arrays.asList(
+                "Anchor Bracelet",
+                "Basic Blue Jeans",
+                "Black Over-the-shoulder Handbag",
+                "Blue Denim Shorts",
+                "Blue Shoes",
+                "Blue Tshirt",
+                "Boho Bangle Bracelet",
+                "Dark Brown Jeans"
+        );
+        List<String> actualProductNames = products.stream()
+                .map(WebElement::getText)
+                .toList();
+        Assert.assertTrue(expectedProductNames.containsAll(actualProductNames),
+                "The product names on the page don't meet expectations");
     }
 
     @Test
@@ -502,14 +531,18 @@ public class FirstTest extends BaseTest {
 
     @Test
     public void testUserRegistration() {
-        driver.findElement(By.xpath("//li[@id='menu-item-1237']//a[@class='menu-link'][normalize-space()='Account']")).click();
+        driver.findElement(By
+                        .xpath("//li[@id='menu-item-1237']//a[@class='menu-link'][normalize-space()='Account']"))
+                .click();
         driver.findElement(By.xpath("//input[@id='reg_username']")).sendKeys(LOGIN_TEST);
         driver.findElement(By.xpath("//input[@id='reg_email']")).sendKeys(EMAIL_TEST);
         driver.findElement(By.xpath("//input[@id='reg_password']")).sendKeys(PASSWORD_TEST);
         driver.findElement(By.xpath("//button[@name='register']")).click();
         String accountText = driver.findElement(By.xpath("//p[2]")).getText();
 
-        Assert.assertEquals(accountText, "From your account dashboard you can view your recent orders, " + "manage your shipping and billing addresses, and edit your password and account details.");
+        Assert.assertEquals(accountText,
+                "From your account dashboard you can view your recent orders, " +
+                        "manage your shipping and billing addresses, and edit your password and account details.");
     }
 
     @Test
@@ -601,5 +634,58 @@ public class FirstTest extends BaseTest {
             Assert.assertTrue(isDescending, "The prices are NOT in descending order!");
         }
     }
-}
 
+    @Test
+    public void testBrowseByCategoriesSideMenu() {
+        driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
+        WebElement dropdown = driver.findElement(By.id("product_cat"));
+        Select select = new Select(dropdown);
+        select.selectByIndex(2);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement header = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[@class='woocommerce-products-header__title page-title']")));
+
+        List<String> actualSortedList = new ArrayList<>();
+        List<WebElement> sortedList = driver.findElements(By.xpath("//span[@class='ast-woo-product-category']"));
+        for (WebElement category : sortedList) {
+            actualSortedList.add(category.getText());
+
+            List<String> expectedMenSorting = new ArrayList<>(actualSortedList);
+            Collections.sort(expectedMenSorting);
+
+            Assert.assertEquals(actualSortedList, expectedMenSorting, "Sorting by Category Dropdown Did Not Apply to 'Men' Category");
+        }
+    }
+
+        @Test
+        public void testSearchProductBar () {
+            driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
+            WebElement searchBar = driver.findElement(By.id("woocommerce-product-search-field-0"));
+            searchBar.sendKeys("blue");
+            driver.findElement(By.xpath("//button[@value='Search']")).click();
+
+            List<String> expectedSearchResultList = new ArrayList<>();
+            List<WebElement> searchResult = driver.findElements(By.xpath("//h2[@class='woocommerce-loop-product__title']"));
+            for (WebElement search : searchResult) {
+                String text = search.getText();
+                if (text.contains("blue")) {
+                    expectedSearchResultList.add(text);
+                }
+                for (String item : expectedSearchResultList) {
+                    Assert.assertTrue(item.toLowerCase().contains("blue"), "The search result does not contain the word 'blue': " + item);
+
+                    List<String> actualSearchResultList = List.of("Blue Shoes", "Denim Blue Jeans", "Faint Blue Jeans", "Blue Denim Shorts", "Basic Blue Jeans", "Blue Tshirt");
+
+                    Assert.assertEquals(actualSearchResultList, expectedSearchResultList);
+                }
+            }
+        }
+
+            @Test
+            public void ButtonShopNow () throws InterruptedException {
+                driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
+                Thread.sleep(4000);
+                String correctUrl = driver.getCurrentUrl();
+                Assert.assertEquals(correctUrl, "https://askomdch.com/store");
+            }
+        }
