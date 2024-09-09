@@ -27,7 +27,7 @@ public class ItemTest extends BaseTest {
         return count;
     }
 
-    public List<String> getAllItemsFromAllPages(By locator) {
+    private List<String> getAllItemsFromAllPages(By locator) {
         List<String> allItemList = new ArrayList<>();
         boolean hasNextPage = true;
 
