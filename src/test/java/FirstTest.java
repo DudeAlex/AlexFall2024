@@ -482,12 +482,41 @@ public class FirstTest extends BaseTest {
         Assert.assertTrue(currentUrl.endsWith(expectedUrlEnding), "URL does not end with expected endpoint: "
                 + expectedUrlEnding);
     }
+
+
+    @Test
+    public void testSearchProductBar() {
+        driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
+        WebElement searchBar = driver.findElement(By.id("woocommerce-product-search-field-0"));
+        searchBar.sendKeys("blue");
+        driver.findElement(By.xpath("//button[@value='Search']")).click();
+
+        List<String> expectedSearchResultList = new ArrayList<>();
+        List<WebElement> searchResult = driver.findElements(By.xpath("//h2[@class='woocommerce-loop-product__title']"));
+        for (WebElement search : searchResult) {
+            String text = search.getText();
+            if (text.contains("blue")) {
+                expectedSearchResultList.add(text);
+            }
+            for (String item : expectedSearchResultList) {
+                Assert.assertTrue(item.toLowerCase().contains("blue"), "The search result does not contain the word 'blue': " + item);
+
+                List<String> actualSearchResultList = List.of("Blue Shoes", "Denim Blue Jeans", "Faint Blue Jeans", "Blue Denim Shorts", "Basic Blue Jeans", "Blue Tshirt");
+
+                Assert.assertEquals(actualSearchResultList, expectedSearchResultList);
+
+            }
+
+        }
+
+ 
     @Test
     public void ButtonShopNow() throws InterruptedException {
         driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
         Thread.sleep(4000);
         String correctUrl = driver.getCurrentUrl();
         Assert.assertEquals(correctUrl, "https://askomdch.com/store");
+        master
     }
 }
 
