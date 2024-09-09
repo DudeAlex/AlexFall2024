@@ -1,11 +1,14 @@
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -570,5 +573,32 @@ public class FirstTest extends BaseTest {
         Assert.assertTrue(currentUrl.endsWith(expectedUrlEnding), "URL does not end with expected endpoint: "
                 + expectedUrlEnding);
     }
+
+    @Test
+    public void testBrowseByCategoriesSideMenu() throws InterruptedException {
+        driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
+        WebElement dropdown = driver.findElement(By.id("product_cat"));
+        Select select = new Select(dropdown);
+        select.selectByIndex(2);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement header = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[@class='woocommerce-products-header__title page-title']")));
+
+        List<String> actualSortedList = new ArrayList<>();
+        List<WebElement> sortedList = driver.findElements(By.xpath("//span[@class='ast-woo-product-category']"));
+        for (WebElement category : sortedList) {
+            actualSortedList.add(category.getText());
+
+            List<String> expectedMenSorting = new ArrayList<>(actualSortedList);
+            Collections.sort(expectedMenSorting);
+
+            Assert.assertEquals(actualSortedList, expectedMenSorting,"Sorting by Category Dropdown Did Not Apply to 'Men' Category");
+        }
+    }
 }
+
+
+
+
+
 
