@@ -1,15 +1,38 @@
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
 public class FirstTest extends BaseTest {
+
+    private static final String LOGIN_TEST = "Testlogin";
+    private static final String PASSWORD_TEST = "Testpassword";
+    private static final String EMAIL_TEST = "test@gmail.com";
+    private static final String ITEM_CATEGORY = "jeans";
+
+    private int countItemsContainingItemText(List<WebElement> items) {
+        int count = 0;
+        for (WebElement item : items) {
+            String itemText = item.getText().toLowerCase();
+            if (itemText.contains(ITEM_CATEGORY.toLowerCase())) {
+                count++;
+            }
+        }
+
+        return count;
+    }
 
     @Test
     public void testFirst() throws InterruptedException {
@@ -328,7 +351,7 @@ public class FirstTest extends BaseTest {
     public void testNumberLinksOnStorePage() {
         driver.findElement(By.xpath("//a[@href='/store']")).click();
         List<WebElement> links = driver.findElements(By.tagName("a"));
-        System.out.println("Total number of links: "+ links.size());
+        System.out.println("Total number of links: " + links.size());
 
         Assert.assertEquals(links.size(), 68, "The number of links is not 68");
     }
@@ -337,7 +360,7 @@ public class FirstTest extends BaseTest {
     public void testNumberImagesOnStorePage() {
         driver.findElement(By.xpath("//a[@href='/store']")).click();
         List<WebElement> images = driver.findElements(By.tagName("img"));
-        System.out.println("Total number of images: "+ images.size());
+        System.out.println("Total number of images: " + images.size());
 
         Assert.assertEquals(images.size(), 13, "The number of images is not 13");
     }
@@ -395,7 +418,7 @@ public class FirstTest extends BaseTest {
         driver.findElement(By.xpath("//input[@id='password']")).sendKeys(password);
         driver.findElement(By.xpath("//button[@name='login']")).click();
         String errorText = driver.findElement(By.xpath("//ul[@class='woocommerce-error']")).getText();
-        
+
         Assert.assertEquals(errorText, invalidEmailErrorMsg);
     }
 
@@ -420,5 +443,270 @@ public class FirstTest extends BaseTest {
         }
     }
 
-}
+    @Test
+    public void testProductNames() {
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+        List<WebElement> products = driver.findElements(By.xpath("//h2[@class='woocommerce-loop-product__title']"));
+        List<String> expectedProductNames = Arrays.asList(
+                "Anchor Bracelet",
+                "Basic Blue Jeans",
+                "Black Over-the-shoulder Handbag",
+                "Blue Denim Shorts",
+                "Blue Shoes",
+                "Blue Tshirt",
+                "Boho Bangle Bracelet",
+                "Dark Brown Jeans"
+        );
+        List<String> actualProductNames = products.stream()
+                .map(WebElement::getText)
+                .toList();
+        Assert.assertTrue(expectedProductNames.containsAll(actualProductNames),
+                "The product names on the page don't meet expectations");
+    }
 
+    @Test
+    public void testSearchFieldInputFromTheMenuStore() {
+
+        String URL_t_shirt = "https://askomdch.com/product/blue-tshirt/";
+
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+        WebElement searchBox = driver.findElement(By.xpath("//input[@type='search']"));
+        searchBox.sendKeys("Blue Tshirt");
+
+        WebElement searchButton = driver.findElement(By.xpath("//button[@value='Search']"));
+        searchButton.click();
+        String t_shirt = driver.findElement(By.tagName("h1")).getText();
+
+        Assert.assertEquals("Blue Tshirt", t_shirt);
+        Assert.assertEquals(driver.getCurrentUrl(), URL_t_shirt);
+    }
+
+    @Test
+    public void testSearchReturnsAllItemsInCategories() {
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+        driver.findElement(By.xpath("//input[@type='search']")).sendKeys(ITEM_CATEGORY);
+        driver.findElement(By.xpath("//button[@type='submit']")).click();
+
+        List<WebElement> searchResultList = driver.findElements(By.xpath("//ul//h2"));
+        Assert.assertFalse(searchResultList.isEmpty(), "Search results are empty.");
+        int countItemBySearch = countItemsContainingItemText(searchResultList);
+
+        driver.findElement(By.xpath("//li[@id='menu-item-1228']//a[text()='Men']")).click();
+        List<WebElement> menItemsList = driver.findElements(By.xpath("//ul//h2"));
+        int countItemInMenResult = countItemsContainingItemText(menItemsList);
+
+        driver.findElement(By.xpath("//li[@id='menu-item-1229']//a[text()='Women']")).click();
+        List<WebElement> womenItemsList = driver.findElements(By.xpath("//ul//h2"));
+        int countItemInWomenResult = countItemsContainingItemText(womenItemsList);
+
+        Assert.assertEquals(countItemBySearch, countItemInMenResult + countItemInWomenResult, "Search box did not find all the items with item name '" + ITEM_CATEGORY + "' or find extra items");
+    }
+
+    @Test
+    public void testVerifyItemsAlphabeticalOrder() {
+        driver.findElement(By.xpath("//li[@id='menu-item-1227']")).click();
+
+        List<String> allItemList = new ArrayList<>();
+        boolean hasNextPage = true;
+
+        while (hasNextPage) {
+            List<WebElement> itemList = driver.findElements(By.xpath("//ul//h2"));
+            for (WebElement item : itemList) {
+                allItemList.add(item.getText());
+            }
+
+            try {
+                WebElement nextPageArrow = driver.findElement(By.xpath("//a[@class='next page-numbers']"));
+                nextPageArrow.click();
+
+            } catch (NoSuchElementException e) {
+                hasNextPage = false;
+            }
+        }
+
+        List<String> alphabeticalAllItemList = new ArrayList<>(allItemList);
+        Collections.sort(alphabeticalAllItemList);
+
+        Assert.assertEquals(allItemList, alphabeticalAllItemList, "Items are not in alphabetical order");
+    }
+
+    @Test
+    public void testSortByPriceLowToHigh() {
+        driver.findElement(By.id("menu-item-1230")).click();
+
+        WebElement dropdown = driver.findElement(By.xpath("//select[@name='orderby']"));
+        Select select = new Select(dropdown);
+        select.selectByVisibleText("Sort by price: low to high");
+
+        List<String> actualPriceList = new ArrayList<>();
+        List<WebElement> priceList = driver.findElements(By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"));
+        for (WebElement price : priceList) {
+            actualPriceList.add(price.getText());
+        }
+
+        List<String> expectedLowToHighPriceList = new ArrayList<>(actualPriceList);
+        Collections.sort(expectedLowToHighPriceList);
+
+        Assert.assertEquals(actualPriceList, expectedLowToHighPriceList, "Prices are not sorted from high to low as expected");
+    }
+
+    @Test
+    public void testUserRegistration() {
+        driver.findElement(By
+                        .xpath("//li[@id='menu-item-1237']//a[@class='menu-link'][normalize-space()='Account']"))
+                .click();
+        driver.findElement(By.xpath("//input[@id='reg_username']")).sendKeys(LOGIN_TEST);
+        driver.findElement(By.xpath("//input[@id='reg_email']")).sendKeys(EMAIL_TEST);
+        driver.findElement(By.xpath("//input[@id='reg_password']")).sendKeys(PASSWORD_TEST);
+        driver.findElement(By.xpath("//button[@name='register']")).click();
+        String accountText = driver.findElement(By.xpath("//p[2]")).getText();
+
+        Assert.assertEquals(accountText,
+                "From your account dashboard you can view your recent orders, " +
+                        "manage your shipping and billing addresses, and edit your password and account details.");
+    }
+
+    @Test
+    public void testFilterAccessoriesItem() {
+        driver.findElement(By.id("menu-item-1230")).click();
+        driver.findElement(By.xpath("//select[@name='orderby']"));
+        driver.findElement(By.xpath("//option[text() ='Sort by average rating']")).click();
+
+        String currentUrl = driver.getCurrentUrl();
+        String checkUrlEnding = "?orderby=rating";
+
+        Assert.assertTrue(currentUrl.endsWith(checkUrlEnding), "URL does not end with the expected endpoint: " + checkUrlEnding);
+    }
+
+    @Test
+    public void testFilterWomenByPopularity() {
+        driver.findElement(By.cssSelector("#menu-item-1229")).click();
+        driver.findElement(By.xpath("//select[@name = 'orderby']")).click();
+        driver.findElement(By.xpath("//option[contains(text(), 'popularity')]")).click();
+
+        String currentUrl = driver.getCurrentUrl();
+        String expectedUrlEnding = "?orderby=popularity";
+
+        Assert.assertTrue(currentUrl.endsWith(expectedUrlEnding), "URL does not end with expected endpoint: " + expectedUrlEnding);
+    }
+
+    @Test
+/*    The test verifies that items in the shop are ordered in the descending order (from high to low) according to
+      their prices, when "Sort by price: high to low" option is chosen in the drop-down menu on the "Store" page.
+ */
+    public void testSortingItemsByPrice() {
+//      Going from the Home page to the "Store" page and finding the dropdown menu
+        driver.findElement(By.xpath("//a[@class= 'wp-block-button__link']")).click();
+        WebElement dropdown = driver.findElement(By.xpath("//select[@name='orderby']"));
+
+//      Selecting the menu option that we need for this test
+        Select select = new Select(dropdown);
+        select.selectByVisibleText("Sort by price: high to low");
+
+//      Creating a list of all items shown on the page 1 of the Store after the sorting; Then, initializing
+//      the array where all the prices will be added
+        List<WebElement> allProductsPage1 = driver.findElements(By.xpath("//span[@class='price']"));
+        List<String> allPrices = new ArrayList<>();
+
+//      Collecting the prices into the array. If there is a discount, the discounted price is taken (try block)
+//      If there is no discount, regular price is taken
+        for (WebElement product : allProductsPage1) {
+            try {
+                String discountedPrice = product.findElement(By.xpath(".//ins")).getText();
+                allPrices.add(discountedPrice);
+            } catch (NoSuchElementException e) {
+                String regularPrice = product.getText();
+                allPrices.add(regularPrice);
+            }
+        }
+
+//      Going to the 2nd page of the webstore
+        driver.findElement(By.xpath("//a[@class='next page-numbers']")).click();
+
+//      Creating a list with all the products on the 2nd page
+        List<WebElement> allProductsPage2 = driver.findElements(By.xpath("//span[@class='price']"));
+
+//      Collecting all the prices from the 2nd page to the 'allPrices' array
+        for (WebElement product : allProductsPage2) {
+            try {
+                String discountedPrice = product.findElement(By.xpath(".//ins")).getText();
+                allPrices.add(discountedPrice);
+            } catch (NoSuchElementException e) {
+                String regularPrice = product.getText();
+                allPrices.add(regularPrice);
+            }
+        }
+
+//      Initializing the list of Double values to put prices in the numeric type to it
+        List<Double> pricesNumeric = new ArrayList<>();
+
+//      Parcing String prices to Double format, removing the '$' sign, populating pricesNumeric list
+        for (String price : allPrices) {
+            pricesNumeric.add(Double.parseDouble(price.replace("$", "")));
+        }
+
+//      Verifying that the order of the prices in the pricesNumeric list is descending
+        boolean isDescending = true;
+        for (int i = 0; i < pricesNumeric.size() - 1; i++) {
+            if (pricesNumeric.get(i) < pricesNumeric.get(i + 1)) {
+                isDescending = false;
+                break;
+            }
+            Assert.assertTrue(isDescending, "The prices are NOT in descending order!");
+        }
+    }
+
+    @Test
+    public void testBrowseByCategoriesSideMenu() {
+        driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
+        WebElement dropdown = driver.findElement(By.id("product_cat"));
+        Select select = new Select(dropdown);
+        select.selectByIndex(2);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement header = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[@class='woocommerce-products-header__title page-title']")));
+
+        List<String> actualSortedList = new ArrayList<>();
+        List<WebElement> sortedList = driver.findElements(By.xpath("//span[@class='ast-woo-product-category']"));
+        for (WebElement category : sortedList) {
+            actualSortedList.add(category.getText());
+
+            List<String> expectedMenSorting = new ArrayList<>(actualSortedList);
+            Collections.sort(expectedMenSorting);
+
+            Assert.assertEquals(actualSortedList, expectedMenSorting, "Sorting by Category Dropdown Did Not Apply to 'Men' Category");
+        }
+    }
+
+        @Test
+        public void testSearchProductBar () {
+            driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
+            WebElement searchBar = driver.findElement(By.id("woocommerce-product-search-field-0"));
+            searchBar.sendKeys("blue");
+            driver.findElement(By.xpath("//button[@value='Search']")).click();
+
+            List<String> expectedSearchResultList = new ArrayList<>();
+            List<WebElement> searchResult = driver.findElements(By.xpath("//h2[@class='woocommerce-loop-product__title']"));
+            for (WebElement search : searchResult) {
+                String text = search.getText();
+                if (text.contains("blue")) {
+                    expectedSearchResultList.add(text);
+                }
+                for (String item : expectedSearchResultList) {
+                    Assert.assertTrue(item.toLowerCase().contains("blue"), "The search result does not contain the word 'blue': " + item);
+
+                    List<String> actualSearchResultList = List.of("Blue Shoes", "Denim Blue Jeans", "Faint Blue Jeans", "Blue Denim Shorts", "Basic Blue Jeans", "Blue Tshirt");
+
+                    Assert.assertEquals(actualSearchResultList, expectedSearchResultList);
+                }
+            }
+        }
+
+            @Test
+            public void ButtonShopNow () throws InterruptedException {
+                driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
+                Thread.sleep(4000);
+                String correctUrl = driver.getCurrentUrl();
+                Assert.assertEquals(correctUrl, "https://askomdch.com/store");
+            }
+        }
