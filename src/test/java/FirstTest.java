@@ -410,6 +410,27 @@ public class FirstTest extends BaseTest {
     }
 
     @Test
+    public void check20offPriceOnHoePageOnHoePage() {
+        List<WebElement> products = driver.findElements(By.cssSelector("ul.products li.product"));
+
+        for (WebElement product : products) {
+            if (product.findElements(By.className("onsale")).size() > 0) {
+
+                WebElement oldPriceElement = product.findElement(By.cssSelector("del .woocommerce-Price-amount"));
+                WebElement newPriceElement = product.findElement(By.cssSelector("ins .woocommerce-Price-amount"));
+
+                double oldPrice = Double.parseDouble(oldPriceElement.getText().replace("$", ""));
+                double newPrice = Double.parseDouble(newPriceElement.getText().replace("$", ""));
+
+                Assert.assertTrue(newPrice < oldPrice, "New price less then old");
+                System.out.println("Off 20%: " + product.getText());
+            } else {
+                System.out.println("Without Off: " + product.getText());
+            }
+        }
+    }
+
+    @Test
     public void testProductNames() {
         driver.findElement(By.xpath("//a[@href='/store']")).click();
         List<WebElement> products = driver.findElements(By.xpath("//h2[@class='woocommerce-loop-product__title']"));
