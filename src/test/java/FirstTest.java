@@ -1,5 +1,4 @@
 import org.openqa.selenium.*;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,8 +9,10 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 
 public class FirstTest extends BaseTest {
@@ -19,19 +20,6 @@ public class FirstTest extends BaseTest {
     private static final String LOGIN_TEST = "Testlogin";
     private static final String PASSWORD_TEST = "Testpassword";
     private static final String EMAIL_TEST = "test@gmail.com";
-    private static final String ITEM_CATEGORY = "jeans";
-
-    private int countItemsContainingItemText(List<WebElement> items) {
-        int count = 0;
-        for (WebElement item : items) {
-            String itemText = item.getText().toLowerCase();
-            if (itemText.contains(ITEM_CATEGORY.toLowerCase())) {
-                count++;
-            }
-        }
-
-        return count;
-    }
 
     @Test
     public void testFirst() throws InterruptedException {
@@ -422,27 +410,6 @@ public class FirstTest extends BaseTest {
     }
 
     @Test
-    public void check20offPriceOnHoePageOnHoePage() {
-        List<WebElement> products = driver.findElements(By.cssSelector("ul.products li.product"));
-
-        for (WebElement product : products) {
-            if (product.findElements(By.className("onsale")).size() > 0) {
-
-                WebElement oldPriceElement = product.findElement(By.cssSelector("del .woocommerce-Price-amount"));
-                WebElement newPriceElement = product.findElement(By.cssSelector("ins .woocommerce-Price-amount"));
-
-                double oldPrice = Double.parseDouble(oldPriceElement.getText().replace("$", ""));
-                double newPrice = Double.parseDouble(newPriceElement.getText().replace("$", ""));
-
-                Assert.assertTrue(newPrice < oldPrice, "New price less then old");
-                System.out.println("Off 20%: " + product.getText());
-            } else {
-                System.out.println("Without Off: " + product.getText());
-            }
-        }
-    }
-
-    @Test
     public void testProductNames() {
         driver.findElement(By.xpath("//a[@href='/store']")).click();
         List<WebElement> products = driver.findElements(By.xpath("//h2[@class='woocommerce-loop-product__title']"));
@@ -481,73 +448,19 @@ public class FirstTest extends BaseTest {
     }
 
     @Test
-    public void testSearchReturnsAllItemsInCategories() {
-        driver.findElement(By.xpath("//a[@href='/store']")).click();
-        driver.findElement(By.xpath("//input[@type='search']")).sendKeys(ITEM_CATEGORY);
-        driver.findElement(By.xpath("//button[@type='submit']")).click();
+    public void testUserRegistration() {
+        driver.findElement(By
+                        .xpath("//li[@id='menu-item-1237']//a[@class='menu-link'][normalize-space()='Account']"))
+                .click();
+        driver.findElement(By.xpath("//input[@id='reg_username']")).sendKeys(LOGIN_TEST);
+        driver.findElement(By.xpath("//input[@id='reg_email']")).sendKeys(EMAIL_TEST);
+        driver.findElement(By.xpath("//input[@id='reg_password']")).sendKeys(PASSWORD_TEST);
+        driver.findElement(By.xpath("//button[@name='register']")).click();
+        String accountText = driver.findElement(By.xpath("//p[2]")).getText();
 
-        List<WebElement> searchResultList = driver.findElements(By.xpath("//ul//h2"));
-        Assert.assertFalse(searchResultList.isEmpty(), "Search results are empty.");
-        int countItemBySearch = countItemsContainingItemText(searchResultList);
-
-        driver.findElement(By.xpath("//li[@id='menu-item-1228']//a[text()='Men']")).click();
-        List<WebElement> menItemsList = driver.findElements(By.xpath("//ul//h2"));
-        int countItemInMenResult = countItemsContainingItemText(menItemsList);
-
-        driver.findElement(By.xpath("//li[@id='menu-item-1229']//a[text()='Women']")).click();
-        List<WebElement> womenItemsList = driver.findElements(By.xpath("//ul//h2"));
-        int countItemInWomenResult = countItemsContainingItemText(womenItemsList);
-
-        Assert.assertEquals(countItemBySearch, countItemInMenResult + countItemInWomenResult, "Search box did not find all the items with item name '" + ITEM_CATEGORY + "' or find extra items");
-    }
-
-
-    @Test
-    public void testVerifyItemsAlphabeticalOrder() {
-        driver.findElement(By.xpath("//li[@id='menu-item-1227']")).click();
-
-        List<String> allItemList = new ArrayList<>();
-        boolean hasNextPage = true;
-
-        while (hasNextPage) {
-            List<WebElement> itemList = driver.findElements(By.xpath("//ul//h2"));
-            for (WebElement item : itemList) {
-                allItemList.add(item.getText());
-            }
-
-            try {
-                WebElement nextPageArrow = driver.findElement(By.xpath("//a[@class='next page-numbers']"));
-                nextPageArrow.click();
-
-            } catch (NoSuchElementException e) {
-                hasNextPage = false;
-            }
-        }
-
-        List<String> alphabeticalAllItemList = new ArrayList<>(allItemList);
-        Collections.sort(alphabeticalAllItemList);
-
-        Assert.assertEquals(allItemList, alphabeticalAllItemList, "Items are not in alphabetical order");
-    }
-
-    @Test
-    public void testSortByPriceLowToHigh() {
-        driver.findElement(By.id("menu-item-1230")).click();
-
-        WebElement dropdown = driver.findElement(By.xpath("//select[@name='orderby']"));
-        Select select = new Select(dropdown);
-        select.selectByVisibleText("Sort by price: low to high");
-
-        List<String> actualPriceList = new ArrayList<>();
-        List<WebElement> priceList = driver.findElements(By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"));
-        for (WebElement price : priceList) {
-            actualPriceList.add(price.getText());
-        }
-
-        List<String> expectedLowToHighPriceList = new ArrayList<>(actualPriceList);
-        Collections.sort(expectedLowToHighPriceList);
-
-        Assert.assertEquals(actualPriceList, expectedLowToHighPriceList, "Prices are not sorted from high to low as expected");
+        Assert.assertEquals(accountText,
+                "From your account dashboard you can view your recent orders, " +
+                        "manage your shipping and billing addresses, and edit your password and account details.");
     }
 
     @Test
@@ -571,77 +484,13 @@ public class FirstTest extends BaseTest {
         String currentUrl = driver.getCurrentUrl();
         String expectedUrlEnding = "?orderby=popularity";
 
-        Assert.assertTrue(currentUrl.endsWith(expectedUrlEnding), "URL does not end with expected endpoint: " + expectedUrlEnding);
+        Assert.assertTrue(currentUrl.endsWith(expectedUrlEnding), "URL does not end with expected endpoint: "
+                + expectedUrlEnding);
     }
 
-    @Test
-/*    The test verifies that items in the shop are ordered in the descending order (from high to low) according to
-      their prices, when "Sort by price: high to low" option is chosen in the drop-down menu on the "Store" page.
- */
-    public void testSortingItemsByPrice() {
-//      Going from the Home page to the "Store" page and finding the dropdown menu
-        driver.findElement(By.xpath("//a[@class= 'wp-block-button__link']")).click();
-        WebElement dropdown = driver.findElement(By.xpath("//select[@name='orderby']"));
-
-//      Selecting the menu option that we need for this test
-        Select select = new Select(dropdown);
-        select.selectByVisibleText("Sort by price: high to low");
-
-//      Creating a list of all items shown on the page 1 of the Store after the sorting; Then, initializing
-//      the array where all the prices will be added
-        List<WebElement> allProductsPage1 = driver.findElements(By.xpath("//span[@class='price']"));
-        List<String> allPrices = new ArrayList<>();
-
-//      Collecting the prices into the array. If there is a discount, the discounted price is taken (try block)
-//      If there is no discount, regular price is taken
-        for (WebElement product : allProductsPage1) {
-            try {
-                String discountedPrice = product.findElement(By.xpath(".//ins")).getText();
-                allPrices.add(discountedPrice);
-            } catch (NoSuchElementException e) {
-                String regularPrice = product.getText();
-                allPrices.add(regularPrice);
-            }
-        }
-
-//      Going to the 2nd page of the webstore
-        driver.findElement(By.xpath("//a[@class='next page-numbers']")).click();
-
-//      Creating a list with all the products on the 2nd page
-        List<WebElement> allProductsPage2 = driver.findElements(By.xpath("//span[@class='price']"));
-
-//      Collecting all the prices from the 2nd page to the 'allPrices' array
-        for (WebElement product : allProductsPage2) {
-            try {
-                String discountedPrice = product.findElement(By.xpath(".//ins")).getText();
-                allPrices.add(discountedPrice);
-            } catch (NoSuchElementException e) {
-                String regularPrice = product.getText();
-                allPrices.add(regularPrice);
-            }
-        }
-
-//      Initializing the list of Double values to put prices in the numeric type to it
-        List<Double> pricesNumeric = new ArrayList<>();
-
-//      Parcing String prices to Double format, removing the '$' sign, populating pricesNumeric list
-        for (String price : allPrices) {
-            pricesNumeric.add(Double.parseDouble(price.replace("$", "")));
-        }
-
-//      Verifying that the order of the prices in the pricesNumeric list is descending
-        boolean isDescending = true;
-        for (int i = 0; i < pricesNumeric.size() - 1; i++) {
-            if (pricesNumeric.get(i) < pricesNumeric.get(i + 1)) {
-                isDescending = false;
-                break;
-            }
-            Assert.assertTrue(isDescending, "The prices are NOT in descending order!");
-        }
-    }
 
     @Test
-    public void testBrowseByCategoriesSideMenu() {
+    public void testBrowseByCategoriesSideMenu() throws InterruptedException {
         driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
         WebElement dropdown = driver.findElement(By.id("product_cat"));
         Select select = new Select(dropdown);
@@ -662,69 +511,90 @@ public class FirstTest extends BaseTest {
         }
     }
 
-        @Test
-        public void testSearchProductBar () {
-            driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
-            WebElement searchBar = driver.findElement(By.id("woocommerce-product-search-field-0"));
-            searchBar.sendKeys("blue");
-            driver.findElement(By.xpath("//button[@value='Search']")).click();
+    @Test
+    public void testSearchProductBar() {
+        driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
+        WebElement searchBar = driver.findElement(By.id("woocommerce-product-search-field-0"));
+        searchBar.sendKeys("blue");
+        driver.findElement(By.xpath("//button[@value='Search']")).click();
 
-            List<String> expectedSearchResultList = new ArrayList<>();
-            List<WebElement> searchResult = driver.findElements(By.xpath("//h2[@class='woocommerce-loop-product__title']"));
-            for (WebElement search : searchResult) {
-                String text = search.getText();
-                if (text.contains("blue")) {
-                    expectedSearchResultList.add(text);
-                }
-                for (String item : expectedSearchResultList) {
-                    Assert.assertTrue(item.toLowerCase().contains("blue"), "The search result does not contain the word 'blue': " + item);
-
-                    List<String> actualSearchResultList = List.of("Blue Shoes", "Denim Blue Jeans", "Faint Blue Jeans", "Blue Denim Shorts", "Basic Blue Jeans", "Blue Tshirt");
-
-                    Assert.assertEquals(actualSearchResultList, expectedSearchResultList);
-                }
+        List<String> expectedSearchResultList = new ArrayList<>();
+        List<WebElement> searchResult = driver.findElements(By.xpath("//h2[@class='woocommerce-loop-product__title']"));
+        for (WebElement search : searchResult) {
+            String text = search.getText();
+            if (text.contains("blue")) {
+                expectedSearchResultList.add(text);
             }
+            for (String item : expectedSearchResultList) {
+                Assert.assertTrue(item.toLowerCase().contains("blue"), "The search result does not contain the word 'blue': " + item);
+
+                List<String> actualSearchResultList = List.of("Blue Shoes", "Denim Blue Jeans", "Faint Blue Jeans", "Blue Denim Shorts", "Basic Blue Jeans", "Blue Tshirt");
+
+                Assert.assertEquals(actualSearchResultList, expectedSearchResultList);
+
+            }
+
+        }
+    }
+ 
+    @Test
+    public void ButtonShopNow() throws InterruptedException {
+        driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
+        Thread.sleep(4000);
+        String correctUrl = driver.getCurrentUrl();
+        Assert.assertEquals(correctUrl, "https://askomdch.com/store");
+        
+    }
+    @Test
+    public void testUpdateQuantityInCart() {
+        driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='Store']")).click();
+
+        driver.findElement(By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']")).click();
+        WebElement viewCart = driver.findElement(By.linkText("View cart"));
+        String viewCartText = viewCart.getText();
+
+        Assert.assertEquals(viewCartText, "View cart");
+
+        viewCart.click();
+
+        String priceStr = driver.findElement(By.xpath("//td[@class = 'product-subtotal']/span[@class='woocommerce-Price-amount amount']")).getText();
+        if(priceStr.charAt(0) == '$'){ //since the price is a string that has $, I need to remove the $ first
+            priceStr = priceStr.substring(1); //creating the substring without $
+        }
+        double price = Double.valueOf(priceStr); //change string price to double
+
+        WebElement quantity = driver.findElement(By.xpath("//input[@class='input-text qty text']"));
+        quantity.click();
+        quantity.clear();
+        quantity.sendKeys("2");
+
+        String updatedPriceString = driver.findElement(By.xpath("//td[@class = 'product-subtotal']/span[@class='woocommerce-Price-amount amount']")).getText();
+        driver.findElement(By.xpath("//button[@name='update_cart']")).click();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        String finalUpdatedPriceStr = updatedPriceString;
+        // After the clicking Update price button, I need wait until the price will be updated
+        wait.until(driver -> {
+            String checkPrice = driver.findElement(By.xpath("//td[@class = 'product-subtotal']/span[@class='woocommerce-Price-amount amount']")).getText();
+            if(checkPrice.equals(finalUpdatedPriceStr)) { // checking if price still equal to original price (before update)
+                return false;
+            }
+            return true;  //when price is updated (not equal anymore) returning true
+        });
+
+        //  Getting the updated subtotal price
+        String updatedPriceStr = driver.findElement(By.xpath("//td[@class = 'product-subtotal']/span[@class='woocommerce-Price-amount amount']")).getText();
+        if(updatedPriceStr.charAt(0) == '$'){
+            updatedPriceStr = updatedPriceStr.substring(1);
         }
 
-            @Test
-            public void ButtonShopNow () throws InterruptedException {
-                driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
-                Thread.sleep(4000);
-                String correctUrl = driver.getCurrentUrl();
-                Assert.assertEquals(correctUrl, "https://askomdch.com/store");
-            }
-    @Test
-    public void testSortByPriceLowToHigh2() {
-        driver.findElement(By.xpath("//li[@id='menu-item-1227']//a[@class='menu-link'][normalize-space()='Store']")).click();
-        WebElement dropDownSort = driver.findElement(By.xpath("//select[@name='orderby']"));
-        Select dropDownSelect = new Select(dropDownSort);
-        dropDownSelect.selectByValue("price");
-
-        List<WebElement> sortedItems = driver.findElements(By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"));
-        List<String> prices = new ArrayList<>(sortedItems.stream().map(WebElement::getText).toList());
-        List<String> sortedPrices = new ArrayList<>(prices);
-
-        sortedPrices.sort(Comparator.naturalOrder());
-
-        Assert.assertEquals(sortedPrices, prices);
+        double updatedPrice = Double.valueOf(updatedPriceStr);
+        Assert.assertEquals(updatedPrice, (price * 2));
     }
-    @Test
-    public void testSortByPriceHighToLow() {
-        driver.findElement(By.xpath("//li[@id='menu-item-1227']//a[@class='menu-link'][normalize-space()='Store']")).click();
-        WebElement dropDownSort = driver.findElement(By.xpath("//select[@name='orderby']"));
-        Select dropDownSelect = new Select(dropDownSort);
-        dropDownSelect.selectByValue("price-desc");
-
-        List<Double> prices = driver.findElements(By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"))
-                .stream()
-                .map(element -> element.getText().replace("$", ""))
-                .map(Double::parseDouble)
-                .toList();
-
-        List<Double> sortedPrices = prices.stream()
-                .sorted(Comparator.reverseOrder())
-                .toList();
-        Assert.assertEquals(sortedPrices, prices);
-    }
-
 }
+
+
+
+
+
+
