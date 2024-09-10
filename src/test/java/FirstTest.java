@@ -708,4 +708,23 @@ public class FirstTest extends BaseTest {
 
         Assert.assertEquals(sortedPrices, prices);
     }
+    @Test
+    public void testSortByPriceHighToLow() {
+        driver.findElement(By.xpath("//li[@id='menu-item-1227']//a[@class='menu-link'][normalize-space()='Store']")).click();
+        WebElement dropDownSort = driver.findElement(By.xpath("//select[@name='orderby']"));
+        Select dropDownSelect = new Select(dropDownSort);
+        dropDownSelect.selectByValue("price-desc");
+
+        List<Double> prices = driver.findElements(By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"))
+                .stream()
+                .map(element -> element.getText().replace("$", ""))
+                .map(Double::parseDouble)
+                .toList();
+
+        List<Double> sortedPrices = prices.stream()
+                .sorted(Comparator.reverseOrder())
+                .toList();
+        Assert.assertEquals(sortedPrices, prices);
+    }
+
 }
