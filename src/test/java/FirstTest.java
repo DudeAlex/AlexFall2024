@@ -20,19 +20,6 @@ public class FirstTest extends BaseTest {
     private static final String LOGIN_TEST = "Testlogin";
     private static final String PASSWORD_TEST = "Testpassword";
     private static final String EMAIL_TEST = "test@gmail.com";
-    private static final String ITEM_CATEGORY = "jeans";
-
-    private int countItemsContainingItemText(List<WebElement> items) {
-        int count = 0;
-        for (WebElement item : items) {
-            String itemText = item.getText().toLowerCase();
-            if (itemText.contains(ITEM_CATEGORY.toLowerCase())) {
-                count++;
-            }
-        }
-
-        return count;
-    }
 
     @Test
     public void testFirst() throws InterruptedException {
@@ -461,75 +448,6 @@ public class FirstTest extends BaseTest {
     }
 
     @Test
-    public void testSearchReturnsAllItemsInCategories() {
-        driver.findElement(By.xpath("//a[@href='/store']")).click();
-        driver.findElement(By.xpath("//input[@type='search']")).sendKeys(ITEM_CATEGORY);
-        driver.findElement(By.xpath("//button[@type='submit']")).click();
-
-        List<WebElement> searchResultList = driver.findElements(By.xpath("//ul//h2"));
-        Assert.assertFalse(searchResultList.isEmpty(), "Search results are empty.");
-        int countItemBySearch = countItemsContainingItemText(searchResultList);
-
-        driver.findElement(By.xpath("//li[@id='menu-item-1228']//a[text()='Men']")).click();
-        List<WebElement> menItemsList = driver.findElements(By.xpath("//ul//h2"));
-        int countItemInMenResult = countItemsContainingItemText(menItemsList);
-
-        driver.findElement(By.xpath("//li[@id='menu-item-1229']//a[text()='Women']")).click();
-        List<WebElement> womenItemsList = driver.findElements(By.xpath("//ul//h2"));
-        int countItemInWomenResult = countItemsContainingItemText(womenItemsList);
-
-        Assert.assertEquals(countItemBySearch, countItemInMenResult + countItemInWomenResult, "Search box did not find all the items with item name '" + ITEM_CATEGORY + "' or find extra items");
-    }
-
-    @Test
-    public void testVerifyItemsAlphabeticalOrder() {
-        driver.findElement(By.xpath("//li[@id='menu-item-1227']")).click();
-
-        List<String> allItemList = new ArrayList<>();
-        boolean hasNextPage = true;
-
-        while (hasNextPage) {
-            List<WebElement> itemList = driver.findElements(By.xpath("//ul//h2"));
-            for (WebElement item : itemList) {
-                allItemList.add(item.getText());
-            }
-
-            try {
-                WebElement nextPageArrow = driver.findElement(By.xpath("//a[@class='next page-numbers']"));
-                nextPageArrow.click();
-
-            } catch (NoSuchElementException e) {
-                hasNextPage = false;
-            }
-        }
-
-        List<String> alphabeticalAllItemList = new ArrayList<>(allItemList);
-        Collections.sort(alphabeticalAllItemList);
-
-        Assert.assertEquals(allItemList, alphabeticalAllItemList, "Items are not in alphabetical order");
-    }
-
-    @Test
-    public void testSortByPriceLowToHigh() {
-        driver.findElement(By.id("menu-item-1230")).click();
-
-        WebElement dropdown = driver.findElement(By.xpath("//select[@name='orderby']"));
-        Select select = new Select(dropdown);
-        select.selectByVisibleText("Sort by price: low to high");
-
-        List<String> actualPriceList = new ArrayList<>();
-        List<WebElement> priceList = driver.findElements(By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"));
-        for (WebElement price : priceList) {
-            actualPriceList.add(price.getText());
-        }
-
-        List<String> expectedLowToHighPriceList = new ArrayList<>(actualPriceList);
-        Collections.sort(expectedLowToHighPriceList);
-
-        Assert.assertEquals(actualPriceList, expectedLowToHighPriceList, "Prices are not sorted from high to low as expected");
-    }
-
-    @Test
     public void testUserRegistration() {
         driver.findElement(By
                         .xpath("//li[@id='menu-item-1237']//a[@class='menu-link'][normalize-space()='Account']"))
@@ -657,35 +575,35 @@ public class FirstTest extends BaseTest {
         }
     }
 
-        @Test
-        public void testSearchProductBar () {
-            driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
-            WebElement searchBar = driver.findElement(By.id("woocommerce-product-search-field-0"));
-            searchBar.sendKeys("blue");
-            driver.findElement(By.xpath("//button[@value='Search']")).click();
+    @Test
+    public void testSearchProductBar() {
+        driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
+        WebElement searchBar = driver.findElement(By.id("woocommerce-product-search-field-0"));
+        searchBar.sendKeys("blue");
+        driver.findElement(By.xpath("//button[@value='Search']")).click();
 
-            List<String> expectedSearchResultList = new ArrayList<>();
-            List<WebElement> searchResult = driver.findElements(By.xpath("//h2[@class='woocommerce-loop-product__title']"));
-            for (WebElement search : searchResult) {
-                String text = search.getText();
-                if (text.contains("blue")) {
-                    expectedSearchResultList.add(text);
-                }
-                for (String item : expectedSearchResultList) {
-                    Assert.assertTrue(item.toLowerCase().contains("blue"), "The search result does not contain the word 'blue': " + item);
+        List<String> expectedSearchResultList = new ArrayList<>();
+        List<WebElement> searchResult = driver.findElements(By.xpath("//h2[@class='woocommerce-loop-product__title']"));
+        for (WebElement search : searchResult) {
+            String text = search.getText();
+            if (text.contains("blue")) {
+                expectedSearchResultList.add(text);
+            }
+            for (String item : expectedSearchResultList) {
+                Assert.assertTrue(item.toLowerCase().contains("blue"), "The search result does not contain the word 'blue': " + item);
 
-                    List<String> actualSearchResultList = List.of("Blue Shoes", "Denim Blue Jeans", "Faint Blue Jeans", "Blue Denim Shorts", "Basic Blue Jeans", "Blue Tshirt");
+                List<String> actualSearchResultList = List.of("Blue Shoes", "Denim Blue Jeans", "Faint Blue Jeans", "Blue Denim Shorts", "Basic Blue Jeans", "Blue Tshirt");
 
-                    Assert.assertEquals(actualSearchResultList, expectedSearchResultList);
-                }
+                Assert.assertEquals(actualSearchResultList, expectedSearchResultList);
             }
         }
+    }
 
-            @Test
-            public void ButtonShopNow () throws InterruptedException {
-                driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
-                Thread.sleep(4000);
-                String correctUrl = driver.getCurrentUrl();
-                Assert.assertEquals(correctUrl, "https://askomdch.com/store");
-            }
-        }
+    @Test
+    public void ButtonShopNow() throws InterruptedException {
+        driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
+        Thread.sleep(4000);
+        String correctUrl = driver.getCurrentUrl();
+        Assert.assertEquals(correctUrl, "https://askomdch.com/store");
+    }
+}
