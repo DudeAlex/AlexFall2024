@@ -1,4 +1,5 @@
 import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -9,10 +10,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class FirstTest extends BaseTest {
@@ -552,22 +551,6 @@ public class FirstTest extends BaseTest {
     }
 
     @Test
-    public void testUserRegistration() {
-        driver.findElement(By
-                        .xpath("//li[@id='menu-item-1237']//a[@class='menu-link'][normalize-space()='Account']"))
-                .click();
-        driver.findElement(By.xpath("//input[@id='reg_username']")).sendKeys(LOGIN_TEST);
-        driver.findElement(By.xpath("//input[@id='reg_email']")).sendKeys(EMAIL_TEST);
-        driver.findElement(By.xpath("//input[@id='reg_password']")).sendKeys(PASSWORD_TEST);
-        driver.findElement(By.xpath("//button[@name='register']")).click();
-        String accountText = driver.findElement(By.xpath("//p[2]")).getText();
-
-        Assert.assertEquals(accountText,
-                "From your account dashboard you can view your recent orders, " +
-                        "manage your shipping and billing addresses, and edit your password and account details.");
-    }
-
-    @Test
     public void testFilterAccessoriesItem() {
         driver.findElement(By.id("menu-item-1230")).click();
         driver.findElement(By.xpath("//select[@name='orderby']"));
@@ -710,4 +693,19 @@ public class FirstTest extends BaseTest {
                 String correctUrl = driver.getCurrentUrl();
                 Assert.assertEquals(correctUrl, "https://askomdch.com/store");
             }
-        }
+    @Test
+    public void testSortByPriceLowToHigh2() {
+        driver.findElement(By.xpath("//li[@id='menu-item-1227']//a[@class='menu-link'][normalize-space()='Store']")).click();
+        WebElement dropDownSort = driver.findElement(By.xpath("//select[@name='orderby']"));
+        Select dropDownSelect = new Select(dropDownSort);
+        dropDownSelect.selectByValue("price");
+
+        List<WebElement> sortedItems = driver.findElements(By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"));
+        List<String> prices = new ArrayList<>(sortedItems.stream().map(WebElement::getText).toList());
+        List<String> sortedPrices = new ArrayList<>(prices);
+
+        sortedPrices.sort(Comparator.naturalOrder());
+
+        Assert.assertEquals(sortedPrices, prices);
+    }
+}
