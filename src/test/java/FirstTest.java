@@ -481,6 +481,7 @@ public class FirstTest extends BaseTest {
         Assert.assertEquals(countItemBySearch, countItemInMenResult + countItemInWomenResult, "Search box did not find all the items with item name '" + ITEM_CATEGORY + "' or find extra items");
     }
 
+
     @Test
     public void testVerifyItemsAlphabeticalOrder() {
         driver.findElement(By.xpath("//li[@id='menu-item-1227']")).click();
