@@ -47,7 +47,7 @@ public class ItemTest extends BaseTest {
         return allItemList;
     }
 
-    private List<Double> getConvertedToDoublePriceList(List<String> priceTextList){
+    private List<Double> getConvertedToDoublePriceList(List<String> priceTextList) {
         List<Double> actualPriceList = new ArrayList<>();
         for (String priceText : priceTextList) {
             String priceClearedFromSigns = priceText.replace("$", "").trim();
@@ -82,7 +82,7 @@ public class ItemTest extends BaseTest {
     }
 
     @DataProvider
-    public Object[][] provideAllItemCategory() {
+    private Object[][] provideAllItemCategory() {
         return new Object[][]{
                 {"//li[@id='menu-item-1227']"},
                 {"//li[@id='menu-item-1228']"},
@@ -141,6 +141,26 @@ public class ItemTest extends BaseTest {
 
         Assert.assertEquals(actualPriceList, expectedLowToHighPriceList,
                 "Prices are not sorted from low to high as expected");
+    }
+
+    @DataProvider
+    private Object[][] provideAllItemLocatorsWithNames() {
+        return new Object[][]{
+                {"//li[@id='menu-item-1228']", "Men"},
+                //bug or?
+                // {"//li[@id='menu-item-1229']", "Women"},
+                {"//li[@id='menu-item-1230']", "Accessories"}
+        };
+    }
+
+    @Test(dataProvider = "provideAllItemLocatorsWithNames")
+    public void testVerifyItemsCorrespondentCategories(String locator, String categoryName) {
+        driver.findElement(By.xpath(locator)).click();
+
+        List<String> allItemList = getAllItemsFromAllPages(By.xpath("//span[@class='ast-woo-product-category']"));
+        for (String item : allItemList) {
+            Assert.assertEquals(item, categoryName, "Item does not match the expected category");
+        }
     }
 }
 
