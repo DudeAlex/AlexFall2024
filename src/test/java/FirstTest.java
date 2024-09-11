@@ -662,37 +662,38 @@ public class FirstTest extends BaseTest {
         }
     }
 
-        @Test
-        public void testSearchProductBar () {
-            driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
-            WebElement searchBar = driver.findElement(By.id("woocommerce-product-search-field-0"));
-            searchBar.sendKeys("blue");
-            driver.findElement(By.xpath("//button[@value='Search']")).click();
+    @Test
+    public void testSearchProductBar() {
+        driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
+        WebElement searchBar = driver.findElement(By.id("woocommerce-product-search-field-0"));
+        searchBar.sendKeys("blue");
+        driver.findElement(By.xpath("//button[@value='Search']")).click();
 
-            List<String> expectedSearchResultList = new ArrayList<>();
-            List<WebElement> searchResult = driver.findElements(By.xpath("//h2[@class='woocommerce-loop-product__title']"));
-            for (WebElement search : searchResult) {
-                String text = search.getText();
-                if (text.contains("blue")) {
-                    expectedSearchResultList.add(text);
-                }
-                for (String item : expectedSearchResultList) {
-                    Assert.assertTrue(item.toLowerCase().contains("blue"), "The search result does not contain the word 'blue': " + item);
+        List<String> expectedSearchResultList = new ArrayList<>();
+        List<WebElement> searchResult = driver.findElements(By.xpath("//h2[@class='woocommerce-loop-product__title']"));
+        for (WebElement search : searchResult) {
+            String text = search.getText();
+            if (text.contains("blue")) {
+                expectedSearchResultList.add(text);
+            }
+            for (String item : expectedSearchResultList) {
+                Assert.assertTrue(item.toLowerCase().contains("blue"), "The search result does not contain the word 'blue': " + item);
 
-                    List<String> actualSearchResultList = List.of("Blue Shoes", "Denim Blue Jeans", "Faint Blue Jeans", "Blue Denim Shorts", "Basic Blue Jeans", "Blue Tshirt");
+                List<String> actualSearchResultList = List.of("Blue Shoes", "Denim Blue Jeans", "Faint Blue Jeans", "Blue Denim Shorts", "Basic Blue Jeans", "Blue Tshirt");
 
-                    Assert.assertEquals(actualSearchResultList, expectedSearchResultList);
-                }
+                Assert.assertEquals(actualSearchResultList, expectedSearchResultList);
             }
         }
+    }
 
-            @Test
-            public void ButtonShopNow () throws InterruptedException {
-                driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
-                Thread.sleep(4000);
-                String correctUrl = driver.getCurrentUrl();
-                Assert.assertEquals(correctUrl, "https://askomdch.com/store");
-            }
+    @Test
+    public void ButtonShopNow() throws InterruptedException {
+        driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
+        Thread.sleep(4000);
+        String correctUrl = driver.getCurrentUrl();
+        Assert.assertEquals(correctUrl, "https://askomdch.com/store");
+    }
+
     @Test
     public void testSortByPriceLowToHigh2() {
         driver.findElement(By.xpath("//li[@id='menu-item-1227']//a[@class='menu-link'][normalize-space()='Store']")).click();
@@ -708,6 +709,7 @@ public class FirstTest extends BaseTest {
 
         Assert.assertEquals(sortedPrices, prices);
     }
+
     @Test
     public void testSortByPriceHighToLow() {
         driver.findElement(By.xpath("//li[@id='menu-item-1227']//a[@class='menu-link'][normalize-space()='Store']")).click();
@@ -727,4 +729,31 @@ public class FirstTest extends BaseTest {
         Assert.assertEquals(sortedPrices, prices);
     }
 
+
+    @Test//price filter set up from min price ($10) to $60
+    public void testStorePageFilterPriceCheck() {
+        driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
+
+        WebElement priceFilter = driver.findElement(By.xpath("//span[@tabindex='0' and contains(@class, 'ui-slider-handle') and @style='left: 100%;']"));
+        Actions actions = new Actions(driver);
+        actions.dragAndDropBy(priceFilter, -150, 0).perform();
+        WebElement filterBtn = driver.findElement(By.xpath("//button[normalize-space()='Filter']"));
+        filterBtn.click();
+
+        List<WebElement> filterPrice = driver.findElements(By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"));
+        List<Double> expectingFilteringPricePage = new ArrayList<>();
+        for (WebElement price : filterPrice) {
+            String priceText = price.getText().replace("$", "");
+            Double filteringPriceValue = Double.parseDouble(priceText);
+            expectingFilteringPricePage.add(filteringPriceValue);
+
+            boolean allPricesUnderSixty = true;
+            for (Double expectPrice : expectingFilteringPricePage) {
+                if (expectPrice > 60) {
+                    allPricesUnderSixty = false;
+                }
+                Assert.assertTrue(allPricesUnderSixty, "Filter by price doesn't filter the price accordingly");
+            }
+        }
+    }
 }
