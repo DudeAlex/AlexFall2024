@@ -644,4 +644,31 @@ public class FirstTest extends BaseTest {
         Assert.assertEquals(sortedPrices, prices);
     }
 
+
+    @Test//price filter set up from min price ($10) to $60
+    public void testStorePageFilterPriceCheck() {
+        driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
+
+        WebElement priceFilter = driver.findElement(By.xpath("//span[@tabindex='0' and contains(@class, 'ui-slider-handle') and @style='left: 100%;']"));
+        Actions actions = new Actions(driver);
+        actions.dragAndDropBy(priceFilter, -150, 0).perform();
+        WebElement filterBtn = driver.findElement(By.xpath("//button[normalize-space()='Filter']"));
+        filterBtn.click();
+
+        List<WebElement> filterPrice = driver.findElements(By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"));
+        List<Double> expectingFilteringPricePage = new ArrayList<>();
+        for (WebElement price : filterPrice) {
+            String priceText = price.getText().replace("$", "");
+            Double filteringPriceValue = Double.parseDouble(priceText);
+            expectingFilteringPricePage.add(filteringPriceValue);
+
+            boolean allPricesUnderSixty = true;
+            for (Double expectPrice : expectingFilteringPricePage) {
+                if (expectPrice > 60) {
+                    allPricesUnderSixty = false;
+                }
+                Assert.assertTrue(allPricesUnderSixty, "Filter by price doesn't filter the price accordingly");
+            }
+        }
+    }
 }
