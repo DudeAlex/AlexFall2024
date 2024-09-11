@@ -465,7 +465,7 @@ public class FirstTest extends BaseTest {
         Assert.assertEquals(driver.getCurrentUrl(), URL_t_shirt);
     }
 
-       @Test
+    @Test
     public void testFilterAccessoriesItem() {
         driver.findElement(By.id("menu-item-1230")).click();
         driver.findElement(By.xpath("//select[@name='orderby']"));
@@ -624,6 +624,7 @@ public class FirstTest extends BaseTest {
 
         Assert.assertEquals(sortedPrices, prices);
     }
+
     @Test
     public void testSortByPriceHighToLow() {
         driver.findElement(By.xpath("//li[@id='menu-item-1227']//a[@class='menu-link'][normalize-space()='Store']")).click();
