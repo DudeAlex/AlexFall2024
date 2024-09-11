@@ -644,4 +644,39 @@ public class FirstTest extends BaseTest {
         Assert.assertEquals(sortedPrices, prices);
     }
 
+      @Test
+    public void testEDSortByPriceHighToLow() throws InterruptedException {
+        driver.findElement(By.cssSelector("#menu-item-1227 a")).click();
+          List<Double> pricesAllExpect = new ArrayList<>();
+          for (int i = 0; i<2; i++){
+              List<Double> pricesCurrentPage = driver.findElements(By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"))
+                      .stream()
+                      .map(element -> element.getText().replace("$", ""))
+                      .map(Double::parseDouble)
+                      .toList();
+              pricesAllExpect.addAll(pricesCurrentPage);
+              driver.findElement(By.xpath("//ul[@class='page-numbers']/li[last()]")).click();
+
+          }
+        pricesAllExpect.sort(Collections.reverseOrder());
+
+        driver.findElement(By.cssSelector("#menu-item-1227 a")).click();
+        WebElement dropDownSort = driver.findElement(By.name("orderby"));
+        Select dropDownSelect = new Select(dropDownSort);
+        dropDownSelect.selectByValue("price-desc");
+
+        List<Double> pricesAllActual = new ArrayList<>();
+          for (int i = 0; i<2; i++){
+            List<Double> pricesCurrentPage = driver.findElements(By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"))
+                    .stream()
+                    .map(element -> element.getText().replace("$", ""))
+                    .map(Double::parseDouble)
+                    .toList();
+              pricesAllActual.addAll(pricesCurrentPage);
+          driver.findElement(By.xpath("//ul[@class='page-numbers']/li[last()]")).click();
+          }
+
+        Assert.assertEquals(pricesAllActual, pricesAllExpect);
+    }
+
 }
