@@ -776,4 +776,17 @@ public class FirstTest extends BaseTest {
         Assert.assertEquals(actualCategoryText, noCategorySelectedText, "Category was not cleared out!");
         Assert.assertEquals(driver.getCurrentUrl(), storePageUrl, "User was not redirected to the Store page");
     }
+
+    @Test
+    public void testStoreAddItemToMyCart(){
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+
+        WebElement button = driver.findElement(By.xpath("//a[@href='?add-to-cart=1198']"));
+        button.click();
+
+        driver.findElement(By.cssSelector("div.ast-cart-menu-wrap"));
+        WebElement amount = driver.findElement(By.cssSelector("span.count"));
+
+        Assert.assertTrue(amount.isDisplayed());
+    }
 }
