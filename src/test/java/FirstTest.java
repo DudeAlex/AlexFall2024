@@ -259,7 +259,7 @@ public class FirstTest extends BaseTest {
         viewCart.click();
 
         String priceStr = driver.findElement(By.xpath("//td[@class = 'product-subtotal']/span[@class='woocommerce-Price-amount amount']")).getText();
-        if(priceStr.charAt(0) == '$'){ //since the price is a string that has $, I need to remove the $ first
+        if (priceStr.charAt(0) == '$') { //since the price is a string that has $, I need to remove the $ first
             priceStr = priceStr.substring(1); //creating the substring without $
         }
         double price = Double.valueOf(priceStr); //change string price to double
@@ -277,7 +277,7 @@ public class FirstTest extends BaseTest {
         // After the clicking Update price button, I need wait until the price will be updated
         wait.until(driver -> {
             String checkPrice = driver.findElement(By.xpath("//td[@class = 'product-subtotal']/span[@class='woocommerce-Price-amount amount']")).getText();
-            if(checkPrice.equals(finalUpdatedPriceStr)) { // checking if price still equal to original price (before update)
+            if (checkPrice.equals(finalUpdatedPriceStr)) { // checking if price still equal to original price (before update)
                 return false;
             }
             return true;  //when price is updated (not equal anymore) returning true
@@ -285,7 +285,7 @@ public class FirstTest extends BaseTest {
 
         //  Getting the updated subtotal price
         String updatedPriceStr = driver.findElement(By.xpath("//td[@class = 'product-subtotal']/span[@class='woocommerce-Price-amount amount']")).getText();
-        if(updatedPriceStr.charAt(0) == '$'){
+        if (updatedPriceStr.charAt(0) == '$') {
             updatedPriceStr = updatedPriceStr.substring(1);
         }
 
@@ -698,17 +698,17 @@ public class FirstTest extends BaseTest {
     @Test
     public void testEDSortByPriceHighToLow() throws InterruptedException {
         driver.findElement(By.cssSelector("#menu-item-1227 a")).click();
-          List<Double> pricesAllExpect = new ArrayList<>();
-          for (int i = 0; i<2; i++){
-              List<Double> pricesCurrentPage = driver.findElements(By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"))
-                      .stream()
-                      .map(element -> element.getText().replace("$", ""))
-                      .map(Double::parseDouble)
-                      .toList();
-              pricesAllExpect.addAll(pricesCurrentPage);
-              driver.findElement(By.xpath("//ul[@class='page-numbers']/li[last()]")).click();
+        List<Double> pricesAllExpect = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            List<Double> pricesCurrentPage = driver.findElements(By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"))
+                    .stream()
+                    .map(element -> element.getText().replace("$", ""))
+                    .map(Double::parseDouble)
+                    .toList();
+            pricesAllExpect.addAll(pricesCurrentPage);
+            driver.findElement(By.xpath("//ul[@class='page-numbers']/li[last()]")).click();
 
-          }
+        }
         pricesAllExpect.sort(Collections.reverseOrder());
 
         driver.findElement(By.cssSelector("#menu-item-1227 a")).click();
@@ -717,15 +717,15 @@ public class FirstTest extends BaseTest {
         dropDownSelect.selectByValue("price-desc");
 
         List<Double> pricesAllActual = new ArrayList<>();
-          for (int i = 0; i<2; i++){
+        for (int i = 0; i < 2; i++) {
             List<Double> pricesCurrentPage = driver.findElements(By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"))
                     .stream()
                     .map(element -> element.getText().replace("$", ""))
                     .map(Double::parseDouble)
                     .toList();
-              pricesAllActual.addAll(pricesCurrentPage);
-          driver.findElement(By.xpath("//ul[@class='page-numbers']/li[last()]")).click();
-          }
+            pricesAllActual.addAll(pricesCurrentPage);
+            driver.findElement(By.xpath("//ul[@class='page-numbers']/li[last()]")).click();
+        }
 
         Assert.assertEquals(pricesAllActual, pricesAllExpect);
     }
@@ -758,4 +758,22 @@ public class FirstTest extends BaseTest {
         }
     }
 
+    @Test
+    public void closeCategory() {
+        // ClickUp: 4_7 | Women > Clear browse by categories.
+
+        String storePageUrl = "https://askomdch.com/store/";
+        driver.findElement(By.xpath("//a[contains(text(), 'Women')]")).click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement clearSelectionIcon = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@class='select2-selection__clear' and text()='×']")));
+        clearSelectionIcon.click();
+
+        WebElement selectCategoryField = driver.findElement(By.xpath("//select[@id='product_cat']"));
+        Select select = new Select (selectCategoryField);
+        String actualCategoryText = select.getOptions().get(0).getText();
+        String noCategorySelectedText = "Select a category";
+
+        Assert.assertEquals(actualCategoryText, noCategorySelectedText, "Category was not cleared out!");
+        Assert.assertEquals(driver.getCurrentUrl(), storePageUrl, "User was not redirected to the Store page");
+    }
 }
