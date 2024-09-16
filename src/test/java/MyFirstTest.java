@@ -1,6 +1,8 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -22,6 +24,12 @@ public class MyFirstTest extends BaseTest {
             "about/",
             "contact-us/"
     );
+    private static final List<String> HEADERS = List.of("" +
+            "Raining Offers for Hot Summer!",
+            "About Us",
+            "Account",
+            "Cart",
+            "Contact Us");
 
     public WebElement waitForElementPresent(By by, String error_message, Duration time) {
         WebDriverWait wait = new WebDriverWait(driver, time);
@@ -120,6 +128,58 @@ public class MyFirstTest extends BaseTest {
             }
             counter += 1;
 
+        }
+    }
+
+    //==================================================================================================================
+    @Test
+    public void checkQuickLinksElementsInFooter() throws InterruptedException {
+        //--------------------------------------------------------------------------------------------------------------
+        //TODO:
+        // 1. Open main page "https://askomdch.com/"
+        // 2. Go to footer
+        // 3. Check that each footer link in Quick Links column leads to the corresponding page
+        // 4. use main page header for check
+        //--------------------------------------------------------------------------------------------------------------
+
+        //Create list of footer Quick links
+        List<WebElement> quickLinksList = driver.findElement(By.id("menu-quick-links")).findElements(By.cssSelector("li>a"));
+        System.out.println("=========================================================================================");
+        System.out.println("size of list = " + quickLinksList.size());
+        System.out.println("++++++++");
+        for (int i = (quickLinksList.size() - 1);i >= 0 ; i--) {
+
+            //Get text from link
+            String textLink = quickLinksList.get(i).getText();
+            System.out.println("name of link = " + textLink);
+
+            //scroll to the footer element and click on it
+            new Actions(driver).moveToElement(
+                    quickLinksList.get(i))
+                    .click()
+                    .perform();
+//            ((JavascriptExecutor) driver)
+//                    .executeScript("window.scrollTo(0, document.body.scrollHeight)");
+//            quickLinksList.get(i).click();
+
+            //wait for load page
+            Thread.sleep(2000);
+//            waitForElementPresent(
+//                    By.xpath("//h1[@class = 'has-text-align-center'][contains(text(), '" + HEADERS.get(i) + "')]"),
+//                    "Header not found",
+//                    Duration.ofSeconds(3));
+
+            //take text from main header
+            String header = driver.findElement(By.cssSelector("h1.has-text-align-center")).getText();
+            System.out.println("Name of header " + driver.findElement(By.cssSelector("h1.has-text-align-center")).getText());
+            System.out.println("HEADERS element " + HEADERS.get(i));
+            System.out.println("++++++++");
+
+            //refreshing the list of items
+            quickLinksList = driver.findElement(By.id("menu-quick-links")).findElements(By.cssSelector("li>a"));
+
+            //Assert that the header on the page matches corresponding element in list HEADERS
+            Assert.assertEquals(HEADERS.get(i), header);
         }
     }
 }
