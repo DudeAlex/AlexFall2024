@@ -791,7 +791,7 @@ public class FirstTest extends BaseTest {
     }
 
     @Test
-    public void UseSearchOption() throws InterruptedException {
+    public void testUseSearchOption() throws InterruptedException {
         driver.findElement(By.xpath("//a[@href='https://askomdch.com/store/']")).click();
         WebElement searchField = driver.findElement(By.xpath("//input[@id='woocommerce-product-search-field-0']"));
         searchField.sendKeys("Shoes");
