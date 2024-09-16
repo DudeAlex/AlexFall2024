@@ -769,7 +769,7 @@ public class FirstTest extends BaseTest {
         clearSelectionIcon.click();
 
         WebElement selectCategoryField = driver.findElement(By.xpath("//select[@id='product_cat']"));
-        Select select = new Select (selectCategoryField);
+        Select select = new Select(selectCategoryField);
         String actualCategoryText = select.getOptions().get(0).getText();
         String noCategorySelectedText = "Select a category";
 
@@ -778,7 +778,7 @@ public class FirstTest extends BaseTest {
     }
 
     @Test
-    public void testStoreAddItemToMyCart(){
+    public void testStoreAddItemToMyCart() {
         driver.findElement(By.xpath("//a[@href='/store']")).click();
 
         WebElement button = driver.findElement(By.xpath("//a[@href='?add-to-cart=1198']"));
@@ -788,5 +788,18 @@ public class FirstTest extends BaseTest {
         WebElement amount = driver.findElement(By.cssSelector("span.count"));
 
         Assert.assertTrue(amount.isDisplayed());
+    }
+
+    @Test
+    public void UseSearchOption() throws InterruptedException {
+        driver.findElement(By.xpath("//a[@href='https://askomdch.com/store/']")).click();
+        WebElement searchField = driver.findElement(By.xpath("//input[@id='woocommerce-product-search-field-0']"));
+        searchField.sendKeys("Shoes");
+        WebElement searchButton = driver.findElement(By.xpath("//button[normalize-space()='Search']"));
+        searchButton.click();
+        Thread.sleep(3000);
+        WebElement searchResult = driver.findElement(By.cssSelector(".woocommerce-products-header__title.page-title"));
+        String searchText = searchResult.getText();
+        Assert.assertTrue(searchText.contains("Shoes"));
     }
 }
