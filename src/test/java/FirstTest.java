@@ -229,6 +229,7 @@ public class FirstTest extends BaseTest {
     }
 
     /* ANNA TEST - START */
+
     @Test
     public void testAddAndRemoveSingleItemFromCart() {
         driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='Store']")).click();
@@ -245,7 +246,51 @@ public class FirstTest extends BaseTest {
         String itemRemovedMassage = driver.findElement(By.xpath("//*[contains(text(),'removed')]")).getText();
         Assert.assertTrue(itemRemovedMassage.contains("removed"));
     }
+    @Test
+    public void testAddRemoveMultipleItemsInCart() throws InterruptedException {
+        driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='Store']")).click();
 
+        List<WebElement> products = driver.findElements(By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']"));
+        Integer counter = 0;
+        for (WebElement product : products) {
+            product.click();
+            counter++;
+            final String finalCounter2 = counter.toString();
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            wait.until(driver -> {
+                WebElement cartAmount = driver.findElement(By.xpath("//span[@class='count']"));
+                String testValue = cartAmount.getText();
+                if(testValue.equals(finalCounter2)) {
+                    return true;
+                }
+                return false;
+            });
+        }
+        WebElement viewCart = driver.findElement(By.linkText("View cart"));
+        String viewCartText = viewCart.getText();
+
+        Assert.assertEquals(viewCartText, "View cart");
+
+        viewCart.click();
+        List<WebElement> deleteButtons = driver.findElements(By.xpath("//a[@class = 'remove']"));
+        while(!deleteButtons.isEmpty()) {
+            deleteButtons.get(0).click();
+            counter--;
+            final String finalCounter = counter.toString();
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            wait.until(driver -> {
+                String testValue = driver.findElement(By.xpath("//span[@class='count']")).getText();
+                if (testValue.equals(finalCounter)) {
+                    return true;
+                }
+                return false;
+            });
+            deleteButtons = driver.findElements(By.xpath("//a[@class = 'remove']"));
+        }
+
+        String emptyCart = driver.findElement(By.xpath("//p[@class='cart-empty woocommerce-info']")).getText();
+        Assert.assertEquals(emptyCart, "Your cart is currently empty.");
+    }
     @Test
     public void testUpdateQuantityInCart() {
         driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='Store']")).click();
@@ -257,7 +302,6 @@ public class FirstTest extends BaseTest {
         Assert.assertEquals(viewCartText, "View cart");
 
         viewCart.click();
-
         String priceStr = driver.findElement(By.xpath("//td[@class = 'product-subtotal']/span[@class='woocommerce-Price-amount amount']")).getText();
         if (priceStr.charAt(0) == '$') { //since the price is a string that has $, I need to remove the $ first
             priceStr = priceStr.substring(1); //creating the substring without $
@@ -292,6 +336,8 @@ public class FirstTest extends BaseTest {
         double updatedPrice = Double.valueOf(updatedPriceStr);
         Assert.assertEquals(updatedPrice, (price * 2));
     }
+
+
 
     /* ANNA TEST - END */
 
@@ -769,7 +815,7 @@ public class FirstTest extends BaseTest {
         clearSelectionIcon.click();
 
         WebElement selectCategoryField = driver.findElement(By.xpath("//select[@id='product_cat']"));
-        Select select = new Select (selectCategoryField);
+        Select select = new Select(selectCategoryField);
         String actualCategoryText = select.getOptions().get(0).getText();
         String noCategorySelectedText = "Select a category";
 
@@ -778,7 +824,7 @@ public class FirstTest extends BaseTest {
     }
 
     @Test
-    public void testStoreAddItemToMyCart(){
+    public void testStoreAddItemToMyCart() {
         driver.findElement(By.xpath("//a[@href='/store']")).click();
 
         WebElement button = driver.findElement(By.xpath("//a[@href='?add-to-cart=1198']"));
@@ -811,5 +857,18 @@ public class FirstTest extends BaseTest {
                 findElement(By.xpath("//table[contains(@class,'shop_table')]//td[@class='product-name']"));
 
         Assert.assertEquals(productName.getText(), firstProductTitle);
+    }
+
+    @Test
+    public void testUseSearchOption() throws InterruptedException {
+        driver.findElement(By.xpath("//a[@href='https://askomdch.com/store/']")).click();
+        WebElement searchField = driver.findElement(By.xpath("//input[@id='woocommerce-product-search-field-0']"));
+        searchField.sendKeys("Shoes");
+        WebElement searchButton = driver.findElement(By.xpath("//button[normalize-space()='Search']"));
+        searchButton.click();
+        Thread.sleep(3000);
+        WebElement searchResult = driver.findElement(By.cssSelector(".woocommerce-products-header__title.page-title"));
+        String searchText = searchResult.getText();
+        Assert.assertTrue(searchText.contains("Shoes"));
     }
 }
