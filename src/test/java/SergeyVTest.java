@@ -8,6 +8,7 @@
 // На следующей странице заполняем все необходимые поля и создаем аккаунт (checkbox)
 // Заполняем поля логина и пароля
 
+import com.ecommerce.base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -15,7 +16,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class SergeyVTest extends BaseTest{
+public class SergeyVTest extends BaseTest {
 
     @Test
     public void testStoreName() {

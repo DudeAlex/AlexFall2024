@@ -1,12 +1,12 @@
+import com.ecommerce.base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class EndToEndTest  extends BaseTest{
+public class EndToEndTest  extends BaseTest {
 
     @Test
     public void testProductToShoppingCart () throws InterruptedException {

@@ -1,7 +1,8 @@
+import com.ecommerce.base.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
-public class SergeyV_Test extends BaseTest{
+public class SergeyV_Test extends BaseTest {
 
     @Test
     public void testSerg() throws InterruptedException {

@@ -1,3 +1,4 @@
+import com.ecommerce.base.BaseTest;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.Actions;
@@ -44,7 +45,7 @@ public class FirstTest extends BaseTest {
 
     }
 
-    @Test
+    @Test(description = "2_1 | Store > Sort product by category. # https://app.clickup.com/t/8689p8y90")
     public void ShoppingCartPopUpValidationTest() {
         driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
         driver.findElement(By.xpath("//a[@aria-label='Add “Anchor Bracelet” to your cart']")).click();
