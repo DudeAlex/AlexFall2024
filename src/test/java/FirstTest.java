@@ -837,6 +837,29 @@ public class FirstTest extends BaseTest {
     }
 
     @Test
+    public void testAccessoriesAddItemToCart() throws InterruptedException {
+        driver.findElement(By.xpath("//ul[@id='ast-hf-menu-1']//a[contains(text(),'Accessories')]")).click();
+
+        WebElement firstProduct = driver.findElement(By.xpath("//ul[contains(@class,'products')]//li"));
+        String firstProductTitle = firstProduct.findElement(By.xpath(".//h2")).getText();
+        WebElement firstProductAddToCartButton = firstProduct
+                .findElement(By.xpath(".//a[contains(text(),'Add to cart')]"));
+
+        firstProductAddToCartButton.click();
+
+        Thread.sleep(2000);
+
+        driver.findElement(By.xpath("//a[@class='cart-container']")).click();
+
+        Thread.sleep(2000);
+
+        WebElement productName = driver.
+                findElement(By.xpath("//table[contains(@class,'shop_table')]//td[@class='product-name']"));
+
+        Assert.assertEquals(productName.getText(), firstProductTitle);
+    }
+
+    @Test
     public void testUseSearchOption() throws InterruptedException {
         driver.findElement(By.xpath("//a[@href='https://askomdch.com/store/']")).click();
         WebElement searchField = driver.findElement(By.xpath("//input[@id='woocommerce-product-search-field-0']"));
