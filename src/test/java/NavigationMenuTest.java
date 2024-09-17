@@ -1,9 +1,10 @@
+import com.ecommerce.base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class NavigationMenuTest extends BaseTest{
+public class NavigationMenuTest extends BaseTest {
 
     public WebElement getMenuItemById(String id) {
         return driver.findElement(By.id(id));
@@ -17,7 +18,7 @@ public class NavigationMenuTest extends BaseTest{
         // Click on the "Home" menu item
         accessoriesMenuItem.click();
 
-        // Use the 'wait' object from BaseTest to wait until the "Home" menu item becomes active
+        // Use the 'wait' object from com.ecommerce.base.BaseTest to wait until the "Home" menu item becomes active
         // This wait will ensure that the element with the class 'current-menu-item' is present in the DOM
         //WebElement activeMenuItem = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("li.current-menu-item a")));
 
@@ -41,7 +42,7 @@ public class NavigationMenuTest extends BaseTest{
         // Click on the "Store" menu item
         accessoriesMenuItem.click();
 
-        // Use the 'wait' object from BaseTest to wait until the "Accessories" menu item becomes active
+        // Use the 'wait' object from com.ecommerce.base.BaseTest to wait until the "Accessories" menu item becomes active
         // This wait will ensure that the element with the class 'current-menu-item' is present in the DOM
         //WebElement activeMenuItem = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("li.current-menu-item a")));
 
@@ -66,7 +67,7 @@ public class NavigationMenuTest extends BaseTest{
         // Click on the "Men" menu item
         accessoriesMenuItem.click();
 
-        // Use the 'wait' object from BaseTest to wait until the "Men" menu item becomes active
+        // Use the 'wait' object from com.ecommerce.base.BaseTest to wait until the "Men" menu item becomes active
         // This wait will ensure that the element with the class 'current-menu-item' is present in the DOM
         //WebElement activeMenuItem = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("li.current-menu-item a")));
 
@@ -90,7 +91,7 @@ public class NavigationMenuTest extends BaseTest{
         // Click on the "Women" menu item
         accessoriesMenuItem.click();
 
-        // Use the 'wait' object from BaseTest to wait until the "Women" menu item becomes active
+        // Use the 'wait' object from com.ecommerce.base.BaseTest to wait until the "Women" menu item becomes active
         // This wait will ensure that the element with the class 'current-menu-item' is present in the DOM
         //WebElement activeMenuItem = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("li.current-menu-item a")));
 
@@ -114,7 +115,7 @@ public class NavigationMenuTest extends BaseTest{
         // Click on the "Accessories" menu item
         accessoriesMenuItem.click();
 
-        // Use the 'wait' object from BaseTest to wait until the "Accessories" menu item becomes active
+        // Use the 'wait' object from com.ecommerce.base.BaseTest to wait until the "Accessories" menu item becomes active
         // This wait will ensure that the element with the class 'current-menu-item' is present in the DOM
         //WebElement activeMenuItem = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("li.current-menu-item a")));
 
@@ -138,7 +139,7 @@ public class NavigationMenuTest extends BaseTest{
         // Click on the "Account" menu item
         accountMenuItem.click();
 
-        // Use the 'wait' object from BaseTest to wait until the "Account" menu item becomes active
+        // Use the 'wait' object from com.ecommerce.base.BaseTest to wait until the "Account" menu item becomes active
         // This wait will ensure that the element with the class 'current-menu-item' is present in the DOM
         //WebElement activeMenuItem = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("li.current-menu-item a")));
 

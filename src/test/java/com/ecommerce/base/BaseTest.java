@@ -1,3 +1,5 @@
+package com.ecommerce.base;
+
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -7,7 +9,7 @@ import java.time.Duration;
 
 
 public class BaseTest {
-    WebDriver driver;
+    protected WebDriver driver;
 
 
     @BeforeMethod
