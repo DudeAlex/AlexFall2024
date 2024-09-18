@@ -233,7 +233,7 @@ public class StorePage extends BaseTest {
 
 
 
-    @Test
+    @Test ( description = "2.11-1.1 | TC > Store > See item's price.https://app.clickup.com/t/8689u8av6")
 
     public void testCheckPrices() {
         driver.findElement(By.xpath("//li[@id = 'menu-item-1227']/a[@href = 'https://askomdch.com/store/']")).click();
