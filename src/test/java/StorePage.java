@@ -28,4 +28,26 @@ public class StorePage extends BaseTest {
                 .allMatch(name -> name.contains(text)),
                 "No product contains the name " + text);
     }
-}
+
+    @Test
+
+    public void testCheckPrices() {
+        driver.findElement(By.xpath("//li[@id = 'menu-item-1227']/a[@href = 'https://askomdch.com/store/']")).click();
+
+        WebElement listOfItems = driver.findElement(By.xpath("//ul[@class='products columns-4']"));
+        List<WebElement> listOfItemsSize = driver.findElements(By.xpath("//ul[@class='products columns-4']/li"));
+        int totalItemsOnPage = listOfItemsSize.size();
+
+        List<WebElement> listOfPricesOnSale = listOfItems.findElements(By.xpath("//ul[@class='products columns-4']//span[@class='price']/ins"));
+        List<WebElement> listOfPricesWithoutSale = listOfItems.findElements(By.xpath("//ul[@class='products columns-4']//span[@class='price'][not(del[@aria-hidden='true'])]"));
+
+        List<String> allPricesList = new ArrayList<>();
+        listOfPricesOnSale.forEach(x -> allPricesList.add(x.getText()));
+        listOfPricesWithoutSale.forEach(x -> allPricesList.add(x.getText()));
+
+        // the quantity of items should match the quantity of items on the Store page
+        Assert.assertEquals(allPricesList.size(), totalItemsOnPage,
+                "The quantity of prices does not match the quantity of items on the Store page.");
+       }
+    }
+
