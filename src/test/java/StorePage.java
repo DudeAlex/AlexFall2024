@@ -71,5 +71,34 @@ public class StorePage extends BaseTest {
         }
         Assert.assertTrue(productFound, "No product with the name containing 'Jeans' was found.");
     }
+
+    @Test(description = "2.3_2.1 | Store > Search functionality for product> Negative Scenario – Searching for a Product That Is Not Available # https://app.clickup.com/t/8689tnf46")
+    public void testStorePageSearchNonExistentProduct() {
+        String text = "Jacket";
+        // Переход на страницу магазина
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+
+        // Ожидание загрузки страницы магазина
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='s']")));
+
+        // Ввод текста "Jacket" в поисковую строку
+        WebElement searchBox = driver.findElement(By.xpath("//input[@name='s']"));
+        searchBox.sendKeys(text);
+
+        // Нажатие кнопки поиска
+        WebElement searchButton = driver.findElement(By.xpath("//button[@value='Search']"));
+        searchButton.click();
+
+        // Ожидание отображения результатов поиска
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".woocommerce-info")));
+
+        // Получение сообщения о том, что товары не найдены
+        WebElement noProductsMessage = driver.findElement(By.cssSelector(".woocommerce-info"));
+
+        // Проверка, что сообщение содержит текст "No products were found matching your selection."
+        String expectedMessage = "No products were found matching your selection.";
+        Assert.assertEquals(noProductsMessage.getText(), expectedMessage, "The message about no products found is incorrect.");
+    }
 }
 
