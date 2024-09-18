@@ -23,12 +23,12 @@ public class StorePage extends BaseTest {
         List<WebElement> productList = driver.findElements(By.xpath("//ul[@class = 'products columns-4']/li//h2"));
 
         List<String> productNames = new ArrayList<>();
-        for (WebElement item: productList) {
+        for (WebElement item : productList) {
             productNames.add(item.getText().toLowerCase());
         }
 
-        Assert.assertTrue( productNames.stream()
-                .allMatch(name -> name.contains(text)),
+        Assert.assertTrue(productNames.stream()
+                        .allMatch(name -> name.contains(text)),
                 "No product contains the name " + text);
     }
 
@@ -100,5 +100,27 @@ public class StorePage extends BaseTest {
         String expectedMessage = "No products were found matching your selection.";
         Assert.assertEquals(noProductsMessage.getText(), expectedMessage, "The message about no products found is incorrect.");
     }
-}
 
+    @Test(description = "2_15 | Store > Go to the next page. https://app.clickup.com/t/8689p8y36")
+    public void testStoreGoToTheNextPage() {
+
+        String cartUrl = "https://askomdch.com/cart/";
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+
+        WebElement buttonAddToCart = driver.findElement(By.xpath("//a[@href='?add-to-cart=1198']"));
+        buttonAddToCart.click();
+
+        WebElement buttonViewCart = driver.findElement(By.cssSelector("a.added_to_cart.wc-forward"));
+        buttonViewCart.click();
+
+        Assert.assertEquals(driver.getCurrentUrl(), cartUrl);
+
+        List<WebElement> cartItems = driver.findElements(By.cssSelector("tr.woocommerce-cart-form__cart-item.cart_item"));
+
+        if (cartItems.size() > 0) {
+            Assert.assertTrue(true, "Товары отображаются в корзине");
+        } else {
+            Assert.fail("Товары не отображаются в корзине");
+        }
+    }
+}
