@@ -123,4 +123,112 @@ public class StorePage extends BaseTest {
             Assert.fail("Товары не отображаются в корзине");
         }
     }
+
+    @Test(description = "2.3-1.2.1 | TC > Store > Search functionality for product > Case Insensitivity > Uppercase Letters # https://app.clickup.com/t/8689u4rkc")
+
+    public void testStorePageSearchUppercaseProduct() {
+
+        String searchText = "JEANS";
+
+        // Переход на страницу магазина
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+
+        // Ожидание загрузки страницы магазина
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='s']")));
+
+        // Ввод текста "JEANS" (все заглавные буквы) в поисковую строку
+        WebElement searchBox = driver.findElement(By.xpath("//input[@name='s']"));
+        searchBox.sendKeys(searchText);
+
+        // Нажатие кнопки поиска
+        WebElement searchButton = driver.findElement(By.xpath("//button[@value='Search']"));
+        searchButton.click();
+
+        // Ожидание отображения результатов поиска
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".products .product")));
+
+        // Получение списка продуктов
+        List<WebElement> products = driver.findElements(By.cssSelector(".products .product"));
+
+        // Проверка, что результаты поиска найдены (список продуктов не пуст)
+        Assert.assertTrue(products.size() > 0, "No products were found for the search term.");
+
+        // Проверка, что заголовки продуктов содержат слово "Jeans" (регистр не учитывается)
+        boolean allProductsContainJeans = products.stream()
+                .allMatch(product -> product.getText().toLowerCase().contains("jeans"));
+
+        Assert.assertTrue(allProductsContainJeans, "Not all products match the search term 'Jeans'.");
+    }
+
+    @Test(description = "2.3-1.2.2 | TC > Store > Search functionality for product > Case Insensitivity > Lowercase Letters # https://app.clickup.com/t/8689u4zdd")
+
+    public void testStorePageSearchLowercaseProduct() {
+        String searchText = "jeans";
+
+        // Переход на страницу магазина
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+
+        // Ожидание загрузки страницы магазина
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='s']")));
+
+        // Ввод текста "jeans" (все строчные буквы) в поисковую строку
+        WebElement searchBox = driver.findElement(By.xpath("//input[@name='s']"));
+        searchBox.sendKeys(searchText);
+
+        // Нажатие кнопки поиска
+        WebElement searchButton = driver.findElement(By.xpath("//button[@value='Search']"));
+        searchButton.click();
+
+        // Ожидание отображения результатов поиска
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".products .product")));
+
+        // Получение списка продуктов
+        List<WebElement> products = driver.findElements(By.cssSelector(".products .product"));
+
+        // Проверка, что результаты поиска найдены (список продуктов не пуст)
+        Assert.assertTrue(products.size() > 0, "No products were found for the search term.");
+
+        // Проверка, что заголовки продуктов содержат слово "Jeans" (регистр не учитывается)
+        boolean allProductsContainJeans = products.stream()
+                .allMatch(product -> product.getText().toLowerCase().contains("jeans"));
+
+        Assert.assertTrue(allProductsContainJeans, "Not all products match the search term 'Jeans'.");
+    }
+    @Test(description = "2.3-1.2.3 | TC > Store > Search functionality for product > Case Insensitivity > Combination of Uppercase and Lowercase Letters # https://app.clickup.com/t/8689u541z")
+    public void testStorePageSearchCombiСaseProduct() {
+        String searchText = "JeAnS";
+
+        // Переход на страницу магазина
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+
+        // Ожидание загрузки страницы магазина
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='s']")));
+
+        // Ввод текста "JeAnS" (комбинацию заглавных и строчных букв) в поисковую строку
+        WebElement searchBox = driver.findElement(By.xpath("//input[@name='s']"));
+        searchBox.sendKeys(searchText);
+
+        // Нажатие кнопки поиска
+        WebElement searchButton = driver.findElement(By.xpath("//button[@value='Search']"));
+        searchButton.click();
+
+        // Ожидание отображения результатов поиска
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".products .product")));
+
+        // Получение списка продуктов
+        List<WebElement> products = driver.findElements(By.cssSelector(".products .product"));
+
+        // Проверка, что результаты поиска найдены (список продуктов не пуст)
+        Assert.assertTrue(products.size() > 0, "No products were found for the search term.");
+
+        // Проверка, что заголовки продуктов содержат слово "Jeans" (регистр не учитывается)
+        boolean allProductsContainJeans = products.stream()
+                .allMatch(product -> product.getText().toLowerCase().contains("jeans"));
+
+        Assert.assertTrue(allProductsContainJeans, "Not all products match the search term 'Jeans'.");
+    }
+
 }
