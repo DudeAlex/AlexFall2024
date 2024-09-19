@@ -284,6 +284,35 @@ public class StorePage extends BaseTest {
         int expectedProductCount = 8;
         Assert.assertEquals(products.size(), expectedProductCount, "The number of displayed products does not match the expected count.");
     }
+    @Test (description = "2.3-2.2 | TC > Store > Search functionality for product> Negative Scenario - Search with Special Characters # https://app.clickup.com/t/8689uev2u")
+    public void testStorePageSearchWithSpecialCharacters() {
+        String searchText = "@#$$%";
+
+        // Переход на страницу магазина
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+
+        // Ожидание загрузки страницы магазина
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='s']")));
+
+        // Ввод специальных символов в поисковую строку
+        WebElement searchBox = driver.findElement(By.xpath("//input[@name='s']"));
+        searchBox.sendKeys(searchText);
+
+        // Нажатие кнопки поиска
+        WebElement searchButton = driver.findElement(By.xpath("//button[@value='Search']"));
+        searchButton.click();
+
+        // Ожидание появления сообщения о том, что товары не найдены
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".woocommerce-info")));
+
+        // Получение сообщения о том, что товары не найдены
+        WebElement noProductsMessage = driver.findElement(By.cssSelector(".woocommerce-info"));
+
+        // Проверка, что сообщение содержит текст "No products were found matching your selection."
+        String expectedMessage = "No products were found matching your selection.";
+        Assert.assertEquals(noProductsMessage.getText(), expectedMessage, "The message about no products found is incorrect.");
+    }
 
 }
 
