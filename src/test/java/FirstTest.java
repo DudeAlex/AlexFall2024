@@ -231,22 +231,7 @@ public class FirstTest extends BaseTest {
 
     /* ANNA TEST - START */
 
-    @Test
-    public void testAddAndRemoveSingleItemFromCart() {
-        driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='Store']")).click();
 
-        driver.findElement(By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']")).click();
-        WebElement viewCart = driver.findElement(By.linkText("View cart"));
-        String viewCartText = viewCart.getText();
-
-        Assert.assertEquals(viewCartText, "View cart");
-
-        viewCart.click();
-        driver.findElement(By.xpath("//a[@class = 'remove']")).click();
-
-        String itemRemovedMassage = driver.findElement(By.xpath("//*[contains(text(),'removed')]")).getText();
-        Assert.assertTrue(itemRemovedMassage.contains("removed"));
-    }
     @Test
     public void testAddRemoveMultipleItemsInCart() throws InterruptedException {
         driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='Store']")).click();

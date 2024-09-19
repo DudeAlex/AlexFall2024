@@ -57,4 +57,20 @@ public class CartTest extends BaseTest {
         double updatedPrice = Double.valueOf(updatedPriceStr);
         Assert.assertEquals(updatedPrice, (price * 3));
     }
+    @Test(description = "9_2 | TC > Cart - Remove single item from the cart # https://app.clickup.com/t/8689ucy2m")
+    public void testAddAndRemoveSingleItemFromCart() {
+        driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='Store']")).click();
+
+        driver.findElement(By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']")).click();
+        WebElement viewCart = driver.findElement(By.linkText("View cart"));
+        String viewCartText = viewCart.getText();
+
+        Assert.assertEquals(viewCartText, "View cart");
+
+        viewCart.click();
+        driver.findElement(By.xpath("//a[@class = 'remove']")).click();
+
+        String itemRemovedMassage = driver.findElement(By.xpath("//*[contains(text(),'removed')]")).getText();
+        Assert.assertTrue(itemRemovedMassage.contains("removed"));
+    }
 }
