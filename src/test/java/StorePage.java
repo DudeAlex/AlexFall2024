@@ -253,5 +253,66 @@ public class StorePage extends BaseTest {
         Assert.assertEquals(allPricesList.size(), totalItemsOnPage,
                 "The quantity of prices does not match the quantity of items on the Store page.");
        }
+
+    @Test(description = "2.3-3 | TC > Store > Search functionality for product> Empty Search Field (Edge Case) # https://app.clickup.com/t/8689uckje")
+    public void testStorePageEmptySearchShowsAllProducts() {
+        // Переход на страницу магазина
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+
+        // Ожидание загрузки страницы магазина
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='s']")));
+
+        // Оставляем поле поиска пустым
+        WebElement searchBox = driver.findElement(By.xpath("//input[@name='s']"));
+        searchBox.clear(); // Очищаем поле на случай, если там что-то уже было
+
+        // Нажатие кнопки поиска
+        WebElement searchButton = driver.findElement(By.xpath("//button[@value='Search']"));
+        searchButton.click();
+
+        // Ожидание отображения списка всех продуктов
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".products .product")));
+
+        // Получение списка продуктов
+        List<WebElement> products = driver.findElements(By.cssSelector(".products .product"));
+
+        // Проверка, что список продуктов не пуст (должны отобразиться все доступные продукты)
+        Assert.assertTrue(products.size() > 0, "No products were found when searching with an empty search field.");
+
+        // Дополнительная проверка, что на странице отображены все доступные продукты, известно, что общее количество продуктов 13, но на первой странице у меня помещается 8:
+        int expectedProductCount = 8;
+        Assert.assertEquals(products.size(), expectedProductCount, "The number of displayed products does not match the expected count.");
     }
+    @Test (description = "2.3-2.2 | TC > Store > Search functionality for product> Negative Scenario - Search with Special Characters # https://app.clickup.com/t/8689uev2u")
+    public void testStorePageSearchWithSpecialCharacters() {
+        String searchText = "@#$$%";
+
+        // Переход на страницу магазина
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+
+        // Ожидание загрузки страницы магазина
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='s']")));
+
+        // Ввод специальных символов в поисковую строку
+        WebElement searchBox = driver.findElement(By.xpath("//input[@name='s']"));
+        searchBox.sendKeys(searchText);
+
+        // Нажатие кнопки поиска
+        WebElement searchButton = driver.findElement(By.xpath("//button[@value='Search']"));
+        searchButton.click();
+
+        // Ожидание появления сообщения о том, что товары не найдены
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".woocommerce-info")));
+
+        // Получение сообщения о том, что товары не найдены
+        WebElement noProductsMessage = driver.findElement(By.cssSelector(".woocommerce-info"));
+
+        // Проверка, что сообщение содержит текст "No products were found matching your selection."
+        String expectedMessage = "No products were found matching your selection.";
+        Assert.assertEquals(noProductsMessage.getText(), expectedMessage, "The message about no products found is incorrect.");
+    }
+
+}
 
