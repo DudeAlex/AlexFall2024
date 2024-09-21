@@ -1,4 +1,4 @@
-package com.ecommerce.tests.components;
+package com.ecommerce.tests.components.footer;
 
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.data.FooterAppstoresData;
