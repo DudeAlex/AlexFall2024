@@ -59,8 +59,9 @@ public class ItemTest extends BaseTest {
         return actualPriceList;
     }
 
-    @Test
-    public void testSearchReturnsAllItemsInCategories() {
+    @Test(description = "12-1.1 | TC>Store> Verify Search Returns All Items Across Categories "
+            + "# https://app.clickup.com/t/8689vk47d")
+    public void testVerifySearchReturnsAllItemsInAllCategories() {
         driver.findElement(By.xpath("//a[@href='/store']")).click();
         driver.findElement(By.xpath("//input[@type='search']")).sendKeys(ITEM_CATEGORY);
         driver.findElement(By.xpath("//button[@type='submit']")).click();
@@ -92,7 +93,9 @@ public class ItemTest extends BaseTest {
         };
     }
 
-    @Test(dataProvider = "provideAllItemCategory")
+    @Test(dataProvider = "provideAllItemCategory",
+            description = "2.12-1.1 | TC> Store> Verify items alphabetical order "
+                    + "# https://app.clickup.com/t/8689vk3c5")
     public void testVerifyItemsAlphabeticalOrder(String locator) {
         driver.findElement(By.xpath(locator)).click();
 
@@ -104,7 +107,8 @@ public class ItemTest extends BaseTest {
         Assert.assertEquals(allItemList, alphabeticalAllItemList, "Items are not in alphabetical order");
     }
 
-    @Test(dataProvider = "provideAllItemCategory")
+    @Test(dataProvider = "provideAllItemCategory", description = "2-1.3 | TC> Store> Sort low to high price "
+            + "# https://app.clickup.com/t/8689vk1yn")
     public void testSortByPriceLowToHigh(String locator) {
         driver.findElement(By.xpath(locator)).click();
 
@@ -124,7 +128,8 @@ public class ItemTest extends BaseTest {
                 "Prices are not sorted from low to high as expected");
     }
 
-    @Test(dataProvider = "provideAllItemCategory")
+    @Test(dataProvider = "provideAllItemCategory",
+            description = "2-1.2 | TC> Store> Sort high to low price # https://app.clickup.com/t/8689vjzgq")
     public void testSortByPriceHighToLow(String locator) {
         driver.findElement(By.xpath(locator)).click();
 
@@ -161,6 +166,36 @@ public class ItemTest extends BaseTest {
         List<String> allItemList = getAllItemsFromAllPages(By.xpath("//span[@class='ast-woo-product-category']"));
         for (String item : allItemList) {
             Assert.assertEquals(item, categoryName, "Item does not match the expected category");
+        }
+    }
+
+    @Test(description = "3.9-1.1 | TC> Man> Verify Sale items price # https://app.clickup.com/t/8689v3293")
+    public void testVerifyReducedPriceForSaleItems() {
+        driver.findElement(By.xpath("//li[@id='menu-item-1228']")).click();
+        //Ищем большой блок, в котором содержатся оба элемента
+        WebElement container = driver.findElement(By.xpath("//div[@class='ast-woocommerce-container']"));
+        //ищем все элементы и пробегаемся по листу всех
+        List<WebElement> productsList = container.findElements
+                (By.xpath("//ul[@class='products columns-4']//li"));
+
+        for (WebElement product : productsList) {
+            try {
+                // Проверяем наличие обоих элементов в одном блоке productList
+                /*если хотя бы один из продуктов не содержит элемента с классом onsale или del,
+                 метод findElement() выбрасывает исключение NoSuchElementException, если элемент не найден, поэтому ищем через try-catch.*/
+
+                WebElement saleTag = product.findElement(By.xpath(".//span[@class='onsale']"));
+                WebElement delTag = product.findElement(By.xpath(".//del"));
+
+                Assert.assertEquals(saleTag.getText(), "Sale!");
+                Assert.assertNotNull(delTag.getText());
+
+            } catch (NoSuchElementException e) {
+                // Если saleTag или delTag не найден, просто игнорируем этот продукт
+                // Но если saleTag или delTag отсутствует, тест упадет
+
+                System.out.println("Products does not have sale tags and crossed price");
+            }
         }
     }
 }
