@@ -15,7 +15,4 @@ public class FooterForHimTest extends BaseTest {
 
         Assert.assertEquals(driver.getCurrentUrl(), url);
     }
-
-
-
 }

@@ -15,6 +15,4 @@ public class FooterQuickLinksTest extends BaseTest {
 
         Assert.assertEquals(driver.getCurrentUrl(), url);
     }
-
-
 }

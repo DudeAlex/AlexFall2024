@@ -13,6 +13,4 @@ public class FooterForHerData {
                 {"https://askomdch.com/product-category/accessories/", "//a[@class='menu-link' and text()='Accessories']"}
         };
     }
-
-
 }
