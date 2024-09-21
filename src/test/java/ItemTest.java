@@ -195,6 +195,7 @@ public class ItemTest extends BaseTest {
                 // Но если saleTag или delTag отсутствует, тест упадет
 
                 System.out.println("Products does not have sale tags and crossed price");
+
             }
         }
     }
