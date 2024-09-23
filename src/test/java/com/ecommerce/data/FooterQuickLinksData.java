@@ -13,5 +13,4 @@ public class FooterQuickLinksData {
                 {"https://askomdch.com/contact-us/", "//a[@class='menu-link' and text()='Contact Us']"}
         };
     }
-
 }
