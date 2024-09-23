@@ -19,7 +19,7 @@ import java.util.List;
 
 public class StorePageTest extends BaseTest {
 
-    @Test
+    @Test(description = "2.4 - 1 | TC Store > Click search button. # https://app.clickup.com/t/8689p8y50")
     public void testSearchButton() {
         String text = "shoes";
 
