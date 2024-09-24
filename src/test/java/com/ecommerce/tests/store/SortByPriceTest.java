@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SortByPriceHighToLowTest extends BaseTest {
+public class SortByPriceTest extends BaseTest {
     @Test(description = "2 - 1.1 TC> Store Page > Sort products by price from High to Low # https://app.clickup.com/t/8689ug934")
 /*    The test verifies that items in the shop are ordered in the descending order (from high to low) according to
       their prices, when "Sort by price: high to low" option is chosen in the drop-down menu on the "Store" page.
@@ -75,6 +75,35 @@ public class SortByPriceHighToLowTest extends BaseTest {
                 break;
             }
             Assert.assertTrue(isDescending, "The prices are NOT in descending order!");
+        }
+    }
+
+    @Test(description = "2 - 1.0 TC> Store Page > Sort products by price from Low to High # https://app.clickup.com/t/8689ug903")
+
+    public void testSortPriceLowToHigh() {
+        driver.findElement(By.xpath("//a[@class= 'wp-block-button__link']")).click();
+        WebElement dropdown = driver.findElement(By.xpath("//select[@name='orderby']"));
+
+        Select select = new Select(dropdown);
+        select.selectByVisibleText("Sort by price: low to high");
+
+        List<WebElement> allProductsPage1 = driver.findElements(By.xpath("//span[@class='price']"));
+        List<String> allPrices = new ArrayList<>();
+
+        List<Double> pricesNumeric = new ArrayList<>();
+
+//      Parsing String prices to Double format, removing the '$' sign, populating pricesNumeric list
+        for (String price : allPrices) {
+            pricesNumeric.add(Double.parseDouble(price.replace("$", "")));
+        }
+
+        boolean isAscending = true;
+        for (int i = 0; i < pricesNumeric.size() - 1; i++) {
+            if (pricesNumeric.get(i) < pricesNumeric.get(i + 1)) {
+                isAscending = false;
+                break;
+            }
+            Assert.assertTrue(isAscending, "The prices are NOT in ascending order!");
         }
     }
 }
