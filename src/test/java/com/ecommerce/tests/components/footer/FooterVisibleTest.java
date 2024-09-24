@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 
 public class FooterVisibleTest extends BaseTest {
-    @Test(description = "11.1-6.1 | TC > Verify Navigation Footer Menu List Quick Links # https://app.clickup.com/t/8689wk9pk ")
+    @Test(description = "11.1-6.1 | TC > The footer navigation menu is displayed at the down of every site page # https://app.clickup.com/t/8689wk9pk ")
     public void testFooterVisible() {
 
         driver.get("https://askomdch.com/");
