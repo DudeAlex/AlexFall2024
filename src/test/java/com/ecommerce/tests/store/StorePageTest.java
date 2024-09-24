@@ -4,6 +4,7 @@ import com.ecommerce.base.BaseTest;
 import com.ecommerce.data.ProductsData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -19,6 +20,37 @@ import java.util.List;
 
 public class StorePageTest extends BaseTest {
 
+    private static List<String> getAllItemsFromAllPages(By locator, WebDriver driver) {
+        List<String> allItemList = new ArrayList<>();
+        boolean hasNextPage = true;
+
+        while (hasNextPage) {
+            List<WebElement> itemList = driver.findElements(locator);
+            for (WebElement item : itemList) {
+                allItemList.add(item.getText());
+            }
+
+            try {
+                WebElement nextPageArrow = driver.findElement(By.xpath("//a[@class='next page-numbers']"));
+                nextPageArrow.click();
+            } catch (NoSuchElementException e) {
+                hasNextPage = false;
+            }
+        }
+        return allItemList;
+    }
+
+    private static List<Double> getConvertedToDoublePriceList(List<String> priceTextList) {
+        List<Double> actualPriceList = new ArrayList<>();
+        for (String priceText : priceTextList) {
+            String priceClearedFromSigns = priceText.replace("$", "").trim();
+            double price = Double.parseDouble(priceClearedFromSigns);
+            actualPriceList.add(price);
+        }
+
+        return actualPriceList;
+    }
+
     @Test(description = "2.4 - 1 | TC Store > Click search button. # https://app.clickup.com/t/8689p8y50")
     public void testSearchButton() {
         String text = "shoes";
@@ -30,12 +62,12 @@ public class StorePageTest extends BaseTest {
         List<WebElement> productList = driver.findElements(By.xpath("//ul[@class = 'products columns-4']/li//h2"));
 
         List<String> productNames = new ArrayList<>();
-        for (WebElement item: productList) {
+        for (WebElement item : productList) {
             productNames.add(item.getText().toLowerCase());
         }
 
-        Assert.assertTrue( productNames.stream()
-                .allMatch(name -> name.contains(text)),
+        Assert.assertTrue(productNames.stream()
+                        .allMatch(name -> name.contains(text)),
                 "No product contains the name " + text);
     }
 
@@ -203,6 +235,7 @@ public class StorePageTest extends BaseTest {
 
         Assert.assertTrue(allProductsContainJeans, "Not all products match the search term 'Jeans'.");
     }
+
     @Test(description = "2.3-1.2.3 | TC > Store > Search functionality for product > Case Insensitivity > Combination of Uppercase and Lowercase Letters # https://app.clickup.com/t/8689u541z")
     public void testStorePageSearchCombiСaseProduct() {
         String searchText = "JeAnS";
@@ -239,8 +272,7 @@ public class StorePageTest extends BaseTest {
     }
 
 
-
-    @Test ( description = "2.11-1.1 | TC > Store > See item's price.https://app.clickup.com/t/8689u8av6")
+    @Test(description = "2.11-1.1 | TC > Store > See item's price.https://app.clickup.com/t/8689u8av6")
 
     public void testCheckPrices() {
         driver.findElement(By.xpath("//li[@id = 'menu-item-1227']/a[@href = 'https://askomdch.com/store/']")).click();
@@ -259,7 +291,7 @@ public class StorePageTest extends BaseTest {
         // the quantity of items should match the quantity of items on the Store page
         Assert.assertEquals(allPricesList.size(), totalItemsOnPage,
                 "The quantity of prices does not match the quantity of items on the Store page.");
-       }
+    }
 
     @Test(description = "2.3-3 | TC > Store > Search functionality for product> Empty Search Field (Edge Case) # https://app.clickup.com/t/8689uckje")
     public void testStorePageEmptySearchShowsAllProducts() {
@@ -291,7 +323,8 @@ public class StorePageTest extends BaseTest {
         int expectedProductCount = 8;
         Assert.assertEquals(products.size(), expectedProductCount, "The number of displayed products does not match the expected count.");
     }
-    @Test (description = "2.3-2.2 | TC > Store > Search functionality for product> Negative Scenario - Search with Special Characters # https://app.clickup.com/t/8689uev2u")
+
+    @Test(description = "2.3-2.2 | TC > Store > Search functionality for product> Negative Scenario - Search with Special Characters # https://app.clickup.com/t/8689uev2u")
     public void testStorePageSearchWithSpecialCharacters() {
         String searchText = "@#$$%";
 
@@ -323,10 +356,10 @@ public class StorePageTest extends BaseTest {
 
     @Test(dataProvider = "provideAllItemCategory", dataProviderClass = ProductsData.class,
             description = "2.12-1.1 | TC> Store> Verify items alphabetical order # https://app.clickup.com/t/8689vk3c5")
-    public void testVerifyItemsAlphabeticalOrder(String locator) {
-        driver.findElement(By.xpath(locator)).click();
+    public void testVerifyItemsAlphabeticalOrder(String category) {
+        driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='" + category + "']")).click();
 
-        List<String> allItemList = ProductsData.getAllItemsFromAllPages(By.xpath("//ul//h2"), driver);
+        List<String> allItemList = getAllItemsFromAllPages(By.xpath("//ul//h2"), driver);
 
         List<String> alphabeticalAllItemList = new ArrayList<>(allItemList);
         Collections.sort(alphabeticalAllItemList);
@@ -336,17 +369,17 @@ public class StorePageTest extends BaseTest {
 
     @Test(dataProvider = "provideAllItemCategory", dataProviderClass = ProductsData.class,
             description = "2-1.3 | TC> Store> Sort low to high price # https://app.clickup.com/t/8689vk1yn")
-    public void testSortByPriceLowToHigh(String locator) {
-        driver.findElement(By.xpath(locator)).click();
+    public void testSortByPriceLowToHigh(String category) {
+        driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='" + category + "']")).click();
 
         WebElement dropdown = driver.findElement(By.xpath("//select[@name='orderby']"));
         Select select = new Select(dropdown);
         select.selectByVisibleText("Sort by price: low to high");
 
-        List<String> priceTextList = ProductsData.getAllItemsFromAllPages
-                (By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"), driver);
+        List<String> priceTextList = getAllItemsFromAllPages(
+                By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"), driver);
 
-        List<Double> actualPriceList = ProductsData.getConvertedToDoublePriceList(priceTextList);
+        List<Double> actualPriceList = getConvertedToDoublePriceList(priceTextList);
 
         List<Double> expectedLowToHighPriceList = new ArrayList<>(actualPriceList);
         Collections.sort(expectedLowToHighPriceList);
@@ -357,17 +390,17 @@ public class StorePageTest extends BaseTest {
 
     @Test(dataProvider = "provideAllItemCategory", dataProviderClass = ProductsData.class,
             description = "2-1.2 | TC> Store> Sort high to low price # https://app.clickup.com/t/8689vjzgq")
-    public void testSortByPriceHighToLow(String locator) {
-        driver.findElement(By.xpath(locator)).click();
+    public void testSortByPriceHighToLow(String category) {
+        driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='" + category + "']")).click();
 
         WebElement dropdown = driver.findElement(By.xpath("//select[@name='orderby']"));
         Select select = new Select(dropdown);
         select.selectByVisibleText("Sort by price: high to low");
 
-        List<String> priceTextList = ProductsData.getAllItemsFromAllPages
+        List<String> priceTextList = getAllItemsFromAllPages
                 (By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"), driver);
 
-        List<Double> actualPriceList = ProductsData.getConvertedToDoublePriceList(priceTextList);
+        List<Double> actualPriceList = getConvertedToDoublePriceList(priceTextList);
 
         List<Double> expectedLowToHighPriceList = new ArrayList<>(actualPriceList);
         expectedLowToHighPriceList.sort(Comparator.reverseOrder());
@@ -376,14 +409,15 @@ public class StorePageTest extends BaseTest {
                 "Prices are not sorted from low to high as expected");
     }
 
-    @Test(dataProvider = "provideAllItemLocatorsWithNames", dataProviderClass = ProductsData.class)
-    public void testVerifyItemsCorrespondentCategories(String locator, String categoryName) {
-        driver.findElement(By.xpath(locator)).click();
+    //testVerifyItemsCorrespondentCategories[Women] will fail, bug?!
+    @Test(dataProvider = "provideAllItemCategory", dataProviderClass = ProductsData.class)
+    public void testVerifyItemsCorrespondentCategories(String category) {
+        driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='" + category + "']")).click();
 
-        List<String> allItemList = ProductsData.getAllItemsFromAllPages(
+        List<String> allItemList = getAllItemsFromAllPages(
                 By.xpath("//span[@class='ast-woo-product-category']"), driver);
         for (String item : allItemList) {
-            Assert.assertEquals(item, categoryName, "Item does not match the expected category");
+            Assert.assertEquals(item, category, "Item does not match the expected category");
         }
     }
 
@@ -413,7 +447,6 @@ public class StorePageTest extends BaseTest {
                 // Но если saleTag или delTag отсутствует, тест упадет
 
                 System.out.println("Products does not have sale tags and crossed price");
-
             }
         }
     }
