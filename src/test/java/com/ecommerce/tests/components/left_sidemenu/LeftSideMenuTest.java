@@ -41,7 +41,17 @@ public class LeftSideMenuTest extends BaseTest {
         }
     }
 
+    @Test(description = "10.4-10.4-2  | TC >Search box Test> Search by key word> No product were found # https://app.clickup.com/t/8689xwcb5")
+    public void testSearchBoxNoResult()  {
+        driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
+        WebElement searchBar = driver.findElement(By.id("woocommerce-product-search-field-0"));
+        searchBar.sendKeys("moon");
+        driver.findElement(By.xpath("//button[@value='Search']")).click();
+        WebElement notFoundMsg = driver.findElement(By.xpath("//p[@class='woocommerce-info woocommerce-no-products-found']"));
 
+        Assert.assertEquals(notFoundMsg.getText(),"No products were found matching your selection.");
+
+    }
     @Test(description = "10.2-10.2-2 | TC > Leftside_Bar > Browser by categories # https://app.clickup.com/t/8689x8my5")
     public void testBrowseByCategoriesLeftMenu() {
         driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
