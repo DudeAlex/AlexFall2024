@@ -450,5 +450,33 @@ public class StorePageTest extends BaseTest {
             }
         }
     }
+
+    @Test(description = "2.3-2-3 | TC > Store > Search functionality for product> Negative Scenario - Search Error Handling | https://app.clickup.com/t/8689y3uy0")
+    public void testStorePageSearchErrorHandling() {
+
+        String searchText = "askMeaskMeasaskMeaskMeaskMekMeaskMeaskMe";
+        String expectedMessage = "No products were found matching your selection.";
+
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebElement searchBox = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='s']")));
+
+        Assert.assertEquals(searchBox.getAttribute("value"), "", "Search box is not empty before test.");
+
+        searchBox.sendKeys(searchText);
+        System.out.println("Entered search text: " + searchText);
+
+        WebElement searchButton = driver.findElement(By.xpath("//button[@value='Search']"));
+        searchButton.click();
+        System.out.println("Search button clicked.");
+
+        WebElement noProductsMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".woocommerce-info")));
+
+        Assert.assertEquals(noProductsMessage.getText(), expectedMessage, "The message about no products found is incorrect.");
+        System.out.println("Verified no products message: " + noProductsMessage.getText());
+        }
+
 }
+
 
