@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.List;
 
 public class CartTest extends BaseTest {
 
@@ -72,5 +73,51 @@ public class CartTest extends BaseTest {
 
         String itemRemovedMassage = driver.findElement(By.xpath("//*[contains(text(),'removed')]")).getText();
         Assert.assertTrue(itemRemovedMassage.contains("removed"));
+    }
+
+    @Test(description = "9_6 | Cart > Removing all items from the cart results in an empty cart state # https://app.clickup.com/t/8689p8y04")
+    public void testAddRemoveMultipleItemsInCart() throws InterruptedException {
+        driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='Store']")).click();
+
+        List<WebElement> products = driver.findElements(By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']"));
+        Integer counter = 0;
+        for (WebElement product : products) {
+            product.click();
+            counter++;
+            final String finalCounter2 = counter.toString();
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            wait.until(driver -> {
+                WebElement cartAmount = driver.findElement(By.xpath("//span[@class='count']"));
+                String testValue = cartAmount.getText();
+                if(testValue.equals(finalCounter2)) {
+                    return true;
+                }
+                return false;
+            });
+        }
+        WebElement viewCart = driver.findElement(By.linkText("View cart"));
+        String viewCartText = viewCart.getText();
+
+        Assert.assertEquals(viewCartText, "View cart");
+
+        viewCart.click();
+        List<WebElement> deleteButtons = driver.findElements(By.xpath("//a[@class = 'remove']"));
+        while(!deleteButtons.isEmpty()) {
+            deleteButtons.get(0).click();
+            counter--;
+            final String finalCounter = counter.toString();
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            wait.until(driver -> {
+                String testValue = driver.findElement(By.xpath("//span[@class='count']")).getText();
+                if (testValue.equals(finalCounter)) {
+                    return true;
+                }
+                return false;
+            });
+            deleteButtons = driver.findElements(By.xpath("//a[@class = 'remove']"));
+        }
+
+        String emptyCart = driver.findElement(By.xpath("//p[@class='cart-empty woocommerce-info']")).getText();
+        Assert.assertEquals(emptyCart, "Your cart is currently empty.");
     }
 }
