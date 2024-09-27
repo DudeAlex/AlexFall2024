@@ -1,18 +1,25 @@
 import com.ecommerce.base.BaseTest;
+import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
 import java.util.List;
 
 public class EndToEndTest  extends BaseTest {
 
     @Test
     public void testProductToShoppingCart () throws InterruptedException {
+        By shopButton = By.xpath("//a[@class='wp-block-button__link']");
+        By searchField = By.id("woocommerce-product-search-field-0");
 
-        driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
-        driver.findElement(By.id("woocommerce-product-search-field-0")).sendKeys("Blue");
+        WaitUtils.visibilityOfElementLocated(driver, shopButton).click();
+        WaitUtils.visibilityOfElementLocated(driver,searchField).sendKeys("Blue");
+
         driver.findElement(By.xpath("//button[@value='Search']")).click();
 
         String searchResult = driver.findElement(By.xpath("//h1[@class='woocommerce-products-header__title page-title']")).getText();
