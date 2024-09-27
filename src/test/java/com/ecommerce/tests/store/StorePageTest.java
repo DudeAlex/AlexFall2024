@@ -2,10 +2,7 @@ package com.ecommerce.tests.store;
 
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.data.ProductsData;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -475,6 +472,42 @@ public class StorePageTest extends BaseTest {
 
         Assert.assertEquals(noProductsMessage.getText(), expectedMessage, "The message about no products found is incorrect.");
         System.out.println("Verified no products message: " + noProductsMessage.getText());
+        }
+
+        @Test (description = "2.11-1.2 | TC > Store > See itemion's price in Browse by category # https://app.clickup.com/t/8689yq16m")
+    public void checkPricesBrowseByCategory()  {
+
+            driver.findElement(By.xpath("//a[@href='/store']")).click();
+            WebElement browseByCategoryField = driver.findElement(By.cssSelector("#product_cat"));
+
+            // scroll down to the Browse category field
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].scrollIntoView(true);", browseByCategoryField);
+
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            wait.until(ExpectedConditions.visibilityOf(browseByCategoryField));
+
+            // Select the "Men" category
+            Select select = new Select(browseByCategoryField);
+            select.selectByValue("men");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ast-woocommerce-container .products")));
+
+            List<WebElement> allItems = driver.findElements(By.cssSelector(".ast-woocommerce-container .products >li"));
+            List<WebElement> priceElement = driver.findElements(By.xpath("//span[@class='price']/*[self::ins or self::span]"));
+
+            //  assert that the price is displayed on the item
+            priceElement.forEach(x -> {
+                Assert.assertTrue(x.isDisplayed(), "The price is not displayed");
+            });
+            // assert that the displayed category is correct and string price is not empty or null
+            allItems.forEach(item -> {
+                String categoryMenText = item.findElement(By.cssSelector(".astra-shop-summary-wrap .ast-woo-product-category")).getText();
+                String priceOnItem = item.findElement(By.xpath(".//span[@class='price']/ins | .//span[@class='price']/span")).getText();
+
+                Assert.assertEquals("Men", categoryMenText, "Displayed category does not match selected 'Men' category");
+                Assert.assertTrue(!priceOnItem.isEmpty() && priceOnItem != null, " The price String is Empty or null ");
+            });
+
         }
 
 }
