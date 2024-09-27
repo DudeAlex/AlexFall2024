@@ -507,9 +507,7 @@ public class StorePageTest extends BaseTest {
                 Assert.assertEquals("Men", categoryMenText, "Displayed category does not match selected 'Men' category");
                 Assert.assertTrue(!priceOnItem.isEmpty() && priceOnItem != null, " The price String is Empty or null ");
             });
-
         }
-
 }
 
 
