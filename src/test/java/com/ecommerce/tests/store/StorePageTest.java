@@ -474,7 +474,7 @@ public class StorePageTest extends BaseTest {
         System.out.println("Verified no products message: " + noProductsMessage.getText());
         }
 
-        @Test (description = "2.11-1.2 | TC > Store > See itemion's price in Browse by category # https://app.clickup.com/t/8689yq16m")
+        @Test (description = "2.11-1.2 |TC > Store > See itemion's price in Browse by category # https://app.clickup.com/t/8689yq16m")
     public void checkPricesBrowseByCategory()  {
 
             driver.findElement(By.xpath("//a[@href='/store']")).click();
