@@ -17,13 +17,12 @@ public class EndToEndTest  extends BaseTest {
         By shopButton = By.xpath("//a[@class='wp-block-button__link']");
         By searchField = By.id("woocommerce-product-search-field-0");
         By searchButton = By.xpath("//button[@value='Search']");
+        By headerTitle = By.xpath("//h1[@class='woocommerce-products-header__title page-title']");
 
         WaitUtils.visibilityOfElementLocated(driver, shopButton).click();
         WaitUtils.visibilityOfElementLocated(driver,searchField).sendKeys("Blue");
         WaitUtils.presenceOfElementLocated(driver, searchButton).click();
-
-
-        String searchResult = driver.findElement(By.xpath("//h1[@class='woocommerce-products-header__title page-title']")).getText();
+        String searchResult = WaitUtils.visibilityOf(driver, headerTitle).getText();
 
         Assert.assertEquals(searchResult, "Search results: “Blue”");
 

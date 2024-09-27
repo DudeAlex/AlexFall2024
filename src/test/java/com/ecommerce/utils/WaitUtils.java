@@ -31,4 +31,12 @@ public class WaitUtils {
 
     }
 
+    public static WebElement visibilityOf(WebDriver driver, By by, long timeout){
+        return  new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.visibilityOf(driver.findElement(by)));
+    }
+
+    public static WebElement visibilityOf(WebDriver driver, By by){
+        return visibilityOf(driver, by, TIMEOUTS);
+    }
+
 }
