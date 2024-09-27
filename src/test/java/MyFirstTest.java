@@ -157,18 +157,6 @@ public class MyFirstTest extends BaseTest {
                     quickLinksList.get(i))
                     .click()
                     .perform();
-//            ((JavascriptExecutor) driver)
-//                    .executeScript("window.scrollTo(0, document.body.scrollHeight)");
-//            quickLinksList.get(i).click();
-
-            //wait for load page
-            Thread.sleep(2000);
-//            waitForElementPresent(
-//                    By.xpath("//h1[@class = 'has-text-align-center'][contains(text(), '" + HEADERS.get(i) + "')]"),
-//                    "Header not found",
-//                    Duration.ofSeconds(3));
-
-            //take text from main header
             String header = driver.findElement(By.cssSelector("h1.has-text-align-center")).getText();
             System.out.println("Name of header " + driver.findElement(By.cssSelector("h1.has-text-align-center")).getText());
             System.out.println("HEADERS element " + HEADERS.get(i));
