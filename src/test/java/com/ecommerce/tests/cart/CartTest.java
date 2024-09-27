@@ -20,7 +20,7 @@ public class CartTest extends BaseTest {
         };
     }
 
-    @Test(description = "9_1 | TC > Cart - Update the Cart # https://app.clickup.com/t/8689u7hd6",
+    @Test(description = "9_1_1 | TC > Cart - Update the Cart # https://app.clickup.com/t/8689u7hd6",
     dataProvider = "numberToUpdateData")
     public void testUpdateQuantityInCart(String numbeerToSet, int priceIncreeaseToCheck) {
         driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='Store']")).click();
@@ -68,7 +68,7 @@ public class CartTest extends BaseTest {
         Assert.assertEquals(updatedPrice, (price * priceIncreeaseToCheck));
     }
 
-    @Test(description = "9_2 | TC > Cart - Remove single item from the cart # https://app.clickup.com/t/8689ucy2m")
+    @Test(description = "9_2_1 | TC > Cart - Remove single item from the cart # https://app.clickup.com/t/8689ucy2m")
     public void testAddAndRemoveSingleItemFromCart() {
         driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='Store']")).click();
 
@@ -85,7 +85,7 @@ public class CartTest extends BaseTest {
         Assert.assertTrue(itemRemovedMassage.contains("removed"));
     }
 
-    @Test(description = "9_6 | Cart > Removing all items from the cart results in an empty cart state # https://app.clickup.com/t/8689p8y04")
+    @Test(description = "9_2_2 | Cart > Removing all items from the cart results in an empty cart state # https://app.clickup.com/t/8689p8y04")
     public void testAddRemoveMultipleItemsInCart() throws InterruptedException {
         driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='Store']")).click();
 
@@ -122,11 +122,15 @@ public class CartTest extends BaseTest {
             final String finalCounter = counter.toString();
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
             wait.until(driver -> {
-                String testValue = driver.findElement(By.xpath("//span[@class='count']")).getText();
-                if (testValue.equals(finalCounter)) {
-                    return true;
+                try {
+                    String testValue = driver.findElement(By.xpath("//span[@class='count']")).getText();
+                    if (testValue.equals(finalCounter)) {
+                        return true;
+                    }
+                    return false;
+                } catch (Exception e) {
+                    return false;
                 }
-                return false;
             });
             deleteButtons = driver.findElements(By.xpath("//a[@class = 'remove']"));
         }
