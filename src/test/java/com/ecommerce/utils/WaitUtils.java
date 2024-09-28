@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.swing.border.EmptyBorder;
 import java.time.Duration;
+import java.util.List;
 
 public class WaitUtils {
 
@@ -37,6 +38,15 @@ public class WaitUtils {
 
     public static WebElement visibilityOf(WebDriver driver, By by){
         return visibilityOf(driver, by, TIMEOUTS);
+    }
+
+     public static List<WebElement> numberOfElementsToBeMoreThan(WebDriver driver, By by, long timeout, Integer multipleElements){
+        return new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.numberOfElementsToBeMoreThan(by,multipleElements));
+     }
+
+
+    public static List<WebElement> numberOfElementsToBeMoreThan(WebDriver driver, By by, Integer multipleElements){
+        return numberOfElementsToBeMoreThan(driver, by, TIMEOUTS, multipleElements);
     }
 
 }

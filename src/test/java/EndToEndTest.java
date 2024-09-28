@@ -18,6 +18,7 @@ public class EndToEndTest  extends BaseTest {
         By searchField = By.id("woocommerce-product-search-field-0");
         By searchButton = By.xpath("//button[@value='Search']");
         By headerTitle = By.xpath("//h1[@class='woocommerce-products-header__title page-title']");
+        By loopProducts = By.xpath("//h2[@class='woocommerce-loop-product__title']");
 
         WaitUtils.visibilityOfElementLocated(driver, shopButton).click();
         WaitUtils.visibilityOfElementLocated(driver,searchField).sendKeys("Blue");
@@ -26,8 +27,8 @@ public class EndToEndTest  extends BaseTest {
 
         Assert.assertEquals(searchResult, "Search results: “Blue”");
 
-        List<WebElement> blueProducts = driver.findElements(By.xpath("//h2[@class='woocommerce-loop-product__title']"));
-        String item = blueProducts.get(0).getText();
+        List<WebElement> items = WaitUtils.numberOfElementsToBeMoreThan(driver, loopProducts, 0);
+        String item = items.get(0).getText();
 
         driver.findElement(By.xpath("//a[@aria-label='Add “" + item + "” to your cart']")).click();
         driver.findElement(By.xpath("//a[@title='View cart']")).click();
