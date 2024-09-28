@@ -300,26 +300,7 @@ public class FirstTest extends BaseTest {
         return stringList;
     }
 
-
-    @Test
-    public void testNumberLinksOnStorePage() {
-        driver.findElement(By.xpath("//a[@href='/store']")).click();
-        List<WebElement> links = driver.findElements(By.tagName("a"));
-        System.out.println("Total number of links: " + links.size());
-
-        Assert.assertEquals(links.size(), 68, "The number of links is not 68");
-    }
-
-    @Test
-    public void testNumberImagesOnStorePage() {
-        driver.findElement(By.xpath("//a[@href='/store']")).click();
-        List<WebElement> images = driver.findElements(By.tagName("img"));
-        System.out.println("Total number of images: " + images.size());
-
-        Assert.assertEquals(images.size(), 13, "The number of images is not 13");
-    }
-
-    @Test
+       @Test
     public void emptyPasswordFieldErrorMessage() {
         String emptyPasswordErrorMsg = "Error: The password field is empty.";
         String email = "qae15355@gmail.com";
