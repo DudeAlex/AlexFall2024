@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -12,8 +13,16 @@ import java.util.List;
 
 public class CartTest extends BaseTest {
 
-    @Test(description = "9_1 | TC > Cart - Update the Cart # https://app.clickup.com/t/8689u7hd6")
-    public void testUpdateQuantityInCart() {
+    @DataProvider(name = "numberToUpdateData")
+    public Object[][] numberStrToUpdateData() {
+        return new Object[][] {
+                {"3", 3}, {"11", 11}, {"50", 50}
+        };
+    }
+
+    @Test(description = "9_1_1 | TC > Cart - Update the Cart # https://app.clickup.com/t/8689u7hd6",
+    dataProvider = "numberToUpdateData")
+    public void testUpdateQuantityInCart(String numbeerToSet, int priceIncreeaseToCheck) {
         driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='Store']")).click();
 
         driver.findElement(By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']")).click();
@@ -33,7 +42,7 @@ public class CartTest extends BaseTest {
         WebElement quantity = driver.findElement(By.xpath("//input[@class='input-text qty text']"));
         quantity.click();
         quantity.clear();
-        quantity.sendKeys("3");
+        quantity.sendKeys(numbeerToSet);
 
         String updatedPriceString = driver.findElement(By.xpath("//td[@class = 'product-subtotal']/span[@class='woocommerce-Price-amount amount']")).getText();
         driver.findElement(By.xpath("//button[@name='update_cart']")).click();
@@ -56,9 +65,10 @@ public class CartTest extends BaseTest {
         }
 
         double updatedPrice = Double.valueOf(updatedPriceStr);
-        Assert.assertEquals(updatedPrice, (price * 3));
+        Assert.assertEquals(updatedPrice, (price * priceIncreeaseToCheck));
     }
-    @Test(description = "9_2 | TC > Cart - Remove single item from the cart # https://app.clickup.com/t/8689ucy2m")
+
+    @Test(description = "9_2_1 | TC > Cart - Remove single item from the cart # https://app.clickup.com/t/8689ucy2m")
     public void testAddAndRemoveSingleItemFromCart() {
         driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='Store']")).click();
 
@@ -75,7 +85,7 @@ public class CartTest extends BaseTest {
         Assert.assertTrue(itemRemovedMassage.contains("removed"));
     }
 
-    @Test(description = "9_6 | Cart > Removing all items from the cart results in an empty cart state # https://app.clickup.com/t/8689p8y04")
+    @Test(description = "9_2_2 | Cart > Removing all items from the cart results in an empty cart state # https://app.clickup.com/t/8689p8y04")
     public void testAddRemoveMultipleItemsInCart() throws InterruptedException {
         driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='Store']")).click();
 
@@ -87,12 +97,16 @@ public class CartTest extends BaseTest {
             final String finalCounter2 = counter.toString();
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
             wait.until(driver -> {
-                WebElement cartAmount = driver.findElement(By.xpath("//span[@class='count']"));
-                String testValue = cartAmount.getText();
-                if(testValue.equals(finalCounter2)) {
-                    return true;
+                try{
+                    WebElement cartAmount = driver.findElement(By.xpath("//span[@class='count']"));
+                    String testValue = cartAmount.getText();
+                    if(testValue.equals(finalCounter2)) {
+                        return true;
+                    }
+                    return false;
+                } catch (Exception e) {
+                    return false;
                 }
-                return false;
             });
         }
         WebElement viewCart = driver.findElement(By.linkText("View cart"));
@@ -108,11 +122,15 @@ public class CartTest extends BaseTest {
             final String finalCounter = counter.toString();
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
             wait.until(driver -> {
-                String testValue = driver.findElement(By.xpath("//span[@class='count']")).getText();
-                if (testValue.equals(finalCounter)) {
-                    return true;
+                try {
+                    String testValue = driver.findElement(By.xpath("//span[@class='count']")).getText();
+                    if (testValue.equals(finalCounter)) {
+                        return true;
+                    }
+                    return false;
+                } catch (Exception e) {
+                    return false;
                 }
-                return false;
             });
             deleteButtons = driver.findElements(By.xpath("//a[@class = 'remove']"));
         }
