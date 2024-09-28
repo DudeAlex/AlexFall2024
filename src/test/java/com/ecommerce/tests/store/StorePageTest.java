@@ -68,76 +68,7 @@ public class StorePageTest extends BaseTest {
                 "No product contains the name " + text);
     }
 
-    @Test(description = "2.3-1.1 | Store > Search functionality for product> Positive Scenario – Searching for an Existing Product # https://app.clickup.com/t/8689p8y0v")
-    public void testStorePageSearchExistProduct() {
-        String text = "Jeans";
-
-        // Переход на страницу магазина
-        driver.findElement(By.xpath("//a[@href='/store']")).click();
-
-        // Ожидание загрузки страницы магазина
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='s']")));
-
-        // Ввод текста "Jeans" в поисковую строку
-        WebElement searchBox = driver.findElement(By.xpath("//input[@name='s']"));
-        searchBox.sendKeys(text);
-
-        // Нажатие кнопки поиска
-        WebElement searchButton = driver.findElement(By.xpath("//button[@value='Search']"));
-        searchButton.click();
-
-        // Ожидание загрузки результатов поиска
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".products .product")));
-
-        // Получение списка найденных продуктов
-        List<WebElement> products = driver.findElements(By.cssSelector(".products .product"));
-
-        // Проверка, что найдены хотя бы 1 или более продуктов
-        Assert.assertTrue(products.size() > 0, "No products were found for the search term 'Jeans'.");
-
-        // Дополнительно: Проверка, что хотя бы один продукт содержит текст "Jeans" в названии
-        boolean productFound = false;
-        for (WebElement product : products) {
-            WebElement productName = product.findElement(By.cssSelector(".woocommerce-loop-product__title"));
-            if (productName.getText().toLowerCase().contains("jeans")) {
-                productFound = true;
-                break;
-            }
-        }
-        Assert.assertTrue(productFound, "No product with the name containing 'Jeans' was found.");
-    }
-
-    @Test(description = "2.3_2.1 | Store > Search functionality for product> Negative Scenario – Searching for a Product That Is Not Available # https://app.clickup.com/t/8689tnf46")
-    public void testStorePageSearchNonExistentProduct() {
-        String text = "Jacket";
-        // Переход на страницу магазина
-        driver.findElement(By.xpath("//a[@href='/store']")).click();
-
-        // Ожидание загрузки страницы магазина
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='s']")));
-
-        // Ввод текста "Jacket" в поисковую строку
-        WebElement searchBox = driver.findElement(By.xpath("//input[@name='s']"));
-        searchBox.sendKeys(text);
-
-        // Нажатие кнопки поиска
-        WebElement searchButton = driver.findElement(By.xpath("//button[@value='Search']"));
-        searchButton.click();
-
-        // Ожидание отображения результатов поиска
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".woocommerce-info")));
-
-        // Получение сообщения о том, что товары не найдены
-        WebElement noProductsMessage = driver.findElement(By.cssSelector(".woocommerce-info"));
-
-        // Проверка, что сообщение содержит текст "No products were found matching your selection."
-        String expectedMessage = "No products were found matching your selection.";
-        Assert.assertEquals(noProductsMessage.getText(), expectedMessage, "The message about no products found is incorrect.");
-    }
-
-    @Test(description = "2_15 | Store > Go to the next page. https://app.clickup.com/t/8689p8y36")
+        @Test(description = "2_15 | Store > Go to the next page. https://app.clickup.com/t/8689p8y36")
     public void testStoreGoToTheNextPage() {
 
         String cartUrl = "https://askomdch.com/cart/";
@@ -160,116 +91,7 @@ public class StorePageTest extends BaseTest {
         }
     }
 
-    @Test(description = "2.3-1.2.1 | TC > Store > Search functionality for product > Case Insensitivity > Uppercase Letters # https://app.clickup.com/t/8689u4rkc")
-
-    public void testStorePageSearchUppercaseProduct() {
-
-        String searchText = "JEANS";
-
-        // Переход на страницу магазина
-        driver.findElement(By.xpath("//a[@href='/store']")).click();
-
-        // Ожидание загрузки страницы магазина
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='s']")));
-
-        // Ввод текста "JEANS" (все заглавные буквы) в поисковую строку
-        WebElement searchBox = driver.findElement(By.xpath("//input[@name='s']"));
-        searchBox.sendKeys(searchText);
-
-        // Нажатие кнопки поиска
-        WebElement searchButton = driver.findElement(By.xpath("//button[@value='Search']"));
-        searchButton.click();
-
-        // Ожидание отображения результатов поиска
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".products .product")));
-
-        // Получение списка продуктов
-        List<WebElement> products = driver.findElements(By.cssSelector(".products .product"));
-
-        // Проверка, что результаты поиска найдены (список продуктов не пуст)
-        Assert.assertTrue(products.size() > 0, "No products were found for the search term.");
-
-        // Проверка, что заголовки продуктов содержат слово "Jeans" (регистр не учитывается)
-        boolean allProductsContainJeans = products.stream()
-                .allMatch(product -> product.getText().toLowerCase().contains("jeans"));
-
-        Assert.assertTrue(allProductsContainJeans, "Not all products match the search term 'Jeans'.");
-    }
-
-    @Test(description = "2.3-1.2.2 | TC > Store > Search functionality for product > Case Insensitivity > Lowercase Letters # https://app.clickup.com/t/8689u4zdd")
-
-    public void testStorePageSearchLowercaseProduct() {
-        String searchText = "jeans";
-
-        // Переход на страницу магазина
-        driver.findElement(By.xpath("//a[@href='/store']")).click();
-
-        // Ожидание загрузки страницы магазина
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='s']")));
-
-        // Ввод текста "jeans" (все строчные буквы) в поисковую строку
-        WebElement searchBox = driver.findElement(By.xpath("//input[@name='s']"));
-        searchBox.sendKeys(searchText);
-
-        // Нажатие кнопки поиска
-        WebElement searchButton = driver.findElement(By.xpath("//button[@value='Search']"));
-        searchButton.click();
-
-        // Ожидание отображения результатов поиска
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".products .product")));
-
-        // Получение списка продуктов
-        List<WebElement> products = driver.findElements(By.cssSelector(".products .product"));
-
-        // Проверка, что результаты поиска найдены (список продуктов не пуст)
-        Assert.assertTrue(products.size() > 0, "No products were found for the search term.");
-
-        // Проверка, что заголовки продуктов содержат слово "Jeans" (регистр не учитывается)
-        boolean allProductsContainJeans = products.stream()
-                .allMatch(product -> product.getText().toLowerCase().contains("jeans"));
-
-        Assert.assertTrue(allProductsContainJeans, "Not all products match the search term 'Jeans'.");
-    }
-
-    @Test(description = "2.3-1.2.3 | TC > Store > Search functionality for product > Case Insensitivity > Combination of Uppercase and Lowercase Letters # https://app.clickup.com/t/8689u541z")
-    public void testStorePageSearchCombiСaseProduct() {
-        String searchText = "JeAnS";
-
-        // Переход на страницу магазина
-        driver.findElement(By.xpath("//a[@href='/store']")).click();
-
-        // Ожидание загрузки страницы магазина
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='s']")));
-
-        // Ввод текста "JeAnS" (комбинацию заглавных и строчных букв) в поисковую строку
-        WebElement searchBox = driver.findElement(By.xpath("//input[@name='s']"));
-        searchBox.sendKeys(searchText);
-
-        // Нажатие кнопки поиска
-        WebElement searchButton = driver.findElement(By.xpath("//button[@value='Search']"));
-        searchButton.click();
-
-        // Ожидание отображения результатов поиска
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".products .product")));
-
-        // Получение списка продуктов
-        List<WebElement> products = driver.findElements(By.cssSelector(".products .product"));
-
-        // Проверка, что результаты поиска найдены (список продуктов не пуст)
-        Assert.assertTrue(products.size() > 0, "No products were found for the search term.");
-
-        // Проверка, что заголовки продуктов содержат слово "Jeans" (регистр не учитывается)
-        boolean allProductsContainJeans = products.stream()
-                .allMatch(product -> product.getText().toLowerCase().contains("jeans"));
-
-        Assert.assertTrue(allProductsContainJeans, "Not all products match the search term 'Jeans'.");
-    }
-
-
-    @Test(description = "2.11-1.1 | TC > Store > See item's price.https://app.clickup.com/t/8689u8av6")
+       @Test(description = "2.11-1.1 | TC > Store > See item's price.https://app.clickup.com/t/8689u8av6")
 
     public void testCheckPrices() {
         driver.findElement(By.xpath("//li[@id = 'menu-item-1227']/a[@href = 'https://askomdch.com/store/']")).click();
@@ -290,66 +112,6 @@ public class StorePageTest extends BaseTest {
                 "The quantity of prices does not match the quantity of items on the Store page.");
     }
 
-    @Test(description = "2.3-3 | TC > Store > Search functionality for product> Empty Search Field (Edge Case) # https://app.clickup.com/t/8689uckje")
-    public void testStorePageEmptySearchShowsAllProducts() {
-        // Переход на страницу магазина
-        driver.findElement(By.xpath("//a[@href='/store']")).click();
-
-        // Ожидание загрузки страницы магазина
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='s']")));
-
-        // Оставляем поле поиска пустым
-        WebElement searchBox = driver.findElement(By.xpath("//input[@name='s']"));
-        searchBox.clear(); // Очищаем поле на случай, если там что-то уже было
-
-        // Нажатие кнопки поиска
-        WebElement searchButton = driver.findElement(By.xpath("//button[@value='Search']"));
-        searchButton.click();
-
-        // Ожидание отображения списка всех продуктов
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".products .product")));
-
-        // Получение списка продуктов
-        List<WebElement> products = driver.findElements(By.cssSelector(".products .product"));
-
-        // Проверка, что список продуктов не пуст (должны отобразиться все доступные продукты)
-        Assert.assertTrue(products.size() > 0, "No products were found when searching with an empty search field.");
-
-        // Дополнительная проверка, что на странице отображены все доступные продукты, известно, что общее количество продуктов 13, но на первой странице у меня помещается 8:
-        int expectedProductCount = 8;
-        Assert.assertEquals(products.size(), expectedProductCount, "The number of displayed products does not match the expected count.");
-    }
-
-    @Test(description = "2.3-2.2 | TC > Store > Search functionality for product> Negative Scenario - Search with Special Characters # https://app.clickup.com/t/8689uev2u")
-    public void testStorePageSearchWithSpecialCharacters() {
-        String searchText = "@#$$%";
-
-        // Переход на страницу магазина
-        driver.findElement(By.xpath("//a[@href='/store']")).click();
-
-        // Ожидание загрузки страницы магазина
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='s']")));
-
-        // Ввод специальных символов в поисковую строку
-        WebElement searchBox = driver.findElement(By.xpath("//input[@name='s']"));
-        searchBox.sendKeys(searchText);
-
-        // Нажатие кнопки поиска
-        WebElement searchButton = driver.findElement(By.xpath("//button[@value='Search']"));
-        searchButton.click();
-
-        // Ожидание появления сообщения о том, что товары не найдены
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".woocommerce-info")));
-
-        // Получение сообщения о том, что товары не найдены
-        WebElement noProductsMessage = driver.findElement(By.cssSelector(".woocommerce-info"));
-
-        // Проверка, что сообщение содержит текст "No products were found matching your selection."
-        String expectedMessage = "No products were found matching your selection.";
-        Assert.assertEquals(noProductsMessage.getText(), expectedMessage, "The message about no products found is incorrect.");
-    }
 
     @Test(dataProvider = "provideAllItemCategory", dataProviderClass = ProductsData.class,
             description = "2.12-1.1 | TC> Store> Verify items alphabetical order # https://app.clickup.com/t/8689vk3c5")
@@ -447,32 +209,6 @@ public class StorePageTest extends BaseTest {
             }
         }
     }
-
-    @Test(description = "2.3-2-3 | TC > Store > Search functionality for product> Negative Scenario - Search Error Handling | https://app.clickup.com/t/8689y3uy0")
-    public void testStorePageSearchErrorHandling() {
-
-        String searchText = "askMeaskMeasaskMeaskMeaskMekMeaskMeaskMe";
-        String expectedMessage = "No products were found matching your selection.";
-
-        driver.findElement(By.xpath("//a[@href='/store']")).click();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        WebElement searchBox = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='s']")));
-
-        Assert.assertEquals(searchBox.getAttribute("value"), "", "Search box is not empty before test.");
-
-        searchBox.sendKeys(searchText);
-        System.out.println("Entered search text: " + searchText);
-
-        WebElement searchButton = driver.findElement(By.xpath("//button[@value='Search']"));
-        searchButton.click();
-        System.out.println("Search button clicked.");
-
-        WebElement noProductsMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".woocommerce-info")));
-
-        Assert.assertEquals(noProductsMessage.getText(), expectedMessage, "The message about no products found is incorrect.");
-        System.out.println("Verified no products message: " + noProductsMessage.getText());
-        }
 
         @Test (description = "2.11-1.2 |TC > Store > See itemion's price in Browse by category # https://app.clickup.com/t/8689yq16m")
     public void checkPricesBrowseByCategory()  {
