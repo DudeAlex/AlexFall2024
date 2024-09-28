@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import javax.swing.border.EmptyBorder;
 import java.time.Duration;
 import java.util.List;
 
@@ -48,5 +47,19 @@ public class WaitUtils {
     public static List<WebElement> numberOfElementsToBeMoreThan(WebDriver driver, By by, Integer multipleElements){
         return numberOfElementsToBeMoreThan(driver, by, TIMEOUTS, multipleElements);
     }
+
+    // numberOfWindowsWait with default timeout
+    public static Boolean numberOfWindowsToBe(WebDriver driver, int numberOfWindow){
+        return new WebDriverWait(driver, Duration.ofSeconds(TIMEOUTS)).
+                until(ExpectedConditions.numberOfWindowsToBe(numberOfWindow));
+    }
+
+    // numberOfWindowsWait with custom timeout
+    public static Boolean numberOfWindowsToBe(WebDriver driver, int timeout, int numberOfWindow){
+        return new WebDriverWait(driver, Duration.ofSeconds(timeout)).
+                until(ExpectedConditions.numberOfWindowsToBe(numberOfWindow));
+    }
+
+
 
 }
