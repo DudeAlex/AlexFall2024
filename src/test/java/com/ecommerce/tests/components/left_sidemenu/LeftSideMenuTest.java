@@ -125,23 +125,23 @@ public class LeftSideMenuTest extends BaseTest {
     @Test(description = "10.4-8.3 | TC > Store > Verify Search Returns All Items Across Categories"
             + "# https://app.clickup.com/t/8689vk47d")
     public void testVerifySearchReturnsAllItemsInAllCategories() {
-        WaitUtils.elementToBeClickable(driver, SHOP_NOW_BUTTON, 3).click();
+        WaitUtils.elementToBeClickable(driver, SHOP_NOW_BUTTON, 2).click();
 
-        WebElement searchBox = WaitUtils.visibilityOfElementLocated(driver, SEARCH_BOX_INPUT, 3);
+        WebElement searchBox = WaitUtils.visibilityOfElementLocated(driver, SEARCH_BOX_INPUT, 2);
         searchBox.sendKeys(ITEM_CATEGORY);
         WaitUtils.elementToBeClickable(driver, SEARCH_BOX_SUBMIT).click();
 
-        List<WebElement> searchResultList = WaitUtils.numberOfElementsToBeMoreThan(driver, PRODUCT_LIST, 4);
+        List<WebElement> searchResultList = WaitUtils.visibilityOfAllElementsLocatedBy(driver, PRODUCT_LIST);
         Assert.assertFalse(searchResultList.isEmpty(), "Search results are empty.");
 
         int countItemBySearch = countItemsContainingItemText(searchResultList, ITEM_CATEGORY);
         WaitUtils.elementToBeClickable(driver, MEN_CATEGORY).click();
 
-        List<WebElement> menItemsList = WaitUtils.numberOfElementsToBeMoreThan(driver, PRODUCT_LIST, 3);
+        List<WebElement> menItemsList = WaitUtils.visibilityOfAllElementsLocatedBy(driver, PRODUCT_LIST, 3);
         int countItemInMenResult = countItemsContainingItemText(menItemsList, ITEM_CATEGORY);
 
         WaitUtils.elementToBeClickable(driver, WOMEN_CATEGORY).click();
-        List<WebElement> womenItemsList = WaitUtils.numberOfElementsToBeMoreThan(driver, PRODUCT_LIST, 0);
+        List<WebElement> womenItemsList = WaitUtils.visibilityOfAllElementsLocatedBy(driver, PRODUCT_LIST, 3);
         int countItemInWomenResult = countItemsContainingItemText(womenItemsList, ITEM_CATEGORY);
 
         Assert.assertEquals(countItemBySearch, countItemInMenResult + countItemInWomenResult,

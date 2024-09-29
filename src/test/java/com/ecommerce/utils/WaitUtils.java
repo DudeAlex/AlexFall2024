@@ -73,8 +73,16 @@ public class WaitUtils {
         return new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.elementToBeClickable(by));
     }
 
-    public static WebElement elementToBeClickable(WebDriver driver, By by){
+    public static WebElement elementToBeClickable(WebDriver driver, By by) {
         return elementToBeClickable(driver, by, TIMEOUTS);
+    }
+
+    public static List<WebElement> visibilityOfAllElementsLocatedBy(WebDriver driver, By by, long timeout) {
+        return  new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
+    }
+
+    public static List<WebElement> visibilityOfAllElementsLocatedBy(WebDriver driver, By by) {
+        return visibilityOfAllElementsLocatedBy(driver, by, TIMEOUTS);
     }
 
 }
