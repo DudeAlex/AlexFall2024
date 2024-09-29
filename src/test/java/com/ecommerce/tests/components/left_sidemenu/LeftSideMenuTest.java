@@ -1,6 +1,7 @@
 package com.ecommerce.tests.components.left_sidemenu;
 
 import com.ecommerce.base.BaseTest;
+import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -16,6 +17,25 @@ import java.util.Collections;
 import java.util.List;
 
 public class LeftSideMenuTest extends BaseTest {
+
+    private static final String ITEM_CATEGORY = "jeans";
+    private static final By SHOP_NOW_BUTTON = By.xpath("//a[@href='/store']");
+    private static final By SEARCH_BOX_INPUT = By.xpath("//input[@type='search']");
+    private static final By SEARCH_BOX_SUBMIT = By.xpath("//button[@type='submit']");
+    private static final By PRODUCT_LIST = By.xpath("//ul//h2");
+    private static final By MEN_CATEGORY = By.id("menu-item-1228");
+    private static final By WOMEN_CATEGORY = By.id("menu-item-1229");
+
+    private static int countItemsContainingItemText(List<WebElement> items, String product) {
+        int count = 0;
+        for (WebElement item : items) {
+            String itemText = item.getText().toLowerCase();
+            if (itemText.contains(product.toLowerCase())) {
+                count++;
+            }
+        }
+        return count;
+    }
 
     @Test(description = "10.4-10.4-1  | TC >Search box Test> Search by key word # https://app.clickup.com/t/8689x8h18")
     public void testSearchBox() {
@@ -42,16 +62,17 @@ public class LeftSideMenuTest extends BaseTest {
     }
 
     @Test(description = "10.4-10.4-2  | TC >Search box Test> Search by key word> No product were found # https://app.clickup.com/t/8689xwcb5")
-    public void testSearchBoxNoResult()  {
+    public void testSearchBoxNoResult() {
         driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
         WebElement searchBar = driver.findElement(By.id("woocommerce-product-search-field-0"));
         searchBar.sendKeys("moon");
         driver.findElement(By.xpath("//button[@value='Search']")).click();
         WebElement notFoundMsg = driver.findElement(By.xpath("//p[@class='woocommerce-info woocommerce-no-products-found']"));
 
-        Assert.assertEquals(notFoundMsg.getText(),"No products were found matching your selection.");
+        Assert.assertEquals(notFoundMsg.getText(), "No products were found matching your selection.");
 
     }
+
     @Test(description = "10.2-10.2-2 | TC > Leftside_Bar > Browser by categories # https://app.clickup.com/t/8689x8my5")
     public void testBrowseByCategoriesLeftMenu() {
         driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
@@ -101,6 +122,30 @@ public class LeftSideMenuTest extends BaseTest {
         }
     }
 
+    @Test(description = "10.4-8.3 | TC > Store > Verify Search Returns All Items Across Categories"
+            + "# https://app.clickup.com/t/8689vk47d")
+    public void testVerifySearchReturnsAllItemsInAllCategories() {
+        WaitUtils.elementToBeClickable(driver, SHOP_NOW_BUTTON, 3).click();
+
+        WebElement searchBox = WaitUtils.visibilityOfElementLocated(driver, SEARCH_BOX_INPUT, 3);
+        searchBox.sendKeys(ITEM_CATEGORY);
+        WaitUtils.elementToBeClickable(driver, SEARCH_BOX_SUBMIT).click();
+
+        List<WebElement> searchResultList = WaitUtils.numberOfElementsToBeMoreThan(driver, PRODUCT_LIST, 4);
+        Assert.assertFalse(searchResultList.isEmpty(), "Search results are empty.");
+
+        int countItemBySearch = countItemsContainingItemText(searchResultList, ITEM_CATEGORY);
+        WaitUtils.elementToBeClickable(driver, MEN_CATEGORY).click();
+
+        List<WebElement> menItemsList = WaitUtils.numberOfElementsToBeMoreThan(driver, PRODUCT_LIST, 3);
+        int countItemInMenResult = countItemsContainingItemText(menItemsList, ITEM_CATEGORY);
+
+        WaitUtils.elementToBeClickable(driver, WOMEN_CATEGORY).click();
+        List<WebElement> womenItemsList = WaitUtils.numberOfElementsToBeMoreThan(driver, PRODUCT_LIST, 0);
+        int countItemInWomenResult = countItemsContainingItemText(womenItemsList, ITEM_CATEGORY);
+
+        Assert.assertEquals(countItemBySearch, countItemInMenResult + countItemInWomenResult,
+                "Search box did not find all the items with item name '"
+                        + ITEM_CATEGORY + "' or find extra items");
+    }
 }
-
-
