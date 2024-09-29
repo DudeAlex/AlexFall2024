@@ -19,6 +19,12 @@ import java.util.List;
 public class LeftSideMenuTest extends BaseTest {
 
     private static final String ITEM_CATEGORY = "jeans";
+    private static final By SHOP_NOW_BUTTON = By.xpath("//a[@href='/store']");
+    private static final By SEARCH_BOX_INPUT = By.xpath("//input[@type='search']");
+    private static final By SEARCH_BOX_SUBMIT = By.xpath("//button[@type='submit']");
+    private static final By PRODUCT_LIST = By.xpath("//ul//h2");
+    private static final By MEN_CATEGORY = By.id("menu-item-1228");
+    private static final By WOMEN_CATEGORY = By.id("menu-item-1229");
 
     private static int countItemsContainingItemText(List<WebElement> items, String product) {
         int count = 0;
@@ -119,30 +125,27 @@ public class LeftSideMenuTest extends BaseTest {
     @Test(description = "10.4-8.3 | TC > Store > Verify Search Returns All Items Across Categories"
             + "# https://app.clickup.com/t/8689vk47d")
     public void testVerifySearchReturnsAllItemsInAllCategories() {
-        WaitUtils.elementToBeClickable(driver, By.xpath("//a[@href='/store']"), 3).click();
+        WaitUtils.elementToBeClickable(driver, SHOP_NOW_BUTTON, 3).click();
 
-        WebElement searchBox = WaitUtils.visibilityOfElementLocated(driver, By.xpath("//input[@type='search']"), 3);
+        WebElement searchBox = WaitUtils.visibilityOfElementLocated(driver, SEARCH_BOX_INPUT, 3);
         searchBox.sendKeys(ITEM_CATEGORY);
-        WaitUtils.elementToBeClickable(driver, By.xpath("//button[@type='submit']")).click();
+        WaitUtils.elementToBeClickable(driver, SEARCH_BOX_SUBMIT).click();
 
-        List<WebElement> searchResultList = driver.findElements(By.xpath("//ul//h2"));
+        List<WebElement> searchResultList = WaitUtils.numberOfElementsToBeMoreThan(driver, PRODUCT_LIST, 4);
         Assert.assertFalse(searchResultList.isEmpty(), "Search results are empty.");
 
         int countItemBySearch = countItemsContainingItemText(searchResultList, ITEM_CATEGORY);
-        WaitUtils.elementToBeClickable(driver, By.xpath("//li[@id='menu-item-1228']//a[text()='Men']")).click();
+        WaitUtils.elementToBeClickable(driver, MEN_CATEGORY).click();
 
-        List<WebElement> menItemsList = driver.findElements(By.xpath("//ul//h2"));
+        List<WebElement> menItemsList = WaitUtils.numberOfElementsToBeMoreThan(driver, PRODUCT_LIST, 3);
         int countItemInMenResult = countItemsContainingItemText(menItemsList, ITEM_CATEGORY);
 
-        WaitUtils.elementToBeClickable(driver, By.xpath("//li[@id='menu-item-1229']//a[text()='Women']")).click();
-        List<WebElement> womenItemsList = driver.findElements(By.xpath("//ul//h2"));
+        WaitUtils.elementToBeClickable(driver, WOMEN_CATEGORY).click();
+        List<WebElement> womenItemsList = WaitUtils.numberOfElementsToBeMoreThan(driver, PRODUCT_LIST, 0);
         int countItemInWomenResult = countItemsContainingItemText(womenItemsList, ITEM_CATEGORY);
 
         Assert.assertEquals(countItemBySearch, countItemInMenResult + countItemInWomenResult,
                 "Search box did not find all the items with item name '"
                         + ITEM_CATEGORY + "' or find extra items");
     }
-
 }
-
-
