@@ -22,14 +22,6 @@ public class WaitUtils {
         return visibilityOfElementLocated(driver, by, TIMEOUTS);
     }
 
-    public static List<WebElement> visibilityOfAllElementsLocated(WebDriver driver, By by, long timeout) {
-        return new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
-    }
-
-    public static List<WebElement> visibilityOfAllElementsLocated(WebDriver driver, By by) {
-        return visibilityOfAllElementsLocated(driver, by, TIMEOUTS);
-    }
-
     public static WebElement presenceOfElementLocated(WebDriver driver, By by, long timeout) {
 
         return new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.presenceOfElementLocated(by));
