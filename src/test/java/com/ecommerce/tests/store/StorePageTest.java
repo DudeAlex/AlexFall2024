@@ -2,6 +2,7 @@ package com.ecommerce.tests.store;
 
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.data.ProductsData;
+import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -17,18 +18,21 @@ import java.util.List;
 
 public class StorePageTest extends BaseTest {
 
+    private static final By PRODUCT_LIST = By.xpath("//ul//h2");
+    private static final By NEXT_PAGE_NUMBER = By.xpath("//a[@class='next page-numbers']");
+
     private static List<String> getAllItemsFromAllPages(By locator, WebDriver driver) {
         List<String> allItemList = new ArrayList<>();
         boolean hasNextPage = true;
 
         while (hasNextPage) {
-            List<WebElement> itemList = driver.findElements(locator);
+            List<WebElement> itemList = WaitUtils.visibilityOfAllElementsLocatedBy(driver, locator);
             for (WebElement item : itemList) {
                 allItemList.add(item.getText());
             }
 
             try {
-                WebElement nextPageArrow = driver.findElement(By.xpath("//a[@class='next page-numbers']"));
+                WebElement nextPageArrow = driver.findElement(NEXT_PAGE_NUMBER);
                 nextPageArrow.click();
             } catch (NoSuchElementException e) {
                 hasNextPage = false;
@@ -116,9 +120,9 @@ public class StorePageTest extends BaseTest {
     @Test(dataProvider = "provideAllItemCategory", dataProviderClass = ProductsData.class,
             description = "2.12-1.1 | TC> Store> Verify items alphabetical order # https://app.clickup.com/t/8689vk3c5")
     public void testVerifyItemsAlphabeticalOrder(String category) {
-        driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='" + category + "']")).click();
+        WaitUtils.elementToBeClickable(driver, By.xpath("//div[@id='ast-desktop-header']//a[text()='" + category + "']")).click();
 
-        List<String> allItemList = getAllItemsFromAllPages(By.xpath("//ul//h2"), driver);
+        List<String> allItemList = getAllItemsFromAllPages(PRODUCT_LIST, driver);
 
         List<String> alphabeticalAllItemList = new ArrayList<>(allItemList);
         Collections.sort(alphabeticalAllItemList);
@@ -171,7 +175,8 @@ public class StorePageTest extends BaseTest {
     //testVerifyItemsCorrespondentCategories[Women] will fail, bug?!
     @Test(dataProvider = "provideAllItemCategory", dataProviderClass = ProductsData.class)
     public void testVerifyItemsCorrespondentCategories(String category) {
-        driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='" + category + "']")).click();
+        WaitUtils.elementToBeClickable(
+                driver, By.xpath("//div[@id='ast-desktop-header']//a[text()='" + category + "']")).click();
 
         List<String> allItemList = getAllItemsFromAllPages(
                 By.xpath("//span[@class='ast-woo-product-category']"), driver);
