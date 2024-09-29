@@ -1,6 +1,7 @@
 package com.ecommerce.tests.components.left_sidemenu;
 
 import com.ecommerce.base.BaseTest;
+import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -16,6 +17,19 @@ import java.util.Collections;
 import java.util.List;
 
 public class LeftSideMenuTest extends BaseTest {
+
+    private static final String ITEM_CATEGORY = "jeans";
+
+    private static int countItemsContainingItemText(List<WebElement> items, String product) {
+        int count = 0;
+        for (WebElement item : items) {
+            String itemText = item.getText().toLowerCase();
+            if (itemText.contains(product.toLowerCase())) {
+                count++;
+            }
+        }
+        return count;
+    }
 
     @Test(description = "10.4-10.4-1  | TC >Search box Test> Search by key word # https://app.clickup.com/t/8689x8h18")
     public void testSearchBox() {
@@ -42,16 +56,17 @@ public class LeftSideMenuTest extends BaseTest {
     }
 
     @Test(description = "10.4-10.4-2  | TC >Search box Test> Search by key word> No product were found # https://app.clickup.com/t/8689xwcb5")
-    public void testSearchBoxNoResult()  {
+    public void testSearchBoxNoResult() {
         driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
         WebElement searchBar = driver.findElement(By.id("woocommerce-product-search-field-0"));
         searchBar.sendKeys("moon");
         driver.findElement(By.xpath("//button[@value='Search']")).click();
         WebElement notFoundMsg = driver.findElement(By.xpath("//p[@class='woocommerce-info woocommerce-no-products-found']"));
 
-        Assert.assertEquals(notFoundMsg.getText(),"No products were found matching your selection.");
+        Assert.assertEquals(notFoundMsg.getText(), "No products were found matching your selection.");
 
     }
+
     @Test(description = "10.2-10.2-2 | TC > Leftside_Bar > Browser by categories # https://app.clickup.com/t/8689x8my5")
     public void testBrowseByCategoriesLeftMenu() {
         driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
@@ -99,6 +114,33 @@ public class LeftSideMenuTest extends BaseTest {
                 Assert.assertTrue(allPricesUnderSixty, "Filter by price doesn't filter the price accordingly");
             }
         }
+    }
+
+    @Test(description = "10.4-8.3 | TC > Store > Verify Search Returns All Items Across Categories"
+            + "# https://app.clickup.com/t/8689vk47d")
+    public void testVerifySearchReturnsAllItemsInAllCategories() {
+        WaitUtils.elementToBeClickable(driver, By.xpath("//a[@href='/store']"), 3).click();
+
+        WebElement searchBox = WaitUtils.visibilityOfElementLocated(driver, By.xpath("//input[@type='search']"), 3);
+        searchBox.sendKeys(ITEM_CATEGORY);
+        WaitUtils.elementToBeClickable(driver, By.xpath("//button[@type='submit']")).click();
+
+        List<WebElement> searchResultList = driver.findElements(By.xpath("//ul//h2"));
+        Assert.assertFalse(searchResultList.isEmpty(), "Search results are empty.");
+
+        int countItemBySearch = countItemsContainingItemText(searchResultList, ITEM_CATEGORY);
+        WaitUtils.elementToBeClickable(driver, By.xpath("//li[@id='menu-item-1228']//a[text()='Men']")).click();
+
+        List<WebElement> menItemsList = driver.findElements(By.xpath("//ul//h2"));
+        int countItemInMenResult = countItemsContainingItemText(menItemsList, ITEM_CATEGORY);
+
+        WaitUtils.elementToBeClickable(driver, By.xpath("//li[@id='menu-item-1229']//a[text()='Women']")).click();
+        List<WebElement> womenItemsList = driver.findElements(By.xpath("//ul//h2"));
+        int countItemInWomenResult = countItemsContainingItemText(womenItemsList, ITEM_CATEGORY);
+
+        Assert.assertEquals(countItemBySearch, countItemInMenResult + countItemInWomenResult,
+                "Search box did not find all the items with item name '"
+                        + ITEM_CATEGORY + "' or find extra items");
     }
 
 }
