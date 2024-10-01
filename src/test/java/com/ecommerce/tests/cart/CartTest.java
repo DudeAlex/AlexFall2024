@@ -21,7 +21,7 @@ public class CartTest extends BaseTest {
         };
     }
 
-    @Test(description = "9_1_1 | TC > Cart - Update the Cart # https://app.clickup.com/t/8689u7hd6",
+    @Test(description = "9.1_3_3.4 | TC > Cart - Update the Cart By typing the number inside of the Quantity input field # https://app.clickup.com/t/8689u7hd6",
     dataProvider = "numberToUpdateData")
     public void testUpdateQuantityInCart(String numbeerToSet, int priceIncreeaseToCheck) {
         driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='Store']")).click();
@@ -62,7 +62,7 @@ public class CartTest extends BaseTest {
         Assert.assertEquals(updatedPrice, (price * priceIncreeaseToCheck));
     }
 
-    @Test(description = "9_2_1 | TC > Cart - Remove single item from the cart # https://app.clickup.com/t/8689ucy2m")
+    @Test(description = "9.1_2_2.3 | TC > Cart - Remove single item by clicking the 'x' icon near the product in the cart # https://app.clickup.com/t/8689ucy2m")
     public void testAddAndRemoveSingleItemFromCart() {
         driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='Store']")).click();
 
@@ -79,7 +79,7 @@ public class CartTest extends BaseTest {
         Assert.assertTrue(itemRemovedMassage.contains("removed"));
     }
 
-    @Test(description = "9_2_2 | Cart > Removing all items from the cart results in an empty cart state # https://app.clickup.com/t/8689p8y04")
+    @Test(description = "9.1_2_2.4 | TC > Cart > Remove multiple products by clicking x buttons # https://app.clickup.com/t/8689p8y04")
     public void testAddRemoveMultipleItemsInCart() throws InterruptedException {
         driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='Store']")).click();
 
