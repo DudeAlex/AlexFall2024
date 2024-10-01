@@ -1,5 +1,6 @@
 package com.ecommerce.utils;
 
+import com.ecommerce.pojo.UserData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
