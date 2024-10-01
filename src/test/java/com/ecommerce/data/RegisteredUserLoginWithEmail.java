@@ -10,7 +10,7 @@ public class RegisteredUserLoginWithEmail {
                     {
                             "//a[contains(text(), 'Account')]",
                             "//input [ @ id = 'username']",
-                            "test_test@test.test", // login with email
+                            "test123@test.com", // login with email
                             "//input [ @ id = 'password']",
                             "12345"
                     }
