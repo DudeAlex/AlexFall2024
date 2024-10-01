@@ -76,5 +76,4 @@ public class WaitUtils {
     public static List<WebElement> visibilityOfAllElementsLocatedBy(WebDriver driver, By by) {
         return visibilityOfAllElementsLocatedBy(driver, by, TIMEOUTS);
     }
-
 }
