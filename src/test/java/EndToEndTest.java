@@ -19,16 +19,15 @@ public class EndToEndTest  extends BaseTest {
 
         HomePage homePage = new HomePage(driver);
         StorePage storePage = homePage.navigateToStorePage();
+        String searchResult = storePage.searchProduct("Blue").getSearchHeaderTitle();
 
-        storePage.searchProduct("Blue");
-
-        By searchButton = By.xpath("//button[@value='Search']");
-        By headerTitle = By.xpath("//h1[@class='woocommerce-products-header__title page-title']");
+       // By searchButton = By.xpath("//button[@value='Search']");
+        //By headerTitle = By.xpath("//h1[@class='woocommerce-products-header__title page-title']");
         By loopProducts = By.xpath("//h2[@class='woocommerce-loop-product__title']");
 
 
-        WaitUtils.presenceOfElementLocated(driver, searchButton).click();
-        String searchResult = WaitUtils.visibilityOf(driver, headerTitle).getText();
+       // WaitUtils.presenceOfElementLocated(driver, searchButton).click();
+       // String searchResult = WaitUtils.visibilityOf(driver, headerTitle).getText();
 
         Assert.assertEquals(searchResult, "Search results: “Blue”");
 
