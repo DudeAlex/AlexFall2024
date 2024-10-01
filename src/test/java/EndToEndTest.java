@@ -1,4 +1,6 @@
 import com.ecommerce.base.BaseTest;
+import com.ecommerce.pom.pages.HomePage;
+import com.ecommerce.pom.pages.StorePage;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -14,14 +16,17 @@ public class EndToEndTest  extends BaseTest {
 
     @Test
     public void testProductToShoppingCart () throws InterruptedException {
-        By shopButton = By.xpath("//a[@class='wp-block-button__link']");
-        By searchField = By.id("woocommerce-product-search-field-0");
+
+        HomePage homePage = new HomePage(driver);
+        StorePage storePage = homePage.navigateToStorePage();
+
+        storePage.searchProduct("Blue");
+
         By searchButton = By.xpath("//button[@value='Search']");
         By headerTitle = By.xpath("//h1[@class='woocommerce-products-header__title page-title']");
         By loopProducts = By.xpath("//h2[@class='woocommerce-loop-product__title']");
 
-        WaitUtils.visibilityOfElementLocated(driver, shopButton).click();
-        WaitUtils.visibilityOfElementLocated(driver,searchField).sendKeys("Blue");
+
         WaitUtils.presenceOfElementLocated(driver, searchButton).click();
         String searchResult = WaitUtils.visibilityOf(driver, headerTitle).getText();
 
