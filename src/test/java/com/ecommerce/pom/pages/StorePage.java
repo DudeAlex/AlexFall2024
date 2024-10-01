@@ -4,6 +4,9 @@ import com.ecommerce.pom.BasePage;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class StorePage extends SalesPage {
 
@@ -16,6 +19,11 @@ public class StorePage extends SalesPage {
 
     public String getSearchHeaderTitle() {
         return WaitUtils.visibilityOf(getDriver(), headerTitle).getText();
+    }
+
+    public String getTextFromListProducts(int number) {
+        List<WebElement> items = WaitUtils.numberOfElementsToBeMoreThan(getDriver(), loopProducts, 0);
+        return items.get(number).getText();
     }
 
 
