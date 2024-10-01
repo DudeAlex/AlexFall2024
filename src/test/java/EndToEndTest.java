@@ -15,24 +15,14 @@ import java.util.List;
 public class EndToEndTest  extends BaseTest {
 
     @Test
-    public void testProductToShoppingCart () throws InterruptedException {
+    public void testProductToShoppingCart () {
 
         HomePage homePage = new HomePage(driver);
         StorePage storePage = homePage.navigateToStorePage();
         String searchResult = storePage.searchProduct("Blue").getSearchHeaderTitle();
-
-       // By searchButton = By.xpath("//button[@value='Search']");
-        //By headerTitle = By.xpath("//h1[@class='woocommerce-products-header__title page-title']");
-        By loopProducts = By.xpath("//h2[@class='woocommerce-loop-product__title']");
-
-
-       // WaitUtils.presenceOfElementLocated(driver, searchButton).click();
-       // String searchResult = WaitUtils.visibilityOf(driver, headerTitle).getText();
+        String item = storePage.getTextFromListProducts(0);
 
         Assert.assertEquals(searchResult, "Search results: “Blue”");
-
-        List<WebElement> items = WaitUtils.numberOfElementsToBeMoreThan(driver, loopProducts, 0);
-        String item = items.get(0).getText();
 
         driver.findElement(By.xpath("//a[@aria-label='Add “" + item + "” to your cart']")).click();
         driver.findElement(By.xpath("//a[@title='View cart']")).click();
@@ -60,7 +50,7 @@ public class EndToEndTest  extends BaseTest {
         String productOrder = driver.findElement(By.xpath("//td[@class='product-name']")).getText();
         Assert.assertEquals(productOrder, "Blue Shoes  × 1");
 
-        driver.findElement(By.xpath("//button[@id='place_order']")).click();
+        WaitUtils.elementToBeClickable(driver, By.xpath("//button[@id='place_order']")).click();
 
         String checkOrder = driver.findElement(By.xpath("//p[@class='woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received']")).getText();
         Assert.assertEquals(checkOrder, "Thank you. Your order has been received.");
