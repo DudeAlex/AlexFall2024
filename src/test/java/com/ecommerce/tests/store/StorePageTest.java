@@ -120,10 +120,9 @@ public class StorePageTest extends BaseTest {
     }
 
 
-    @Test(dataProvider = "provideAllItemCategory", dataProviderClass = ProductsData.class,
-            description = "2.12-1.1 | TC> Store> Verify items alphabetical order # https://app.clickup.com/t/8689vk3c5")
-    public void testVerifyItemsAlphabeticalOrder(String category) {
-        WaitUtils.elementToBeClickable(driver, By.xpath("//div[@id='ast-desktop-header']//a[text()='" + category + "']")).click();
+    @Test(description = "2.12-1.1 | TC> Store> Verify items alphabetical order # https://app.clickup.com/t/8689vk3c5")
+    public void testVerifyItemsAlphabeticalOrder() {
+        WaitUtils.elementToBeClickable(driver, By.xpath("//a[@href='/store']")).click();
 
         List<String> allItemList = getAllItemsFromAllPages(PRODUCT_LIST, driver);
 
