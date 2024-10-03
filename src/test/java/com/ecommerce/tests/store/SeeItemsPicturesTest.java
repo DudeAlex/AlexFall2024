@@ -14,7 +14,7 @@ public class SeeItemsPicturesTest extends BaseTest {
     static WebElement numberOfTheCartsPageButton;
 
     @Test
-    public void visibilityOfImagesOnTheProductCartTest(){
+    public void testVisibilityOfImagesOnTheProductCartTest(){
 
         driver.findElement(By.id("menu-item-1227")).click(); // go to the Store page
 
