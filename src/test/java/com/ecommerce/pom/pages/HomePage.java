@@ -20,9 +20,9 @@ public class HomePage extends BasePage {
         return new StorePage(getDriver());
     }
 
-    public ManPage navigateToManPage() {
+    public MenPage navigateToMenPage() {
         WaitUtils.elementToBeClickable(getDriver(), manCategory, 2).click();
 
-        return new ManPage(getDriver());
+        return new MenPage(getDriver());
     }
 }

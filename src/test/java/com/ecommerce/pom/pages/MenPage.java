@@ -1,6 +1,7 @@
 package com.ecommerce.pom.pages;
 
 import com.ecommerce.pom.BasePage;
+import com.ecommerce.utils.CollectToListUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,13 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class ManPage extends BasePage {
+public class MenPage extends BasePage {
 
     By singleItemContainer = By.xpath("//ul[@class='products columns-4']//li");
     By saleTag = By.xpath("//span[@class='onsale']");
     By crossedOutPrice = By.xpath("//del");
 
-    public ManPage(WebDriver driver) {
+    public MenPage(WebDriver driver) {
         super(driver);
     }
 
@@ -36,6 +37,9 @@ public class ManPage extends BasePage {
         }
 
         return saleStatusList;
+    }
+    public List<String> collectCategories() {
+        return CollectToListUtils.productsCategories(getDriver());
     }
 }
 
