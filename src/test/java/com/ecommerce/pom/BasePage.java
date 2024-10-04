@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 public abstract class BasePage {
 
     private WebDriver driver;
+
+
     /**
      * footer elements Quick Links
      */
@@ -14,6 +16,8 @@ public abstract class BasePage {
     By quickLinksMyAccount = By.xpath("//a[@class='menu-link' and text()='My Account']"); // My Account
     By quickLinksCart = By.xpath("//a[@class='menu-link' and text()='Cart']"); // Cart
     By quickLinksContactUs = By.xpath("//a[@class='menu-link' and text()='Contact Us']"); // ContactUs
+
+
     /**
      * footer elements For Her
      */
@@ -22,6 +26,8 @@ public abstract class BasePage {
     By forHerWomenShirts = By.xpath("//a[@class='menu-link' and text()='Women’s Shirts']"); // Women's Shirts
     By forHerWomenShoes = By.xpath("//a[@class='menu-link' and text()='Women’s Shoes']"); // Women's Shoes
     By forHerAccessories = By.xpath("//a[@class='menu-link' and text()='Accessories']"); // Accessories
+
+
     /**
      * footer elements For Him
      */
@@ -30,6 +36,8 @@ public abstract class BasePage {
     By forHimMenShirts = By.xpath("//a[@class='menu-link' and text()='Men’s Shirts']"); // Men's Shirts
     By forHimMenShoes = By.xpath("//a[@class='menu-link' and text()='Men’s Shoes']"); // Men's Shoes
     By forHimAccessories = By.xpath("//a[@class='menu-link' and text()='Accessories']"); // Accessories
+
+
     /**
      * footer elements AOD Mobile
      */
