@@ -2,6 +2,7 @@ package com.ecommerce.tests.store;
 
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.data.ProductsData;
+import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -17,18 +18,24 @@ import java.util.List;
 
 public class StorePageTest extends BaseTest {
 
+    private static final By PRODUCT_LIST = By.xpath("//ul//h2");
+    private static final By NEXT_PAGE_NUMBER = By.xpath("//a[@class='next page-numbers']");
+    private static final By SORTING_DROP_DOWN = By.xpath("//select[@name='orderby']");
+    private static final By PRICE = By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]");
+    private static final By ITEM_CATEGORY_BELOW_PRICE =  By.xpath("//span[@class='ast-woo-product-category']");
+
     private static List<String> getAllItemsFromAllPages(By locator, WebDriver driver) {
         List<String> allItemList = new ArrayList<>();
         boolean hasNextPage = true;
 
         while (hasNextPage) {
-            List<WebElement> itemList = driver.findElements(locator);
+            List<WebElement> itemList = WaitUtils.visibilityOfAllElementsLocatedBy(driver, locator);
             for (WebElement item : itemList) {
                 allItemList.add(item.getText());
             }
 
             try {
-                WebElement nextPageArrow = driver.findElement(By.xpath("//a[@class='next page-numbers']"));
+                WebElement nextPageArrow = driver.findElement(NEXT_PAGE_NUMBER);
                 nextPageArrow.click();
             } catch (NoSuchElementException e) {
                 hasNextPage = false;
@@ -68,7 +75,7 @@ public class StorePageTest extends BaseTest {
                 "No product contains the name " + text);
     }
 
-        @Test(description = "2_15 | Store > Go to the next page. https://app.clickup.com/t/8689p8y36")
+    @Test(description = "2_15 | Store > Go to the next page. https://app.clickup.com/t/8689p8y36")
     public void testStoreGoToTheNextPage() {
 
         String cartUrl = "https://askomdch.com/cart/";
@@ -91,7 +98,7 @@ public class StorePageTest extends BaseTest {
         }
     }
 
-       @Test(description = "2.11-1.1 | TC > Store > See item's price.https://app.clickup.com/t/8689u8av6")
+    @Test(description = "2.11-1.1 | TC > Store > See item's price.https://app.clickup.com/t/8689u8av6")
 
     public void testCheckPrices() {
         driver.findElement(By.xpath("//li[@id = 'menu-item-1227']/a[@href = 'https://askomdch.com/store/']")).click();
@@ -116,9 +123,9 @@ public class StorePageTest extends BaseTest {
     @Test(dataProvider = "provideAllItemCategory", dataProviderClass = ProductsData.class,
             description = "2.12-1.1 | TC> Store> Verify items alphabetical order # https://app.clickup.com/t/8689vk3c5")
     public void testVerifyItemsAlphabeticalOrder(String category) {
-        driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='" + category + "']")).click();
+        WaitUtils.elementToBeClickable(driver, By.xpath("//div[@id='ast-desktop-header']//a[text()='" + category + "']")).click();
 
-        List<String> allItemList = getAllItemsFromAllPages(By.xpath("//ul//h2"), driver);
+        List<String> allItemList = getAllItemsFromAllPages(PRODUCT_LIST, driver);
 
         List<String> alphabeticalAllItemList = new ArrayList<>(allItemList);
         Collections.sort(alphabeticalAllItemList);
@@ -131,12 +138,11 @@ public class StorePageTest extends BaseTest {
     public void testSortByPriceLowToHigh(String category) {
         driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='" + category + "']")).click();
 
-        WebElement dropdown = driver.findElement(By.xpath("//select[@name='orderby']"));
+        WebElement dropdown = WaitUtils.visibilityOf(driver, SORTING_DROP_DOWN);
         Select select = new Select(dropdown);
         select.selectByVisibleText("Sort by price: low to high");
 
-        List<String> priceTextList = getAllItemsFromAllPages(
-                By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"), driver);
+        List<String> priceTextList = getAllItemsFromAllPages(PRICE, driver);
 
         List<Double> actualPriceList = getConvertedToDoublePriceList(priceTextList);
 
@@ -152,12 +158,11 @@ public class StorePageTest extends BaseTest {
     public void testSortByPriceHighToLow(String category) {
         driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='" + category + "']")).click();
 
-        WebElement dropdown = driver.findElement(By.xpath("//select[@name='orderby']"));
+        WebElement dropdown = WaitUtils.visibilityOf(driver, SORTING_DROP_DOWN);
         Select select = new Select(dropdown);
         select.selectByVisibleText("Sort by price: high to low");
 
-        List<String> priceTextList = getAllItemsFromAllPages
-                (By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"), driver);
+        List<String> priceTextList = getAllItemsFromAllPages(PRICE, driver);
 
         List<Double> actualPriceList = getConvertedToDoublePriceList(priceTextList);
 
@@ -169,81 +174,52 @@ public class StorePageTest extends BaseTest {
     }
 
     //testVerifyItemsCorrespondentCategories[Women] will fail, bug?!
-    @Test(dataProvider = "provideAllItemCategory", dataProviderClass = ProductsData.class)
+    @Test(dataProvider = "provideAllItemCategory", dataProviderClass = ProductsData.class,
+    description = "2.8-1.1 TC > Store > Products Match # https://app.clickup.com/t/8689p8y82")
     public void testVerifyItemsCorrespondentCategories(String category) {
-        driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='" + category + "']")).click();
+        WaitUtils.elementToBeClickable(
+                driver, By.xpath("//div[@id='ast-desktop-header']//a[text()='" + category + "']")).click();
 
-        List<String> allItemList = getAllItemsFromAllPages(
-                By.xpath("//span[@class='ast-woo-product-category']"), driver);
+        List<String> allItemList = getAllItemsFromAllPages(ITEM_CATEGORY_BELOW_PRICE, driver);
         for (String item : allItemList) {
             Assert.assertEquals(item, category, "Item does not match the expected category");
         }
     }
 
-    @Test(description = "3.9-1.1 | TC> Man> Verify Sale items price # https://app.clickup.com/t/8689v3293")
-    public void testVerifyReducedPriceForSaleItems() {
-        driver.findElement(By.xpath("//li[@id='menu-item-1228']")).click();
-        //Ищем большой блок, в котором содержатся оба элемента
-        WebElement container = driver.findElement(By.xpath("//div[@class='ast-woocommerce-container']"));
-        //ищем все элементы и пробегаемся по листу всех
-        List<WebElement> productsList = container.findElements
-                (By.xpath("//ul[@class='products columns-4']//li"));
+    @Test(description = "2.11-1.2 |TC > Store > See itemion's price in Browse by category # https://app.clickup.com/t/8689yq16m")
+    public void checkPricesBrowseByCategory() {
 
-        for (WebElement product : productsList) {
-            try {
-                // Проверяем наличие обоих элементов в одном блоке productList
-                /*если хотя бы один из продуктов не содержит элемента с классом onsale или del,
-                 метод findElement() выбрасывает исключение NoSuchElementException, если элемент не найден, поэтому ищем через try-catch.*/
+        driver.findElement(By.xpath("//a[@href='/store']")).click();
+        WebElement browseByCategoryField = driver.findElement(By.cssSelector("#product_cat"));
 
-                WebElement saleTag = product.findElement(By.xpath(".//span[@class='onsale']"));
-                WebElement delTag = product.findElement(By.xpath(".//del"));
+        // scroll down to the Browse category field
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);", browseByCategoryField);
 
-                Assert.assertEquals(saleTag.getText(), "Sale!");
-                Assert.assertNotNull(delTag.getText());
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOf(browseByCategoryField));
 
-            } catch (NoSuchElementException e) {
-                // Если saleTag или delTag не найден, просто игнорируем этот продукт
-                // Но если saleTag или delTag отсутствует, тест упадет
+        // Select the "Men" category
+        Select select = new Select(browseByCategoryField);
+        select.selectByValue("men");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ast-woocommerce-container .products")));
 
-                System.out.println("Products does not have sale tags and crossed price");
-            }
-        }
+        List<WebElement> allItems = driver.findElements(By.cssSelector(".ast-woocommerce-container .products >li"));
+        List<WebElement> priceElement = driver.findElements(By.xpath("//span[@class='price']/*[self::ins or self::span]"));
+
+        //  assert that the price is displayed on the item
+        priceElement.forEach(x -> {
+            Assert.assertTrue(x.isDisplayed(), "The price is not displayed");
+        });
+        // assert that the displayed category is correct and string price is not empty or null
+        allItems.forEach(item -> {
+            String categoryMenText = item.findElement(By.cssSelector(".astra-shop-summary-wrap .ast-woo-product-category")).getText();
+            String priceOnItem = item.findElement(By.xpath(".//span[@class='price']/ins | .//span[@class='price']/span")).getText();
+
+            Assert.assertEquals("Men", categoryMenText, "Displayed category does not match selected 'Men' category");
+            Assert.assertTrue(!priceOnItem.isEmpty() && priceOnItem != null, " The price String is Empty or null ");
+        });
     }
-
-        @Test (description = "2.11-1.2 |TC > Store > See itemion's price in Browse by category # https://app.clickup.com/t/8689yq16m")
-    public void checkPricesBrowseByCategory()  {
-
-            driver.findElement(By.xpath("//a[@href='/store']")).click();
-            WebElement browseByCategoryField = driver.findElement(By.cssSelector("#product_cat"));
-
-            // scroll down to the Browse category field
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("arguments[0].scrollIntoView(true);", browseByCategoryField);
-
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-            wait.until(ExpectedConditions.visibilityOf(browseByCategoryField));
-
-            // Select the "Men" category
-            Select select = new Select(browseByCategoryField);
-            select.selectByValue("men");
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ast-woocommerce-container .products")));
-
-            List<WebElement> allItems = driver.findElements(By.cssSelector(".ast-woocommerce-container .products >li"));
-            List<WebElement> priceElement = driver.findElements(By.xpath("//span[@class='price']/*[self::ins or self::span]"));
-
-            //  assert that the price is displayed on the item
-            priceElement.forEach(x -> {
-                Assert.assertTrue(x.isDisplayed(), "The price is not displayed");
-            });
-            // assert that the displayed category is correct and string price is not empty or null
-            allItems.forEach(item -> {
-                String categoryMenText = item.findElement(By.cssSelector(".astra-shop-summary-wrap .ast-woo-product-category")).getText();
-                String priceOnItem = item.findElement(By.xpath(".//span[@class='price']/ins | .//span[@class='price']/span")).getText();
-
-                Assert.assertEquals("Men", categoryMenText, "Displayed category does not match selected 'Men' category");
-                Assert.assertTrue(!priceOnItem.isEmpty() && priceOnItem != null, " The price String is Empty or null ");
-            });
-        }
 }
 
 
