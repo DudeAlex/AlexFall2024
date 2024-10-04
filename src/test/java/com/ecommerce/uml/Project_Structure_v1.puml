@@ -1,0 +1,82 @@
+@startuml
+
+digraph g {
+
+subgraph cluster_1 {
+   	label=ecommerce
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+
+   subgraph cluster_2{
+   	label=pom
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+	   BasePage[
+    	style=filled
+    	margin=0
+    	shape=plaintext
+    	fillcolor="#FFFFFF"];
+
+	   subgraph cluster_2_1{
+       	label=pages
+    	labeljust=l
+    	fillcolor="#d8d8d8"
+    	style=filled
+   
+
+   CartPage[
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"];
+
+   CheckoutPage[
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"];
+
+   HomePage[
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"];
+
+   MenPage[
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"];
+
+   OrderReceivedPage[
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"];
+
+   SalesPage[
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"];
+
+   StorePage[
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"];
+
+}
+
+   BasePage[
+    style=filled
+    margin=0
+    shape=plaintext
+    fillcolor="#FFFFFF"];
+}
+}
+}
+@enduml
+
