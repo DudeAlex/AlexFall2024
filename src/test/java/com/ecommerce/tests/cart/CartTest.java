@@ -112,4 +112,25 @@ public class CartTest extends BaseTest {
         String emptyCart = driver.findElement(By.xpath("//p[@class='cart-empty woocommerce-info']")).getText();
         Assert.assertEquals(emptyCart, "Your cart is currently empty.");
     }
+    @Test(description = "9.2_1.1  | TC > Cart > Checkout # https://app.clickup.com/t/868a31pxz")
+    public void testCheckout() throws InterruptedException {
+        String notice = new HomePage(driver)
+                .navigateToStorePage()
+                .addToCartFromStorePage()
+                .clickCartPage()
+                .clickCheckoutButton()
+                .inputFirstName("Evgenii")
+                .inputLastName("Averianov")
+                .inputCompanyName("CompanyExample")
+                .inputStreetAddress("1234 Main Street")
+                .inputTown("Los Angeles")
+                .inputZip("90210")
+                .inputEmail("mail@mail.com")
+                .clickPlaceOrderButton()
+                .collectNotice();
+        Assert.assertEquals(notice, "Thank you. Your order has been received.");
+        Thread.sleep(2000);
+    }
+
+
 }

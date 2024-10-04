@@ -13,6 +13,7 @@ public class StorePage extends SalesPage {
     By headerTitle = By.xpath("//h1[@class='woocommerce-products-header__title page-title']");
     By loopProducts = By.xpath("//h2[@class='woocommerce-loop-product__title']");
     By addToCartButton  = By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']");
+    By cartButton = By.linkText("View cart");
 
     public StorePage(WebDriver driver) {
         super(driver);
@@ -27,8 +28,13 @@ public class StorePage extends SalesPage {
         return items.get(number).getText();
     }
 
-    public void addToCartFromStorePage() {
+    public StorePage addToCartFromStorePage() {
         WaitUtils.visibilityOfElementLocated(getDriver(), addToCartButton).click();
+        return this;
+    }
+    public CartPage clickCartPage() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), cartButton).click();
+        return new CartPage(getDriver());
     }
 
 }
