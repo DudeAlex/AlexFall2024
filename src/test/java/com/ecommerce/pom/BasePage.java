@@ -40,7 +40,17 @@ public abstract class BasePage {
     /**
      * header elements like links, buttons, etc.
      */
-    By homeLink = By.id("menu-item-1226"); // Home
+    By headerHome = By.id("menu-item-1226"); // Header Home
+    By headerStore = By.id("menu-item-1227"); // Header Store
+    By headerMen = By.id("menu-item-1228"); // Header Men
+    By headerWomen = By.id("menu-item-1229"); // Header Women
+    By headerAccessories = By.id("menu-item-1230"); // Header Accessories
+    By headerAccount = By.id("menu-item-1237"); // Header Account
+    By headerAbout = By.id("menu-item-1232"); // Header About
+    By headerContactUs = By.id("menu-item-1233"); // Header Contact Us
+    By headerCartButton = By.cssSelector("a[href='https://askomdch.com/cart/']"); // Header Cart
+
+
 
     public BasePage(WebDriver driver){
         this.driver = driver;
