@@ -39,7 +39,8 @@ public class RegisteredUserLoginTest extends BaseTest {
 
     }
 
-    @Test(description = " ", dataProvider = "registeredUserEmail", dataProviderClass = RegisteredUserLoginWithEmail.class)
+    @Test(description = "6.4.1 -2.1| TC > Account Page>Order History #https://app.clickup.com/t/8689wh30p",
+            dataProvider = "registeredUserEmail", dataProviderClass = RegisteredUserLoginWithEmail.class)
 
     public void oderHistoryCheck(
             String accountHeaderLink,
@@ -49,13 +50,12 @@ public class RegisteredUserLoginTest extends BaseTest {
             String password) throws InterruptedException {
 
         By placeOderBtn = By.xpath("//button[@id='place_order']");
+        By orderLink = By.xpath("//a[normalize-space()='Orders']");
+        By accountTopLink = By.xpath(("//li[@id='menu-item-1237']//a[@class='menu-link'][normalize-space()='Account']"));
 
         driver.findElement(By.xpath(accountHeaderLink)).click(); // find the account link in the header
         driver.findElement(By.xpath(emailField)).sendKeys(emailOrUserName, Keys.ENTER);
         driver.findElement(By.xpath(passwordField)).sendKeys(password, Keys.ENTER);
-        Thread.sleep(3000);
-
-
         driver.findElement(By.id("menu-item-1227")).click();//shop link
         driver.findElement(By.xpath("//a[@href='?add-to-cart=1205']")).click();//add item to the cart
         WebElement viewCart = driver.findElement(By.linkText("View cart"));//click cart
@@ -84,10 +84,15 @@ public class RegisteredUserLoginTest extends BaseTest {
         driver.findElement(By.xpath("//input[@id='billing_postcode']")).clear();
         driver.findElement(By.xpath("//input[@id='billing_postcode']")).sendKeys("98052");
 
-        WaitUtils.visibilityOfElementLocated(driver, placeOderBtn).click();
-        driver.findElement(By.xpath("//li[@id='menu-item-1237']")).click();//Account link
+        WaitUtils.elementToBeClickable(driver, placeOderBtn).click();
 
-        driver.findElement(By.xpath("//a[normalize-space()='Orders']")).click();//Orders link
+        WaitUtils.visibilityOfElementLocated(driver,accountTopLink).click();
+
+        //driver.findElement(By.xpath("//li[@id='menu-item-1237']//a[@class='menu-link'][normalize-space()='Account']")).click();//Account link
+
+        WaitUtils.elementToBeClickable(driver,orderLink).click();
+
+        //driver.findElement(By.xpath("//a[normalize-space()='Orders']")).click();//Orders link
         driver.findElement(By.xpath("//a[@class=\"woocommerce-button button view\"]")).click();//view order btn
 
         WebElement orderDetails = driver.findElement(By.xpath("//h2[@class='woocommerce-order-details__title']"));
