@@ -9,10 +9,9 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.UUID;
+
 public class RegisterTest extends BaseTest {
-    private static final String USER_NAME = "Andy";
-    private static final String EMAIL = "andy@andy.com";
-    private static final String PASSWORD = "12345";
 
     By accountOption = By.id("menu-item-1237");
     By registerUsernameInput = By.xpath("(//input[@type='text'])[2]");
@@ -22,21 +21,39 @@ public class RegisterTest extends BaseTest {
     By welcomeNewUserText = By.xpath("//p[contains(text(),'Hello')]");
     By errorMessage = By.xpath("//ul[@role='alert']");
 
-    @Test(description = "6-1.2 | TC > Account Page > Validate email error # https://app.clickup.com/t/868a34t20")
+    public String generateUniqueUsername() {
+        String baseUsername = "user";
+
+        return baseUsername + UUID.randomUUID();
+    }
+
+    public String generateUniqueEmail() {
+        String baseEmail = "user";
+        String domain = "@example.com";
+
+        return baseEmail + UUID.randomUUID() + domain;
+    }
+
+    public static String generateUniquePassword() {
+
+        return UUID.randomUUID().toString().replace("-", "").substring(0, 10);
+    }
+
+    @Test(description = "6.2-1.2 | TC > Account Page > Validate email error # https://app.clickup.com/t/868a34t20")
     public void testValidateEmailErrorMessage() {
         WaitUtils.elementToBeClickable(driver, accountOption).click();
 
         WebElement registerUsernameInputField = WaitUtils.visibilityOf(driver, registerUsernameInput, 2);
-        registerUsernameInputField.sendKeys(USER_NAME);
+        registerUsernameInputField.sendKeys(generateUniqueUsername());
         registerUsernameInputField.sendKeys(Keys.TAB);
         WebElement activeElement = driver.switchTo().activeElement();
 
         WebElement emailInputField = driver.findElement(registerEmailAddressInput);
-        activeElement.sendKeys("email.com");
+        activeElement.sendKeys(generateUniqueEmail().replace("@", ""));
         emailInputField.sendKeys(Keys.TAB);
 
         WebElement passwordInputField = driver.findElement(registerPasswordInput);
-        passwordInputField.sendKeys(PASSWORD);
+        passwordInputField.sendKeys(generateUniquePassword());
         passwordInputField.sendKeys(Keys.TAB);
 
         driver.findElement(registerButton).click();
@@ -51,16 +68,16 @@ public class RegisterTest extends BaseTest {
         Assert.assertTrue(isHelloTextInvisible);
     }
 
-    @Test(description = "6-1.3 | TC > Account Page > Verify error message for empty password # https://app.clickup.com/t/868a34t9v")
+    @Test(description = "6.2-1.3 | TC > Account Page > Verify error message for empty password # https://app.clickup.com/t/868a34t9v")
     public void testVerifyErrorMassageForEmptyPassword() {
         WaitUtils.elementToBeClickable(driver, accountOption).click();
 
         WebElement registerUsernameInputField = WaitUtils.visibilityOf(driver, registerUsernameInput, 2);
-        registerUsernameInputField.sendKeys(USER_NAME);
+        registerUsernameInputField.sendKeys(generateUniqueUsername());
         registerUsernameInputField.sendKeys(Keys.TAB);
 
         WebElement emailInputField = driver.switchTo().activeElement();
-        emailInputField.sendKeys(EMAIL);
+        emailInputField.sendKeys(generateUniqueEmail());
         emailInputField.sendKeys(Keys.TAB);
 
         WebElement passwordInputField = driver.switchTo().activeElement();
@@ -71,28 +88,26 @@ public class RegisterTest extends BaseTest {
         Assert.assertEquals(errorMessageText, "Error: Please enter an account password.");
     }
 
-    //Test <work in progress> for question
-    @Test(description = "6-1.1 | TC > Accout Page > Verify registry # https://app.clickup.com/t/868a34rph")
+    @Test(description = "6.2-1.1 | TC > Accout Page > Verify registry # https://app.clickup.com/t/868a34rph")
     public void testVerifyRegistry() {
         WaitUtils.elementToBeClickable(driver, accountOption).click();
 
         WebElement registerUsernameInputField = WaitUtils.visibilityOf(driver, registerUsernameInput, 2);
-        registerUsernameInputField.sendKeys(USER_NAME);
+        String userName = generateUniqueUsername();
+        registerUsernameInputField.sendKeys(userName);
         registerUsernameInputField.sendKeys(Keys.TAB);
 
         WebElement emailInputField = driver.switchTo().activeElement();
-        emailInputField.sendKeys("nahmee@email.com");
+        emailInputField.sendKeys(generateUniqueEmail());
         emailInputField.sendKeys(Keys.TAB);
 
         WebElement passwordInputField = driver.switchTo().activeElement();
-        passwordInputField.sendKeys(PASSWORD);
+        passwordInputField.sendKeys(generateUniquePassword());
 
-//        passwordInputField.sendKeys(Keys.ENTER);
-//
-//
-//        String welcomeUserText = WaitUtils.visibilityOf(driver, welcomeNewUserText).getText();
-//        System.out.println(welcomeUserText);
-//        Assert.assertTrue(welcomeUserText.contains("Hello " + USER_NAME));
+        passwordInputField.sendKeys(Keys.ENTER);
 
+        String welcomeUserText = WaitUtils.visibilityOf(driver, welcomeNewUserText).getText();
+
+        Assert.assertTrue(welcomeUserText.contains("Hello " + userName));
     }
 }
