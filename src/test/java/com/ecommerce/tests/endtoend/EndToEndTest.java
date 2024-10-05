@@ -2,6 +2,7 @@ package com.ecommerce.tests.endtoend;
 
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.pojo.UserData;
+import com.ecommerce.pojo.UserDataPool;
 import com.ecommerce.pom.pages.HomePage;
 import com.ecommerce.pom.pages.StorePage;
 import com.ecommerce.utils.WaitUtils;
@@ -13,9 +14,9 @@ public class EndToEndTest  extends BaseTest {
 
     @Test
     public void testProductToShoppingCart () {
-
-        UserData userData = new UserData("Mihai", "B", "US", "8709 st AVE", "95241",
-                                        "California", "Redmond", "mb@gmail.com");
+       // UserData userData = UserDataPool.getUserData();
+        //UserData userData = UserDataPool.getUserDataList().get(2);
+        UserData userData = UserDataPool.getFakerUserDataList().get(4);
 
         HomePage homePage = new HomePage(driver);
         StorePage storePage = homePage.navigateToStorePage();
