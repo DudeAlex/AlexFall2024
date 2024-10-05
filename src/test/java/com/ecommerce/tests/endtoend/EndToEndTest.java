@@ -1,21 +1,21 @@
+package com.ecommerce.tests.endtoend;
+
 import com.ecommerce.base.BaseTest;
+import com.ecommerce.pojo.UserData;
+import com.ecommerce.pojo.UserDataPool;
 import com.ecommerce.pom.pages.HomePage;
 import com.ecommerce.pom.pages.StorePage;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.time.Duration;
-import java.util.List;
 
 public class EndToEndTest  extends BaseTest {
 
     @Test
     public void testProductToShoppingCart () {
+
+        UserData userData = UserDataPool.getFakerUserDataList(10).get(4);
 
         HomePage homePage = new HomePage(driver);
         StorePage storePage = homePage.navigateToStorePage();
@@ -31,21 +31,22 @@ public class EndToEndTest  extends BaseTest {
         Assert.assertEquals(sameItem, item);
 
         driver.findElement(By.xpath("//a[@class='checkout-button button alt wc-forward']")).click();
-        driver.findElement(By.xpath("//input[@name='billing_first_name']")).sendKeys("Mihai");
-        driver.findElement(By.xpath("//input[@name='billing_last_name']")).sendKeys("B");
-        driver.findElement(By.xpath("//input[@name='billing_company']")).sendKeys("TBMH Radio");
+
+        driver.findElement(By.xpath("//input[@name='billing_first_name']")).sendKeys(userData.getFirstName());
+        driver.findElement(By.xpath("//input[@name='billing_last_name']")).sendKeys(userData.getLastName());
+        //driver.findElement(By.xpath("//input[@name='billing_company']")).sendKeys("TBMH Radio");
 
         driver.findElement(By.xpath("//span[@id='select2-billing_country-container']")).click();
         driver.findElement(By.xpath("//li[contains(text(),'United States (US)')]")).click();
 
-        driver.findElement(By.xpath("//input[@name='billing_address_1']")).sendKeys("32 Main st");
-        driver.findElement(By.xpath("//input[@name='billing_city']")).sendKeys("Redmond");
+        driver.findElement(By.xpath("//input[@name='billing_address_1']")).sendKeys(userData.getAddress());
+        driver.findElement(By.xpath("//input[@name='billing_city']")).sendKeys(userData.getTown());
 
         driver.findElement(By.xpath("//span[@id='select2-billing_state-container']")).click();
         driver.findElement(By.xpath("//li[contains(text(),'California')]")).click();
 
-        driver.findElement(By.xpath("//input[@id='billing_postcode']")).sendKeys("98052");
-        driver.findElement(By.xpath("//input[@id='billing_email']")).sendKeys("Testemail@gmail.com");
+        driver.findElement(By.xpath("//input[@id='billing_postcode']")).sendKeys(userData.getZipCode());
+        driver.findElement(By.xpath("//input[@id='billing_email']")).sendKeys(userData.getEmailAddress());
 
         String productOrder = driver.findElement(By.xpath("//td[@class='product-name']")).getText();
         Assert.assertEquals(productOrder, "Blue Shoes  × 1");
