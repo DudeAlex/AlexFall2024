@@ -1,0 +1,44 @@
+@startuml
+
+package com.ecommerce #DDDDDD {
+
+package base  {
+class BaseTest
+}
+
+package data {
+class FooterAppstoresData
+}
+
+package pom {
+
+class BasePage
+
+package pages {}
+
+}
+
+package tests {
+package about {}
+package account {}
+package cart {}
+package checkout {}
+package components {}
+package home {}
+package login {}
+package men {}
+package store {}
+
+}
+package utils {
+class сollectToListUtils
+class WaitUtils
+}
+
+package uml {
+
+}
+
+}
+
+@enduml

@@ -1,0 +1,129 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+'hide fields
+
+abstract class BasePage {
+- WebDriver driver
+# quickLinksHome: By
+# quickLinksAbout: By
+# quickLinksMyAccount: By
+# quickLinksCart: By
+# quickLinksContactUs: By
+
+# forHerWomen: By
+# forHerWomenJeans: By
+# forHerWomenShirts: By
+# forHerWomenShoes: By
+# forHerAccessories: By
+
+# forHimMen: By
+# forHimMenJeans: By
+# forHimMenShirts: By
+# forHimMenShoes: By
+# forHimAccessories: By
+
+# appStoreIcon: By
+# googlePlayIcon: By
+
+# headerHome: By
+# headerStore: By
+# headerMen: By
+# headerWomen: By
+# headerAccessories: By
+# headerAccount: By
+# headerAbout: By
+# headerContactUs: By
+# headerCartButton: By
+
++ BasePage(WebDriver driver)
++ WebDriver getDriver()
+
+}
+
+class CartPage {
+# checkoutButton: By
+
++ CartPage(WebDriver driver)
++ CheckoutPage clickCheckoutButton()
+}
+
+class OrderReceivedPage {
+# notice: By
+
++ OrderReceivedPage(WebDriver driver)
++ String collectNotice()
+
+}
+
+class HomePage{
+# shopButton: By
+# manCategory: By
+
++ HomePage(WebDriver driver)
++ StorePage navigateToStorePage()
++ MenPage navigateToMenPage()
+
+}
+
+class MenPage{
+# singleItemContainer: By
+# saleTag: By
+# crossedOutPrice: By
++ MenPage(WebDriver driver)
++ List<Boolean> areProductsOnSaleHaveCrossedPrice()
++ List<String> collectCategories()
+
+}
+abstract class SalesPage{
+# searchField: By
+# searchButton: By
+
++ SalesPage(WebDriver driver)
++ StorePage searchProduct(String item)
+
+}
+class CheckoutPage{
+# firstNameField: By
+# lastNameField: By
+# companyNameField: By
+# streetAddressField: By
+# townField: By
+# zipField: By
+# emailField: By
+# placeOrderButton: By
++ CheckoutPage(WebDriver driver)
++ CheckoutPage inputFirstName(String firstName)
++ CheckoutPage inputLastName(String lastName)
++ CheckoutPage inputCompanyName(String companyName)
++ CheckoutPage inputStreetAddress(String streetAddress)
++ CheckoutPage inputTown(String town)
++ CheckoutPage inputZip(String zip)
++ CheckoutPage inputEmail(String email)
++ OrderReceivedPage clickPlaceOrderButton()
+}
+class StorePage{
+# headerTitle: By
+# loopProducts: By
+# addToCartButton: By
+# cartButton" By
+
++ StorePage(WebDriver driver)
++ String getSearchHeaderTitle()
++ String getTextFromListProducts(int number)
++ StorePage addToCartFromStorePage()
++ CartPage clickCartPage()
+}
+
+
+BasePage <|-- CartPage
+BasePage <|-- CheckoutPage
+BasePage <|-- HomePage
+BasePage <|-- SalesPage
+SalesPage <|-- MenPage
+SalesPage <|-- WomenPage
+SalesPage <|-- StorePage
+SalesPage <|-- AccessoriesPage
+BasePage <|--OrderReceivedPage
+
+@enduml

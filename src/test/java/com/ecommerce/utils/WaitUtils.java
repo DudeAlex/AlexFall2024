@@ -78,7 +78,8 @@ public class WaitUtils {
         return visibilityOfAllElementsLocatedBy(driver, by, TIMEOUTS);
     }
 
-
-
+    public static Boolean invisibilityOfElementLocated(WebDriver driver, By by, long timeout) {
+        return new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.invisibilityOfElementLocated(by));
+    }
 
 }
