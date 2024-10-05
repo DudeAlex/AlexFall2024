@@ -8,10 +8,10 @@ public class UserData {
     private String address;
     private String town;
     private String state;
-    private int zipCode;
+    private String zipCode;
     private String emailAddress;
 
-    public UserData(String firstName, String lastName, String country, String address, int zipCode, String state, String town, String emailAddress) {
+    public UserData(String firstName, String lastName, String country, String address, String zipCode, String state, String town, String emailAddress) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.country = country;
@@ -70,11 +70,11 @@ public class UserData {
     public void setState(String state){
         this.state = state;
     }
-    public int getZipCode() {
+    public String getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(int zipCode) {
+    public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
 
