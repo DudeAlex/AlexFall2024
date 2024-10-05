@@ -8,27 +8,11 @@ import java.util.Locale;
 
 public class UserDataPool {
 
-    public static UserData getUserData(){
-       return new UserData("Mihai", "B", "US", "8709 st AVE", "95241",
-               "California", "Redmond", "mb@gmail.com");
-    }
-
-    public static List<UserData> getUserDataList(){
-        List<UserData> list = new ArrayList<>();
-        list.add(new UserData("Mihai", "B", "US", "8709 st AVE", "95241",
-                "California", "Redmond", "mb@gmail.com"));
-        list.add(new UserData("Artur", "B", "US", "8709 st AVE", "95243",
-                "California", "Redmond", "as@gmail.com"));
-        list.add(new UserData("Alex", "B", "US", "8709 st AVE", "95241",
-                "California", "San Francisco", "mb@gmail.com"));
-        return list;
-    }
-
-    public static List<UserData> getFakerUserDataList(){
+    public static List<UserData> getFakerUserDataList(int numberOfUsers){
         Faker faker = new Faker(new Locale("en-US"));
         List<UserData> list =new ArrayList<>();
 
-        for(int i = 0; i < 5; i++ ) {
+        for(int i = 0; i < numberOfUsers; i++ ) {
             String firstName = faker.name().firstName();
             String lastName = faker.name().lastName();
             String country = faker.address().country();

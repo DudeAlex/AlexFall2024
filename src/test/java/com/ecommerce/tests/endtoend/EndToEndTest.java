@@ -14,9 +14,8 @@ public class EndToEndTest  extends BaseTest {
 
     @Test
     public void testProductToShoppingCart () {
-       // UserData userData = UserDataPool.getUserData();
-        //UserData userData = UserDataPool.getUserDataList().get(2);
-        UserData userData = UserDataPool.getFakerUserDataList().get(4);
+
+        UserData userData = UserDataPool.getFakerUserDataList(10).get(4);
 
         HomePage homePage = new HomePage(driver);
         StorePage storePage = homePage.navigateToStorePage();
