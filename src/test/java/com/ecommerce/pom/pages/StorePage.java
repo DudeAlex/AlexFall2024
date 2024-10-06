@@ -4,11 +4,16 @@ import com.ecommerce.pom.BasePage;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class StorePage extends SalesPage {
 
     By headerTitle = By.xpath("//h1[@class='woocommerce-products-header__title page-title']");
     By loopProducts = By.xpath("//h2[@class='woocommerce-loop-product__title']");
+    By addToCartButton  = By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']");
+    By cartButton = By.linkText("View cart");
 
     public StorePage(WebDriver driver) {
         super(driver);
@@ -18,8 +23,19 @@ public class StorePage extends SalesPage {
         return WaitUtils.visibilityOf(getDriver(), headerTitle).getText();
     }
 
+    public String getTextFromListProducts(int number) {
+        List<WebElement> items = WaitUtils.numberOfElementsToBeMoreThan(getDriver(), loopProducts, 0);
+        return items.get(number).getText();
+    }
 
-
+    public StorePage addToCartFromStorePage() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), addToCartButton).click();
+        return this;
+    }
+    public CartPage clickCartPage() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), cartButton).click();
+        return new CartPage(getDriver());
+    }
 
 }
 

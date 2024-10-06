@@ -1,6 +1,8 @@
 package com.ecommerce.tests.cart;
 
 import com.ecommerce.base.BaseTest;
+import com.ecommerce.pom.pages.HomePage;
+import com.ecommerce.pom.pages.StorePage;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -24,9 +26,9 @@ public class CartTest extends BaseTest {
     @Test(description = "9.1_3_3.4 | TC > Cart - Update the Cart By typing the number inside of the Quantity input field # https://app.clickup.com/t/8689u7hd6",
     dataProvider = "numberToUpdateData")
     public void testUpdateQuantityInCart(String numbeerToSet, int priceIncreeaseToCheck) {
-        driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='Store']")).click();
+        new HomePage(driver).navigateToStorePage();
+        new StorePage(driver).addToCartFromStorePage();
 
-        driver.findElement(By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']")).click();
         WebElement viewCart = driver.findElement(By.linkText("View cart"));
         String viewCartText = viewCart.getText();
 
@@ -64,9 +66,9 @@ public class CartTest extends BaseTest {
 
     @Test(description = "9.1_2_2.3 | TC > Cart - Remove single item by clicking the 'x' icon near the product in the cart # https://app.clickup.com/t/8689ucy2m")
     public void testAddAndRemoveSingleItemFromCart() {
-        driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='Store']")).click();
+        new HomePage(driver).navigateToStorePage();
+        new StorePage(driver).addToCartFromStorePage();
 
-        driver.findElement(By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']")).click();
         WebElement viewCart = driver.findElement(By.linkText("View cart"));
         String viewCartText = viewCart.getText();
 
@@ -81,7 +83,7 @@ public class CartTest extends BaseTest {
 
     @Test(description = "9.1_2_2.4 | TC > Cart > Remove multiple products by clicking x buttons # https://app.clickup.com/t/8689p8y04")
     public void testAddRemoveMultipleItemsInCart() throws InterruptedException {
-        driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='Store']")).click();
+        new HomePage(driver).navigateToStorePage();
 
         List<WebElement> products = driver.findElements(By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']"));
         Integer counter = 0;
@@ -110,4 +112,25 @@ public class CartTest extends BaseTest {
         String emptyCart = driver.findElement(By.xpath("//p[@class='cart-empty woocommerce-info']")).getText();
         Assert.assertEquals(emptyCart, "Your cart is currently empty.");
     }
+    @Test(description = "9.2_1.1  | TC > Cart > Checkout # https://app.clickup.com/t/868a31pxz")
+    public void testCheckout() throws InterruptedException {
+        String notice = new HomePage(driver)
+                .navigateToStorePage()
+                .addToCartFromStorePage()
+                .clickCartPage()
+                .clickCheckoutButton()
+                .inputFirstName("Evgenii")
+                .inputLastName("Averianov")
+                .inputCompanyName("CompanyExample")
+                .inputStreetAddress("1234 Main Street")
+                .inputTown("Los Angeles")
+                .inputZip("90210")
+                .inputEmail("mail@mail.com")
+                .clickPlaceOrderButton()
+                .collectNotice();
+        Assert.assertEquals(notice, "Thank you. Your order has been received.");
+        Thread.sleep(2000);
+    }
+
+
 }

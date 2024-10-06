@@ -1,5 +1,6 @@
 package com.ecommerce.utils;
 
+import com.ecommerce.pojo.UserData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -76,4 +77,9 @@ public class WaitUtils {
     public static List<WebElement> visibilityOfAllElementsLocatedBy(WebDriver driver, By by) {
         return visibilityOfAllElementsLocatedBy(driver, by, TIMEOUTS);
     }
+
+    public static Boolean invisibilityOfElementLocated(WebDriver driver, By by, long timeout) {
+        return new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.invisibilityOfElementLocated(by));
+    }
+
 }
