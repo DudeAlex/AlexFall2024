@@ -82,4 +82,9 @@ public class WaitUtils {
         return new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.invisibilityOfElementLocated(by));
     }
 
+    public static Boolean waitForIncreasedAmountOfProductsInCart(WebDriver driver, long timeout, By by, Integer initialValue, int quantity) {
+        return new WebDriverWait(driver, Duration.ofSeconds(timeout))
+                .until(ExpectedConditions.textToBe(by, String.valueOf(initialValue + quantity)));
+    }
+
 }
