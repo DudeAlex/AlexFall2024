@@ -12,6 +12,8 @@ public class HomePage extends BasePage {
     By accountButton = By.xpath("//li[@id=\"menu-item-1237\"]");
     By cartIcon = By.xpath("//div[@id=\"ast-desktop-header\"]//a[@title=\"View your shopping cart\"]//span");
     By firstProductAddToCartButton = By.xpath("//ul[@class=\"products columns-4\"]//a[2]");
+    By accountHeaderLink = By.id("menu-item-1237");
+
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -28,6 +30,7 @@ public class HomePage extends BasePage {
 
         return new MenPage(getDriver());
     }
+
 
     public AccountPage navigateToAccountPage() {
         WaitUtils.elementToBeClickable(getDriver(), accountButton, 2).click();
@@ -57,5 +60,6 @@ public class HomePage extends BasePage {
     public void addFirstProductToCart()
     {
         WaitUtils.elementToBeClickable(getDriver(), firstProductAddToCartButton, 1).click();
+
     }
 }

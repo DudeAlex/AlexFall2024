@@ -7,12 +7,18 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 public class CartPage extends BasePage {
+
     By checkoutButton = By.xpath("//a[@href='https://askomdch.com/checkout/']");
     By quantityOfProducts = By.xpath("//input[@type=\"number\"]");
     By updateCartButton = By.xpath("//button[@name=\"update_cart\"]");
+    By cartIcon = By.xpath("//span[@class='count']");
+    By removeButton = By.xpath("//a[@class='remove']");
+
+
     public CartPage(WebDriver driver) {
         super(driver);
     }
+
     public CheckoutPage clickCheckoutButton() {
         WaitUtils.visibilityOfElementLocated(getDriver(), checkoutButton).click();
         return new CheckoutPage(getDriver());
@@ -28,5 +34,13 @@ public class CartPage extends BasePage {
         getDriver().findElement(quantityOfProducts).clear();
         WaitUtils.elementToBeClickable(getDriver(), updateCartButton, 5).click();
         WaitUtils.invisibilityOfElementLocated(getDriver(), updateCartButton, 3);
+    }
+    public String getCartItemsNumber(){
+       return WaitUtils.visibilityOfElementLocated(getDriver(),cartIcon).getText();
+    }
+
+    public void removeItemsFromCart(){
+
+        WaitUtils.elementToBeClickable(getDriver(),removeButton).click();
     }
 }
