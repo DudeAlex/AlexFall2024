@@ -11,6 +11,7 @@ public class AccountPage extends BasePage {
     By passwordField = By.id("//input [ @ id = 'password']");
     By loginButton = By.xpath("//button[@class='woocommerce-button button woocommerce-form-login__submit' and text()='Log in']");
     By storePageLink = By.id("menu-item-1227");
+    By menPageLink = By.id("menu-item-1228");
     By cartIcon = By.xpath("//span[@class='count']");
 
     public AccountPage(WebDriver driver) {
@@ -34,6 +35,12 @@ public class AccountPage extends BasePage {
         WaitUtils.visibilityOfElementLocated(getDriver(),cartIcon).click();
 
         return new CartPage(getDriver());
+    }
+
+    public MenPage navigateToMenPage() {
+        WaitUtils.visibilityOfElementLocated(getDriver(),menPageLink).click();
+
+        return new MenPage(getDriver());
     }
 
 }
