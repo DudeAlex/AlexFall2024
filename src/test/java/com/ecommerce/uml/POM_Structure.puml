@@ -85,11 +85,23 @@ class MenPage{
 # singleItemContainer: By
 # saleTag: By
 # crossedOutPrice: By
+
 + MenPage(WebDriver driver)
 + List<Boolean> areProductsOnSaleHaveCrossedPrice()
 + List<String> collectCategories()
 
 }
+
+class WomenPage{
+# addToCartButton: By
+# cartButton: By
+
++ WomenPage(WebDriver driver)
++ WomenPage addToCartFromWomenPage()
++ CartPage clickCartPage()
+
+}
+
 abstract class SalesPage{
 # searchField: By
 # searchButton: By
@@ -98,6 +110,7 @@ abstract class SalesPage{
 + StorePage searchProduct(String item)
 
 }
+
 class CheckoutPage{
 # firstNameField: By
 # lastNameField: By
