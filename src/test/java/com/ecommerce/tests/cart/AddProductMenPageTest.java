@@ -7,7 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class AddProductMenPageTest extends BaseTest {
-    @Test(description = "9.1-1-1.2 | TC Add a product from the 'Store' page # https://app.clickup.com/t/8689zkdvk")
+    @Test(description = "9.1-1-1.2 | TC Add a product from the 'Men' page # https://app.clickup.com/t/868a40bq7")
     public void testAddProductMenPage()  {
         HomePage homePage = new HomePage(driver);
         AccountPage accountPage = homePage.navigateToAccountPage();
