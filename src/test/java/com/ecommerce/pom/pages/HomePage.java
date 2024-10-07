@@ -9,6 +9,8 @@ public class HomePage extends BasePage {
 
     By shopButton = By.xpath("//a[@class='wp-block-button__link']");
     By manCategory = By.id("menu-item-1228");
+    By accountHeaderLink = By.id("menu-item-1237");
+
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -24,5 +26,11 @@ public class HomePage extends BasePage {
         WaitUtils.elementToBeClickable(getDriver(), manCategory, 2).click();
 
         return new MenPage(getDriver());
+    }
+
+    public AccountPage navigateToAccountPage(){
+        WaitUtils.elementToBeClickable(getDriver(), accountHeaderLink, 2).click();
+
+        return new AccountPage(getDriver());
     }
 }
