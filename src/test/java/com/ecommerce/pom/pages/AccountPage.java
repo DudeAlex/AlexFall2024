@@ -13,18 +13,20 @@ public class AccountPage extends BasePage {
     By storePageLink = By.id("menu-item-1227");
     By menPageLink = By.id("menu-item-1228");
     By womenPageLink = By.id("menu-item-1229");
-    By cartIcon = By.xpath("//span[@class='count']");
+    By cartIcon = By.xpath("//span[@class='count']");   
+    By loginUsername = By.xpath("//input[@id=\"username\"]");
+    By loginPassword = By.xpath("//input[@id=\"password\"]");
+    By storeButton = By.xpath("//li[@id=\"menu-item-1227\"]/a");
 
     public AccountPage(WebDriver driver) {
         super(driver);
     }
-
-    public void logIn() throws InterruptedException {
-
-        WaitUtils.visibilityOfElementLocated(getDriver(),emailField).sendKeys("test_test@test.test");
-        WaitUtils.visibilityOfElementLocated(getDriver(),passwordField).sendKeys("12345");
-        WaitUtils.elementToBeClickable(getDriver(),loginButton).click();
-
+    
+        public void logIn()
+    {
+        getDriver().findElement(loginUsername).sendKeys("aaaaa@aa.aa");
+        getDriver().findElement(loginPassword).sendKeys("11111");
+        getDriver().findElement(loginButton).click();
     }
 
     public StorePage navigateToStorePage() {

@@ -9,6 +9,9 @@ public class HomePage extends BasePage {
 
     By shopButton = By.xpath("//a[@class='wp-block-button__link']");
     By manCategory = By.id("menu-item-1228");
+    By accountButton = By.xpath("//li[@id=\"menu-item-1237\"]");
+    By cartIcon = By.xpath("//div[@id=\"ast-desktop-header\"]//a[@title=\"View your shopping cart\"]//span");
+    By firstProductAddToCartButton = By.xpath("//ul[@class=\"products columns-4\"]//a[2]");
     By accountHeaderLink = By.id("menu-item-1237");
 
 
@@ -28,9 +31,35 @@ public class HomePage extends BasePage {
         return new MenPage(getDriver());
     }
 
-    public AccountPage navigateToAccountPage(){
-        WaitUtils.elementToBeClickable(getDriver(), accountHeaderLink, 2).click();
 
-        return new AccountPage(getDriver());
+    public AccountPage navigateToAccountPage() {
+        WaitUtils.elementToBeClickable(getDriver(), accountButton, 2).click();
+
+        return  new AccountPage(getDriver());
+    }
+
+    public CartPage naigateToCartPage()
+    {
+        WaitUtils.elementToBeClickable(getDriver(), cartIcon, 1).click();
+
+        return new CartPage(getDriver());
+    }
+
+    public int getAmountOfProductsFromCartIcon()
+    {
+        int amount = Integer.parseInt(WaitUtils.visibilityOfElementLocated(getDriver(), cartIcon, 1).getText());
+        return amount;
+    }
+
+    public int getAmountOfProductsFromCartIconAfterIncrease(int quantity)
+    {
+        WaitUtils.waitForIncreasedAmountOfProductsInCart(getDriver(), 3, cartIcon, getAmountOfProductsFromCartIcon(), quantity);
+        return Integer.parseInt(getDriver().findElement(cartIcon).getText());
+    }
+
+    public void addFirstProductToCart()
+    {
+        WaitUtils.elementToBeClickable(getDriver(), firstProductAddToCartButton, 1).click();
+
     }
 }
