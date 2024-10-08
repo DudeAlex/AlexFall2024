@@ -19,7 +19,6 @@ public class StorePage extends SalesPage {
     By cartButton = By.linkText("View cart");
     By sortBy = By.xpath("//select[@name='orderby']");
     By sortByPrice = By.xpath("//span[@class='byPrice']");
- //   By chooseAnItem = By.xpath("//a[@aria-label='Add “"  + "” to your cart']");
 
     public StorePage(WebDriver driver) {
         super(driver);

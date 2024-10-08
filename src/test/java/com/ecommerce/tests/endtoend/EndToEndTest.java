@@ -40,11 +40,8 @@ public class EndToEndTest  extends BaseTest {
         CheckoutPage checkoutPage = new CheckoutPage(driver);
         checkoutPage.inputFirstName(userData.getFirstName()).inputLastName(userData.getLastName());
 
-        driver.findElement(By.xpath("//span[@id='select2-billing_country-container']")).click();
-        driver.findElement(By.xpath("//li[contains(text(),'United States (US)')]")).click();
-
         checkoutPage.inputStreetAddress(userData.getAddress()).inputCountry(userData.getTown());
-        checkoutPage.clickBillingCountryDropDown().selectUnitedStates();
+        checkoutPage.clickBillingCountryDropDown(userData.getCountry());
         checkoutPage.inputStreetAddress(userData.getAddress()).inputTown(userData.getTown());
 
         driver.findElement(By.xpath("//span[@id='select2-billing_state-container']")).click();

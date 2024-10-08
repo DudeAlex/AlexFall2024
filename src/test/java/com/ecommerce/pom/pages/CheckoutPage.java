@@ -21,6 +21,7 @@ public class CheckoutPage extends BasePage {
 
     By countryRegion = By.xpath("//span[@id='select2-billing_country-container']");
     By billingCountryDropDown = By.xpath("//span[@id='select2-billing_country-container']");
+    By inputBillingCountryDropDownField = By.xpath("//input[@class='select2-search__field']");
     By unitedStatesOption = By.xpath("//li[contains(text(),'United States (US)')]");
 
     public CheckoutPage(WebDriver driver) {
@@ -66,20 +67,23 @@ public class CheckoutPage extends BasePage {
         return this;
     }
 
-//    public List<UserData> inputCountryOrRegion(){
-//       return WaitUtils.visibilityOfElementLocated(getDriver(), countryRegion).getFakeUserDataList(1);
-//    }
+ //  public List<UserData> inputCountryOrRegion(){
+   //   return WaitUtils.visibilityOfElementLocated(getDriver(), countryRegion).getFakeUserDataList(1);
+  //  }
 
  // chatGPT option:
 
-    public CheckoutPage clickBillingCountryDropDown(){
+    public CheckoutPage clickBillingCountryDropDown(String country){
         WaitUtils.visibilityOf(getDriver(), billingCountryDropDown).click();
+        WaitUtils.visibilityOf(getDriver(), inputBillingCountryDropDownField).sendKeys(country);
         return this;
     }
 
-    public CheckoutPage selectUnitedStates(){
-        WaitUtils.elementToBeClickable(getDriver(), unitedStatesOption);
-        return this;
-    }
+
+
+//    public CheckoutPage selectUnitedStates(){
+//        WaitUtils.elementToBeClickable(getDriver(), unitedStatesOption);
+//        return this;
+//    }
 
 }
