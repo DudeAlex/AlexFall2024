@@ -60,9 +60,7 @@ public class UserData {
 
     public void setTown(String town){
         this.town = town;
-
     }
-
     public String getState() {
         return state;
     }

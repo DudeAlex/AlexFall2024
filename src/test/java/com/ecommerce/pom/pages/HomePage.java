@@ -9,6 +9,8 @@ public class HomePage extends BasePage {
 
     By shopButton = By.xpath("//a[@class='wp-block-button__link']");
     By manCategory = By.id("menu-item-1228");
+
+    By shopNowButton = By.xpath("//a[@class= 'wp-block-button__link']");
     By accountButton = By.xpath("//li[@id=\"menu-item-1237\"]");
     By cartIcon = By.xpath("//div[@id=\"ast-desktop-header\"]//a[@title=\"View your shopping cart\"]//span");
     By firstProductAddToCartButton = By.xpath("//ul[@class=\"products columns-4\"]//a[2]");
@@ -31,6 +33,9 @@ public class HomePage extends BasePage {
         return new MenPage(getDriver());
     }
 
+    public StorePage shopNowButton(){
+        WaitUtils.elementToBeClickable(getDriver(), shopNowButton).click();
+        return new StorePage(getDriver());
 
     public AccountPage navigateToAccountPage() {
         WaitUtils.elementToBeClickable(getDriver(), accountButton, 2).click();

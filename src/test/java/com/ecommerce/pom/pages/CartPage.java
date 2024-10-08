@@ -9,6 +9,8 @@ import org.testng.Assert;
 public class CartPage extends BasePage {
 
     By checkoutButton = By.xpath("//a[@href='https://askomdch.com/checkout/']");
+   // By productName = (By.xpath("//a[@aria-label='Add “" +  + "” to your cart']")
+    By viewCart = (By.xpath("//a[@title='View cart']"));
     By quantityOfProducts = By.xpath("//input[@type=\"number\"]");
     By updateCartButton = By.xpath("//button[@name=\"update_cart\"]");
     By cartIcon = By.xpath("//span[@class='count']");
@@ -23,6 +25,13 @@ public class CartPage extends BasePage {
         WaitUtils.visibilityOfElementLocated(getDriver(), checkoutButton).click();
         return new CheckoutPage(getDriver());
     }
+
+
+    public CartPage clickViewCartButton(){
+        WaitUtils.elementToBeClickable(getDriver(), viewCart).click();
+        return new CartPage(getDriver());
+    }
+
 
     public int getProductsQuantity()
     {
@@ -43,4 +52,5 @@ public class CartPage extends BasePage {
 
         WaitUtils.elementToBeClickable(getDriver(),removeButton).click();
     }
+
 }

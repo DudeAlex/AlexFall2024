@@ -1,9 +1,13 @@
 package com.ecommerce.pom.pages;
 
+import com.ecommerce.pojo.UserData;
+import com.ecommerce.pojo.UserDataPool;
 import com.ecommerce.pom.BasePage;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
+import java.util.List;
 
 public class CheckoutPage extends BasePage {
     By firstNameField = By.xpath("//input[@id='billing_first_name']");
@@ -15,10 +19,16 @@ public class CheckoutPage extends BasePage {
     By emailField = By.xpath("//input[@id='billing_email']");
     By placeOrderButton = By.xpath("//button[@id='place_order']");
 
+    By countryRegion = By.xpath("//span[@id='select2-billing_country-container']");
+    By billingCountryDropDown = By.xpath("//span[@id='select2-billing_country-container']");
+    By inputBillingCountryDropDownField = By.xpath("//input[@class='select2-search__field']");
+    By unitedStatesOption = By.xpath("//li[contains(text(),'United States (US)')]");
+
     public CheckoutPage(WebDriver driver) {
         super(driver);
     }
     public CheckoutPage inputFirstName(String firstName) {
+        WaitUtils.visibilityOfElementLocated(getDriver(), firstNameField).clear();
         WaitUtils.visibilityOfElementLocated(getDriver(), firstNameField).sendKeys(firstName);
         return this;
     }
@@ -50,4 +60,30 @@ public class CheckoutPage extends BasePage {
         WaitUtils.visibilityOfElementLocated(getDriver(), placeOrderButton).click();
         return new OrderReceivedPage(getDriver());
     }
+
+
+    public CheckoutPage inputCountry(String country){
+        WaitUtils.elementToBeClickable(getDriver(),townField ).sendKeys(country);
+        return this;
+    }
+
+ //  public List<UserData> inputCountryOrRegion(){
+   //   return WaitUtils.visibilityOfElementLocated(getDriver(), countryRegion).getFakeUserDataList(1);
+  //  }
+
+ // chatGPT option:
+
+    public CheckoutPage clickBillingCountryDropDown(String country){
+        WaitUtils.visibilityOf(getDriver(), billingCountryDropDown).click();
+        WaitUtils.visibilityOf(getDriver(), inputBillingCountryDropDownField).sendKeys(country);
+        return this;
+    }
+
+
+
+//    public CheckoutPage selectUnitedStates(){
+//        WaitUtils.elementToBeClickable(getDriver(), unitedStatesOption);
+//        return this;
+//    }
+
 }
