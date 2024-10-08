@@ -5,7 +5,7 @@ import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class HomePage extends BasePage {
+public class HomePage extends PurchasePage {
 
     By shopButton = By.xpath("//a[@class='wp-block-button__link']");
     By manCategory = By.id("menu-item-1228");

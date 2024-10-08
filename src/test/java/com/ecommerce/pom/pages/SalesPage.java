@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public abstract class SalesPage extends BasePage {
+public abstract class SalesPage extends PurchasePage {
 
     By searchField = By.id("woocommerce-product-search-field-0");
     By searchButton = By.xpath("//button[@value='Search']");
