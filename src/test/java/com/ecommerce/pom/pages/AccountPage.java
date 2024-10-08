@@ -1,6 +1,7 @@
 package com.ecommerce.pom.pages;
 
 import com.ecommerce.pom.BasePage;
+import com.ecommerce.tests.cart.AccessoriesPage;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -52,4 +53,8 @@ public class AccountPage extends BasePage {
         return new WomenPage(getDriver());
     }
 
+    public AccessoriesPage navigateToAccessoriesPage() {
+        WaitUtils.visibilityOfElementLocated(getDriver(),getHeaderAccessories()).click();
+        return new AccessoriesPage(getDriver());
+    }
 }
