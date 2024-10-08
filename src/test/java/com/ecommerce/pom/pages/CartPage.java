@@ -15,6 +15,7 @@ public class CartPage extends BasePage {
     By updateCartButton = By.xpath("//button[@name=\"update_cart\"]");
     By cartIcon = By.xpath("//span[@class='count']");
     By removeButton = By.xpath("//a[@class='remove']");
+    By storePageLink = By.id("menu-item-1227");
 
 
     public CartPage(WebDriver driver) {
@@ -53,4 +54,18 @@ public class CartPage extends BasePage {
         WaitUtils.elementToBeClickable(getDriver(),removeButton).click();
     }
 
+    public StorePage navigateToStorePage() {
+        WaitUtils.visibilityOfElementLocated(getDriver(),storePageLink).click();
+
+        return new StorePage(getDriver());
+    }
+
+    public void setZeroValueOfProductQuantity()
+    {
+        getDriver().findElement(quantityOfProducts).clear();
+        getDriver().findElement(quantityOfProducts).sendKeys("0");
+
+        WaitUtils.elementToBeClickable(getDriver(), updateCartButton, 5).click();
+        WaitUtils.invisibilityOfElementLocated(getDriver(), updateCartButton, 3);
+    }
 }
