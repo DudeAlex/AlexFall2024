@@ -1,10 +1,7 @@
 package com.ecommerce.tests.cart;
 
 import com.ecommerce.base.BaseTest;
-import com.ecommerce.pom.pages.AccountPage;
-import com.ecommerce.pom.pages.CartPage;
-import com.ecommerce.pom.pages.HomePage;
-import com.ecommerce.pom.pages.StorePage;
+import com.ecommerce.pom.pages.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

@@ -1,7 +1,6 @@
 package com.ecommerce.pom.pages;
 
 import com.ecommerce.pom.BasePage;
-import com.ecommerce.tests.cart.AccessoriesPage;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
