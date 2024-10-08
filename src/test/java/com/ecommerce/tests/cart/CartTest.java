@@ -1,6 +1,8 @@
 package com.ecommerce.tests.cart;
 
 import com.ecommerce.base.BaseTest;
+import com.ecommerce.pom.pages.AccountPage;
+import com.ecommerce.pom.pages.CartPage;
 import com.ecommerce.pom.pages.HomePage;
 import com.ecommerce.pom.pages.StorePage;
 import com.ecommerce.utils.WaitUtils;
@@ -15,6 +17,8 @@ import java.time.Duration;
 import java.util.List;
 
 public class CartTest extends BaseTest {
+
+    private int QUANTITY_OF_PRODUCTS = 2;
 
     @DataProvider(name = "numberToUpdateData")
     public Object[][] numberStrToUpdateData() {
@@ -132,5 +136,23 @@ public class CartTest extends BaseTest {
         Thread.sleep(2000);
     }
 
-
+    @Test(description = "9.1-3-3.1-1 | TC > Cart > Add the same product to the cart from the Store page # https://app.clickup.com/t/8689zkdvk")
+    public void testAddTheSameProductToTheCartFromStorePage() {
+        HomePage homePage = new HomePage(driver);
+        homePage.navigateToAccountPage();
+        AccountPage accountPage = new AccountPage(driver);
+        accountPage.logIn();
+        accountPage.navigateToStorePage();
+        int amountProductsInCart = homePage.getAmountOfProductsFromCartIcon();
+        for (int i = 0; i < QUANTITY_OF_PRODUCTS; i++) {
+            homePage.addFirstProductToCart();
+        }
+        int amountProductsInCartAfterAppending = homePage.getAmountOfProductsFromCartIconAfterIncrease(QUANTITY_OF_PRODUCTS);
+        Assert.assertEquals(amountProductsInCart + QUANTITY_OF_PRODUCTS, amountProductsInCartAfterAppending, "The product wasn't added to cart");
+        homePage.naigateToCartPage();
+        CartPage cartPage = new CartPage(driver);
+        int productsQuantityInCart = cartPage.getProductsQuantity();
+        Assert.assertEquals(amountProductsInCartAfterAppending, productsQuantityInCart, "The product wasn't added to cart");
+        cartPage.resetValueOfProductQuantity();
+    }
 }

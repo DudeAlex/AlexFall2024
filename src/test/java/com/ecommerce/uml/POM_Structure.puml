@@ -1,7 +1,7 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-'hide fields
+' hide fields
 
 abstract class BasePage {
 - WebDriver driver
@@ -40,12 +40,25 @@ abstract class BasePage {
 + WebDriver getDriver()
 
 }
+class AccountPage {
+# emailField: By
+# passwordField: By
+# loginButton: By
+# storePageLink: By
+# cartIcon: By
++ logIn()
++ StorePage navigateToStorePage()
++ navigateToCartPage()
+}
 
 class CartPage {
 # checkoutButton: By
-
+# cartIcon: By
+# removeButton: By
 + CartPage(WebDriver driver)
 + CheckoutPage clickCheckoutButton()
++ getCartItemsNumber()
++ removeItemsFromCart()
 }
 
 class OrderReceivedPage {
@@ -59,10 +72,12 @@ class OrderReceivedPage {
 class HomePage{
 # shopButton: By
 # manCategory: By
+# accountHeaderLink: By
 
 + HomePage(WebDriver driver)
 + StorePage navigateToStorePage()
 + MenPage navigateToMenPage()
++ AccountPage navigateToAccountPage
 
 }
 
@@ -70,11 +85,23 @@ class MenPage{
 # singleItemContainer: By
 # saleTag: By
 # crossedOutPrice: By
+
 + MenPage(WebDriver driver)
 + List<Boolean> areProductsOnSaleHaveCrossedPrice()
 + List<String> collectCategories()
 
 }
+
+class WomenPage{
+# addToCartButton: By
+# cartButton: By
+
++ WomenPage(WebDriver driver)
++ WomenPage addToCartFromWomenPage()
++ CartPage clickCartPage()
+
+}
+
 abstract class SalesPage{
 # searchField: By
 # searchButton: By
@@ -83,6 +110,7 @@ abstract class SalesPage{
 + StorePage searchProduct(String item)
 
 }
+
 class CheckoutPage{
 # firstNameField: By
 # lastNameField: By
@@ -115,7 +143,7 @@ class StorePage{
 + CartPage clickCartPage()
 }
 
-
+BasePage <|-- AccountPage
 BasePage <|-- CartPage
 BasePage <|-- CheckoutPage
 BasePage <|-- HomePage
@@ -124,6 +152,6 @@ SalesPage <|-- MenPage
 SalesPage <|-- WomenPage
 SalesPage <|-- StorePage
 SalesPage <|-- AccessoriesPage
-BasePage <|--OrderReceivedPage
+BasePage <|-- OrderReceivedPage
 
 @enduml
