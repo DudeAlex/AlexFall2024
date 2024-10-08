@@ -32,21 +32,16 @@ public class EndToEndTest  extends BaseTest {
         CartPage cartPage = new CartPage(driver);
         cartPage.clickViewCartButton();
         String sameItem = driver.findElement(By.xpath("//a[contains(text(),'" + item + "')]")).getText();
-
         Assert.assertEquals(sameItem, item);
 
         cartPage.clickCheckoutButton();
 
         CheckoutPage checkoutPage = new CheckoutPage(driver);
         checkoutPage.inputFirstName(userData.getFirstName()).inputLastName(userData.getLastName());
-
         checkoutPage.inputStreetAddress(userData.getAddress()).inputCountry(userData.getTown());
         checkoutPage.clickBillingCountryDropDown(userData.getCountry());
         checkoutPage.inputStreetAddress(userData.getAddress()).inputTown(userData.getTown());
-
-        driver.findElement(By.xpath("//span[@id='select2-billing_state-container']")).click();
-        driver.findElement(By.xpath("//li[contains(text(),'California')]")).click();
-
+        checkoutPage.clickBillingStateDropDown(userData.getState());
         checkoutPage.inputZip(userData.getZipCode()).inputEmail(userData.getEmailAddress());
 
         String productOrder = driver.findElement(By.xpath("//td[@class='product-name']")).getText();
