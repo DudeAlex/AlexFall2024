@@ -52,4 +52,8 @@ public class AccountPage extends BasePage {
         return new WomenPage(getDriver());
     }
 
+    public AccessoriesPage navigateToAccessoriesPage() {
+        WaitUtils.visibilityOfElementLocated(getDriver(),getHeaderAccessories()).click();
+        return new AccessoriesPage(getDriver());
+    }
 }

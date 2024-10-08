@@ -1,7 +1,7 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-' hide fields
+ hide fields
 
 abstract class BasePage {
 - WebDriver driver
@@ -146,12 +146,16 @@ class StorePage{
 BasePage <|-- AccountPage
 BasePage <|-- CartPage
 BasePage <|-- CheckoutPage
-BasePage <|-- HomePage
-BasePage <|-- SalesPage
+BasePage <|-- OrderReceivedPage
+BasePage <|-- PurchasePage
+
+PurchasePage <|-- HomePage
+PurchasePage <|-- ProductPage
+PurchasePage <|-- SalesPage
+
 SalesPage <|-- MenPage
 SalesPage <|-- WomenPage
 SalesPage <|-- StorePage
 SalesPage <|-- AccessoriesPage
-BasePage <|-- OrderReceivedPage
 
 @enduml
