@@ -82,10 +82,6 @@ public class WaitUtils {
     public static Boolean invisibilityOfElementLocated(WebDriver driver, By by, long timeout) {
         return new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.invisibilityOfElementLocated(by));
     }
-// UserDataPool method
-    public static List<UserData> getFakeUserDataList(int users){
-        return UserDataPool.getFakerUserDataList(users);
-    }
 
     public static Boolean waitForIncreasedAmountOfProductsInCart(WebDriver driver, long timeout, By by, Integer initialValue, int quantity) {
         return new WebDriverWait(driver, Duration.ofSeconds(timeout))
