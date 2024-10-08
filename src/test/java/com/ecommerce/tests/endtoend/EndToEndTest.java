@@ -18,14 +18,16 @@ public class EndToEndTest  extends BaseTest {
     public void testProductToShoppingCart (){
 
        UserData userData = UserDataPool.getFakerUserDataList(10).get(4);
+       String product = "Blue";
 
         HomePage homePage = new HomePage(driver);
         StorePage storePage = homePage.navigateToStorePage();
-        String searchResult = storePage.searchProduct("Blue").getSearchHeaderTitle();
+        String searchResult = storePage.searchProduct(product).getSearchHeaderTitle();
         String item = storePage.getTextFromListProducts(0);
 
-        Assert.assertEquals(searchResult, "Search results: “Blue”");
-        driver.findElement(By.xpath("//a[@aria-label='Add “" + item + "” to your cart']")).click();
+        Assert.assertEquals(searchResult, "Search results: “%s”".formatted(product));
+
+        storePage.chooseAnItemByClickingAddToCart(item);
 
         CartPage cartPage = new CartPage(driver);
         cartPage.clickViewCartButton();

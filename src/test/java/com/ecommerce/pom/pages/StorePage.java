@@ -10,12 +10,16 @@ import java.util.List;
 
 public class StorePage extends SalesPage {
 
+    String Add = "//a[@aria-label='Add “";
+    String toCart = "” to your cart']";
+
     By headerTitle = By.xpath("//h1[@class='woocommerce-products-header__title page-title']");
     By loopProducts = By.xpath("//h2[@class='woocommerce-loop-product__title']");
     By addToCartButton  = By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']");
     By cartButton = By.linkText("View cart");
     By sortBy = By.xpath("//select[@name='orderby']");
     By sortByPrice = By.xpath("//span[@class='byPrice']");
+ //   By chooseAnItem = By.xpath("//a[@aria-label='Add “"  + "” to your cart']");
 
     public StorePage(WebDriver driver) {
         super(driver);
@@ -47,6 +51,13 @@ public class StorePage extends SalesPage {
     public StorePage sortByPrice(){
         WaitUtils.visibilityOfElementLocated(getDriver(), sortByPrice).click();
           return this;
+    }
+
+    public StorePage chooseAnItemByClickingAddToCart(String item){
+        String chooseAnItemString = Add + item  + toCart;
+        By chooseAnItem = By.xpath(chooseAnItemString);
+        WaitUtils.elementToBeClickable(getDriver(), chooseAnItem).click();
+        return this;
     }
 
 }

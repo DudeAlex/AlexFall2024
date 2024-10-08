@@ -27,6 +27,7 @@ public class CheckoutPage extends BasePage {
         super(driver);
     }
     public CheckoutPage inputFirstName(String firstName) {
+        WaitUtils.visibilityOfElementLocated(getDriver(), firstNameField).clear();
         WaitUtils.visibilityOfElementLocated(getDriver(), firstNameField).sendKeys(firstName);
         return this;
     }
