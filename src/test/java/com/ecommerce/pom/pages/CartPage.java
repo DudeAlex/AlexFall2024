@@ -59,4 +59,13 @@ public class CartPage extends BasePage {
 
         return new StorePage(getDriver());
     }
+
+    public void setZeroValueOfProductQuantity()
+    {
+        getDriver().findElement(quantityOfProducts).clear();
+        getDriver().findElement(quantityOfProducts).sendKeys("0");
+
+        WaitUtils.elementToBeClickable(getDriver(), updateCartButton, 5).click();
+        WaitUtils.invisibilityOfElementLocated(getDriver(), updateCartButton, 3);
+    }
 }
