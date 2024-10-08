@@ -2,6 +2,7 @@ package com.ecommerce.tests.store;
 
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.data.ProductsData;
+import com.ecommerce.pom.pages.HomePage;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -18,11 +19,10 @@ import java.util.List;
 
 public class StorePageTest extends BaseTest {
 
-    private static final By PRODUCT_LIST = By.xpath("//ul//h2");
     private static final By NEXT_PAGE_NUMBER = By.xpath("//a[@class='next page-numbers']");
     private static final By SORTING_DROP_DOWN = By.xpath("//select[@name='orderby']");
     private static final By PRICE = By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]");
-    private static final By ITEM_CATEGORY_BELOW_PRICE =  By.xpath("//span[@class='ast-woo-product-category']");
+    private static final By ITEM_CATEGORY_BELOW_PRICE = By.xpath("//span[@class='ast-woo-product-category']");
 
     private static List<String> getAllItemsFromAllPages(By locator, WebDriver driver) {
         List<String> allItemList = new ArrayList<>();
@@ -122,14 +122,11 @@ public class StorePageTest extends BaseTest {
 
     @Test(description = "2.12-1.1 | TC> Store> Verify items alphabetical order # https://app.clickup.com/t/8689vk3c5")
     public void testVerifyItemsAlphabeticalOrder() {
-        WaitUtils.elementToBeClickable(driver, By.xpath("//a[@href='/store']")).click();
+        boolean isAlphabeticalOrder = new HomePage(driver)
+                .navigateToStorePage()
+                .areItemsInAlphabeticalOrder();
 
-        List<String> allItemList = getAllItemsFromAllPages(PRODUCT_LIST, driver);
-
-        List<String> alphabeticalAllItemList = new ArrayList<>(allItemList);
-        Collections.sort(alphabeticalAllItemList);
-
-        Assert.assertEquals(allItemList, alphabeticalAllItemList, "Items are not in alphabetical order");
+        Assert.assertTrue(isAlphabeticalOrder, "Items are not in alphabetical order");
     }
 
     @Test(dataProvider = "provideAllItemCategory", dataProviderClass = ProductsData.class,
@@ -174,7 +171,7 @@ public class StorePageTest extends BaseTest {
 
     //testVerifyItemsCorrespondentCategories[Women] will fail, bug?!
     @Test(dataProvider = "provideAllItemCategory", dataProviderClass = ProductsData.class,
-    description = "2.8-1.1 TC > Store > Products Match # https://app.clickup.com/t/8689p8y82")
+            description = "2.8-1.1 TC > Store > Products Match # https://app.clickup.com/t/8689p8y82")
     public void testVerifyItemsCorrespondentCategories(String category) {
         WaitUtils.elementToBeClickable(
                 driver, By.xpath("//div[@id='ast-desktop-header']//a[text()='" + category + "']")).click();
