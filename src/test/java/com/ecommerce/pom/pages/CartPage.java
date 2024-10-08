@@ -7,6 +7,10 @@ import org.openqa.selenium.WebDriver;
 
 public class CartPage extends BasePage {
     By checkoutButton = By.xpath("//a[@href='https://askomdch.com/checkout/']");
+   // By productName = (By.xpath("//a[@aria-label='Add “" +  + "” to your cart']")
+    By viewCart = (By.xpath("//a[@title='View cart']"));
+
+
     public CartPage(WebDriver driver) {
         super(driver);
     }
@@ -14,4 +18,10 @@ public class CartPage extends BasePage {
         WaitUtils.visibilityOfElementLocated(getDriver(), checkoutButton).click();
         return new CheckoutPage(getDriver());
     }
+
+    public CartPage clickViewCartButton(){
+        WaitUtils.elementToBeClickable(getDriver(), viewCart).click();
+        return new CartPage(getDriver());
+    }
+
 }

@@ -14,6 +14,8 @@ public class StorePage extends SalesPage {
     By loopProducts = By.xpath("//h2[@class='woocommerce-loop-product__title']");
     By addToCartButton  = By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']");
     By cartButton = By.linkText("View cart");
+    By sortBy = By.xpath("//select[@name='orderby']");
+    By sortByPrice = By.xpath("//span[@class='byPrice']");
 
     public StorePage(WebDriver driver) {
         super(driver);
@@ -35,6 +37,16 @@ public class StorePage extends SalesPage {
     public CartPage clickCartPage() {
         WaitUtils.visibilityOfElementLocated(getDriver(), cartButton).click();
         return new CartPage(getDriver());
+    }
+
+    public StorePage sortByDropDownButton(){
+        WaitUtils.visibilityOfElementLocated(getDriver(), sortBy).click();
+        return this;
+    }
+
+    public StorePage sortByPrice(){
+        WaitUtils.visibilityOfElementLocated(getDriver(), sortByPrice).click();
+          return this;
     }
 
 }
