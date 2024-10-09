@@ -33,6 +33,7 @@ public class EndToEndTest  extends BaseTest {
         cartPage.clickViewCartButton();
 
 
+
         String sameItem = storePage.checkProductNameOnCartPage(item);
         Assert.assertEquals(sameItem, item);
 
@@ -45,9 +46,7 @@ public class EndToEndTest  extends BaseTest {
         checkoutPage.inputCountry(userData.getCountry())
                     .inputStreetAddress(userData.getAddress());
         checkoutPage.inputTown(userData.getTown());
-
         checkoutPage.clickBillingStateDropDown(userData.getState());
-
         checkoutPage.inputZip(userData.getZipCode());
         checkoutPage.inputEmail(userData.getEmailAddress());
 

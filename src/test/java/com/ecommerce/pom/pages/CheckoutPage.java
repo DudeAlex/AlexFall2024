@@ -73,11 +73,16 @@ public class CheckoutPage extends BasePage {
         WaitUtils.elementToBeClickable(getDriver(),townField ).sendKeys(country);
         return this;
     }
+  
+    public CheckoutPage clickBillingCountryDropDown(String country){
+        WaitUtils.visibilityOf(getDriver(), billingCountryDropDown).click();
+        WaitUtils.visibilityOf(getDriver(), inputBillingCountryDropDownField).sendKeys(country);
+        return this;
+    }
 
-    public CheckoutPage clickBillingStateDropDown(String state) {
-        WaitUtils.elementToBeClickable(getDriver(), billingStateDropDownButton).click();
-        WaitUtils.elementToBeClickable(getDriver(), inputBillingStateDropDownField).sendKeys(state);
-        WaitUtils.elementToBeClickable(getDriver(), inputBillingStateDropDownField).sendKeys(ENTER);
+    public CheckoutPage clickBillingStateDropDown(String country){
+        WaitUtils.visibilityOf(getDriver(), billingStateDropDownButton).click();
+        WaitUtils.visibilityOf(getDriver(), inputBillingStateDropDownField).sendKeys(country);
         return this;
     }
 }
