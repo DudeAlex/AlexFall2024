@@ -12,8 +12,11 @@ import java.util.List;
 
 public class StorePage extends SalesPage {
 
-    String Add = "//a[@aria-label='Add “";
+    String add = "//a[@aria-label='Add “";
     String toCart = "” to your cart']";
+    String productFirstPartXpathTypeName = "//a[contains(text(),'";
+    String productLastPartXpathTypeName = "')]";
+
 
     By headerTitle = By.xpath("//h1[@class='woocommerce-products-header__title page-title']");
     By loopProducts = By.xpath("//h2[@class='woocommerce-loop-product__title']");
@@ -86,10 +89,16 @@ public class StorePage extends SalesPage {
     }
 
     public StorePage chooseAnItemByClickingAddToCart(String item){
-        String chooseAnItemString = Add + item  + toCart;
+        String chooseAnItemString = add + item  + toCart;
         By chooseAnItem = By.xpath(chooseAnItemString);
         WaitUtils.elementToBeClickable(getDriver(), chooseAnItem).click();
         return this;
+    }
+
+    public String checkProductNameOnCartPage(String item){
+        String checkProductNameOnCartPageString = productFirstPartXpathTypeName + item + productLastPartXpathTypeName;
+        By checkItemName = By.xpath(checkProductNameOnCartPageString);
+        return WaitUtils.elementToBeClickable(getDriver(), checkItemName).getText();
     }
 
 }
