@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 public class EndToEndTest  extends BaseTest {
 
     @Test
-    public void testProductToShoppingCart (){
+    public void testProductToShoppingCart () {
 
        UserData userData = UserDataPool.getFakerUserDataList(10).get(4);
        String product = "Blue";
@@ -31,18 +31,25 @@ public class EndToEndTest  extends BaseTest {
 
         CartPage cartPage = new CartPage(driver);
         cartPage.clickViewCartButton();
-        String sameItem = driver.findElement(By.xpath("//a[contains(text(),'" + item + "')]")).getText();
+
+
+        String sameItem = storePage.checkProductNameOnCartPage(item);
         Assert.assertEquals(sameItem, item);
 
         cartPage.clickCheckoutButton();
 
         CheckoutPage checkoutPage = new CheckoutPage(driver);
-        checkoutPage.inputFirstName(userData.getFirstName()).inputLastName(userData.getLastName());
-        checkoutPage.inputStreetAddress(userData.getAddress()).inputCountry(userData.getTown());
-        checkoutPage.clickBillingCountryDropDown(userData.getCountry());
-        checkoutPage.inputStreetAddress(userData.getAddress()).inputTown(userData.getTown());
+        checkoutPage.inputFirstName(userData.getFirstName())
+                    .inputLastName(userData.getLastName());
+
+        checkoutPage.inputCountry(userData.getCountry())
+                    .inputStreetAddress(userData.getAddress());
+        checkoutPage.inputTown(userData.getTown());
+
         checkoutPage.clickBillingStateDropDown(userData.getState());
-        checkoutPage.inputZip(userData.getZipCode()).inputEmail(userData.getEmailAddress());
+
+        checkoutPage.inputZip(userData.getZipCode());
+        checkoutPage.inputEmail(userData.getEmailAddress());
 
         String productOrder = driver.findElement(By.xpath("//td[@class='product-name']")).getText();
         Assert.assertEquals(productOrder, "Blue Shoes  × 1");

@@ -9,6 +9,8 @@ import org.openqa.selenium.WebDriver;
 
 import java.util.List;
 
+import static org.openqa.selenium.Keys.ENTER;
+
 public class CheckoutPage extends BasePage {
     By firstNameField = By.xpath("//input[@id='billing_first_name']");
     By lastNameField = By.xpath("//input[@id='billing_last_name']");
@@ -20,7 +22,6 @@ public class CheckoutPage extends BasePage {
     By placeOrderButton = By.xpath("//button[@id='place_order']");
     By billingCountryDropDown = By.xpath("//span[@id='select2-billing_country-container']");
     By inputBillingCountryDropDownField = By.xpath("//input[@class='select2-search__field']");
-
     By billingStateDropDownButton = By.xpath("//span[@id='select2-billing_state-container']");
     By inputBillingStateDropDownField = By.xpath("//input[@class='select2-search__field']");
 
@@ -33,31 +34,37 @@ public class CheckoutPage extends BasePage {
         return this;
     }
     public CheckoutPage inputLastName(String lastName) {
+        WaitUtils.visibilityOfElementLocated(getDriver(), lastNameField).clear();
         WaitUtils.visibilityOfElementLocated(getDriver(), lastNameField).sendKeys(lastName);
         return this;
     }
     public CheckoutPage inputCompanyName(String companyName) {
+        WaitUtils.visibilityOfElementLocated(getDriver(), companyNameField).clear();
         WaitUtils.visibilityOfElementLocated(getDriver(), companyNameField).sendKeys(companyName);
         return this;
     }
     public CheckoutPage inputStreetAddress(String streetAddress) {
+        WaitUtils.visibilityOfElementLocated(getDriver(), streetAddressField).clear();
         WaitUtils.visibilityOfElementLocated(getDriver(), streetAddressField).sendKeys(streetAddress);
         return this;
     }
     public CheckoutPage inputTown(String town) {
+        WaitUtils.visibilityOfElementLocated(getDriver(), townField).clear();
         WaitUtils.visibilityOfElementLocated(getDriver(), townField).sendKeys(town);
         return this;
     }
     public CheckoutPage inputZip(String zip) {
+        WaitUtils.visibilityOfElementLocated(getDriver(), zipField).clear();
         WaitUtils.visibilityOfElementLocated(getDriver(), zipField).sendKeys(zip);
         return this;
     }
     public CheckoutPage inputEmail(String email) {
+        WaitUtils.visibilityOfElementLocated(getDriver(), emailField).clear();
         WaitUtils.visibilityOfElementLocated(getDriver(), emailField).sendKeys(email);
         return this;
     }
     public OrderReceivedPage clickPlaceOrderButton() {
-        WaitUtils.visibilityOfElementLocated(getDriver(), placeOrderButton).click();
+        WaitUtils.elementToBeClickable(getDriver(), placeOrderButton).click();
         return new OrderReceivedPage(getDriver());
     }
 
@@ -67,15 +74,10 @@ public class CheckoutPage extends BasePage {
         return this;
     }
 
-    public CheckoutPage clickBillingCountryDropDown(String country){
-        WaitUtils.visibilityOf(getDriver(), billingCountryDropDown).click();
-        WaitUtils.visibilityOf(getDriver(), inputBillingCountryDropDownField).sendKeys(country);
-        return this;
-    }
-
-    public CheckoutPage clickBillingStateDropDown(String country){
-        WaitUtils.visibilityOf(getDriver(), billingStateDropDownButton).click();
-        WaitUtils.visibilityOf(getDriver(), inputBillingStateDropDownField).sendKeys(country);
+    public CheckoutPage clickBillingStateDropDown(String state) {
+        WaitUtils.elementToBeClickable(getDriver(), billingStateDropDownButton).click();
+        WaitUtils.elementToBeClickable(getDriver(), inputBillingStateDropDownField).sendKeys(state);
+        WaitUtils.elementToBeClickable(getDriver(), inputBillingStateDropDownField).sendKeys(ENTER);
         return this;
     }
 }
