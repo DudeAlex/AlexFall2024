@@ -21,7 +21,7 @@ public class StorePage extends SalesPage {
     By headerTitle = By.xpath("//h1[@class='woocommerce-products-header__title page-title']");
     By loopProducts = By.xpath("//h2[@class='woocommerce-loop-product__title']");
     By addToCartButton = By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']");
-    By cartButton = By.linkText("View cart");
+    By cartButton = By.xpath("//div/header/div[1]/div[1]/div/div/div/div[2]/div[2]/div/div[1]/a/div/span");
     By productList = By.xpath("//ul//h2");
     By nextPageNumber = By.xpath("//a[@class='next page-numbers']");
     By sortBy = By.xpath("//select[@name='orderby']");

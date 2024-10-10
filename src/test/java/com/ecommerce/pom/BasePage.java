@@ -56,7 +56,7 @@ public abstract class BasePage {
     By headerAccount = By.id("menu-item-1237"); // Header Account
     By headerAbout = By.id("menu-item-1232"); // Header About
     By headerContactUs = By.id("menu-item-1233"); // Header Contact Us
-    By headerCartButton = By.cssSelector("a[href='https://askomdch.com/cart/']"); // Header Cart
+    By headerCartButton = By.xpath("//div/header/div[1]/div[1]/div/div/div/div[2]/div[2]/div/div[1]/a/div/span"); // Header Cart
 
 
 

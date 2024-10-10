@@ -4,6 +4,8 @@ import com.ecommerce.pom.BasePage;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 public class CartPage extends BasePage {
 
@@ -12,8 +14,9 @@ public class CartPage extends BasePage {
     By viewCart = (By.xpath("//a[@title='View cart']"));
     By quantityOfProducts = By.xpath("//input[@type=\"number\"]");
     By updateCartButton = By.xpath("//button[@name=\"update_cart\"]");
-    By cartIcon = By.xpath("//span[@class='count']");
+    By cartIcon = By.xpath("//div/header/div[1]/div[1]/div/div/div/div[2]/div[2]/div/div[1]/a/div/span");
     By removeButton = By.xpath("//a[@class='remove']");
+    By removePopUpButton = By.xpath("//div/header/div[1]/div[1]/div/div/div/div[2]/div[2]/div/div[2]/div/div/ul/li/a[1]");
     By returnToShopButton = By.xpath("//a[@class = 'button wc-backward']");
     By emptyCartMessage = By.xpath("//p[@class='cart-empty woocommerce-info']");
     By storePageLink = By.id("menu-item-1227");
@@ -79,4 +82,11 @@ public class CartPage extends BasePage {
         WaitUtils.invisibilityOfElementLocated(getDriver(), updateCartButton, 3);
     }
 
+    public void removeItemsFromCartPreview() {
+
+        Actions actions = new Actions(getDriver());
+        actions.moveToElement(getDriver().findElement(cartIcon)).perform();
+        getDriver().findElement(removePopUpButton).click();
+
+    }
 }
