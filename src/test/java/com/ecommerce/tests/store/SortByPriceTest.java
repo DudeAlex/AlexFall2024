@@ -1,6 +1,8 @@
 package com.ecommerce.tests.store;
 
 import com.ecommerce.base.BaseTest;
+import com.ecommerce.pom.pages.HomePage;
+import com.ecommerce.pom.pages.StorePage;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -20,11 +22,14 @@ public class SortByPriceTest extends BaseTest {
  */
     public void testSortingItemsByPrice() {
 //      Going from the Home page to the "Store" page and finding the dropdown menu
-        By shopNowButton = By.xpath("//a[@class= 'wp-block-button__link']");
+
         By orderBy = By.xpath("//select[@name='orderby']");
         By byPrice = By.xpath("//span[@class='byPrice']");
 
-        WaitUtils.presenceOfElementLocated(driver, shopNowButton).click();
+        HomePage homePage = new HomePage(driver);
+        StorePage storePage = homePage.shopNowButton();
+        storePage.sortByDropDownButton().sortByPrice();
+
        // driver.findElement(By.xpath("//a[@class= 'wp-block-button__link']")).click();
 
         WebElement dropDown = WaitUtils.presenceOfElementLocated(driver, orderBy);

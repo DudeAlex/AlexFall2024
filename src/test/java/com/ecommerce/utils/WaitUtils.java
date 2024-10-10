@@ -1,6 +1,7 @@
 package com.ecommerce.utils;
 
 import com.ecommerce.pojo.UserData;
+import com.ecommerce.pojo.UserDataPool;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -82,9 +83,17 @@ public class WaitUtils {
         return new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.invisibilityOfElementLocated(by));
     }
 
+    public static Boolean invisibilityOfElementLocated(WebDriver driver, By by) {
+        return new WebDriverWait(driver, Duration.ofSeconds(TIMEOUTS)).until(ExpectedConditions.invisibilityOfElementLocated(by));
+    }
+
     public static Boolean waitForIncreasedAmountOfProductsInCart(WebDriver driver, long timeout, By by, Integer initialValue, int quantity) {
         return new WebDriverWait(driver, Duration.ofSeconds(timeout))
                 .until(ExpectedConditions.textToBe(by, String.valueOf(initialValue + quantity)));
+    }
+
+    public static Boolean waitForQuantityToBe(WebDriver driver, By by, String quantity  ){
+        return new WebDriverWait(driver,Duration.ofSeconds(TIMEOUTS)).until(ExpectedConditions.textToBe(by, quantity));
     }
 
 }
