@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 public class WomenAddToCartTest extends BaseTest {
 
-    @Test
+    @Test (description = "4_14 TC | Women > Verify user can add item to shopping cart # https://app.clickup.com/t/8689p8yak")
     public void testAddItemsToCart() {
         HomePage homePage = new HomePage(driver);
         WomenPage womenPage = homePage.navigateToWomenPage();
