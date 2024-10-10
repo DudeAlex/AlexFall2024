@@ -15,10 +15,12 @@ import org.testng.annotations.Test;
 public class EndToEndTest  extends BaseTest {
 
     @Test
-    public void testProductToShoppingCart () {
+    public void testProductToShoppingCart (){
 
        UserData userData = UserDataPool.getFakerUserDataList(10).get(4);
        String product = "Blue";
+       String productNameAndQuantity = "Blue Shoes  × 1";
+       String yourOrderIsReceived = "Thank you. Your order has been received.";
 
         HomePage homePage = new HomePage(driver);
         StorePage storePage = homePage.navigateToStorePage();
@@ -32,8 +34,6 @@ public class EndToEndTest  extends BaseTest {
         CartPage cartPage = new CartPage(driver);
         cartPage.clickViewCartButton();
 
-
-
         String sameItem = storePage.checkProductNameOnCartPage(item);
         Assert.assertEquals(sameItem, item);
 
@@ -42,7 +42,6 @@ public class EndToEndTest  extends BaseTest {
         CheckoutPage checkoutPage = new CheckoutPage(driver);
         checkoutPage.inputFirstName(userData.getFirstName())
                     .inputLastName(userData.getLastName());
-
         checkoutPage.inputCountry(userData.getCountry())
                     .inputStreetAddress(userData.getAddress());
         checkoutPage.inputTown(userData.getTown());
@@ -50,14 +49,12 @@ public class EndToEndTest  extends BaseTest {
         checkoutPage.inputZip(userData.getZipCode());
         checkoutPage.inputEmail(userData.getEmailAddress());
 
-        String productOrder = driver.findElement(By.xpath("//td[@class='product-name']")).getText();
-        Assert.assertEquals(productOrder, "Blue Shoes  × 1");
+        String productOrder = checkoutPage.productNameAndQuantity();
+        Assert.assertEquals(productOrder, productNameAndQuantity);
 
         checkoutPage.clickPlaceOrderButton();
 
-        String checkOrder = driver.findElement(By.xpath("//p[@class='woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received']")).getText();
-        Assert.assertEquals(checkOrder, "Thank you. Your order has been received.");
-
+        String checkOrder = checkoutPage.checkYourOrderHasBeenReceivedMessage();
+        Assert.assertEquals(checkOrder, yourOrderIsReceived);
     }
-
 }

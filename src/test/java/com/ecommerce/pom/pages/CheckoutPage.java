@@ -24,6 +24,8 @@ public class CheckoutPage extends BasePage {
     By inputBillingCountryDropDownField = By.xpath("//input[@class='select2-search__field']");
     By billingStateDropDownButton = By.xpath("//span[@id='select2-billing_state-container']");
     By inputBillingStateDropDownField = By.xpath("//input[@class='select2-search__field']");
+    By productNameAndQuantity = By.xpath("//td[@class='product-name']");
+    By checkYourOrderHasBeenReceivedMessage = By.xpath("//p[@class='woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received']");
 
     public CheckoutPage(WebDriver driver) {
         super(driver);
@@ -83,6 +85,16 @@ public class CheckoutPage extends BasePage {
     public CheckoutPage clickBillingStateDropDown(String country){
         WaitUtils.visibilityOf(getDriver(), billingStateDropDownButton).click();
         WaitUtils.visibilityOf(getDriver(), inputBillingStateDropDownField).sendKeys(country);
+        WaitUtils.visibilityOf(getDriver(), inputBillingStateDropDownField).sendKeys(ENTER);
         return this;
     }
+
+    public String productNameAndQuantity(){
+        return WaitUtils.visibilityOfElementLocated(getDriver(), productNameAndQuantity).getText();
+    }
+
+    public String checkYourOrderHasBeenReceivedMessage(){
+        return WaitUtils.visibilityOfElementLocated(getDriver(), checkYourOrderHasBeenReceivedMessage).getText();
+    }
+
 }
