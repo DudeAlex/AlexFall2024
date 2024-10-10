@@ -28,6 +28,12 @@ public class AccountPage extends BasePage {
         getDriver().findElement(loginPassword).sendKeys("11111");
         getDriver().findElement(loginButton).click();
     }
+    public void logIn(String email, String password)
+    {
+        getDriver().findElement(loginUsername).sendKeys(email);
+        getDriver().findElement(loginPassword).sendKeys(password);
+        getDriver().findElement(loginButton).click();
+    }
 
     public StorePage navigateToStorePage() {
         WaitUtils.visibilityOfElementLocated(getDriver(),storePageLink).click();
