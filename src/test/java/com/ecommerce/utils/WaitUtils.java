@@ -1,9 +1,10 @@
 package com.ecommerce.utils;
 
-import com.ecommerce.pojo.UserData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -71,7 +72,7 @@ public class WaitUtils {
     }
 
     public static List<WebElement> visibilityOfAllElementsLocatedBy(WebDriver driver, By by, long timeout) {
-        return  new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
+        return new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
     }
 
     public static List<WebElement> visibilityOfAllElementsLocatedBy(WebDriver driver, By by) {
@@ -82,4 +83,34 @@ public class WaitUtils {
         return new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.invisibilityOfElementLocated(by));
     }
 
+    public static WebElement waitForElementRefreshed(WebDriver driver, By by, long timeout) {
+
+        return new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.visibilityOfElementLocated(by));
+
+    }
+
+        public static class ActionUtils {
+
+
+        public static WebElement performActionOnElement(WebDriver driver, By by) {
+
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement element = WaitUtils.visibilityOfElementLocated(driver, by);
+
+            Actions actions = new Actions(driver);
+            actions.moveToElement(element).click().perform();
+            return element;
+        }
+
+    }
+
+    public static class JSExecuteUtils {
+        public static void waitForPageToLoad(WebDriver driver, long timeout) {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            wait.until (WebDriver  -> js.executeScript("return document.readyState").equals("complete"));
+
+        }
+    }
 }
+
