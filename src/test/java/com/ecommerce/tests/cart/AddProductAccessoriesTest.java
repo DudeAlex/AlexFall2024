@@ -15,7 +15,6 @@ public class AddProductAccessoriesTest extends BaseTest {
         AccountPage accountPage = homePage.navigateToAccountPage();
         accountPage.logIn(user.getEmail(), user.getPassword());
 
-
         CartPage cartPage = accountPage.navigateToCartPage();
         if (Integer.parseInt(cartPage.getCartItemsNumber()) > 0) {
             cartPage.removeItemsFromCart();
@@ -24,6 +23,7 @@ public class AddProductAccessoriesTest extends BaseTest {
         AccessoriesPage accessoriesPage = accountPage.navigateToAccessoriesPage();
         accessoriesPage.addToCartFromAccessoriesPage();
         cartPage = accessoriesPage.clickCartPage();
+
         Assert.assertEquals(cartPage.getCartItemsNumber(), "1");
 
     }
