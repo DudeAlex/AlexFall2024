@@ -59,9 +59,9 @@ public class CartPage extends BasePage {
     public String getEmptyCartMessage() {
         return WaitUtils.visibilityOfElementLocated(getDriver(),emptyCartMessage).getText();
     }
-    public void clickReturnToShopButton() {
+    public HomePage clickReturnToShopButton() {
         WaitUtils.visibilityOfElementLocated(getDriver(), returnToShopButton).click();
-        new HomePage(getDriver());
+        return new HomePage(getDriver());
     }
 
     public StorePage navigateToStorePage() {
