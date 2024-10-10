@@ -68,4 +68,5 @@ public class CartPage extends BasePage {
         WaitUtils.elementToBeClickable(getDriver(), updateCartButton, 5).click();
         WaitUtils.invisibilityOfElementLocated(getDriver(), updateCartButton, 3);
     }
+
 }
