@@ -24,7 +24,8 @@ public class OrdersHistoryCheckTest extends BaseTest {
         By placeOderBtn = By.xpath("//button[@id='place_order']");
         By orderLink = By.xpath("//a[normalize-space()='Orders']");
         By accountTopLink = By.xpath(("//li[@id='menu-item-1237']//a[@class='menu-link'][normalize-space()='Account']"));
-        By proceedToCheckout = By.xpath("//a[@class='checkout-button button alt wc-forward']");
+        By checkoutBtn = By.xpath("//a[@class='checkout-button button alt wc-forward']");
+
 
         driver.findElement(By.xpath(accountHeaderLink)).click(); // find the account link in the header
         driver.findElement(By.xpath(emailField)).sendKeys(emailOrUserName, Keys.ENTER);
@@ -33,8 +34,9 @@ public class OrdersHistoryCheckTest extends BaseTest {
         driver.findElement(By.xpath("//a[@href='?add-to-cart=1205']")).click();//add item to the cart
         WebElement viewCart = driver.findElement(By.linkText("View cart"));//click cart
         viewCart.click();
-        WaitUtils.waitForElementRefreshed(driver,proceedToCheckout,10).click();
-        //driver.findElement(By.xpath("//a[@class='checkout-button button alt wc-forward']")).click();//checkOut btn
+
+        WaitUtils.elementToBeClickable(driver,checkoutBtn).click();
+
 
         driver.findElement(By.xpath("//input[@name='billing_first_name']")).clear();
         driver.findElement(By.xpath("//input[@name='billing_first_name']")).sendKeys("Mihai");
@@ -57,19 +59,14 @@ public class OrdersHistoryCheckTest extends BaseTest {
         driver.findElement(By.xpath("//input[@id='billing_postcode']")).clear();
         driver.findElement(By.xpath("//input[@id='billing_postcode']")).sendKeys("98052");
 
-        WaitUtils.JSExecuteUtils.waitForPageToLoad(driver,30);
-        WaitUtils.waitForElementRefreshed(driver, placeOderBtn,15);
-        //Thread.sleep(3000);
-
         WaitUtils.elementToBeClickable(driver,placeOderBtn).click();
+
         WebElement checkOut = driver.findElement(By.xpath("//h1[@class='has-text-align-center']"));
         Assert.assertEquals(checkOut.getText(),"Checkout");
-        WaitUtils.ActionUtils.performActionOnElement(driver,accountTopLink);
-        WaitUtils.elementToBeClickable(driver, accountTopLink).click();
-        //WaitUtils.ActionUtils.performActionOnElement(driver, orderLink);
-        WaitUtils.JSExecuteUtils.waitForPageToLoad(driver,12);
 
-        WaitUtils.waitForElementRefreshed(driver, orderLink,10).click();
+        WaitUtils.elementToBeClickable(driver, accountTopLink).click();
+
+        WaitUtils.elementToBeClickable(driver, orderLink,10).click();
 
         driver.findElement(By.xpath("//a[@class=\"woocommerce-button button view\"]")).click();//view order btn
         WebElement orderDetails = driver.findElement(By.xpath("//h2[@class='woocommerce-order-details__title']"));
@@ -77,7 +74,6 @@ public class OrdersHistoryCheckTest extends BaseTest {
         Assert.assertEquals(orderDetails.getText(), "Order details");
 
     }
-
 }
 
 
