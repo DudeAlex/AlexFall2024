@@ -30,6 +30,12 @@ public class CheckoutPage extends BasePage {
     public CheckoutPage(WebDriver driver) {
         super(driver);
     }
+
+    @Override
+    public void load() {
+        getDriver().get("https://askomdch.com/checkout/");
+    }
+
     public CheckoutPage inputFirstName(String firstName) {
         WaitUtils.visibilityOfElementLocated(getDriver(), firstNameField).clear();
         WaitUtils.visibilityOfElementLocated(getDriver(), firstNameField).sendKeys(firstName);

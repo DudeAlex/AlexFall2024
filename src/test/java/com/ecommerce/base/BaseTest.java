@@ -1,5 +1,7 @@
 package com.ecommerce.base;
 
+import com.ecommerce.pom.pages.AccountPage;
+import com.ecommerce.pom.pages.CartPage;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -25,6 +27,25 @@ public class BaseTest {
 
     @AfterMethod
     public void tearDown(){
-        driver.quit();
+        if(driver!=null){
+            clearCart();
+            logout();
+            driver.quit();
+        }
+    }
+    private void clearCart(){
+//        CartPage cartPage = new CartPage(driver);
+//        cartPage.load();
+//        cartPage.removeItemsFromCart();
+//
+
+//        driver.get("https://askomdch.com/cart/");
+
+    }
+    private void logout(){
+//        AccountPage accountPage = new AccountPage(driver);
+//        accountPage.load();
+//        accountPage.logout();
     }
 }
+
