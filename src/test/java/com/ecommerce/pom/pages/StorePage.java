@@ -24,6 +24,7 @@ public class StorePage extends SalesPage{
     By cartButton = By.xpath("//div/header/div[1]/div[1]/div/div/div/div[2]/div[2]/div/div[1]/a/div/span");
     By productList = By.xpath("//ul//h2");
     By nextPageNumber = By.xpath("//a[@class='next page-numbers']");
+    By firstProductAddToCartButton = By.xpath("//ul[@class=\"products columns-4\"]//a[2]");
 
 
     public StorePage(WebDriver driver) {
@@ -93,6 +94,11 @@ public class StorePage extends SalesPage{
         String checkProductNameOnCartPageString = productFirstPartXpathTypeName + item + productLastPartXpathTypeName;
         By checkItemName = By.xpath(checkProductNameOnCartPageString);
         return WaitUtils.elementToBeClickable(getDriver(), checkItemName).getText();
+    }
+
+    public void addFirstProductToCart () {
+        WaitUtils.elementToBeClickable(getDriver(), firstProductAddToCartButton, 2).click();
+
     }
 
 }

@@ -18,6 +18,7 @@ public class AccountPage extends BasePage implements Loadable {
     By loginUsername = By.xpath("//input[@id=\"username\"]");
     By loginPassword = By.xpath("//input[@id=\"password\"]");
     By storeButton = By.xpath("//li[@id=\"menu-item-1227\"]/a");
+    By homePageLink = By.xpath("//li[@id=\"menu-item-1226\"]/a");
 
     public AccountPage(WebDriver driver) {
         super(driver);
@@ -46,6 +47,12 @@ public class AccountPage extends BasePage implements Loadable {
 
         return new StorePage(getDriver());
     }
+
+    public HomePage navigateToHomePage() {
+        WaitUtils.visibilityOfElementLocated(getDriver(),homePageLink).click();
+        return new HomePage(getDriver());
+    }
+
     public CartPage navigateToCartPage() {
         WaitUtils.visibilityOfElementLocated(getDriver(),cartIcon).click();
 
