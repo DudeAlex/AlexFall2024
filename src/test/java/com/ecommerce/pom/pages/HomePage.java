@@ -20,6 +20,11 @@ public class HomePage extends PurchasePage {
         super(driver);
     }
 
+    @Override
+    public void load() {
+        getDriver().get("https://askomdch.com/");
+    }
+
     public StorePage navigateToStorePage() {
         WaitUtils.visibilityOfElementLocated(getDriver(), shopButton).click();
 
