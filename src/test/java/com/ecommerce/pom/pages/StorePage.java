@@ -17,15 +17,13 @@ public class StorePage extends SalesPage {
     String productFirstPartXpathTypeName = "//a[contains(text(),'";
     String productLastPartXpathTypeName = "')]";
 
-
     By headerTitle = By.xpath("//h1[@class='woocommerce-products-header__title page-title']");
     By loopProducts = By.xpath("//h2[@class='woocommerce-loop-product__title']");
     By addToCartButton = By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']");
     By cartButton = By.xpath("//div/header/div[1]/div[1]/div/div/div/div[2]/div[2]/div/div[1]/a/div/span");
     By productList = By.xpath("//ul//h2");
     By nextPageNumber = By.xpath("//a[@class='next page-numbers']");
-    By sortBy = By.xpath("//select[@name='orderby']");
-    By sortByPrice = By.xpath("//span[@class='byPrice']");
+
 
     public StorePage(WebDriver driver) {
         super(driver);
@@ -78,24 +76,14 @@ public class StorePage extends SalesPage {
         return allItemList.equals(alphabeticalAllItemList);
     }
 
-    public StorePage sortByDropDownButton(){
-        WaitUtils.visibilityOfElementLocated(getDriver(), sortBy).click();
-        return this;
-    }
-
-    public StorePage sortByPrice(){
-        WaitUtils.visibilityOfElementLocated(getDriver(), sortByPrice).click();
-        return this;
-    }
-
-    public StorePage chooseAnItemByClickingAddToCart(String item){
-        String chooseAnItemString = add + item  + toCart;
+    public StorePage chooseAnItemByClickingAddToCart(String item) {
+        String chooseAnItemString = add + item + toCart;
         By chooseAnItem = By.xpath(chooseAnItemString);
         WaitUtils.elementToBeClickable(getDriver(), chooseAnItem).click();
         return this;
     }
 
-    public String checkProductNameOnCartPage(String item){
+    public String checkProductNameOnCartPage(String item) {
         String checkProductNameOnCartPageString = productFirstPartXpathTypeName + item + productLastPartXpathTypeName;
         By checkItemName = By.xpath(checkProductNameOnCartPageString);
         return WaitUtils.elementToBeClickable(getDriver(), checkItemName).getText();

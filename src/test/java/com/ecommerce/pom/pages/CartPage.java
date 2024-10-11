@@ -10,7 +10,6 @@ import org.openqa.selenium.interactions.Actions;
 public class CartPage extends BasePage {
 
     By checkoutButton = By.xpath("//a[@href='https://askomdch.com/checkout/']");
-   // By productName = (By.xpath("//a[@aria-label='Add “" +  + "” to your cart']")
     By viewCart = (By.xpath("//a[@title='View cart']"));
     By quantityOfProducts = By.xpath("//input[@type=\"number\"]");
     By updateCartButton = By.xpath("//button[@name=\"update_cart\"]");

@@ -26,7 +26,6 @@ public class EndToEndTest  extends BaseTest {
         StorePage storePage = homePage.navigateToStorePage();
         String searchResult = storePage.searchProduct(product).getSearchHeaderTitle();
         String item = storePage.getTextFromListProducts(0);
-
         Assert.assertEquals(searchResult, "Search results: “%s”".formatted(product));
 
         storePage.chooseAnItemByClickingAddToCart(item);
@@ -41,13 +40,13 @@ public class EndToEndTest  extends BaseTest {
 
         CheckoutPage checkoutPage = new CheckoutPage(driver);
         checkoutPage.inputFirstName(userData.getFirstName())
-                    .inputLastName(userData.getLastName());
-        checkoutPage.inputCountry(userData.getCountry())
-                    .inputStreetAddress(userData.getAddress());
-        checkoutPage.inputTown(userData.getTown());
-        checkoutPage.clickBillingStateDropDown(userData.getState());
-        checkoutPage.inputZip(userData.getZipCode());
-        checkoutPage.inputEmail(userData.getEmailAddress());
+                    .inputLastName(userData.getLastName())
+                    .inputCountry(userData.getCountry())
+                    .inputStreetAddress(userData.getAddress())
+                    .inputTown(userData.getTown())
+                    .clickBillingStateDropDown(userData.getState())
+                    .inputZip(userData.getZipCode())
+                    .inputEmail(userData.getEmailAddress());
 
         String productOrder = checkoutPage.productNameAndQuantity();
         Assert.assertEquals(productOrder, productNameAndQuantity);
