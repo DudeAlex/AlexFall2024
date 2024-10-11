@@ -68,215 +68,137 @@ public abstract class BasePage {
         return driver;
     }
 
-    public void setDriver(WebDriver driver) {
-        this.driver = driver;
-    }
 
     public By getQuickLinksHome() {
         return quickLinksHome;
     }
 
-    public void setQuickLinksHome(By quickLinksHome) {
-        this.quickLinksHome = quickLinksHome;
-    }
 
     public By getQuickLinksAbout() {
         return quickLinksAbout;
     }
 
-    public void setQuickLinksAbout(By quickLinksAbout) {
-        this.quickLinksAbout = quickLinksAbout;
-    }
 
     public By getQuickLinksMyAccount() {
         return quickLinksMyAccount;
     }
 
-    public void setQuickLinksMyAccount(By quickLinksMyAccount) {
-        this.quickLinksMyAccount = quickLinksMyAccount;
-    }
 
     public By getQuickLinksCart() {
         return quickLinksCart;
     }
 
-    public void setQuickLinksCart(By quickLinksCart) {
-        this.quickLinksCart = quickLinksCart;
-    }
 
     public By getQuickLinksContactUs() {
         return quickLinksContactUs;
     }
 
-    public void setQuickLinksContactUs(By quickLinksContactUs) {
-        this.quickLinksContactUs = quickLinksContactUs;
-    }
 
     public By getForHerWomen() {
         return forHerWomen;
     }
 
-    public void setForHerWomen(By forHerWomen) {
-        this.forHerWomen = forHerWomen;
-    }
 
     public By getForHerWomenJeans() {
         return forHerWomenJeans;
     }
 
-    public void setForHerWomenJeans(By forHerWomenJeans) {
-        this.forHerWomenJeans = forHerWomenJeans;
-    }
 
     public By getForHerWomenShirts() {
         return forHerWomenShirts;
     }
 
-    public void setForHerWomenShirts(By forHerWomenShirts) {
-        this.forHerWomenShirts = forHerWomenShirts;
-    }
 
     public By getForHerWomenShoes() {
         return forHerWomenShoes;
     }
 
-    public void setForHerWomenShoes(By forHerWomenShoes) {
-        this.forHerWomenShoes = forHerWomenShoes;
-    }
 
     public By getForHerAccessories() {
         return forHerAccessories;
     }
 
-    public void setForHerAccessories(By forHerAccessories) {
-        this.forHerAccessories = forHerAccessories;
-    }
 
     public By getForHimMen() {
         return forHimMen;
     }
 
-    public void setForHimMen(By forHimMen) {
-        this.forHimMen = forHimMen;
-    }
 
     public By getForHimMenJeans() {
         return forHimMenJeans;
     }
 
-    public void setForHimMenJeans(By forHimMenJeans) {
-        this.forHimMenJeans = forHimMenJeans;
-    }
 
     public By getForHimMenShirts() {
         return forHimMenShirts;
     }
 
-    public void setForHimMenShirts(By forHimMenShirts) {
-        this.forHimMenShirts = forHimMenShirts;
-    }
 
     public By getForHimMenShoes() {
         return forHimMenShoes;
     }
 
-    public void setForHimMenShoes(By forHimMenShoes) {
-        this.forHimMenShoes = forHimMenShoes;
-    }
 
     public By getForHimAccessories() {
         return forHimAccessories;
     }
 
-    public void setForHimAccessories(By forHimAccessories) {
-        this.forHimAccessories = forHimAccessories;
-    }
 
     public By getAppStoreIcon() {
         return appStoreIcon;
     }
 
-    public void setAppStoreIcon(By appStoreIcon) {
-        this.appStoreIcon = appStoreIcon;
-    }
 
     public By getGooglePlayIcon() {
         return googlePlayIcon;
     }
 
-    public void setGooglePlayIcon(By googlePlayIcon) {
-        this.googlePlayIcon = googlePlayIcon;
-    }
 
     public By getHeaderHome() {
         return headerHome;
     }
 
-    public void setHeaderHome(By headerHome) {
-        this.headerHome = headerHome;
-    }
 
     public By getHeaderStore() {
         return headerStore;
     }
 
-    public void setHeaderStore(By headerStore) {
-        this.headerStore = headerStore;
-    }
 
     public By getHeaderMen() {
         return headerMen;
     }
 
-    public void setHeaderMen(By headerMen) {
-        this.headerMen = headerMen;
-    }
 
     public By getHeaderWomen() {
         return headerWomen;
     }
 
-    public void setHeaderWomen(By headerWomen) {
-        this.headerWomen = headerWomen;
-    }
 
     public By getHeaderAccessories() {
         return headerAccessories;
     }
 
-    public void setHeaderAccessories(By headerAccessories) {
-        this.headerAccessories = headerAccessories;
-    }
 
     public By getHeaderAccount() {
         return headerAccount;
     }
 
-    public void setHeaderAccount(By headerAccount) {
-        this.headerAccount = headerAccount;
-    }
 
     public By getHeaderAbout() {
         return headerAbout;
     }
 
-    public void setHeaderAbout(By headerAbout) {
-        this.headerAbout = headerAbout;
-    }
 
     public By getHeaderContactUs() {
         return headerContactUs;
     }
 
-    public void setHeaderContactUs(By headerContactUs) {
-        this.headerContactUs = headerContactUs;
-    }
 
     public By getHeaderCartButton() {
         return headerCartButton;
     }
 
-    public void setHeaderCartButton(By headerCartButton) {
-        this.headerCartButton = headerCartButton;
-    }
+
+    public abstract void load();
+
 }

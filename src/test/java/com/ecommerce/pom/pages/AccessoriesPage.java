@@ -10,6 +10,11 @@ public class AccessoriesPage extends SalesPage {
         super(driver);
     }
 
+    @Override
+    public void load() {
+        getDriver().get("https://askomdch.com/product-category/accessories/");
+    }
+
     public AccessoriesPage addToCartFromAccessoriesPage() {
         WaitUtils.visibilityOfElementLocated(getDriver(), addToCartButton).click();
         return this;
