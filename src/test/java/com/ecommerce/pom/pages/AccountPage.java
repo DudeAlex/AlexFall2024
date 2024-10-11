@@ -21,8 +21,13 @@ public class AccountPage extends BasePage {
     public AccountPage(WebDriver driver) {
         super(driver);
     }
-    
-        public void logIn()
+
+    @Override
+    public void load() {
+        getDriver().get("https://askomdch.com/account/");
+    }
+
+    public void logIn()
     {
         getDriver().findElement(loginUsername).sendKeys("aaaaa@aa.aa");
         getDriver().findElement(loginPassword).sendKeys("11111");

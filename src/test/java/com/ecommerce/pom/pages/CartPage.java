@@ -24,6 +24,11 @@ public class CartPage extends BasePage {
         super(driver);
     }
 
+    @Override
+    public void load() {
+        getDriver().get("https://askomdch.com/cart/");
+    }
+
     public CheckoutPage clickCheckoutButton() {
         WaitUtils.visibilityOfElementLocated(getDriver(), checkoutButton).click();
         return new CheckoutPage(getDriver());
