@@ -1,6 +1,7 @@
 package com.ecommerce.pom.pages;
 
 import com.ecommerce.pom.BasePage;
+import com.ecommerce.pom.Loadable;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public abstract class SalesPage extends PurchasePage {
+public abstract class SalesPage extends PurchasePage implements Loadable {
 
     By searchField = By.id("woocommerce-product-search-field-0");
     By searchButton = By.xpath("//button[@value='Search']");

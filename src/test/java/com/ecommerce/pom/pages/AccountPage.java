@@ -1,12 +1,13 @@
 package com.ecommerce.pom.pages;
 
 import com.ecommerce.pom.BasePage;
+import com.ecommerce.pom.Loadable;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 
-public class AccountPage extends BasePage {
+public class AccountPage extends BasePage implements Loadable {
     By emailField = By.id("//input [ @ id = 'username']");
     By passwordField = By.id("//input [ @ id = 'password']");
     By loginButton = By.xpath("//button[@class='woocommerce-button button woocommerce-form-login__submit' and text()='Log in']");

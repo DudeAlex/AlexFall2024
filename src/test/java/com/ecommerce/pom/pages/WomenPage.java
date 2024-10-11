@@ -21,4 +21,9 @@ public class WomenPage extends SalesPage{
         WaitUtils.visibilityOfElementLocated(getDriver(), cartButton).click();
         return new CartPage(getDriver());
     }
+
+    @Override
+    public void load() {
+        getDriver().get("https://askomdch.com/product-category/women/");
+    }
 }

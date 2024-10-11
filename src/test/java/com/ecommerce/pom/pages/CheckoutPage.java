@@ -3,6 +3,7 @@ package com.ecommerce.pom.pages;
 import com.ecommerce.pojo.UserData;
 import com.ecommerce.pojo.UserDataPool;
 import com.ecommerce.pom.BasePage;
+import com.ecommerce.pom.Loadable;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +12,7 @@ import java.util.List;
 
 import static org.openqa.selenium.Keys.ENTER;
 
-public class CheckoutPage extends BasePage {
+public class CheckoutPage extends BasePage implements Loadable {
     By firstNameField = By.xpath("//input[@id='billing_first_name']");
     By lastNameField = By.xpath("//input[@id='billing_last_name']");
     By companyNameField = By.xpath("//input[@id='billing_company']");
