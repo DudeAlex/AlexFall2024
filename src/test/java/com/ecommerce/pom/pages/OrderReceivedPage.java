@@ -10,6 +10,12 @@ public class OrderReceivedPage extends BasePage {
     public OrderReceivedPage(WebDriver driver) {
         super(driver);
     }
+
+    @Override
+    public void load() {
+        getDriver().get("");
+    }
+
     public String collectNotice() {
         return WaitUtils.visibilityOfElementLocated(getDriver(), notice).getText();
     }
