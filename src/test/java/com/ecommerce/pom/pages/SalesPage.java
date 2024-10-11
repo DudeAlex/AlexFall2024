@@ -17,13 +17,15 @@ public abstract class SalesPage extends PurchasePage {
     By singleItemContainer = By.xpath("//ul[@class='products columns-4']//li");
     By saleTag = By.xpath("//span[@class='onsale']");
     By crossedOutPrice = By.xpath("//del");
+    By sortByPrice = By.xpath("//span[@class='byPrice']");
+    By sortBy = By.xpath("//select[@name='orderby']");
 
     public SalesPage(WebDriver driver) {
         super(driver);
     }
 
-    public StorePage searchProduct(String item){
-        WaitUtils.visibilityOfElementLocated(getDriver(),searchField).sendKeys(item);
+    public StorePage searchProduct(String item) {
+        WaitUtils.visibilityOfElementLocated(getDriver(), searchField).sendKeys(item);
         WaitUtils.presenceOfElementLocated(getDriver(), searchButton).click();
         return new StorePage(getDriver());
     }
@@ -46,4 +48,15 @@ public abstract class SalesPage extends PurchasePage {
 
         return saleStatusList;
     }
+
+    public SalesPage sortByDropDownButton(){
+        WaitUtils.elementToBeClickable(getDriver(), sortBy).click();
+        return this;
+    }
+
+    public SalesPage sortByPrice(String priceType){
+        WaitUtils.visibilityOfElementLocated(getDriver(), sortByPrice).click();
+        return this;
+    }
+
 }

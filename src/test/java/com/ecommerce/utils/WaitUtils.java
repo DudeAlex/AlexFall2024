@@ -53,14 +53,12 @@ public class WaitUtils {
 
     // numberOfWindowsWait with default timeout
     public static Boolean numberOfWindowsToBe(WebDriver driver, int numberOfWindow) {
-        return new WebDriverWait(driver, Duration.ofSeconds(TIMEOUTS)).
-                until(ExpectedConditions.numberOfWindowsToBe(numberOfWindow));
+        return new WebDriverWait(driver, Duration.ofSeconds(TIMEOUTS)).until(ExpectedConditions.numberOfWindowsToBe(numberOfWindow));
     }
 
     // numberOfWindowsWait with custom timeout
     public static Boolean numberOfWindowsToBe(WebDriver driver, int timeout, int numberOfWindow) {
-        return new WebDriverWait(driver, Duration.ofSeconds(timeout)).
-                until(ExpectedConditions.numberOfWindowsToBe(numberOfWindow));
+        return new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.numberOfWindowsToBe(numberOfWindow));
     }
 
     public static WebElement elementToBeClickable(WebDriver driver, By by, long timeout) {
@@ -72,7 +70,7 @@ public class WaitUtils {
     }
 
     public static List<WebElement> visibilityOfAllElementsLocatedBy(WebDriver driver, By by, long timeout) {
-        return  new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
+        return new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
     }
 
     public static List<WebElement> visibilityOfAllElementsLocatedBy(WebDriver driver, By by) {
@@ -88,12 +86,11 @@ public class WaitUtils {
     }
 
     public static Boolean waitForIncreasedAmountOfProductsInCart(WebDriver driver, long timeout, By by, Integer initialValue, int quantity) {
-        return new WebDriverWait(driver, Duration.ofSeconds(timeout))
-                .until(ExpectedConditions.textToBe(by, String.valueOf(initialValue + quantity)));
+        return new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.textToBe(by, String.valueOf(initialValue + quantity)));
     }
 
-    public static Boolean waitForQuantityToBe(WebDriver driver, By by, String quantity  ){
-        return new WebDriverWait(driver,Duration.ofSeconds(TIMEOUTS)).until(ExpectedConditions.textToBe(by, quantity));
+    public static Boolean waitForQuantityToBe(WebDriver driver, By by, String quantity) {
+        return new WebDriverWait(driver, Duration.ofSeconds(TIMEOUTS)).until(ExpectedConditions.textToBe(by, quantity));
     }
 
 }
