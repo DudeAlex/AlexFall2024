@@ -5,6 +5,9 @@ import com.ecommerce.pom.Loadable;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
+
+import java.time.Duration;
 
 public class HomePage extends PurchasePage implements Loadable {
 
@@ -13,7 +16,8 @@ public class HomePage extends PurchasePage implements Loadable {
     By shopNowButton = By.xpath("//a[@class= 'wp-block-button__link']");
     By accountButton = By.xpath("//li[@id=\"menu-item-1237\"]");
     By cartIcon = By.xpath("//div[@id=\"ast-desktop-header\"]//a[@title=\"View your shopping cart\"]//span");
-    By firstProductAddToCartButton = By.xpath("//ul[@class=\"products columns-4\"]//a[2]");
+
+    By firstProductAddToCartElementButton = By.xpath("//a[@href=\"?add-to-cart=1215\"]");
     By accountHeaderLink = By.id("menu-item-1237");
 
 
@@ -47,7 +51,7 @@ public class HomePage extends PurchasePage implements Loadable {
             return new AccountPage(getDriver());
         }
 
-        public CartPage naigateToCartPage () {
+        public CartPage navigateToCartPage () {
             WaitUtils.elementToBeClickable(getDriver(), cartIcon, 1).click();
             return new CartPage(getDriver());
         }
@@ -60,12 +64,24 @@ public class HomePage extends PurchasePage implements Loadable {
 
         public int getAmountOfProductsFromCartIconAfterIncrease ( int quantity)
         {
-            WaitUtils.waitForIncreasedAmountOfProductsInCart(getDriver(), 3, cartIcon, getAmountOfProductsFromCartIcon(), quantity);
+            WaitUtils.waitForIncreasedAmountOfProductsInCart(getDriver(), 2, cartIcon, getAmountOfProductsFromCartIcon(), quantity);
             return Integer.parseInt(getDriver().findElement(cartIcon).getText());
         }
 
         public void addFirstProductToCart () {
-            WaitUtils.elementToBeClickable(getDriver(), firstProductAddToCartButton, 1).click();
+            WaitUtils.elementToBeClickable(getDriver(), firstProductAddToCartElementButton, 2).click();
 
         }
-    }
+
+        public void goToProduct(){
+            new Actions(getDriver())
+                    .moveToElement(getDriver().findElement(firstProductAddToCartElementButton))
+                    .perform();
+        }
+
+        public void goToCartIcon(){
+            new Actions(getDriver())
+                    .moveToElement(getDriver().findElement(cartIcon))
+                    .perform();
+        }
+}
