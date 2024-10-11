@@ -4,7 +4,6 @@ import com.ecommerce.pom.BasePage;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 
 public class CartPage extends BasePage {
 
@@ -14,7 +13,10 @@ public class CartPage extends BasePage {
     By updateCartButton = By.xpath("//button[@name=\"update_cart\"]");
     By cartIcon = By.xpath("//span[@class='count']");
     By removeButton = By.xpath("//a[@class='remove']");
+    By returnToShopButton = By.xpath("//a[@class = 'button wc-backward']");
+    By emptyCartMessage = By.xpath("//p[@class='cart-empty woocommerce-info']");
     By storePageLink = By.id("menu-item-1227");
+
 
 
     public CartPage(WebDriver driver) {
@@ -51,6 +53,14 @@ public class CartPage extends BasePage {
     public void removeItemsFromCart(){
 
         WaitUtils.elementToBeClickable(getDriver(),removeButton).click();
+    }
+
+    public String getEmptyCartMessage() {
+        return WaitUtils.visibilityOfElementLocated(getDriver(),emptyCartMessage).getText();
+    }
+    public HomePage clickReturnToShopButton() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), returnToShopButton).click();
+        return new HomePage(getDriver());
     }
 
     public StorePage navigateToStorePage() {

@@ -52,6 +52,7 @@ public class EndToEndTest  extends BaseTest {
         Assert.assertEquals(productOrder, productNameAndQuantity);
 
         checkoutPage.clickPlaceOrderButton();
+
         String checkOrder = checkoutPage.checkYourOrderHasBeenReceivedMessage();
         Assert.assertEquals(checkOrder, yourOrderIsReceived);
     }
