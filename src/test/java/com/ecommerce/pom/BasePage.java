@@ -279,4 +279,6 @@ public abstract class BasePage {
     public void setHeaderCartButton(By headerCartButton) {
         this.headerCartButton = headerCartButton;
     }
+
+    public abstract void load();
 }

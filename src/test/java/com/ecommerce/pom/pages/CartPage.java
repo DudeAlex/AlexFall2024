@@ -79,4 +79,5 @@ public class CartPage extends BasePage {
         WaitUtils.invisibilityOfElementLocated(getDriver(), updateCartButton, 3);
     }
 
+
 }
