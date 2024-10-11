@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 public class RemoveOneProductFromTheCartByXTest extends BaseTest {
 
     @Test(description = "9.1-2-2.3 | TC Product removed by clicking the 'x' icon near the product in the cart # https://app.clickup.com/t/868a52u2t")
-    public void testAddProductStorePage() {
+    public void testRemoveOneProductFromTheCartByX() {
         User user = new User("test_test@test.test", "12345");
         HomePage homePage = new HomePage(driver);
         AccountPage accountPage = homePage.navigateToAccountPage();
