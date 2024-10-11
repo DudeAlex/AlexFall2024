@@ -7,4 +7,5 @@ public class ProductPage extends PurchasePage {
     public ProductPage(WebDriver driver) {
         super(driver);
     }
+
 }

@@ -198,7 +198,4 @@ public abstract class BasePage {
         return headerCartButton;
     }
 
-
-    public abstract void load();
-
 }

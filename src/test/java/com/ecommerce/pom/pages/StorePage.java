@@ -1,5 +1,6 @@
 package com.ecommerce.pom.pages;
 
+import com.ecommerce.pom.Loadable;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class StorePage extends SalesPage {
+public class StorePage extends SalesPage{
 
     String add = "//a[@aria-label='Add “";
     String toCart = "” to your cart']";
@@ -27,6 +28,11 @@ public class StorePage extends SalesPage {
 
     public StorePage(WebDriver driver) {
         super(driver);
+    }
+
+    @Override
+    public void load() {
+        getDriver().get("https://askomdch.com/store/");
     }
 
     public List<String> getAllItemsFromAllPages(By locator, WebDriver driver) {
