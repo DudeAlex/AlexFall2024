@@ -38,17 +38,59 @@ abstract class BasePage {
 
 + BasePage(WebDriver driver)
 + WebDriver getDriver()
++ By getQuickLinksHome()
++ By getQuickLinksAbout()
++ By getQuickLinksMyAccount()
++ By getQuickLinksCart()
++ By getQuickLinksContactUs()
++ By getForHerWomen()
++ By getForHerWomenJeans()
++ By getForHerWomenShirts()
++ By getForHerWomenShoes()
++ By getForHerAccessories()
++ By getForHimMen()
++ By getForHimMenJeans()
++ By getForHimMenShirts()
++ By getForHimMenShoes()
++ By getForHimAccessories()
++ By getAppStoreIcon()
++ By getGooglePlayIcon()
++ By getHeaderHome()
++ By getHeaderStore()
++ By getHeaderMen()
++ By getHeaderWomen()
++ By getHeaderAccessories()
++ By getHeaderAccount()
++ By getHeaderAbout()
++ By getHeaderContactUs()
++ By getHeaderCartButton()
 
 }
+
+
+class AccessoriesPage{
+# addToCartButton: By
++ AccessoriesPage(WebDriver driver)
++ public void load()
++ AccessoriesPage addToCartFromAccessoriesPage()
++ CartPage clickCartPage()
+}
+
 class AccountPage {
 # emailField: By
 # passwordField: By
 # loginButton: By
 # storePageLink: By
 # cartIcon: By
++ AccountPage(WebDriver driver)
++ load()
 + logIn()
++ logIn(String email, String password)
 + StorePage navigateToStorePage()
-+ navigateToCartPage()
++ CartPage navigateToCartPage()
++ MenPage navigateToMenPage()
++ WomenPage navigateToWomenPage()
++ AccessoriesPage navigateToAccessoriesPage()
 }
 
 class CartPage {
@@ -56,59 +98,18 @@ class CartPage {
 # cartIcon: By
 # removeButton: By
 + CartPage(WebDriver driver)
++ load()
 + CheckoutPage clickCheckoutButton()
-+ getCartItemsNumber()
++ CartPage clickViewCartButton()
++ int getProductsQuantity()
++ resetValueOfProductQuantity()
++ String getCartItemsNumber()
 + removeItemsFromCart()
-}
-
-class OrderReceivedPage {
-# notice: By
-
-+ OrderReceivedPage(WebDriver driver)
-+ String collectNotice()
-
-}
-
-class HomePage{
-# shopButton: By
-# manCategory: By
-# accountHeaderLink: By
-
-+ HomePage(WebDriver driver)
++ String getEmptyCartMessage()
++ HomePage clickReturnToShopButton()
 + StorePage navigateToStorePage()
-+ MenPage navigateToMenPage()
-+ AccountPage navigateToAccountPage
-
-}
-
-class MenPage{
-# singleItemContainer: By
-# saleTag: By
-# crossedOutPrice: By
-
-+ MenPage(WebDriver driver)
-+ List<Boolean> areProductsOnSaleHaveCrossedPrice()
-+ List<String> collectCategories()
-
-}
-
-class WomenPage{
-# addToCartButton: By
-# cartButton: By
-
-+ WomenPage(WebDriver driver)
-+ WomenPage addToCartFromWomenPage()
-+ CartPage clickCartPage()
-
-}
-
-abstract class SalesPage{
-# searchField: By
-# searchButton: By
-
-+ SalesPage(WebDriver driver)
-+ StorePage searchProduct(String item)
-
++ setZeroValueOfProductQuantity()
++ removeItemsFromCartPreview()
 }
 
 class CheckoutPage{
@@ -121,6 +122,7 @@ class CheckoutPage{
 # emailField: By
 # placeOrderButton: By
 + CheckoutPage(WebDriver driver)
++ load()
 + CheckoutPage inputFirstName(String firstName)
 + CheckoutPage inputLastName(String lastName)
 + CheckoutPage inputCompanyName(String companyName)
@@ -129,7 +131,71 @@ class CheckoutPage{
 + CheckoutPage inputZip(String zip)
 + CheckoutPage inputEmail(String email)
 + OrderReceivedPage clickPlaceOrderButton()
++ CheckoutPage inputCountry(String country)
++ CheckoutPage clickBillingCountryDropDown(String country)
++ CheckoutPage clickBillingStateDropDown(String country)
++ String productNameAndQuantity()
++ String checkYourOrderHasBeenReceivedMessage()
 }
+
+class HomePage{
+# shopButton: By
+# manCategory: By
+# accountHeaderLink: By
+
++ HomePage(WebDriver driver)
++ load()
++ StorePage navigateToStorePage()
++ MenPage navigateToMenPage()
++ StorePage shopNowButton()
++ AccountPage navigateToAccountPage()
++ CartPage naigateToCartPage()
++ int getAmountOfProductsFromCartIcon()
++ int getAmountOfProductsFromCartIconAfterIncrease(int quantity)
++ addFirstProductToCart()
+}
+
+class MenPage{
+# singleItemContainer: By
+# saleTag: By
+# crossedOutPrice: By
+
++ MenPage(WebDriver driver)
++ load()
+'+ List<Boolean> areProductsOnSaleHaveCrossedPrice()
++ List<String> collectCategories()
++ MenPage addToCartFromManPage()
++ CartPage clickCartPage()
+
+}
+
+class OrderReceivedPage {
+# notice: By
+
++ OrderReceivedPage(WebDriver driver)
++ String collectNotice()
+
+}
+
+class ProductPage{
++ ProductPage(WebDriver driver)
+}
+
+abstract class PurchasePage{
++ PurchasePage(WebDriver driver)
+}
+
+abstract class SalesPage{
+# searchField: By
+# searchButton: By
+
++ SalesPage(WebDriver driver)
++ StorePage searchProduct(String item)
++ List<Boolean> areProductsOnSaleHaveCrossedPrice()
++ SalesPage sortByDropDownButton()
++ SalesPage sortByPrice(String priceType)
+}
+
 class StorePage{
 # headerTitle: By
 # loopProducts: By
@@ -137,10 +203,30 @@ class StorePage{
 # cartButton" By
 
 + StorePage(WebDriver driver)
++ load()
++ List<String> getAllItemsFromAllPages(By locator, WebDriver driver)
 + String getSearchHeaderTitle()
 + String getTextFromListProducts(int number)
 + StorePage addToCartFromStorePage()
 + CartPage clickCartPage()
++ boolean areItemsInAlphabeticalOrder()
++ StorePage chooseAnItemByClickingAddToCart(String item)
++ String checkProductNameOnCartPage(String item)
+}
+
+class WomenPage{
+# addToCartButton: By
+# cartButton: By
+
++ WomenPage(WebDriver driver)
++ load()
++ WomenPage addToCartFromWomenPage()
++ CartPage clickCartPage()
+
+}
+
+interface Loadable {
+ load();
 }
 
 BasePage <|-- AccountPage
