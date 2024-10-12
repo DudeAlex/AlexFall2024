@@ -16,7 +16,7 @@ public class HomePage extends PurchasePage implements Loadable {
     By shopNowButton = By.xpath("//a[@class= 'wp-block-button__link']");
     By accountButton = By.xpath("//li[@id=\"menu-item-1237\"]");
     By cartIcon = By.xpath("//div[@id=\"ast-desktop-header\"]//a[@title=\"View your shopping cart\"]//span");
-
+    By accessoriesButton = By.id("menu-item-1230");
     By firstProductAddToCartElementButton = By.xpath("//a[@href=\"?add-to-cart=1215\"]");
     By accountHeaderLink = By.id("menu-item-1237");
 
@@ -40,6 +40,12 @@ public class HomePage extends PurchasePage implements Loadable {
         WaitUtils.elementToBeClickable(getDriver(), manCategory, 2).click();
 
         return new MenPage(getDriver());
+    }
+
+    public AccessoriesPage navigateToAccessoriesPage() {
+        WaitUtils.elementToBeClickable(getDriver(), accessoriesButton, 2).click();
+
+        return new AccessoriesPage(getDriver());
     }
 
     public StorePage shopNowButton() {
