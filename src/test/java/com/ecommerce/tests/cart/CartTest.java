@@ -193,5 +193,4 @@ public class CartTest extends BaseTest {
 //        Assert.assertEquals(amountProductsInCartAfterAppending, productsQuantityInCart, "The product wasn't added to cart");
         cartPage.resetValueOfProductQuantity();
     }
-
 }
