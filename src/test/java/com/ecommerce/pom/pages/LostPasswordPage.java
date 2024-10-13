@@ -10,32 +10,44 @@ import org.openqa.selenium.WebDriver;
 
 public class LostPasswordPage extends BasePage implements Loadable {
 
-
-    public LostPasswordPage(WebDriver driver) {super (driver);
+    By emailInputToResetPassword = By.xpath("//input[@id='user_login']");
+    By resetPasswordBtn = By.xpath("//button[@value='Reset password']");
+    By passwordResetNotification = By.xpath("//div[@role='alert']");
+    By errorMessageInvalidEmail = By.xpath("//li[normalize-space()='Invalid username or email.']");
+    public LostPasswordPage(WebDriver driver) {
+        super(driver);
     }
 
     @Override
-    public void load() {getDriver().get("https://askomdch.com/account/lost-password/");
+    public void load() {
+        getDriver().get("https://askomdch.com/account/lost-password/");
     }
 
-    By emailInputToResetPassword = By.xpath("//input[@id='user_login']");
-    By resetPasswordBtn = By.xpath("//button[@value='Reset password']");
 
-    By passwordResetNotification = By.xpath("//div[@role='alert']");
-    public LostPasswordPage inputValidEmail () {
-        WaitUtils.visibilityOfElementLocated(getDriver(),emailInputToResetPassword).clear();
-        WaitUtils.visibilityOfElementLocated(getDriver(),emailInputToResetPassword).sendKeys("aaaaa@aa.aa");
+    public LostPasswordPage inputValidEmail() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), emailInputToResetPassword).clear();
+        WaitUtils.visibilityOfElementLocated(getDriver(), emailInputToResetPassword).sendKeys("aaaaa@aa.aa");
         return this;
     }
-    public LostPasswordPage clickResetPasswordBtn () {
-        WaitUtils.visibilityOfElementLocated(getDriver(),resetPasswordBtn).click();
+
+    public LostPasswordPage inputInvalidEmail() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), emailInputToResetPassword).clear();
+        WaitUtils.visibilityOfElementLocated(getDriver(), emailInputToResetPassword).sendKeys("bbbbb@bb.bb");
+        return this;
+    }
+
+    public LostPasswordPage clickResetPasswordBtn() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), resetPasswordBtn).click();
         return new LostPasswordPage(getDriver());
     }
 
-    public String getTextResetPasswordNotification () {
-        return WaitUtils.visibilityOfElementLocated(getDriver(),passwordResetNotification).getText();
-    }
+    public String getTextResetPasswordNotification() {
+        return WaitUtils.visibilityOfElementLocated(getDriver(), passwordResetNotification).getText();
     }
 
+    public String getTextErrorMassageInvalidEmail() {
+        return WaitUtils.visibilityOfElementLocated(getDriver(), errorMessageInvalidEmail).getText();
+    }
+}
 
 
