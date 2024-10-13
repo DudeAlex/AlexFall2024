@@ -16,6 +16,7 @@ public class AccessoriesPage extends SalesPage{
 
     @Override
     public void load() {
+
         getDriver().get("https://askomdch.com/product-category/accessories/");
     }
 

@@ -20,6 +20,8 @@ public class AccountPage extends BasePage implements Loadable {
     By storeButton = By.xpath("//li[@id=\"menu-item-1227\"]/a");
     By homePageLink = By.xpath("//li[@id=\"menu-item-1226\"]/a");
 
+    By lostPasswordLink = By.xpath("//a[normalize-space()='Lost your password?']");
+
     public AccountPage(WebDriver driver) {
         super(driver);
     }
@@ -75,4 +77,11 @@ public class AccountPage extends BasePage implements Loadable {
         WaitUtils.visibilityOfElementLocated(getDriver(),getHeaderAccessories()).click();
         return new AccessoriesPage(getDriver());
     }
+
+    public LostPasswordPage navigateToLostPasswordPage(){
+        WaitUtils.visibilityOfElementLocated(getDriver(),lostPasswordLink).click();
+        return new LostPasswordPage(getDriver()) ;
+    }
+
+
 }
