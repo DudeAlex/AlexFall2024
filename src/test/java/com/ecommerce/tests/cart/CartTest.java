@@ -1,10 +1,7 @@
 package com.ecommerce.tests.cart;
 
 import com.ecommerce.base.BaseTest;
-import com.ecommerce.pom.pages.AccountPage;
-import com.ecommerce.pom.pages.CartPage;
-import com.ecommerce.pom.pages.HomePage;
-import com.ecommerce.pom.pages.StorePage;
+import com.ecommerce.pom.pages.*;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -183,6 +180,35 @@ public class CartTest extends BaseTest {
             homePage.addFirstProductToCart();
         }
         homePage.goToCartIcon();
+        int amountProductsInCartAfterAppending = homePage.getAmountOfProductsFromCartIconAfterIncrease(QUANTITY_OF_PRODUCTS);
+//        Assert.assertEquals(amountProductsInCart + QUANTITY_OF_PRODUCTS, amountProductsInCartAfterAppending, "The product wasn't added to cart");
+        Assert.assertTrue(amountProductsInCartAfterAppending > 1, "The product wasn't added to cart");
+        homePage.navigateToCartPage();
+        CartPage cartPage = new CartPage(driver);
+        int productsQuantityInCart = cartPage.getProductsQuantity();
+        Assert.assertTrue(productsQuantityInCart > 1, "The product wasn't added to cart");
+//        Assert.assertEquals(amountProductsInCartAfterAppending, productsQuantityInCart, "The product wasn't added to cart");
+        cartPage.resetValueOfProductQuantity();
+    }
+
+    @Test(description = "9.1-3-3.1.3 | TC > Cart > Add the same product to the cart from the Men page # https://app.clickup.com/t/8689zkdvk")
+    public void testAddTheSameProductToTheCartFromMenPage(){
+        HomePage homePage = new HomePage(driver);
+        homePage.navigateToAccountPage();
+        AccountPage accountPage = new AccountPage(driver);
+        accountPage.logIn();
+        accountPage.navigateToMenPage();
+        int amountProductsInCart = homePage.getAmountOfProductsFromCartIcon();
+//        if (amountProductsInCart != 0){
+//            homePage.goToCartIcon();
+//            homePage.resetCart();
+//        }
+        MenPage menPage = new MenPage(driver);
+        menPage.goToProduct();
+        for (int i = 0; i < QUANTITY_OF_PRODUCTS; i++) {
+            menPage.addFirstProductToCart();
+        }
+        menPage.goToCartIcon();
         int amountProductsInCartAfterAppending = homePage.getAmountOfProductsFromCartIconAfterIncrease(QUANTITY_OF_PRODUCTS);
 //        Assert.assertEquals(amountProductsInCart + QUANTITY_OF_PRODUCTS, amountProductsInCartAfterAppending, "The product wasn't added to cart");
         Assert.assertTrue(amountProductsInCartAfterAppending > 1, "The product wasn't added to cart");
