@@ -91,6 +91,7 @@ class AccountPage {
 + MenPage navigateToMenPage()
 + WomenPage navigateToWomenPage()
 + AccessoriesPage navigateToAccessoriesPage()
++ LostPasswordPage navigateToLostPasswordPage()
 }
 
 class CartPage {
@@ -149,10 +150,23 @@ class HomePage{
 + MenPage navigateToMenPage()
 + StorePage shopNowButton()
 + AccountPage navigateToAccountPage()
-+ CartPage naigateToCartPage()
++ CartPage navigateToCartPage()
 + int getAmountOfProductsFromCartIcon()
 + int getAmountOfProductsFromCartIconAfterIncrease(int quantity)
 + addFirstProductToCart()
+}
+class LostPasswordPage {
+# emailInputToResetPassword: By
+# resetPasswordBtn: By
+# passwordResetNotification: By
+# errorMessageInvalidEmail: By
++ LostPasswordPage (WebDriver driver)
++ load()
++ LostPasswordPage inputValidEmail()
++ LostPasswordPage inputInvalidEmail()
++ LostPasswordPage clickResetPasswordBtn()
++ String getTextResetPasswordNotification()
++ String getTextErrorMassageInvalidEmail()
 }
 
 class MenPage{

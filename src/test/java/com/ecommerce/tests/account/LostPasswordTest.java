@@ -21,4 +21,15 @@ public class LostPasswordTest extends BaseTest {
 
 
     }
+    @Test (description = "6.3-2.1 | TC >Account Page > Lost Password >Invalid Email # https://app.clickup.com/t/868a7vgfq")
+    public void testPasswordResetWrongEmail() {
+        HomePage homePage = new HomePage(driver);
+        AccountPage accountPage = homePage.navigateToAccountPage();
+        LostPasswordPage lostPasswordPage = accountPage.navigateToLostPasswordPage();
+        String actualErrorMassageInvalidEmail = lostPasswordPage.inputInvalidEmail().clickResetPasswordBtn().getTextErrorMassageInvalidEmail();
+        String expectedErrorMassageInvalidEmail = "Invalid username or email.";
+
+        Assert.assertEquals(actualErrorMassageInvalidEmail,expectedErrorMassageInvalidEmail,"Error massage doesn't match!");
+
+    }
 }
