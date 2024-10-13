@@ -10,7 +10,7 @@ import java.util.List;
 
 public class VerifyItemIsOnSale extends BaseTest {
 
-    @Test(description = "5.1-1-1 | TC > Accessories > Verify items belong to accessories #https://app.clickup.com/t/868a7t8vp")
+    @Test(description = "5.2-3-1 | TC > Accessories > Verify items on sale #https://app.clickup.com/t/868a7y2ax")
     public void testVerifyItemIsOnSale() {
         new HomePage(driver)
                 .navigateToAccessoriesPage();
