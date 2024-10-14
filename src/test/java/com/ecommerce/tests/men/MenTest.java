@@ -2,8 +2,6 @@ package com.ecommerce.tests.men;
 
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.pom.pages.HomePage;
-import com.ecommerce.utils.CollectToListUtils;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -31,5 +29,25 @@ public class MenTest extends BaseTest {
 
             Assert.assertTrue(isOnSalAndHasCrossedPrice, "Product does not have sale tag or crossed-out price");
         }
+    }
+
+    @Test(description = "3.1 -1-1 | TC > Men >Sort low to high price # https://app.clickup.com/t/8689vk1yn")
+    public void testSortByPriceLowToHigh() {
+        boolean isSorted = new HomePage(driver)
+                .navigateToMenPage()
+                .selectSortByPriceLowToHigh()
+                .areProductsPricesInAscendingOrder();
+
+        Assert.assertTrue(isSorted, "Prices are not sorted from low to high as expected");
+    }
+
+    @Test(description = "3.1 - 1-2 | TC> Men> Sort high to low price # https://app.clickup.com/t/8689vjzgq")
+    public void testSortByPriceHighToLow() {
+        boolean isSorted = new HomePage(driver)
+                .navigateToMenPage()
+                .selectSortByPriceHighToLow()
+                .areProductsPricesInDescendingOrder();
+
+        Assert.assertTrue(isSorted, "Prices are not sorted from high to low as expected");
     }
 }
