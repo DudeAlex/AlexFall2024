@@ -8,6 +8,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import com.ecommerce.data.RegisterUsernameData;
 
 import java.util.UUID;
 
@@ -39,8 +40,8 @@ public class RegisterTest extends BaseTest {
         return UUID.randomUUID().toString().replace("-", "").substring(0, 10);
     }
 
-    @Test(description = "6.2-1.2 | TC > Account Page > Validate email error # https://app.clickup.com/t/868a34t20")
-    public void testValidateEmailErrorMessage() {
+    @Test(description = "6.2-1-7 | TC > Account Page > Validate email error # https://app.clickup.com/t/868a34t20")
+    public void testValidateBrowserEmailErrorMessage() {
         WaitUtils.elementToBeClickable(driver, accountOption).click();
 
         WebElement registerUsernameInputField = WaitUtils.visibilityOf(driver, registerUsernameInput, 2);
@@ -68,7 +69,7 @@ public class RegisterTest extends BaseTest {
         Assert.assertTrue(isHelloTextInvisible);
     }
 
-    @Test(description = "6.2-1.3 | TC > Account Page > Verify error message for empty password # https://app.clickup.com/t/868a34t9v")
+    @Test(description = "6.2-1-4 | TC > Account Page > Verify error message for empty password # https://app.clickup.com/t/868a34t9v")
     public void testVerifyErrorMassageForEmptyPassword() {
         WaitUtils.elementToBeClickable(driver, accountOption).click();
 
@@ -88,7 +89,7 @@ public class RegisterTest extends BaseTest {
         Assert.assertEquals(errorMessageText, "Error: Please enter an account password.");
     }
 
-    @Test(description = "6.2-1.1 | TC > Accout Page > Verify registry # https://app.clickup.com/t/868a34rph")
+    @Test(description = "6.2-1-1 | TC > Account Page > Verify registry # https://app.clickup.com/t/868a34rph")
     public void testVerifyRegistry() {
         WaitUtils.elementToBeClickable(driver, accountOption).click();
 
@@ -110,4 +111,86 @@ public class RegisterTest extends BaseTest {
 
         Assert.assertTrue(welcomeUserText.contains("Hello " + userName));
     }
+
+    @Test(dataProvider = "provideInvalidCharacters", dataProviderClass = RegisterUsernameData.class,
+            description = "6.2-1-5 | TC > Verify error for invalid characters #https://app.clickup.com/t/868a80kv3")
+    public void testVerifyErrorMessageForInvalidCharacters(String character) {
+        WaitUtils.elementToBeClickable(driver, accountOption).click();
+
+        WebElement registerUsernameInputField = WaitUtils.visibilityOf(driver, registerUsernameInput, 2);
+        registerUsernameInputField.sendKeys(generateUniqueUsername() + character);
+        registerUsernameInputField.sendKeys(Keys.TAB);
+
+        WebElement emailInputField = driver.switchTo().activeElement();
+        emailInputField.sendKeys(generateUniqueEmail());
+        emailInputField.sendKeys(Keys.TAB);
+
+        WebElement passwordInputField = driver.switchTo().activeElement();
+        passwordInputField.sendKeys(generateUniquePassword());
+
+        passwordInputField.sendKeys(Keys.ENTER);
+
+        String errorMessageText = WaitUtils.visibilityOf(driver, errorMessage).getText();
+        Assert.assertEquals(errorMessageText, "Error: Please enter a valid account username.");
+    }
+
+    @Test(description = "6.2-1-6 | TC > Verify error for username longer than 60 characters # https://app.clickup.com/t/868a80mw5")
+    public void testVerifyErrorMessageForUsernameMoreSixtyCharacters() {
+        WaitUtils.elementToBeClickable(driver, accountOption).click();
+
+        WebElement registerUsernameInputField = WaitUtils.visibilityOf(driver, registerUsernameInput, 2);
+        registerUsernameInputField.sendKeys("qwertyuiopasdfghjklzxcvbnmqwertyuioasdfghjklzxcvbnmqwertyuioq");
+        registerUsernameInputField.sendKeys(Keys.TAB);
+
+        WebElement emailInputField = driver.switchTo().activeElement();
+        emailInputField.sendKeys(generateUniqueEmail());
+        emailInputField.sendKeys(Keys.TAB);
+
+        WebElement passwordInputField = driver.switchTo().activeElement();
+        passwordInputField.sendKeys(generateUniquePassword());
+
+        passwordInputField.sendKeys(Keys.ENTER);
+
+        String errorMessageText = WaitUtils.visibilityOf(driver, errorMessage).getText();
+        Assert.assertEquals(errorMessageText, "Error: Username may not be longer than 60 characters.");
+    }
+
+    @Test(description = "6.2-1-3 | TC > Verify Error for empty email # https://app.clickup.com/t/868a80p4a")
+    public void testVerifyErrorMessageForEmptyEmail() {
+        WaitUtils.elementToBeClickable(driver, accountOption).click();
+
+        WebElement registerUsernameInputField = WaitUtils.visibilityOf(driver, registerUsernameInput, 2);
+        registerUsernameInputField.sendKeys(generateUniqueUsername());
+        registerUsernameInputField.sendKeys(Keys.TAB);
+
+        WebElement emailInputField = driver.switchTo().activeElement();
+        emailInputField.sendKeys(Keys.TAB);
+
+        WebElement passwordInputField = driver.switchTo().activeElement();
+        passwordInputField.sendKeys(generateUniquePassword());
+        passwordInputField.sendKeys(Keys.ENTER);
+
+        String errorMessageText = WaitUtils.visibilityOf(driver, errorMessage).getText();
+        Assert.assertEquals(errorMessageText, "Error: Please provide a valid email address.");
+    }
+
+    @Test(description = "6.2-1-2 | TC > Verify Error for empty Username  #https://app.clickup.com/t/868a80u7t")
+    public void testVerifyErrorMessageForEmptyUserName() {
+        WaitUtils.elementToBeClickable(driver, accountOption).click();
+
+        WebElement registerUsernameInputField = WaitUtils.visibilityOf(driver, registerUsernameInput, 2);
+        registerUsernameInputField.sendKeys(Keys.TAB);
+
+        WebElement emailInputField = driver.switchTo().activeElement();
+        emailInputField.sendKeys(generateUniqueEmail());
+        emailInputField.sendKeys(Keys.TAB);
+
+        WebElement passwordInputField = driver.switchTo().activeElement();
+        passwordInputField.sendKeys(generateUniquePassword());
+        passwordInputField.sendKeys(Keys.ENTER);
+
+        String errorMessageText = WaitUtils.visibilityOf(driver, errorMessage).getText();
+        Assert.assertEquals(errorMessageText, "Error: Please enter a valid account username.");
+    }
+
 }
