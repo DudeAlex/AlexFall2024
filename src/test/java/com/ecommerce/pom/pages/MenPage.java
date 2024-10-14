@@ -5,6 +5,7 @@ import com.ecommerce.utils.CollectToListUtils;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ public class MenPage extends SalesPage{
 
     By addToCartButton  = By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']");
     By cartButton = By.linkText("View cart");
+    By firstProductAddToCartButton = By.xpath("//ul[@class=\"products columns-4\"]//a[2]");
+    By cartIcon = By.xpath("//div[@id=\"ast-desktop-header\"]//a[@title=\"View your shopping cart\"]//span");
 
     public MenPage(WebDriver driver) {
         super(driver);
@@ -34,6 +37,23 @@ public class MenPage extends SalesPage{
     public CartPage clickCartPage() {
         WaitUtils.visibilityOfElementLocated(getDriver(), cartButton).click();
         return new CartPage(getDriver());
+    }
+
+    public void goToProduct(){
+        new Actions(getDriver())
+                .moveToElement(getDriver().findElement(firstProductAddToCartButton))
+                .perform();
+    }
+
+    public void addFirstProductToCart () {
+        WaitUtils.elementToBeClickable(getDriver(), firstProductAddToCartButton, 2).click();
+
+    }
+
+    public void goToCartIcon(){
+        new Actions(getDriver())
+                .moveToElement(getDriver().findElement(cartIcon))
+                .perform();
     }
 }
 
