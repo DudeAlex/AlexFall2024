@@ -19,6 +19,7 @@ public class HomePage extends PurchasePage implements Loadable {
     By accessoriesButton = By.id("menu-item-1230");
     By firstProductAddToCartElementButton = By.xpath("//a[@href=\"?add-to-cart=1215\"]");
     By accountHeaderLink = By.id("menu-item-1237");
+    By resetCartButton = By.cssSelector("a.remove_from_cart_button");
 
 
     public HomePage(WebDriver driver) {
@@ -89,5 +90,9 @@ public class HomePage extends PurchasePage implements Loadable {
             new Actions(getDriver())
                     .moveToElement(getDriver().findElement(cartIcon))
                     .perform();
+        }
+
+        public void resetCart(){
+            WaitUtils.elementToBeClickable(getDriver(), resetCartButton, 2).click();
         }
 }
