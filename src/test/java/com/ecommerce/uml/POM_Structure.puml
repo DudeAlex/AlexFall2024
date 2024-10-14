@@ -248,6 +248,7 @@ BasePage <|-- CartPage
 BasePage <|-- CheckoutPage
 BasePage <|-- OrderReceivedPage
 BasePage <|-- PurchasePage
+BasePage <|-- LostPasswordPage
 
 PurchasePage <|-- HomePage
 PurchasePage <|-- ProductPage
