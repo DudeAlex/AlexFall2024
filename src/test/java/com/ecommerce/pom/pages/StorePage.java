@@ -36,7 +36,7 @@ public class StorePage extends SalesPage{
         getDriver().get("https://askomdch.com/store/");
     }
 
-    public List<String> getAllItemsFromAllPages(By locator, WebDriver driver) {
+    private List<String> getAllItemsFromAllPages(By locator, WebDriver driver) {
         List<String> allItemList = new ArrayList<>();
         boolean hasNextPage = true;
 

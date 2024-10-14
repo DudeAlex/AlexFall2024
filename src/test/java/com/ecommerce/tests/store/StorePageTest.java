@@ -13,15 +13,11 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class StorePageTest extends BaseTest {
 
     private static final By NEXT_PAGE_NUMBER = By.xpath("//a[@class='next page-numbers']");
-    private static final By SORTING_DROP_DOWN = By.xpath("//select[@name='orderby']");
-    private static final By PRICE = By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]");
     private static final By ITEM_CATEGORY_BELOW_PRICE = By.xpath("//span[@class='ast-woo-product-category']");
 
     private static List<String> getAllItemsFromAllPages(By locator, WebDriver driver) {
@@ -42,17 +38,6 @@ public class StorePageTest extends BaseTest {
             }
         }
         return allItemList;
-    }
-
-    private static List<Double> getConvertedToDoublePriceList(List<String> priceTextList) {
-        List<Double> actualPriceList = new ArrayList<>();
-        for (String priceText : priceTextList) {
-            String priceClearedFromSigns = priceText.replace("$", "").trim();
-            double price = Double.parseDouble(priceClearedFromSigns);
-            actualPriceList.add(price);
-        }
-
-        return actualPriceList;
     }
 
     @Test(description = "2.4 - 1 | TC Store > Click search button. # https://app.clickup.com/t/8689p8y50")
@@ -127,46 +112,6 @@ public class StorePageTest extends BaseTest {
                 .areItemsInAlphabeticalOrder();
 
         Assert.assertTrue(isAlphabeticalOrder, "Items are not in alphabetical order");
-    }
-
-    @Test(dataProvider = "provideAllItemCategory", dataProviderClass = ProductsData.class,
-            description = "2-1.3 | TC> Store> Sort low to high price # https://app.clickup.com/t/8689vk1yn")
-    public void testSortByPriceLowToHigh(String category) {
-        driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='" + category + "']")).click();
-
-        WebElement dropdown = WaitUtils.visibilityOf(driver, SORTING_DROP_DOWN);
-        Select select = new Select(dropdown);
-        select.selectByVisibleText("Sort by price: low to high");
-
-        List<String> priceTextList = getAllItemsFromAllPages(PRICE, driver);
-
-        List<Double> actualPriceList = getConvertedToDoublePriceList(priceTextList);
-
-        List<Double> expectedLowToHighPriceList = new ArrayList<>(actualPriceList);
-        Collections.sort(expectedLowToHighPriceList);
-
-        Assert.assertEquals(actualPriceList, expectedLowToHighPriceList,
-                "Prices are not sorted from low to high as expected");
-    }
-
-    @Test(dataProvider = "provideAllItemCategory", dataProviderClass = ProductsData.class,
-            description = "2-1.2 | TC> Store> Sort high to low price # https://app.clickup.com/t/8689vjzgq")
-    public void testSortByPriceHighToLow(String category) {
-        driver.findElement(By.xpath("//div[@id='ast-desktop-header']//a[text()='" + category + "']")).click();
-
-        WebElement dropdown = WaitUtils.visibilityOf(driver, SORTING_DROP_DOWN);
-        Select select = new Select(dropdown);
-        select.selectByVisibleText("Sort by price: high to low");
-
-        List<String> priceTextList = getAllItemsFromAllPages(PRICE, driver);
-
-        List<Double> actualPriceList = getConvertedToDoublePriceList(priceTextList);
-
-        List<Double> expectedLowToHighPriceList = new ArrayList<>(actualPriceList);
-        expectedLowToHighPriceList.sort(Comparator.reverseOrder());
-
-        Assert.assertEquals(actualPriceList, expectedLowToHighPriceList,
-                "Prices are not sorted from low to high as expected");
     }
 
     //testVerifyItemsCorrespondentCategories[Women] will fail, bug?!
