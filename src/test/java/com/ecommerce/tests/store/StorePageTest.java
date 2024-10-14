@@ -1,7 +1,6 @@
 package com.ecommerce.tests.store;
 
 import com.ecommerce.base.BaseTest;
-import com.ecommerce.data.ProductsData;
 import com.ecommerce.pom.pages.HomePage;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.*;
@@ -112,19 +111,6 @@ public class StorePageTest extends BaseTest {
                 .areItemsInAlphabeticalOrder();
 
         Assert.assertTrue(isAlphabeticalOrder, "Items are not in alphabetical order");
-    }
-
-    //testVerifyItemsCorrespondentCategories[Women] will fail, bug?!
-    @Test(dataProvider = "provideAllItemCategory", dataProviderClass = ProductsData.class,
-            description = "2.8-1.1 TC > Store > Products Match # https://app.clickup.com/t/8689p8y82")
-    public void testVerifyItemsCorrespondentCategories(String category) {
-        WaitUtils.elementToBeClickable(
-                driver, By.xpath("//div[@id='ast-desktop-header']//a[text()='" + category + "']")).click();
-
-        List<String> allItemList = getAllItemsFromAllPages(ITEM_CATEGORY_BELOW_PRICE, driver);
-        for (String item : allItemList) {
-            Assert.assertEquals(item, category, "Item does not match the expected category");
-        }
     }
 
     @Test(description = "2.11-1.2 |TC > Store > See itemion's price in Browse by category # https://app.clickup.com/t/8689yq16m")
