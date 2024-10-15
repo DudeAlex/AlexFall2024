@@ -2,7 +2,6 @@ package com.ecommerce.tests.store;
 
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.pom.pages.HomePage;
-import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -15,29 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StorePageTest extends BaseTest {
-
-    private static final By NEXT_PAGE_NUMBER = By.xpath("//a[@class='next page-numbers']");
-    private static final By ITEM_CATEGORY_BELOW_PRICE = By.xpath("//span[@class='ast-woo-product-category']");
-
-    private static List<String> getAllItemsFromAllPages(By locator, WebDriver driver) {
-        List<String> allItemList = new ArrayList<>();
-        boolean hasNextPage = true;
-
-        while (hasNextPage) {
-            List<WebElement> itemList = WaitUtils.visibilityOfAllElementsLocatedBy(driver, locator);
-            for (WebElement item : itemList) {
-                allItemList.add(item.getText());
-            }
-
-            try {
-                WebElement nextPageArrow = driver.findElement(NEXT_PAGE_NUMBER);
-                nextPageArrow.click();
-            } catch (NoSuchElementException e) {
-                hasNextPage = false;
-            }
-        }
-        return allItemList;
-    }
 
     @Test(description = "2.4 - 1 | TC Store > Click search button. # https://app.clickup.com/t/8689p8y50")
     public void testSearchButton() {
@@ -107,7 +83,7 @@ public class StorePageTest extends BaseTest {
     @Test(description = "2.12-1.1 | TC> Store> Verify items alphabetical order # https://app.clickup.com/t/8689vk3c5")
     public void testVerifyItemsAlphabeticalOrder() {
         boolean isAlphabeticalOrder = new HomePage(driver)
-                .navigateToStorePage()
+                .getHeader().navigateToStorePage()
                 .areItemsInAlphabeticalOrder();
 
         Assert.assertTrue(isAlphabeticalOrder, "Items are not in alphabetical order");

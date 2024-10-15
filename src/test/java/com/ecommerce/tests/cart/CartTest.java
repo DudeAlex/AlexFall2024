@@ -28,7 +28,7 @@ public class CartTest extends BaseTest {
     @Test(description = "9.1_3_3.4 | TC > Cart - Update the Cart By typing the number inside of the Quantity input field # https://app.clickup.com/t/8689u7hd6",
     dataProvider = "numberToUpdateData")
     public void testUpdateQuantityInCart(String numbeerToSet, int priceIncreeaseToCheck) {
-        new HomePage(driver).navigateToStorePage();
+        new HomePage(driver).getHeader().navigateToStorePage();
         new StorePage(driver).addToCartFromStorePage();
 
         WebElement viewCart = driver.findElement(By.linkText("View cart"));
@@ -68,7 +68,7 @@ public class CartTest extends BaseTest {
 
     @Test(description = "9.1_2_2.3 | TC > Cart - Remove single item by clicking the 'x' icon near the product in the cart # https://app.clickup.com/t/8689ucy2m")
     public void testAddAndRemoveSingleItemFromCart() {
-        new HomePage(driver).navigateToStorePage();
+        new HomePage(driver).getHeader().navigateToStorePage();
         new StorePage(driver).addToCartFromStorePage();
 
         WebElement viewCart = driver.findElement(By.linkText("View cart"));
@@ -85,7 +85,7 @@ public class CartTest extends BaseTest {
 
     @Test(description = "9.1_2_2.4 | TC > Cart > Remove multiple products by clicking x buttons # https://app.clickup.com/t/8689p8y04")
     public void testAddRemoveMultipleItemsInCart() throws InterruptedException {
-        new HomePage(driver).navigateToStorePage();
+        new HomePage(driver).getHeader().navigateToStorePage();
 
         List<WebElement> products = driver.findElements(By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']"));
         Integer counter = 0;
@@ -129,7 +129,7 @@ public class CartTest extends BaseTest {
             @Test(description = "9.2_1.1  | TC > Cart > Checkout # https://app.clickup.com/t/868a31pxz")
     public void testCheckout() throws InterruptedException {
         String notice = new HomePage(driver)
-                .navigateToStorePage()
+                .getHeader().navigateToStorePage()
                 .addToCartFromStorePage()
                 .clickCartPage()
                 .clickCheckoutButton()
