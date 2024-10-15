@@ -9,13 +9,13 @@ import org.testng.annotations.Test;
 public class AddProductAccessoriesTest extends BaseTest {
 
     @Test(description = "9.1-1-1.4 | TC Add a product from the 'Accessories' page # https://app.clickup.com/t/868a40c1g")
-    public void testAddProductStorePage(){
+    public void testAddProductAccessoriesPage(){
         User user = new User("test_test@test.test", "12345");
         HomePage homePage = new HomePage(driver);
-        AccountPage accountPage = homePage.navigateToAccountPage();
+        AccountPage accountPage = homePage.getHeader().navigateToAccountPage();
         accountPage.logIn(user.getEmail(), user.getPassword());
 
-        CartPage cartPage = accountPage.navigateToCartPage();
+        CartPage cartPage = accountPage.getHeader().navigateToCartPage();
         if (Integer.parseInt(cartPage.getCartItemsNumber()) > 0) {
             cartPage.removeItemsFromCart();
         }
