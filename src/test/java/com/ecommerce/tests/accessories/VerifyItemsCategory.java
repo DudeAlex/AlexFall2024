@@ -22,6 +22,7 @@ public class VerifyItemsCategory extends BaseTest {
 
     @Test
     public void testTest (){
+
         StorePage storePage = new StorePage(driver);
         storePage.load();
 
