@@ -18,15 +18,15 @@ public class RemoveOneProductFromThePopUpByXTest extends BaseTest {
     public void testRemoveOneProductFromThePopUpByX() {
         User user = new User("test_test@test.test", "12345");
         HomePage homePage = new HomePage(driver);
-        AccountPage accountPage = homePage.navigateToAccountPage();
+        AccountPage accountPage = homePage.getHeader().navigateToAccountPage();
         accountPage.logIn(user.getEmail(), user.getPassword());
 
-        CartPage cartPage = accountPage.navigateToCartPage();
+        CartPage cartPage = accountPage.getHeader().navigateToCartPage();
         if (Integer.parseInt(cartPage.getCartItemsNumber()) > 0) {
             cartPage.removeItemsFromCart();
         }
 
-        StorePage storePage = cartPage.navigateToStorePage();
+        StorePage storePage = cartPage.getHeader().navigateToStorePage();
         storePage.addToCartFromStorePage();
         WaitUtils.waitForQuantityToBe(cartPage.getDriver(), By.xpath("//div/header/div[1]/div[1]/div/div/div/div[2]/div[2]/div/div[1]/a/div/span"),"1");
 

@@ -18,11 +18,11 @@ public class RemoveOneProductFromTheCartByZeroTest extends BaseTest {
     public void testRemoveOneProductFromTheCartByZero() {
         User user = new User("test_test@test.test", "12345");
         HomePage homePage = new HomePage(driver);
-        AccountPage accountPage = homePage.navigateToAccountPage();
+        AccountPage accountPage = homePage.getHeader().navigateToAccountPage();
         accountPage.logIn(user.getEmail(), user.getPassword());
-        StorePage storePage = accountPage.navigateToStorePage();
+        StorePage storePage = accountPage.getHeader().navigateToStorePage();
         storePage.addToCartFromStorePage();
-        CartPage cartPage = storePage.clickCartPage();
+        CartPage cartPage = storePage.getHeader().navigateToCartPage();
         cartPage.setZeroValueOfProductQuantity();
         WaitUtils.waitForQuantityToBe(cartPage.getDriver(), By.xpath("//span[@class='count']"),"0");
 
