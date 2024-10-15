@@ -2,6 +2,7 @@ package com.ecommerce.tests.accessories;
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.pom.pages.AccessoriesPage;
 import com.ecommerce.pom.pages.HomePage;
+import com.ecommerce.pom.pages.MenPage;
 import com.ecommerce.pom.pages.StorePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -30,5 +31,18 @@ public class VerifyItemsCategory extends BaseTest {
 
         storePage.getHeader().navigateToAccessoriesPage().addToCartFromAccessoriesPage();
 
+    }
+
+    /*
+    This test is added temporally to test that the class footer is added without mistakes.
+    It will be deleted in the future
+     */
+    @Test
+    public void testFooterLinks() {
+        HomePage homePage = new HomePage(driver);
+        homePage.load();
+
+        MenPage menPage = homePage.getFooter().navigateToMenPageFromFooter();
+        menPage.addToCartFromManPage();
     }
 }
