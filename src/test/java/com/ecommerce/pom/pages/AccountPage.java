@@ -73,10 +73,7 @@ public class AccountPage extends BasePage implements Loadable {
         return new WomenPage(getDriver());
     }
 
-    public AccessoriesPage navigateToAccessoriesPage() {
-        WaitUtils.visibilityOfElementLocated(getDriver(),getHeaderAccessories()).click();
-        return new AccessoriesPage(getDriver());
-    }
+
 
     public LostPasswordPage navigateToLostPasswordPage(){
         WaitUtils.visibilityOfElementLocated(getDriver(),lostPasswordLink).click();

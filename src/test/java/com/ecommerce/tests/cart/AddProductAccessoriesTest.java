@@ -20,9 +20,9 @@ public class AddProductAccessoriesTest extends BaseTest {
             cartPage.removeItemsFromCart();
         }
 
-        AccessoriesPage accessoriesPage = accountPage.navigateToAccessoriesPage();
+        AccessoriesPage accessoriesPage = accountPage.getHeader().navigateToAccessoriesPage();
         accessoriesPage.addToCartFromAccessoriesPage();
-        cartPage = accessoriesPage.clickCartPage();
+        cartPage = accessoriesPage.getHeader().clickCartPage();
 
         Assert.assertEquals(cartPage.getCartItemsNumber(), "1");
 
