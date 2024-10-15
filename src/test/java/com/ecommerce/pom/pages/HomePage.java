@@ -20,6 +20,7 @@ public class HomePage extends PurchasePage implements Loadable {
     By firstProductAddToCartElementButton = By.xpath("//a[@href=\"?add-to-cart=1215\"]");
     By accountHeaderLink = By.id("menu-item-1237");
     By resetCartButton = By.cssSelector("a.remove_from_cart_button");
+    By womenCategory = By.cssSelector("#menu-item-1229");
 
 
     public HomePage(WebDriver driver) {
@@ -47,6 +48,11 @@ public class HomePage extends PurchasePage implements Loadable {
         WaitUtils.elementToBeClickable(getDriver(), accessoriesButton, 2).click();
 
         return new AccessoriesPage(getDriver());
+    }
+
+    public WomenPage navigateToWomenPage() {
+        WaitUtils.elementToBeClickable(getDriver(), womenCategory).click();
+        return new WomenPage(getDriver());
     }
 
     public StorePage shopNowButton() {
