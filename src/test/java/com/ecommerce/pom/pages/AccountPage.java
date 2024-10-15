@@ -19,6 +19,7 @@ public class AccountPage extends BasePage implements Loadable {
     By loginPassword = By.xpath("//input[@id=\"password\"]");
     By storeButton = By.xpath("//li[@id=\"menu-item-1227\"]/a");
     By homePageLink = By.xpath("//li[@id=\"menu-item-1226\"]/a");
+    By logoutLink = By.xpath("//a[@href = 'https://askomdch.com/account/customer-logout/?_wpnonce=bf33a648b1' and text() = 'Logout']");
 
     By lostPasswordLink = By.xpath("//a[normalize-space()='Lost your password?']");
 
@@ -42,6 +43,16 @@ public class AccountPage extends BasePage implements Loadable {
         getDriver().findElement(loginUsername).sendKeys(email);
         getDriver().findElement(loginPassword).sendKeys(password);
         getDriver().findElement(loginButton).click();
+    }
+
+    public AccountPage logout() {
+        boolean isLoggedIn = WaitUtils.presenceOfElementLocated(getDriver(), logoutLink).isDisplayed();
+        if (isLoggedIn) {
+            WaitUtils.elementToBeClickable(getDriver(), logoutLink).click();
+        } else {
+            System.out.println("User is not logged in, LogOut link is not present");
+        }
+        return this;
     }
 
     public StorePage navigateToStorePage() {
