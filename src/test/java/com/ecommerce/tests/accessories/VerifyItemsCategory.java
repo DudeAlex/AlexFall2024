@@ -1,6 +1,9 @@
 package com.ecommerce.tests.accessories;
 import com.ecommerce.base.BaseTest;
+import com.ecommerce.pom.pages.AccessoriesPage;
+import com.ecommerce.pom.pages.CartPage;
 import com.ecommerce.pom.pages.HomePage;
+import com.ecommerce.pom.pages.StorePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.util.List;
@@ -15,5 +18,17 @@ public class VerifyItemsCategory extends BaseTest {
         for (String categories : productCategories) {
             Assert.assertEquals(categories, "Accessories");
         }
+    }
+
+    @Test
+    public void testTest (){
+        StorePage storePage = new StorePage(driver);
+        storePage.load();
+
+        AccessoriesPage accessoriesPage = storePage.getHeader().navigateToAccessoriesPage();
+        accessoriesPage.addToCartFromAccessoriesPage();
+
+        storePage.getHeader().navigateToAccessoriesPage().addToCartFromAccessoriesPage();
+
     }
 }

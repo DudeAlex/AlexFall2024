@@ -25,10 +25,7 @@ public class AccessoriesPage extends SalesPage{
         return this;
     }
 
-    public CartPage clickCartPage() {
-        WaitUtils.visibilityOfElementLocated(getDriver(), getHeaderCartButton()).click();
-        return new CartPage(getDriver());
-    }
+
 
     public List<String> collectCategories() {
         return CollectToListUtils.productsCategories(getDriver());
