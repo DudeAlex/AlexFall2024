@@ -1,10 +1,29 @@
 @startuml
 'https://plantuml.com/class-diagram
 
- hide fields
+'hide fields
 
 abstract class BasePage {
 - WebDriver driver
++ BasePage(WebDriver driver)
++ WebDriver getDriver()
++ Header getHeader()
++ Footer getFooter()
+}
+
+class Header {
+# headerHome: By
+# headerStore: By
+# headerMen: By
+# headerWomen: By
+# headerAccessories: By
+# headerAccount: By
+# headerAbout: By
+# headerContactUs: By
+# headerCartButton: By
+}
+
+class Footer {
 # quickLinksHome: By
 # quickLinksAbout: By
 # quickLinksMyAccount: By
@@ -25,48 +44,7 @@ abstract class BasePage {
 
 # appStoreIcon: By
 # googlePlayIcon: By
-
-# headerHome: By
-# headerStore: By
-# headerMen: By
-# headerWomen: By
-# headerAccessories: By
-# headerAccount: By
-# headerAbout: By
-# headerContactUs: By
-# headerCartButton: By
-
-+ BasePage(WebDriver driver)
-+ WebDriver getDriver()
-+ By getQuickLinksHome()
-+ By getQuickLinksAbout()
-+ By getQuickLinksMyAccount()
-+ By getQuickLinksCart()
-+ By getQuickLinksContactUs()
-+ By getForHerWomen()
-+ By getForHerWomenJeans()
-+ By getForHerWomenShirts()
-+ By getForHerWomenShoes()
-+ By getForHerAccessories()
-+ By getForHimMen()
-+ By getForHimMenJeans()
-+ By getForHimMenShirts()
-+ By getForHimMenShoes()
-+ By getForHimAccessories()
-+ By getAppStoreIcon()
-+ By getGooglePlayIcon()
-+ By getHeaderHome()
-+ By getHeaderStore()
-+ By getHeaderMen()
-+ By getHeaderWomen()
-+ By getHeaderAccessories()
-+ By getHeaderAccount()
-+ By getHeaderAbout()
-+ By getHeaderContactUs()
-+ By getHeaderCartButton()
-
 }
-
 
 class AccessoriesPage{
 # addToCartButton: By
@@ -249,6 +227,8 @@ BasePage <|-- CheckoutPage
 BasePage <|-- OrderReceivedPage
 BasePage <|-- PurchasePage
 BasePage <|-- LostPasswordPage
+BasePage *-- Header
+BasePage *-- Footer
 
 PurchasePage <|-- HomePage
 PurchasePage <|-- ProductPage
