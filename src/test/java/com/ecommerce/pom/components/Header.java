@@ -1,11 +1,7 @@
 package com.ecommerce.pom.components;
 
-import com.ecommerce.pom.pages.AccessoriesPage;
-import com.ecommerce.pom.pages.CartPage;
-import com.ecommerce.pom.pages.ContactUsPage;
-import com.ecommerce.pom.pages.MenPage;
-import com.ecommerce.pom.pages.StorePage;
-import com.ecommerce.pom.pages.WomenPage;
+import com.ecommerce.pom.AboutPage;
+import com.ecommerce.pom.pages.*;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -34,19 +30,15 @@ public class Header {
     By headerContactUs = By.id("menu-item-1233"); // Header Contact Us
     By headerCartButton = By.xpath("(//span[@class='count'])[1]"); // Header Cart
 
-    public AccessoriesPage navigateToAccessoriesPage() {
-        WaitUtils.visibilityOfElementLocated(getDriver(), headerAccessories).click();
-        return new AccessoriesPage(getDriver());
+    public HomePage navigateToHomepage(){
+        WaitUtils.visibilityOfElementLocated(getDriver(), headerHome).click();
+        return new HomePage(getDriver());
     }
 
-    public CartPage clickCartPage() {
-        WaitUtils.visibilityOfElementLocated(getDriver(), headerCartButton).click();
-        return new CartPage(getDriver());
-    }
+    public StorePage navigateToStorePage() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), headerStore).click();
 
-    public ContactUsPage clickContactUs() {
-        WaitUtils.visibilityOfElementLocated(getDriver(), headerContactUs).click();
-        return new ContactUsPage(getDriver());
+        return new StorePage(getDriver());
     }
 
     public MenPage navigateToMenPage() {
@@ -60,10 +52,29 @@ public class Header {
         return new WomenPage(getDriver());
     }
 
-    public StorePage navigateToStorePage() {
-        WaitUtils.visibilityOfElementLocated(getDriver(), headerStore).click();
+    public AccessoriesPage navigateToAccessoriesPage() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), headerAccessories).click();
+        return new AccessoriesPage(getDriver());
+    }
 
-        return new StorePage(getDriver());
+    public AccountPage navigateToAccountPage() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), headerAccount).click();
+        return new AccountPage(getDriver());
+    }
+
+    public AboutPage navigateToAboutPage() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), headerAbout).click();
+        return new AboutPage(getDriver());
+    }
+
+    public ContactUsPage navigateToContactUs() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), headerContactUs).click();
+        return new ContactUsPage(getDriver());
+    }
+
+    public CartPage navigateToCartPage() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), headerCartButton).click();
+        return new CartPage(getDriver());
     }
 
 }
