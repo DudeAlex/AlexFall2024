@@ -2,13 +2,11 @@ package com.ecommerce.tests.store;
 
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.pom.pages.HomePage;
-import com.ecommerce.pom.pages.StorePage;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -26,7 +24,7 @@ public class SortByPriceTest extends BaseTest {
         By byPrice = By.xpath("//span[@class='byPrice']");
 
         HomePage homePage = new HomePage(driver);
-        homePage.navigateToStorePage();
+        homePage.getHeader().navigateToStorePage();
 
         WebElement dropDown = WaitUtils.presenceOfElementLocated(driver, orderBy);
         Select select = new Select(dropDown);

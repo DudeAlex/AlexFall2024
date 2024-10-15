@@ -23,7 +23,7 @@ public class EndToEndTest  extends BaseTest {
        String yourOrderIsReceived = "Thank you. Your order has been received.";
 
         HomePage homePage = new HomePage(driver);
-        StorePage storePage = homePage.navigateToStorePage();
+        StorePage storePage = homePage.getHeader().navigateToStorePage();
         String searchResult = storePage.searchProduct(product).getSearchHeaderTitle();
         String item = storePage.getTextFromListProducts(0);
         Assert.assertEquals(searchResult, "Search results: “%s”".formatted(product));

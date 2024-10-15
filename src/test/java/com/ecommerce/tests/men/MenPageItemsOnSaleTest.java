@@ -15,7 +15,7 @@ public class MenPageItemsOnSaleTest extends BaseTest {
     public void testFindItemsOnSaleOnMenPage(){
 
         HomePage homePage = new HomePage(driver);
-        homePage.navigateToMenPage();
+        homePage.getHeader().navigateToMenPage();
         MenPage menPage = new MenPage(driver);
 
 

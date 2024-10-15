@@ -12,7 +12,7 @@ public class WomenAddToCartTest extends BaseTest {
     @Test (description = "4_14 TC | Women > Verify user can add item to shopping cart # https://app.clickup.com/t/8689p8yak")
     public void testAddItemsToCart() {
         HomePage homePage = new HomePage(driver);
-        WomenPage womenPage = homePage.navigateToWomenPage();
+        WomenPage womenPage = homePage.getHeader().navigateToWomenPage();
         womenPage.addToCartFromWomenPage();
 
         CartPage cartPage = womenPage.clickCartPage();
