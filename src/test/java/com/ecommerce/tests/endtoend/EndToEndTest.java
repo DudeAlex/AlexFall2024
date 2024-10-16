@@ -24,7 +24,7 @@ public class EndToEndTest  extends BaseTest {
 
         HomePage homePage = new HomePage(driver);
         StorePage storePage = homePage.getHeader().navigateToStorePage();
-        String searchResult = storePage.searchProduct(product).getSearchHeaderTitle();
+        String searchResult = storePage.getLeftSideMenu().searchProduct(product).getSearchHeaderTitle();
         String item = storePage.getTextFromListProducts(0);
         Assert.assertEquals(searchResult, "Search results: “%s”".formatted(product));
 
