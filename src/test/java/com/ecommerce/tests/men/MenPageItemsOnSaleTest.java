@@ -14,11 +14,11 @@ public class MenPageItemsOnSaleTest extends BaseTest {
 
     public void testFindItemsOnSaleOnMenPage(){
 
-        HomePage homePage = new HomePage(driver);
-        homePage.getHeader().navigateToMenPage();
         MenPage menPage = new MenPage(driver);
+        menPage.load();
+        String iconOnSale =  menPage.onSaleIcon();
 
-
+        Assert.assertEquals(iconOnSale, "Sale!");
     }
 
 }
