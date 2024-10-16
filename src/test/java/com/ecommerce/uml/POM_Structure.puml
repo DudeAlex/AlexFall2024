@@ -161,6 +161,21 @@ class MenPage{
 
 }
 
+class MensJeansPage{
++ MensJeansPage(WebDriver driver)
++ load()
+}
+
+class MensShirtsPage{
++ MensShirtsPage(WebDriver driver)
++ load()
+}
+
+class MensShoesPage{
++ MensShoesPage(WebDriver driver)
++ load()
+}
+
 class OrderReceivedPage {
 # notice: By
 
@@ -214,7 +229,21 @@ class WomenPage{
 + load()
 + WomenPage addToCartFromWomenPage()
 + CartPage clickCartPage()
+}
 
+class WomensJeansPage{
++ WomensJeansPage(WebDriver driver)
++ load()
+}
+
+class WomensShirtsPage{
++ WomensShirtsPage(WebDriver driver)
++ load()
+}
+
+class WomensShoesPage{
++ WomensShoesPage(WebDriver driver)
++ load()
 }
 
 interface Loadable {
@@ -238,5 +267,13 @@ SalesPage <|-- MenPage
 SalesPage <|-- WomenPage
 SalesPage <|-- StorePage
 SalesPage <|-- AccessoriesPage
+
+SalesPage <|-- MensJeansPage
+SalesPage <|-- MensShirtsPage
+SalesPage <|-- MensShoesPage
+
+SalesPage <|-- WomensJeansPage
+SalesPage <|-- WomensShirtsPage
+SalesPage <|-- WomensShoesPage
 
 @enduml
