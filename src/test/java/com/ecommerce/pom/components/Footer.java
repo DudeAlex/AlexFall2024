@@ -34,7 +34,7 @@ public class Footer {
     By forHimMen = By.xpath("//section[@id='nav_menu-12']//a[text()='Men']"); // Men
     By forHimMenJeans = By.xpath("//section[@id='nav_menu-12']//a[text()='Men’s Jeans']"); // Men's Jeans
     By forHimMenShirts = By.xpath("//section[@id='nav_menu-12']//a[text()='Men’s Shirts']"); // Men's Shirts
-    By forHimMenShoes = By.xpath("//section[@id='nav_menu-12']//a[text()='Men’s Shoes']]"); // Men's Shoes
+    By forHimMenShoes = By.xpath("//section[@id='nav_menu-12']//a[text()='Men’s Shoes']"); // Men's Shoes
     By forHimAccessories = By.xpath("//section[@id='nav_menu-12']//a[text()='Accessories']"); // Accessories
 
     By appStoreIcon = By.xpath("//a[@ href ='https://www.apple.com/in/app-store/']"); // app store icon
@@ -113,7 +113,7 @@ public class Footer {
         return new MensShoesPage(getDriver());
     }
 
-    public AccessoriesPage navigateToForHimAccessoriesPageFromFooter() {
+    public AccessoriesPage navigateToForHimAccessoriesFromFooter() {
         WaitUtils.visibilityOfElementLocated(getDriver(), forHimAccessories).click();
         return new AccessoriesPage(getDriver());
     }
