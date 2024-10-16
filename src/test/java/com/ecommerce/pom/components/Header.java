@@ -30,7 +30,7 @@ public class Header {
     By headerContactUs = By.id("menu-item-1233"); // Header Contact Us
     By headerCartButton = By.xpath("(//span[@class='count'])[1]"); // Header Cart
 
-    public HomePage navigateToHomepage(){
+    public HomePage navigateToHomePage(){
         WaitUtils.visibilityOfElementLocated(getDriver(), headerHome).click();
         return new HomePage(getDriver());
     }
@@ -67,7 +67,7 @@ public class Header {
         return new AboutPage(getDriver());
     }
 
-    public ContactUsPage navigateToContactUs() {
+    public ContactUsPage navigateToContactUsPage() {
         WaitUtils.visibilityOfElementLocated(getDriver(), headerContactUs).click();
         return new ContactUsPage(getDriver());
     }
