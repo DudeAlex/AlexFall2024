@@ -152,7 +152,7 @@ public class CartTest extends BaseTest {
         homePage.navigateToAccountPage();
         AccountPage accountPage = new AccountPage(driver);
         accountPage.logIn();
-        accountPage.navigateToStorePage();
+        accountPage.getHeader().navigateToStorePage();
         StorePage storePage = new StorePage(driver);
         int amountProductsInCart = homePage.getAmountOfProductsFromCartIcon();
         for (int i = 0; i < QUANTITY_OF_PRODUCTS; i++) {
@@ -173,7 +173,7 @@ public class CartTest extends BaseTest {
         homePage.navigateToAccountPage();
         AccountPage accountPage = new AccountPage(driver);
         accountPage.logIn();
-        accountPage.navigateToHomePage();
+        accountPage.getHeader().navigateToHomePage();
         int amountProductsInCart = homePage.getAmountOfProductsFromCartIcon();
         homePage.goToProduct();
         for (int i = 0; i < QUANTITY_OF_PRODUCTS; i++) {
@@ -197,7 +197,7 @@ public class CartTest extends BaseTest {
         homePage.navigateToAccountPage();
         AccountPage accountPage = new AccountPage(driver);
         accountPage.logIn();
-        accountPage.navigateToMenPage();
+        accountPage.getHeader().navigateToMenPage();
         int amountProductsInCart = homePage.getAmountOfProductsFromCartIcon();
 //        if (amountProductsInCart != 0){
 //            homePage.goToCartIcon();
