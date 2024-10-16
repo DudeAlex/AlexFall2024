@@ -22,6 +22,7 @@ public abstract class SalesPage extends PurchasePage implements Loadable {
     By sortByPrice = By.xpath("//span[@class='byPrice']");
     By sortBy = By.xpath("//select[@name='orderby']");
     By price = By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]");
+   // By onSaleIcon = By.xpath("//span[contains(text(),'Sale!')]");
 
     private final LeftSideMenu leftSideMenu;
 
@@ -117,4 +118,9 @@ public abstract class SalesPage extends PurchasePage implements Loadable {
 
         return actualPriceList.equals(expectedLowToHighPriceList);
     }
+
+    public String onSaleIcon(){
+        return  WaitUtils.presenceOfElementLocated(getDriver(),saleTag).getText();
+    }
+
 }
