@@ -15,6 +15,7 @@ public class MenPage extends SalesPage{
     By cartButton = By.linkText("View cart");
     By firstProductAddToCartButton = By.xpath("//ul[@class=\"products columns-4\"]//a[2]");
     By cartIcon = By.xpath("//div[@id=\"ast-desktop-header\"]//a[@title=\"View your shopping cart\"]//span");
+    By pageHeader = By.tagName("h1");
 
     public MenPage(WebDriver driver) {
         super(driver);
@@ -54,6 +55,10 @@ public class MenPage extends SalesPage{
         new Actions(getDriver())
                 .moveToElement(getDriver().findElement(cartIcon))
                 .perform();
+    }
+
+    public String verifyHeaderText(){
+        return WaitUtils.visibilityOfElementLocated(getDriver(), pageHeader, 2).getText();
     }
 }
 
