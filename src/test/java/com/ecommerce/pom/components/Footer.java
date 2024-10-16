@@ -29,12 +29,12 @@ public class Footer {
     By forHerWomenJeans = By.xpath("//section[@id='nav_menu-8']//a[text()='Women’s Jeans']"); // Women's Jeans
     By forHerWomenShirts = By.xpath("//section[@id='nav_menu-8']//a[text()='Women’s Shirts']"); // Women's Shirts
     By forHerWomenShoes = By.xpath("//section[@id='nav_menu-8']//a[text()='Women’s Shoes']"); // Women's Shoes
-    By forHerAccessories = By.xpath("//section[@id='nav_menu-8']//a[text()='Accessories']]"); // Accessories
+    By forHerAccessories = By.xpath("//section[@id='nav_menu-8']//a[text()='Accessories']"); // Accessories
 
     By forHimMen = By.xpath("//section[@id='nav_menu-12']//a[text()='Men']"); // Men
     By forHimMenJeans = By.xpath("//section[@id='nav_menu-12']//a[text()='Men’s Jeans']"); // Men's Jeans
     By forHimMenShirts = By.xpath("//section[@id='nav_menu-12']//a[text()='Men’s Shirts']"); // Men's Shirts
-    By forHimMenShoes = By.xpath("//section[@id='nav_menu-12']//a[text()='Men’s Shoes']]"); // Men's Shoes
+    By forHimMenShoes = By.xpath("//section[@id='nav_menu-12']//a[text()='Men’s Shoes']"); // Men's Shoes
     By forHimAccessories = By.xpath("//section[@id='nav_menu-12']//a[text()='Accessories']"); // Accessories
 
     By appStoreIcon = By.xpath("//a[@ href ='https://www.apple.com/in/app-store/']"); // app store icon
@@ -53,7 +53,7 @@ public class Footer {
     }
 
     public AccountPage navigateToMyAccountPageFromFooter(){
-        WaitUtils.visibilityOfElementLocated(getDriver(), quickLinksAbout).click();
+        WaitUtils.visibilityOfElementLocated(getDriver(), quickLinksMyAccount).click();
         return new AccountPage(getDriver());
     }
 
@@ -73,8 +73,20 @@ public class Footer {
         WaitUtils.visibilityOfElementLocated(getDriver(), forHerWomen).click();
         return new WomenPage(getDriver());
     }
+    public WomensJeansPage navigateToWomenJeansFromFooter() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), forHerWomenJeans).click();
+        return new WomensJeansPage(getDriver());
+    }
+    public WomensShirtsPage navigateToWomenShirtsFromFooter() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), forHerWomenShirts).click();
+        return new WomensShirtsPage(getDriver());
+    }
+    public WomensShoesPage navigateToWomenShoesFromFooter() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), forHerWomenShoes).click();
+        return new WomensShoesPage(getDriver());
+    }
 
-    public AccessoriesPage navigateToAccessoriesPageFromFooter() {
+    public AccessoriesPage navigateToForHerAccessoriesFromFooter() {
         WaitUtils.visibilityOfElementLocated(getDriver(), forHerAccessories).click();
         return new AccessoriesPage(getDriver());
     }
@@ -86,7 +98,22 @@ public class Footer {
         return new MenPage(getDriver());
     }
 
-    public AccessoriesPage navigateToAccessoriesPageFromFooterForHimSection() {
+    public MensJeansPage navigateToMensJeansFromFooter() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), forHimMenJeans).click();
+        return new MensJeansPage(getDriver());
+    }
+
+    public MensShirtsPage navigateToMensShirtsFromFooter() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), forHimMenShirts).click();
+        return new MensShirtsPage(getDriver());
+    }
+
+    public MensShoesPage navigateToMensShoesFromFooter() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), forHimMenShoes).click();
+        return new MensShoesPage(getDriver());
+    }
+
+    public AccessoriesPage navigateToForHimAccessoriesFromFooter() {
         WaitUtils.visibilityOfElementLocated(getDriver(), forHimAccessories).click();
         return new AccessoriesPage(getDriver());
     }
