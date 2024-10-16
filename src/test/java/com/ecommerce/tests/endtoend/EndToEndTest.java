@@ -3,10 +3,7 @@ package com.ecommerce.tests.endtoend;
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.pojo.UserData;
 import com.ecommerce.pojo.UserDataPool;
-import com.ecommerce.pom.pages.CartPage;
-import com.ecommerce.pom.pages.CheckoutPage;
-import com.ecommerce.pom.pages.HomePage;
-import com.ecommerce.pom.pages.StorePage;
+import com.ecommerce.pom.pages.*;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.testng.Assert;
@@ -56,4 +53,5 @@ public class EndToEndTest  extends BaseTest {
         String checkOrder = checkoutPage.checkYourOrderHasBeenReceivedMessage();
         Assert.assertEquals(checkOrder, yourOrderIsReceived);
     }
+
 }
