@@ -2,6 +2,7 @@ package com.ecommerce.tests.men;
 
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.pom.pages.HomePage;
+import com.ecommerce.pom.pages.MenPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -49,5 +50,13 @@ public class MenTest extends BaseTest {
                 .areProductsPricesInDescendingOrder();
 
         Assert.assertTrue(isSorted, "Prices are not sorted from high to low as expected");
+    }
+
+    @Test(description = "3.7-1-1 |TC Only products categorized as \"Men\" should be displayed # https://app.clickup.com/t/868a7n2a8")
+    public void testVerifyMenHeader(){
+        MenPage menPage = new MenPage(driver);
+        menPage.load();
+        String text = menPage.verifyHeaderText();
+        Assert.assertEquals("Men",text);
     }
 }
