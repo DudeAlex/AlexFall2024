@@ -79,6 +79,4 @@ public class AccountPage extends BasePage implements Loadable {
         WaitUtils.visibilityOfElementLocated(getDriver(),lostPasswordLink).click();
         return new LostPasswordPage(getDriver()) ;
     }
-
-
 }
