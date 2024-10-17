@@ -9,7 +9,9 @@ public class WomensJeansPage extends SalesPage{
     }
 
     @Override
-    public void load() {
+    public WomensJeansPage load() {
         getDriver().get("https://askomdch.com/product-category/womens-jeans/");
+
+        return this;
     }
 }

@@ -33,8 +33,10 @@ public class CheckoutPage extends BasePage implements Loadable {
     }
 
     @Override
-    public void load() {
+    public CheckoutPage load() {
         getDriver().get("https://askomdch.com/checkout/");
+
+        return this;
     }
 
     public CheckoutPage inputFirstName(String firstName) {

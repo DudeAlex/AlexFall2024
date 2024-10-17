@@ -117,7 +117,7 @@ public class CartTest extends BaseTest {
 
     @Test(description = "9.1-4-4.1 | TC > Cart - Return from the Cart by clicking the Return To Shop button # https://app.clickup.com/t/868a68ebx")
         public void returnToShopFromCart() {
-            new HomePage(driver).navigateToCartPage();
+            new HomePage(driver).getHeader().navigateToCartPage();
 
             Assert.assertEquals(new CartPage(driver).getEmptyCartMessage(), "Your cart is currently empty.");
 
@@ -149,7 +149,7 @@ public class CartTest extends BaseTest {
     @Test(description = "9.1-3-3.1.1 | TC > Cart > Add the same product to the cart from the Store page # https://app.clickup.com/t/8689zkdvk")
     public void testAddTheSameProductToTheCartFromStorePage() {
         HomePage homePage = new HomePage(driver);
-        homePage.navigateToAccountPage();
+        homePage.getHeader().navigateToAccountPage();
         AccountPage accountPage = new AccountPage(driver);
         accountPage.logIn();
         accountPage.getHeader().navigateToStorePage();
@@ -160,7 +160,7 @@ public class CartTest extends BaseTest {
         }
         int amountProductsInCartAfterAppending = homePage.getAmountOfProductsFromCartIconAfterIncrease(QUANTITY_OF_PRODUCTS);
         Assert.assertEquals(amountProductsInCart + QUANTITY_OF_PRODUCTS, amountProductsInCartAfterAppending, "The product wasn't added to cart");
-        homePage.navigateToCartPage();
+        homePage.getHeader().navigateToCartPage();
         CartPage cartPage = new CartPage(driver);
         int productsQuantityInCart = cartPage.getProductsQuantity();
         Assert.assertEquals(amountProductsInCartAfterAppending, productsQuantityInCart, "The product wasn't added to cart");
@@ -170,7 +170,7 @@ public class CartTest extends BaseTest {
     @Test(description = "9.1-3-3.1.2 | TC > Cart > Add the same product to the cart from the Home page # https://app.clickup.com/t/8689zkdvk")
     public void testAddTheSameProductToTheCartFromHomePage(){
         HomePage homePage = new HomePage(driver);
-        homePage.navigateToAccountPage();
+        homePage.getHeader().navigateToAccountPage();
         AccountPage accountPage = new AccountPage(driver);
         accountPage.logIn();
         accountPage.getHeader().navigateToHomePage();
@@ -183,7 +183,7 @@ public class CartTest extends BaseTest {
         int amountProductsInCartAfterAppending = homePage.getAmountOfProductsFromCartIconAfterIncrease(QUANTITY_OF_PRODUCTS);
 //        Assert.assertEquals(amountProductsInCart + QUANTITY_OF_PRODUCTS, amountProductsInCartAfterAppending, "The product wasn't added to cart");
         Assert.assertTrue(amountProductsInCartAfterAppending > 1, "The product wasn't added to cart");
-        homePage.navigateToCartPage();
+        homePage.getHeader().navigateToCartPage();
         CartPage cartPage = new CartPage(driver);
         int productsQuantityInCart = cartPage.getProductsQuantity();
         Assert.assertTrue(productsQuantityInCart > 1, "The product wasn't added to cart");
@@ -194,7 +194,7 @@ public class CartTest extends BaseTest {
     @Test(description = "9.1-3-3.1.3 | TC > Cart > Add the same product to the cart from the Men page # https://app.clickup.com/t/8689zkdvk")
     public void testAddTheSameProductToTheCartFromMenPage(){
         HomePage homePage = new HomePage(driver);
-        homePage.navigateToAccountPage();
+        homePage.getHeader().navigateToAccountPage();
         AccountPage accountPage = new AccountPage(driver);
         accountPage.logIn();
         accountPage.getHeader().navigateToMenPage();
@@ -212,7 +212,7 @@ public class CartTest extends BaseTest {
         int amountProductsInCartAfterAppending = homePage.getAmountOfProductsFromCartIconAfterIncrease(QUANTITY_OF_PRODUCTS);
 //        Assert.assertEquals(amountProductsInCart + QUANTITY_OF_PRODUCTS, amountProductsInCartAfterAppending, "The product wasn't added to cart");
         Assert.assertTrue(amountProductsInCartAfterAppending > 1, "The product wasn't added to cart");
-        homePage.navigateToCartPage();
+        homePage.getHeader().navigateToCartPage();
         CartPage cartPage = new CartPage(driver);
         int productsQuantityInCart = cartPage.getProductsQuantity();
         Assert.assertTrue(productsQuantityInCart > 1, "The product wasn't added to cart");

@@ -19,8 +19,10 @@ public class LostPasswordPage extends BasePage implements Loadable {
     }
 
     @Override
-    public void load() {
+    public LostPasswordPage load() {
         getDriver().get("https://askomdch.com/account/lost-password/");
+
+        return this;
     }
 
 

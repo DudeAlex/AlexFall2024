@@ -14,9 +14,8 @@ public class MenPageItemsOnSaleTest extends BaseTest {
 
     public void testFindItemsOnSaleOnMenPage(){
 
-        MenPage menPage = new MenPage(driver);
-        menPage.load();
-        String iconOnSale =  menPage.onSaleIcon();
+        String iconOnSale = new MenPage(driver).load()
+                .onSaleIcon();
 
         Assert.assertEquals(iconOnSale, "Sale!");
     }

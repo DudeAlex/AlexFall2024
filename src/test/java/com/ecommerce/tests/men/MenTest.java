@@ -54,9 +54,9 @@ public class MenTest extends BaseTest {
 
     @Test(description = "3.7-1-1 |TC Only products categorized as \"Men\" should be displayed # https://app.clickup.com/t/868a7n2a8")
     public void testVerifyMenHeader(){
-        MenPage menPage = new MenPage(driver);
-        menPage.load();
-        String text = menPage.verifyHeaderText();
+        String text = new MenPage(driver).load()
+                .verifyHeaderText();
+
         Assert.assertEquals("Men",text);
     }
 }
