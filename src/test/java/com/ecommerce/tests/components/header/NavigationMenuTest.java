@@ -17,7 +17,7 @@ public class NavigationMenuTest extends BaseTest {
 
     @BeforeMethod
     @Override
-    public void setUp() {
+    public void setUp(){
         super.setUp();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }

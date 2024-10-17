@@ -3,10 +3,7 @@ package com.ecommerce.tests.endtoend;
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.pojo.UserData;
 import com.ecommerce.pojo.UserDataPool;
-import com.ecommerce.pom.pages.CartPage;
-import com.ecommerce.pom.pages.CheckoutPage;
-import com.ecommerce.pom.pages.HomePage;
-import com.ecommerce.pom.pages.StorePage;
+import com.ecommerce.pom.pages.*;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.testng.Assert;
@@ -23,8 +20,8 @@ public class EndToEndTest  extends BaseTest {
        String yourOrderIsReceived = "Thank you. Your order has been received.";
 
         HomePage homePage = new HomePage(driver);
-        StorePage storePage = homePage.navigateToStorePage();
-        String searchResult = storePage.searchProduct(product).getSearchHeaderTitle();
+        StorePage storePage = homePage.getHeader().navigateToStorePage();
+        String searchResult = storePage.getLeftSideMenu().searchProduct(product).getSearchHeaderTitle();
         String item = storePage.getTextFromListProducts(0);
         Assert.assertEquals(searchResult, "Search results: “%s”".formatted(product));
 
@@ -56,4 +53,5 @@ public class EndToEndTest  extends BaseTest {
         String checkOrder = checkoutPage.checkYourOrderHasBeenReceivedMessage();
         Assert.assertEquals(checkOrder, yourOrderIsReceived);
     }
+
 }

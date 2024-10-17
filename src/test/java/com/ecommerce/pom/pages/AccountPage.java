@@ -4,26 +4,26 @@ import com.ecommerce.pom.BasePage;
 import com.ecommerce.pom.Loadable;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Wait;
 
 
 public class AccountPage extends BasePage implements Loadable {
     By emailField = By.id("//input [ @ id = 'username']");
     By passwordField = By.id("//input [ @ id = 'password']");
     By loginButton = By.xpath("//button[@class='woocommerce-button button woocommerce-form-login__submit' and text()='Log in']");
-    By storePageLink = By.id("menu-item-1227");
-    By menPageLink = By.id("menu-item-1228");
-    By womenPageLink = By.id("menu-item-1229");
-    By cartIcon = By.xpath("//span[@class='count']");
     By loginUsername = By.xpath("//input[@id=\"username\"]");
     By loginPassword = By.xpath("//input[@id=\"password\"]");
-    By storeButton = By.xpath("//li[@id=\"menu-item-1227\"]/a");
-    By homePageLink = By.xpath("//li[@id=\"menu-item-1226\"]/a");
-    By logoutLink = By.xpath("//div[@class = 'woocommerce-MyAccount-content']//a[text() = 'Log out']");
-
+    By registerUsernameInput = By.xpath("(//input[@type='text'])[2]");
+    By registerButton = By.xpath("(//button[@type='submit'])[2]");
     By lostPasswordLink = By.xpath("//a[normalize-space()='Lost your password?']");
+    By registerEmailAddressInput = By.cssSelector("input[type='email']");
+    By registerPasswordInput = By.xpath("(//input[@type='password'])[2]");
+    By welcomeNewUserText = By.xpath("//p[contains(text(),'Hello')]");
+    By errorMessage = By.xpath("//ul[@role='alert']");
+    By logoutLink = By.xpath("//div[@class = 'woocommerce-MyAccount-content']//a[text() = 'Log out']");
 
     public AccountPage(WebDriver driver) {
         super(driver);
@@ -45,7 +45,6 @@ public class AccountPage extends BasePage implements Loadable {
         getDriver().findElement(loginPassword).sendKeys(password);
         getDriver().findElement(loginButton).click();
     }
-
     public AccountPage logout() {
         WebElement logout = WaitUtils.presenceOfElementLocated(getDriver(), logoutLink, 5);
         if (logout.isDisplayed()) {
@@ -54,44 +53,80 @@ public class AccountPage extends BasePage implements Loadable {
         return this;
     }
 
-    public StorePage navigateToStorePage() {
-        WaitUtils.visibilityOfElementLocated(getDriver(), storePageLink).click();
-
-        return new StorePage(getDriver());
-    }
-
-    public HomePage navigateToHomePage() {
-        WaitUtils.visibilityOfElementLocated(getDriver(), homePageLink).click();
-        return new HomePage(getDriver());
-    }
-
-    public CartPage navigateToCartPage() {
-        WaitUtils.visibilityOfElementLocated(getDriver(), cartIcon).click();
-
-        return new CartPage(getDriver());
-    }
-
-    public MenPage navigateToMenPage() {
-        WaitUtils.visibilityOfElementLocated(getDriver(), menPageLink).click();
-
-        return new MenPage(getDriver());
-    }
-
-    public WomenPage navigateToWomenPage() {
-        WaitUtils.visibilityOfElementLocated(getDriver(), womenPageLink).click();
-
-        return new WomenPage(getDriver());
-    }
-
-    public AccessoriesPage navigateToAccessoriesPage() {
-        WaitUtils.visibilityOfElementLocated(getDriver(), getHeaderAccessories()).click();
-        return new AccessoriesPage(getDriver());
-    }
-
     public LostPasswordPage navigateToLostPasswordPage() {
         WaitUtils.visibilityOfElementLocated(getDriver(), lostPasswordLink).click();
         return new LostPasswordPage(getDriver());
     }
 
+    public AccountPage typeUserNameAndPressTabKey(String username) {
+        WebElement registerUsernameInputField = WaitUtils.visibilityOf(getDriver(), registerUsernameInput, 2);
+        registerUsernameInputField.sendKeys(username);
+        registerUsernameInputField.sendKeys(Keys.TAB);
+
+        return this;
+    }
+
+    public AccountPage typeEmailBeingOnEmailInputAndPressTabKey(String email) {
+        WebElement activeElement = getDriver().switchTo().activeElement();
+        activeElement.sendKeys(email);
+        activeElement.sendKeys(Keys.TAB);
+
+        return this;
+    }
+
+    public AccountPage typePasswordBeingOnPasswordInputAndPressEnterKey(String password) {
+        WebElement passwordInputField = getDriver().switchTo().activeElement();
+        passwordInputField.sendKeys(password);
+        passwordInputField.sendKeys(Keys.ENTER);
+
+        return this;
+    }
+
+    public AccountPage typeUsernameToUsernameInputField(String username) {
+        WebElement registerUsernameInputField = WaitUtils.visibilityOf(getDriver(), registerUsernameInput, 2);
+        registerUsernameInputField.sendKeys(username);
+
+        return this;
+    }
+
+    public AccountPage typeEmailToEmailInputField(String email) {
+        WebElement registerUsernameInputField = WaitUtils.visibilityOf(getDriver(), registerEmailAddressInput, 2);
+        registerUsernameInputField.sendKeys(email);
+
+        return this;
+    }
+
+    public AccountPage typePasswordToPasswordInputField(String password) {
+        WebElement passwordInputField = getDriver().findElement(registerPasswordInput);
+        passwordInputField.sendKeys(password);
+
+        return this;
+    }
+
+    public AccountPage clickRegisterButton() {
+        getDriver().findElement(registerButton).click();
+
+        return this;
+    }
+
+    public String getValidationMessage() {
+        WebElement emailInputField = getDriver().findElement(registerEmailAddressInput);
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) getDriver();
+
+        return (String) jsExecutor.executeScript("return arguments[0].validationMessage;", emailInputField);
+    }
+
+    public boolean isWelcomeTextInvisible() {
+        return WaitUtils.invisibilityOfElementLocated(getDriver(), welcomeNewUserText, 5);
+    }
+
+    public String getErrorMessage() {
+
+        return WaitUtils.visibilityOf(getDriver(), errorMessage).getText();
+    }
+
+    public String getWelcomeNewUserText() {
+        return WaitUtils.visibilityOf(getDriver(), welcomeNewUserText).getText();
+    }
 
 }

@@ -18,17 +18,17 @@ public class RemoveOneProductFromTheCartByXTest extends BaseTest {
     public void testRemoveOneProductFromTheCartByX() {
         User user = new User("test_test@test.test", "12345");
         HomePage homePage = new HomePage(driver);
-        AccountPage accountPage = homePage.navigateToAccountPage();
+        AccountPage accountPage = homePage.getHeader().navigateToAccountPage();
         accountPage.logIn(user.getEmail(), user.getPassword());
 
-        CartPage cartPage = accountPage.navigateToCartPage();
+        CartPage cartPage = accountPage.getHeader().navigateToCartPage();
         if (Integer.parseInt(cartPage.getCartItemsNumber()) > 0) {
             cartPage.removeItemsFromCart();
         }
 
-        StorePage storePage = cartPage.navigateToStorePage();
+        StorePage storePage = cartPage.getHeader().navigateToStorePage();
         storePage.addToCartFromStorePage();
-        cartPage = storePage.clickCartPage();
+        cartPage = storePage.getHeader().navigateToCartPage();
         WaitUtils.waitForQuantityToBe(cartPage.getDriver(), By.xpath("//span[@class='count']"),"1");
 
         Assert.assertEquals(cartPage.getCartItemsNumber(), "1");

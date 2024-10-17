@@ -12,17 +12,17 @@ public class AddProductWomenPageTest extends BaseTest {
     public void testAddProductWomenPage() {
         User user = new User("test_test@test.test", "12345");
         HomePage homePage = new HomePage(driver);
-        AccountPage accountPage = homePage.navigateToAccountPage();
+        AccountPage accountPage = homePage.getHeader().navigateToAccountPage();
         accountPage.logIn(user.getEmail(), user.getPassword());
 
-        CartPage cartPage = accountPage.navigateToCartPage();
+        CartPage cartPage = accountPage.getHeader().navigateToCartPage();
         if(Integer.parseInt(cartPage.getCartItemsNumber()) > 0) {
             cartPage.removeItemsFromCart();
         }
 
-        WomenPage womenPage = accountPage.navigateToWomenPage();
+        WomenPage womenPage = accountPage.getHeader().navigateToWomenPage();
         womenPage.addToCartFromWomenPage();
-        cartPage = womenPage.clickCartPage();
+        cartPage = womenPage.getHeader().navigateToCartPage();
 
         Assert.assertEquals(cartPage.getCartItemsNumber(),"1");
 

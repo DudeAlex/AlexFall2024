@@ -1,6 +1,7 @@
 package com.ecommerce.pom.pages;
 
 import com.ecommerce.pom.Loadable;
+import com.ecommerce.pom.components.LeftSideMenu;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,17 +16,23 @@ import java.util.NoSuchElementException;
 
 public abstract class SalesPage extends PurchasePage implements Loadable {
 
-    By searchField = By.id("woocommerce-product-search-field-0");
-    By searchButton = By.xpath("//button[@value='Search']");
     By singleItemContainer = By.xpath("//ul[@class='products columns-4']//li");
     By saleTag = By.xpath("//span[@class='onsale']");
     By crossedOutPrice = By.xpath("//del");
     By sortByPrice = By.xpath("//span[@class='byPrice']");
     By sortBy = By.xpath("//select[@name='orderby']");
     By price = By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]");
+   // By onSaleIcon = By.xpath("//span[contains(text(),'Sale!')]");
+
+    private final LeftSideMenu leftSideMenu;
 
     public SalesPage(WebDriver driver) {
         super(driver);
+        leftSideMenu = new LeftSideMenu(driver);
+    }
+
+    public LeftSideMenu getLeftSideMenu() {
+        return leftSideMenu;
     }
 
     private List<Double> getAllProductsPriceList() {
@@ -47,12 +54,6 @@ public abstract class SalesPage extends PurchasePage implements Loadable {
         }
 
         return actualPriceList;
-    }
-
-    public StorePage searchProduct(String item) {
-        WaitUtils.visibilityOfElementLocated(getDriver(), searchField).sendKeys(item);
-        WaitUtils.presenceOfElementLocated(getDriver(), searchButton).click();
-        return new StorePage(getDriver());
     }
 
     public List<Boolean> areProductsOnSaleHaveCrossedPrice() {
@@ -116,6 +117,10 @@ public abstract class SalesPage extends PurchasePage implements Loadable {
         expectedLowToHighPriceList.sort(Comparator.reverseOrder());
 
         return actualPriceList.equals(expectedLowToHighPriceList);
+    }
+
+    public String onSaleIcon(){
+        return  WaitUtils.presenceOfElementLocated(getDriver(),saleTag).getText();
     }
 
 }
