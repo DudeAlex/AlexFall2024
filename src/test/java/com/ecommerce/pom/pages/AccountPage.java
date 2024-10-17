@@ -29,8 +29,10 @@ public class AccountPage extends BasePage implements Loadable {
     }
 
     @Override
-    public void load() {
+    public AccountPage load() {
         getDriver().get("https://askomdch.com/account/");
+
+        return this;
     }
 
     public void logIn() {

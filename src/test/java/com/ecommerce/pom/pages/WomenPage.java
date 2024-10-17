@@ -23,7 +23,9 @@ public class WomenPage extends SalesPage{
     }
 
     @Override
-    public void load() {
+    public WomenPage load() {
         getDriver().get("https://askomdch.com/product-category/women/");
+
+        return this;
     }
 }

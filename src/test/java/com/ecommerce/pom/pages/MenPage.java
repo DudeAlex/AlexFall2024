@@ -22,8 +22,10 @@ public class MenPage extends SalesPage{
     }
 
     @Override
-    public void load() {
+    public MenPage load() {
         getDriver().get("https://askomdch.com/product-category/men/");
+
+        return this;
     }
 
     public List<String> collectCategories() {

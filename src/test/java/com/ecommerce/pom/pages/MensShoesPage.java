@@ -9,7 +9,9 @@ public class MensShoesPage extends SalesPage {
     }
 
     @Override
-    public void load() {
+    public MensShoesPage load() {
         getDriver().get("https://askomdch.com/product-category/mens-shoes/");
+
+        return this;
     }
 }

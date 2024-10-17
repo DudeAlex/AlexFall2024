@@ -23,8 +23,7 @@ public class VerifyItemsCategory extends BaseTest {
     @Test
     public void testTest (){
 
-        StorePage storePage = new StorePage(driver);
-        storePage.load();
+        StorePage storePage = new StorePage(driver).load();
 
         AccessoriesPage accessoriesPage = storePage.getHeader().navigateToAccessoriesPage();
         accessoriesPage.addToCartFromAccessoriesPage();
@@ -39,8 +38,7 @@ public class VerifyItemsCategory extends BaseTest {
      */
     @Test
     public void testFooterLinks() {
-        HomePage homePage = new HomePage(driver);
-        homePage.load();
+        HomePage homePage = new HomePage(driver).load();
 
         MenPage menPage = homePage.getFooter().navigateToMenPageFromFooter();
         menPage.addToCartFromManPage();

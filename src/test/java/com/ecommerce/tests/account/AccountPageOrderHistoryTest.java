@@ -16,8 +16,7 @@ public class AccountPageOrderHistoryTest extends BaseTest{
                     "No order has been made yet.";
             String browseProducts = "BROWSE PRODUCTS";
 
-            AccountPage accountPage = new AccountPage(driver);
-            accountPage.load();
+            AccountPage accountPage = new AccountPage(driver).load();
             accountPage.logIn("practice@gmail.com", "Testing1");
 
             AccountOrdersPage accountOrdersPage = new AccountOrdersPage(driver);
