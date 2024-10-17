@@ -18,7 +18,7 @@ public class RegisteredUserLoginData {
                         "Logout",
                         "//button[@class='woocommerce-button button woocommerce-form-login__submit' and text()='Log in']\n",
                         "LOG IN"
-                        },
+                },
                 {
                         "//a[contains(text(), 'Account')]",
                         "//input [ @ id = 'username']",
@@ -33,4 +33,5 @@ public class RegisteredUserLoginData {
 
         };
     }
+
 }

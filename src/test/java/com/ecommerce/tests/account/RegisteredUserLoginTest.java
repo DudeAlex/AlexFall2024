@@ -2,9 +2,13 @@ package com.ecommerce.tests.account;
 
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.data.RegisteredUserLoginData;
+import com.ecommerce.data.RegisteredUserLoginWithEmail;
+import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class RegisteredUserLoginTest extends BaseTest {
@@ -34,5 +38,4 @@ public class RegisteredUserLoginTest extends BaseTest {
         Assert.assertEquals(logInButtonText, loginButtonGetText); // check if there is a login button
 
     }
-
 }
