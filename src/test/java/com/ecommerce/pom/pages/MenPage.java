@@ -90,5 +90,6 @@ public class MenPage extends SalesPage{
         int displayedItemCount = items.size();
         return displayedItemCount == expectedCount;
     }
+
 }
 

@@ -85,5 +85,4 @@ public class MenTest extends BaseTest {
 
         Assert.assertTrue(menPage.getMenQtyOnPage());
     }
-
 }
