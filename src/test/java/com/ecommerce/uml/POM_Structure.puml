@@ -55,6 +55,13 @@ class Footer {
 # googlePlayIcon: By
 }
 
+class LeftSidebar{
+# searchInputField
+# searchButton
++ LeftSidebar(WebDriver driver)
++ searchProduct
+}
+
 class AccessoriesPage{
 # addToCartButton: By
 + AccessoriesPage(WebDriver driver)
@@ -264,7 +271,7 @@ BaseModel <|-- BaseComponent
 
 BaseComponent <|-- Header
 BaseComponent <|-- Footer
-BaseComponent <|-- LeftSideMenu
+BaseComponent <|-- LeftSidebar
 
 
 BasePage <|-- AccountPage
@@ -292,7 +299,7 @@ SalesPage <|-- MensShoesPage
 SalesPage <|-- WomensJeansPage
 SalesPage <|-- WomensShirtsPage
 SalesPage <|-- WomensShoesPage
-SalesPage *-- LeftSideMenu
+SalesPage *-- LeftbarMenu
 
 
 @enduml
