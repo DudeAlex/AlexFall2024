@@ -54,12 +54,8 @@ public class MenTest extends BaseTest {
 
     @Test(description = "3.7-1-4 |TC Page header \"Men\" is displayed # https://app.clickup.com/t/868a9eewt")
     public void testVerifyMenHeader(){
-
-        MenPage menPage = new MenPage(driver);
-        menPage.load();
-        String text = menPage.verifyHeaderText();
-
-        String text = new MenPage(driver).load()
+        String text = new MenPage(driver)
+                .load()
                 .verifyHeaderText();
 
         Assert.assertEquals("Men",text);
