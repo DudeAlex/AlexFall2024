@@ -5,22 +5,17 @@ import com.ecommerce.pom.components.Header;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public abstract class BasePage {
+public abstract class BasePage extends BaseModel {
 
-    private WebDriver driver;
     private Header header;
 
     private Footer footer;
 
 
     public BasePage(WebDriver driver){
-        this.driver = driver;
+        super(driver);
         header = new Header(driver);
         footer = new Footer(driver);
-    }
-
-    public WebDriver getDriver() {
-        return driver;
     }
 
     public Header getHeader() {
