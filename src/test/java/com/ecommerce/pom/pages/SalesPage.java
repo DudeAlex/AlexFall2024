@@ -1,7 +1,7 @@
 package com.ecommerce.pom.pages;
 
 import com.ecommerce.pom.Loadable;
-import com.ecommerce.pom.components.LeftSideMenu;
+import com.ecommerce.pom.components.LeftSidebar;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -24,15 +24,15 @@ public abstract class SalesPage extends PurchasePage implements Loadable {
     By price = By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]");
    // By onSaleIcon = By.xpath("//span[contains(text(),'Sale!')]");
 
-    private final LeftSideMenu leftSideMenu;
+    private final LeftSidebar leftSidebar;
 
     public SalesPage(WebDriver driver) {
         super(driver);
-        leftSideMenu = new LeftSideMenu(driver);
+        leftSidebar = new LeftSidebar(driver);
     }
 
-    public LeftSideMenu getLeftSideMenu() {
-        return leftSideMenu;
+    public LeftSidebar getLeftSidebar() {
+        return leftSidebar;
     }
 
     private List<Double> getAllProductsPriceList() {

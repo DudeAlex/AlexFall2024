@@ -1,4 +1,4 @@
-package com.ecommerce.tests.components.left_sidemenu;
+package com.ecommerce.tests.components.left_sidebar;
 
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.utils.WaitUtils;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class LeftSideMenuTest extends BaseTest {
+public class LeftSidebarTest extends BaseTest {
 
     private static final String ITEM_CATEGORY = "jeans";
     private static final By SHOP_NOW_BUTTON = By.xpath("//a[@href='/store']");
