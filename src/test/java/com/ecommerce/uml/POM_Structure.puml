@@ -299,7 +299,7 @@ SalesPage <|-- MensShoesPage
 SalesPage <|-- WomensJeansPage
 SalesPage <|-- WomensShirtsPage
 SalesPage <|-- WomensShoesPage
-SalesPage *-- LeftbarMenu
+SalesPage *-- LeftSidebar
 
 
 @enduml
