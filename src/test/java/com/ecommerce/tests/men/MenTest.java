@@ -57,7 +57,6 @@ public class MenTest extends BaseTest {
         String text = new MenPage(driver)
                 .load()
                 .verifyHeaderText();
-
         Assert.assertEquals("Men",text);
     }
 
