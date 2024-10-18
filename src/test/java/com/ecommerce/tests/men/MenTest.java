@@ -52,11 +52,41 @@ public class MenTest extends BaseTest {
         Assert.assertTrue(isSorted, "Prices are not sorted from high to low as expected");
     }
 
-    @Test(description = "3.7-1-1 |TC Only products categorized as \"Men\" should be displayed # https://app.clickup.com/t/868a7n2a8")
+    @Test(description = "3.7-1-4 |TC Page header \"Men\" is displayed # https://app.clickup.com/t/868a9eewt")
     public void testVerifyMenHeader(){
+
+        MenPage menPage = new MenPage(driver);
+        menPage.load();
+        String text = menPage.verifyHeaderText();
+
         String text = new MenPage(driver).load()
                 .verifyHeaderText();
 
         Assert.assertEquals("Men",text);
+    }
+
+    @Test(description = "3.7-1-2 |TC Total number of displayed \"Men's\" products should be 7 # https://app.clickup.com/t/868a7n4yt")
+    public void testMenQtyMatches(){
+        MenPage menPage = new MenPage(driver);
+        menPage.load();
+
+        int expectedCount = 7;
+        Assert.assertTrue(menPage.verifyMenItemsCount(7));
+    }
+
+    @Test(description = "3.7-1-3 |TC Filter by price is displaying the range between $20-$150 # https://app.clickup.com/t/868a2tq56")
+    public void testPriceRange(){
+        MenPage menPage = new MenPage(driver);
+        menPage.load();
+
+        Assert.assertEquals("Price: $20 — $150",menPage.getPriceRangeText());
+    }
+
+    @Test(description = "3.7-1-1 |TC Only products categorized as \"Men\" should be displayed # https://app.clickup.com/t/868a2tm55")
+    public void testVerifyOnlyMenItemsDisplayed(){
+        MenPage menPage = new MenPage(driver);
+        menPage.load();
+
+        Assert.assertTrue(menPage.getMenQtyOnPage());
     }
 }
