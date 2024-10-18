@@ -27,7 +27,9 @@ public class CartPage extends BasePage implements Loadable {
     }
 
     @Override
-    public void load() {getDriver().get("https://askomdch.com/cart/");
+    public CartPage load() {getDriver().get("https://askomdch.com/cart/");
+
+        return this;
     }
 
     public CheckoutPage clickCheckoutButton() {

@@ -2,7 +2,6 @@ package com.ecommerce.tests.account;
 
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.pom.pages.AccountPage;
-import com.ecommerce.pom.pages.HomePage;
 import com.ecommerce.utils.UserUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -12,8 +11,7 @@ public class RegisterTest extends BaseTest {
 
     @Test(description = "6.2-1-7 | TC > Account Page > Validate email error # https://app.clickup.com/t/868a34t20")
     public void testValidateBrowserEmailErrorMessage() {
-        AccountPage accountPage = new HomePage(driver)
-                .navigateToAccountPage()
+        AccountPage accountPage = new AccountPage(driver).load()
                 .typeUserNameAndPressTabKey(UserUtils.generateUniqueUsername())
                 .typeEmailBeingOnEmailInputAndPressTabKey(UserUtils.generateUniqueEmail().replace("@", ""))
                 .typePasswordBeingOnPasswordInputAndPressEnterKey(UserUtils.generateUniquePassword());
@@ -25,8 +23,7 @@ public class RegisterTest extends BaseTest {
 
     @Test(description = "6.2-1-4 | TC > Account Page > Verify error message for empty password # https://app.clickup.com/t/868a34t9v")
     public void testVerifyErrorMassageForEmptyPassword() {
-        String errorMessageText = new HomePage(driver)
-                .navigateToAccountPage()
+        String errorMessageText = new AccountPage(driver).load()
                 .typeUsernameToUsernameInputField(UserUtils.generateUniqueUsername())
                 .typeEmailToEmailInputField(UserUtils.generateUniqueEmail())
                 .clickRegisterButton()
@@ -39,8 +36,7 @@ public class RegisterTest extends BaseTest {
     public void testVerifyRegistry() {
         final String newUser = UserUtils.generateUniqueUsername();
 
-        String welcomeUserText = new HomePage(driver)
-                .navigateToAccountPage()
+        String welcomeUserText = new AccountPage(driver).load()
                 .typeUserNameAndPressTabKey(newUser)
                 .typeEmailBeingOnEmailInputAndPressTabKey(UserUtils.generateUniqueEmail())
                 .typePasswordBeingOnPasswordInputAndPressEnterKey(UserUtils.generateUniquePassword())
@@ -52,8 +48,7 @@ public class RegisterTest extends BaseTest {
     @Test(dataProvider = "provideInvalidCharacters", dataProviderClass = RegisterUsernameData.class,
             description = "6.2-1-5 | TC > Verify error for invalid characters #https://app.clickup.com/t/868a80kv3")
     public void testVerifyErrorMessageForInvalidCharacters(String character) {
-        String errorMessageText = new HomePage(driver)
-                .navigateToAccountPage()
+        String errorMessageText = new AccountPage(driver).load()
                 .typeUserNameAndPressTabKey(UserUtils.generateUniqueUsername() + character)
                 .typeEmailBeingOnEmailInputAndPressTabKey(UserUtils.generateUniqueEmail())
                 .typePasswordBeingOnPasswordInputAndPressEnterKey(UserUtils.generateUniquePassword())
@@ -64,8 +59,7 @@ public class RegisterTest extends BaseTest {
 
     @Test(description = "6.2-1-6 | TC > Verify error for username longer than 60 characters # https://app.clickup.com/t/868a80mw5")
     public void testVerifyErrorMessageForUsernameMoreSixtyCharacters() {
-        String errorMessageText = new HomePage(driver)
-                .navigateToAccountPage()
+        String errorMessageText = new AccountPage(driver).load()
                 .typeUsernameToUsernameInputField("qwertyuiopasdfghjklzxcvbnmqwertyuioasdfghjklzxcvbnmqwertyuioq")
                 .typeEmailToEmailInputField(UserUtils.generateUniqueEmail())
                 .typePasswordToPasswordInputField(UserUtils.generateUniquePassword())
@@ -77,8 +71,7 @@ public class RegisterTest extends BaseTest {
 
     @Test(description = "6.2-1-3 | TC > Verify Error for empty email # https://app.clickup.com/t/868a80p4a")
     public void testVerifyErrorMessageForEmptyEmail() {
-        String errorMessageText = new HomePage(driver)
-                .navigateToAccountPage()
+        String errorMessageText = new AccountPage(driver).load()
                 .typeUsernameToUsernameInputField(UserUtils.generateUniqueUsername())
                 .typePasswordToPasswordInputField(UserUtils.generateUniquePassword())
                 .clickRegisterButton()
@@ -89,8 +82,7 @@ public class RegisterTest extends BaseTest {
 
     @Test(description = "6.2-1-2 | TC > Verify Error for empty Username  #https://app.clickup.com/t/868a80u7t")
     public void testVerifyErrorMessageForEmptyUserName() {
-        String errorMessageText = new HomePage(driver)
-                .navigateToAccountPage()
+        String errorMessageText = new AccountPage(driver).load()
                 .typeEmailToEmailInputField(UserUtils.generateUniqueEmail())
                 .typePasswordToPasswordInputField(UserUtils.generateUniquePassword())
                 .clickRegisterButton()

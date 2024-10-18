@@ -9,7 +9,9 @@ public class WomensShirtsPage extends SalesPage{
     }
 
     @Override
-    public void load() {
+    public WomensShirtsPage load() {
         getDriver().get("https://askomdch.com/product-category/womens-shirts/");
+
+        return this;
     }
 }

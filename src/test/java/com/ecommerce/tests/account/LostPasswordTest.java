@@ -12,7 +12,7 @@ public class LostPasswordTest extends BaseTest {
     @Test (description = "6.3-1.1 | TC >Account Page > Lost Password >Resset Password # https://app.clickup.com/t/868a7v2a5")
     public void testPasswordReset() {
         HomePage homePage = new HomePage(driver);
-        AccountPage accountPage = homePage.navigateToAccountPage();
+        AccountPage accountPage = homePage.getHeader().navigateToAccountPage();
         LostPasswordPage lostPasswordPage = accountPage.navigateToLostPasswordPage();
         String actualResetPasswordNotification = lostPasswordPage.inputValidEmail().clickResetPasswordBtn().getTextResetPasswordNotification();
         String expectedResetPasswordNotification = "Password reset email has been sent.";
@@ -24,7 +24,7 @@ public class LostPasswordTest extends BaseTest {
     @Test (description = "6.3-2.1 | TC >Account Page > Lost Password >Invalid Email # https://app.clickup.com/t/868a7vgfq")
     public void testPasswordResetWrongEmail() {
         HomePage homePage = new HomePage(driver);
-        AccountPage accountPage = homePage.navigateToAccountPage();
+        AccountPage accountPage = homePage.getHeader().navigateToAccountPage();
         LostPasswordPage lostPasswordPage = accountPage.navigateToLostPasswordPage();
         String actualErrorMassageInvalidEmail = lostPasswordPage.inputInvalidEmail().clickResetPasswordBtn().getTextErrorMassageInvalidEmail();
         String expectedErrorMassageInvalidEmail = "Invalid username or email.";

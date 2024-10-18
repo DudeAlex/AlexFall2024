@@ -9,7 +9,9 @@ public class MensShirtsPage extends SalesPage{
     }
 
     @Override
-    public void load() {
+    public MensShirtsPage load() {
         getDriver().get("https://askomdch.com/product-category/mens-shirts/");
+
+        return this;
     }
 }

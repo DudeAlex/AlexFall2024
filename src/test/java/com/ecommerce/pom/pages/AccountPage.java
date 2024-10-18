@@ -23,14 +23,17 @@ public class AccountPage extends BasePage implements Loadable {
     By registerPasswordInput = By.xpath("(//input[@type='password'])[2]");
     By welcomeNewUserText = By.xpath("//p[contains(text(),'Hello')]");
     By errorMessage = By.xpath("//ul[@role='alert']");
+    By logoutLink = By.xpath("//div[@class = 'woocommerce-MyAccount-content']//a[text() = 'Log out']");
 
     public AccountPage(WebDriver driver) {
         super(driver);
     }
 
     @Override
-    public void load() {
+    public AccountPage load() {
         getDriver().get("https://askomdch.com/account/");
+
+        return this;
     }
 
     public void logIn() {
@@ -43,6 +46,13 @@ public class AccountPage extends BasePage implements Loadable {
         getDriver().findElement(loginUsername).sendKeys(email);
         getDriver().findElement(loginPassword).sendKeys(password);
         getDriver().findElement(loginButton).click();
+    }
+    public AccountPage logout() {
+        WebElement logout = WaitUtils.presenceOfElementLocated(getDriver(), logoutLink, 5);
+        if (logout.isDisplayed()) {
+            logout.click();
+        }
+        return this;
     }
 
     public LostPasswordPage navigateToLostPasswordPage() {

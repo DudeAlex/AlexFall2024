@@ -32,8 +32,10 @@ public class StorePage extends SalesPage{
     }
 
     @Override
-    public void load() {
+    public StorePage load() {
         getDriver().get("https://askomdch.com/store/");
+
+        return this;
     }
 
     private List<String> getAllItemsFromAllPages(By locator, WebDriver driver) {
