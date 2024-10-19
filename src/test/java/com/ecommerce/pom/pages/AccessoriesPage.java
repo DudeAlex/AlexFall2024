@@ -1,12 +1,13 @@
 package com.ecommerce.pom.pages;
 
-import static com.ecommerce.pom.pages.EndPoints.*;
 import com.ecommerce.utils.CollectToListUtils;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import java.util.List;
+
+import static com.ecommerce.pom.pages.EndPoints.ACCESSORIES_URL;
 
 public class AccessoriesPage extends SalesPage{
     By addToCartButton  = By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']");
