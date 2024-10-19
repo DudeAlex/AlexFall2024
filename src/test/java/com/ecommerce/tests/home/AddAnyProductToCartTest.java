@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 public class AddAnyProductToCartTest extends BaseTest {
 
-    /* This class is temporally added to check that the ProductGrid component and PurchasePage abstarct class don't
+    /* This class is temporally added to check that the ProductGrid component and PurchasePage abstarct classes don't
     have critical errors.
     Also, they can be used as an example for how to use the methods added to these new classes.
     This class will be deleted or changed to have 'real' tests later
@@ -19,8 +19,8 @@ public class AddAnyProductToCartTest extends BaseTest {
         HomePage homePage = new HomePage(driver);
         homePage.load();
 
-        homePage.getProductsGrid().clickAddToCartButton("Blue Shoes");
-        homePage.getProductsGrid().clickAddToCartButton("Basic Blue Jeans");
+        homePage.clickAddToCartButton("Blue Shoes");
+        homePage.clickAddToCartButton("Basic Blue Jeans");
 
         homePage.scrollToElement(driver.findElement(By
                 .xpath("//div[@id='ast-desktop-header']//span[@class='count']")));
@@ -36,8 +36,8 @@ public class AddAnyProductToCartTest extends BaseTest {
         MenPage menPage = new MenPage(driver);
         menPage.load();
 
-        menPage.getProductsGrid().clickAddToCartButton("Green Tshirt");
-        menPage.getProductsGrid().clickAddToCartButton("Red Shoes");
+        menPage.clickAddToCartButton("Green Tshirt");
+        menPage.clickAddToCartButton("Red Shoes");
 
         Thread.sleep(1000);
 

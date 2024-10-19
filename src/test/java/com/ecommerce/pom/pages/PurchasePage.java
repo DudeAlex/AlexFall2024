@@ -18,20 +18,19 @@ public abstract class PurchasePage extends BasePage {
     }
 
     public ProductsGrid getProductsGrid() {
-
         return productsGrid;
     }
 
-    public PurchasePage clickAddToCartButton(String targetProductName) {
-        List<WebElement> productList = getProductsList();
+    public <T extends PurchasePage> T clickAddToCartButton(String targetProductName) {
+        List<WebElement> productList = getProductsGrid().getProductsList();
         for (WebElement product: productList) {
-            String productName = product.findElement(productTitle).getText();
+            String productName = product.findElement(getProductsGrid().productTitle).getText();
             if (productName.equals(targetProductName)) {
-                product.findElement(productAddToCartButton).click();
+                product.findElement(getProductsGrid().productAddToCartButton).click();
             }
         }
 
-        return this;
+        return (T) this;
     }
 
 }

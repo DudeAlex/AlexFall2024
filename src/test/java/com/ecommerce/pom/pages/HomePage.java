@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-import java.util.List;
 
 public class HomePage extends PurchasePage implements Loadable {
 
@@ -69,6 +68,13 @@ public class HomePage extends PurchasePage implements Loadable {
                 .perform();
 
         return this;
+    }
+
+    @Override
+    public HomePage clickAddToCartButton(String targetProductName) {
+       super.clickAddToCartButton(targetProductName);
+
+       return this;
     }
 
 }

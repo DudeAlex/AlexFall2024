@@ -1,6 +1,5 @@
 package com.ecommerce.pom.components;
 
-import com.ecommerce.pom.pages.HomePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,14 +13,11 @@ public class ProductsGrid extends BaseComponent {
 
     private final By listedItems = By.xpath("//li[contains(@class, 'ast')]");
 
-    private final By productAddToCartButton = By.xpath(".//a[contains(text(), 'Add to cart')]");
-    private final By productTitle = By.xpath(".//h2");
+    public By productAddToCartButton = By.xpath(".//a[contains(text(), 'Add to cart')]");
+    public By productTitle = By.xpath(".//h2");
 
-    protected List<WebElement> getProductsList() {
+    public List<WebElement> getProductsList() {
         return getDriver().findElements(listedItems);
     }
-
-
-
 
 }

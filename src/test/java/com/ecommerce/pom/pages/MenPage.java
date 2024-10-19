@@ -95,5 +95,12 @@ public class MenPage extends SalesPage {
         return displayedItemCount == expectedCount;
     }
 
+    @Override
+    public MenPage clickAddToCartButton(String targetProductName) {
+        super.clickAddToCartButton(targetProductName);
+
+        return this;
+    }
+
 }
 
