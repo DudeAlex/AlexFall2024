@@ -1,23 +1,20 @@
 package com.ecommerce.tests.components.footer;
 
 import com.ecommerce.base.BaseTest;
-import com.ecommerce.data.FooterAppstoresData;
+import com.ecommerce.pom.pages.HomePage;
 import com.ecommerce.utils.WaitUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
+public class FooterAppstoreNavigationTest extends BaseTest {
+    @Test(description = "11.1-4.1 | TC > Verify Click Footer Menu AOD # https://app.clickup.com/t/8689r628b ")
+    public void testAppstoresNavigation(){
 
-public class FooterAppstoresTest extends BaseTest {
-    @Test(description = "11.1-4.1 | TC > Verify Click Footer Menu AOD # https://app.clickup.com/t/8689r628b ",
-            dataProvider = "appstoresData", dataProviderClass = FooterAppstoresData.class)
-    public void testAppstoresNavigation(String appStoreUrl, String homePageUrl, String iconXpath){
+        String appStoreUrl = "https://www.apple.com/in/app-store/";
+        String homePageUrl = "https://askomdch.com/";
 
-        driver.findElement(By.xpath(iconXpath)).click();
+        HomePage homePage = new HomePage(driver);
+        homePage.getFooter().navigateToAppStoreFromFooter();
         String originalWindow = driver.getWindowHandle();
         switchToNewWindow(originalWindow);
         String urlNewWindow = driver.getCurrentUrl();
