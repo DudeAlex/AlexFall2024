@@ -4,6 +4,7 @@ import com.ecommerce.pom.Loadable;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import static com.ecommerce.pom.EndPoints.BASE_URL;
@@ -61,4 +62,20 @@ public class HomePage extends PurchasePage implements Loadable {
     public void resetCart() {
         WaitUtils.elementToBeClickable(getDriver(), resetCartButton, 2).click();
     }
+
+    public HomePage scrollToElement(WebElement webElement) {
+        new Actions(getDriver())
+                .scrollToElement(webElement)
+                .perform();
+
+        return this;
+    }
+
+    @Override
+    public HomePage clickAddToCartButton(String targetProductName) {
+       super.clickAddToCartButton(targetProductName);
+
+       return this;
+    }
+
 }

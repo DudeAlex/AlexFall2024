@@ -2,7 +2,6 @@ package com.ecommerce.pom;
 
 import com.ecommerce.pom.components.Footer;
 import com.ecommerce.pom.components.Header;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public abstract class BasePage extends BaseModel {

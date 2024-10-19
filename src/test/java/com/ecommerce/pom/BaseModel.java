@@ -7,7 +7,9 @@ public abstract class BaseModel {
     private WebDriver driver;
 
     public BaseModel(WebDriver driver){
+
         this.driver = driver;
+
     }
 
     public WebDriver getDriver() {

@@ -25,6 +25,8 @@ public class MenPage extends SalesPage{
 
     public MenPage(WebDriver driver) {
         super(driver);
+        getLeftSidebar();
+        getProductsGrid();
     }
 
     @Override
@@ -92,6 +94,13 @@ public class MenPage extends SalesPage{
         List<WebElement> items = getDriver().findElements(menItems);
         int displayedItemCount = items.size();
         return displayedItemCount == expectedCount;
+    }
+
+    @Override
+    public MenPage clickAddToCartButton(String targetProductName) {
+        super.clickAddToCartButton(targetProductName);
+
+        return this;
     }
 
 }

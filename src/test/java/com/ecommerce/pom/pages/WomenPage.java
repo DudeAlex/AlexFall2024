@@ -30,4 +30,11 @@ public class WomenPage extends SalesPage{
 
         return this;
     }
+
+    @Override
+    public WomenPage clickAddToCartButton(String targetProductName) {
+        super.clickAddToCartButton(targetProductName);
+
+        return this;
+    }
 }

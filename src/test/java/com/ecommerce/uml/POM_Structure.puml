@@ -20,6 +20,13 @@ abstract class BaseComponent {
 + BaseComponent(WebDriver driver)
 }
 
+abstract class PurchasePage {
+- productGrid: ProductsGrid {final}
++ PurchasePage(WebDriver driver)
++ getProductGrid(): ProductsGrid
++ clickAddToCartButton(targetProductName: String): T |
+}
+
 class Header {
 # headerHome: By
 # headerStore: By
@@ -61,6 +68,14 @@ class LeftSidebar{
 + LeftSidebar(WebDriver driver)
 + searchProduct
 }
+
+class ProductsGrid{
+# listedItems: By
+# productAddToCartButton: By
+# productTitle: By
++ ProductsGrid(driver: WebDriver)
++ getProductList(): List<WebElement>
+
 
 class AccessoriesPage{
 # addToCartButton: By
@@ -272,6 +287,7 @@ BaseModel <|-- BaseComponent
 BaseComponent <|-- Header
 BaseComponent <|-- Footer
 BaseComponent <|-- LeftSidebar
+BaseComponent <|-- ProductsGrid
 
 
 BasePage <|-- AccountPage
@@ -286,6 +302,7 @@ BasePage *-- Footer
 PurchasePage <|-- HomePage
 PurchasePage <|-- ProductPage
 PurchasePage <|-- SalesPage
+PurchasePage *-- ProductsGrid
 
 SalesPage <|-- MenPage
 SalesPage <|-- WomenPage
