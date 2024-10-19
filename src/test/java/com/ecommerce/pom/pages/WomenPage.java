@@ -8,7 +8,7 @@ public class WomenPage extends SalesPage{
 
     By addToCartButton  = By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']");
     By cartButton = By.linkText("View cart");
-    By bestSellerTitle = By.cssSelector(".widget.woocommerce.widget_top_rated_products >.widget-title");
+
 
     public WomenPage(WebDriver driver) {
         super(driver);
@@ -29,7 +29,5 @@ public class WomenPage extends SalesPage{
 
         return this;
     }
-    public String getBestSellerTitle() {
-       return  WaitUtils.visibilityOfElementLocated(getDriver(), bestSellerTitle).getText();
-    }
+
 }
