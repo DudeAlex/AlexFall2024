@@ -7,11 +7,12 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class FooterAppstoresNavigationTest extends BaseTest {
+    String appStoreUrl = "https://www.apple.com/in/app-store/";
+    String googlePlayUrl = "https://play.google.com/store/games?device=windows";
+    String homePageUrl = "https://askomdch.com/";
+
     @Test(description = "11.1-4.1 | TC > Verify Click Footer Menu AOD # https://app.clickup.com/t/8689r628b ")
     public void testAppstoreNavigation(){
-
-        String appStoreUrl = "https://www.apple.com/in/app-store/";
-        String homePageUrl = "https://askomdch.com/";
 
         HomePage homePage = new HomePage(driver);
         homePage.getFooter().navigateToAppStoreFromFooter();
@@ -30,9 +31,6 @@ public class FooterAppstoresNavigationTest extends BaseTest {
 
     @Test(description = "11.1-4.1 | TC > Verify Click Footer Menu AOD # https://app.clickup.com/t/8689r628b ")
     public void testGooglePlayNavigation(){
-
-        String googlePlayUrl = "https://play.google.com/store/games?device=windows";
-        String homePageUrl = "https://askomdch.com/";
 
         HomePage homePage = new HomePage(driver);
         homePage.getFooter().navigateToGooglePlayFromFooter();
