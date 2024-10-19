@@ -17,9 +17,7 @@ public class AddProductStorePageTest extends BaseTest {
         accountPage.logIn(user.getEmail(), user.getPassword());
 
         CartPage cartPage = accountPage.getHeader().navigateToCartPage();
-        if (Integer.parseInt(cartPage.getCartItemsNumber()) > 0) {
-            cartPage.removeItemsFromCart();
-        }
+        cartPage.clearTheCart();
 
         StorePage storePage = accountPage.getHeader().navigateToStorePage();
         storePage.addToCartFromStorePage();
