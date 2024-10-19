@@ -6,6 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 
+import static com.ecommerce.pom.pages.EndPoints.BASE_URL;
+
 public class HomePage extends PurchasePage implements Loadable {
 
     By shopNowButton = By.xpath("//a[@class= 'wp-block-button__link']");
@@ -19,7 +21,7 @@ public class HomePage extends PurchasePage implements Loadable {
 
     @Override
     public HomePage load() {
-        getDriver().get("https://askomdch.com/");
+        getDriver().get(BASE_URL);
 
         return this;
     }
