@@ -1,6 +1,6 @@
 package com.ecommerce.pom.pages;
 
-import com.ecommerce.pom.Loadable;
+import static com.ecommerce.pom.pages.EndPoints.*;
 import com.ecommerce.utils.CollectToListUtils;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
@@ -16,7 +16,7 @@ public class AccessoriesPage extends SalesPage{
 
     @Override
     public AccessoriesPage load() {
-        getDriver().get("https://askomdch.com/product-category/accessories/");
+        getDriver().get(ACCESSORIES_URL);
 
         return this;
     }
