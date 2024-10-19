@@ -10,7 +10,7 @@ import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
 
-public class MenPage extends SalesPage{
+public class MenPage extends SalesPage {
 
     By addToCartButton  = By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']");
     By cartButton = By.linkText("View cart");
@@ -24,6 +24,8 @@ public class MenPage extends SalesPage{
 
     public MenPage(WebDriver driver) {
         super(driver);
+        getLeftSidebar();
+        getProductsGrid();
     }
 
     @Override

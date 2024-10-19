@@ -73,4 +73,10 @@ public class Header extends BaseComponent {
         return new CartPage(getDriver());
     }
 
+    public int getAmountOfProductsOnCartIcon() {
+        String numberProductsInCart = getDriver().findElement(headerCartButton).getText();
+
+        return Integer.parseInt(numberProductsInCart);
+    }
+
 }

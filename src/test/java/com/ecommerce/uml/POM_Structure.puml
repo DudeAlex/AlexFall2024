@@ -62,6 +62,7 @@ class LeftSidebar{
 + searchProduct
 }
 
+
 class AccessoriesPage{
 # addToCartButton: By
 + AccessoriesPage(WebDriver driver)

@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.util.List;
+
 public class HomePage extends PurchasePage implements Loadable {
 
     By shopNowButton = By.xpath("//a[@class= 'wp-block-button__link']");
