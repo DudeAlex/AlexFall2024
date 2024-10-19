@@ -9,7 +9,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import static com.ecommerce.pom.pages.EndPoints.ACCOUNT_URL;
+import static com.ecommerce.pom.EndPoints.ACCOUNT_URL;
 
 
 public class AccountPage extends BasePage implements Loadable {

@@ -4,7 +4,7 @@ import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import static com.ecommerce.pom.pages.EndPoints.WOMEN_URL;
+import static com.ecommerce.pom.EndPoints.WOMEN_URL;
 
 public class WomenPage extends SalesPage{
 

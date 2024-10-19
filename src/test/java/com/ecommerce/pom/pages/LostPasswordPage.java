@@ -6,7 +6,7 @@ import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import static com.ecommerce.pom.pages.EndPoints.LOST_PASSWORD_URL;
+import static com.ecommerce.pom.EndPoints.LOST_PASSWORD_URL;
 
 
 public class LostPasswordPage extends BasePage implements Loadable {

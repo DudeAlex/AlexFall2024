@@ -2,7 +2,7 @@ package com.ecommerce.pom.pages;
 
 import org.openqa.selenium.WebDriver;
 
-import static com.ecommerce.pom.pages.EndPoints.MENS_SHIRTS_URL;
+import static com.ecommerce.pom.EndPoints.MENS_SHIRTS_URL;
 
 public class MensShirtsPage extends SalesPage{
 

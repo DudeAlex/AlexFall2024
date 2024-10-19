@@ -7,7 +7,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
-import static com.ecommerce.pom.pages.EndPoints.*;
+import static com.ecommerce.pom.EndPoints.*;
 
 
 public class FooterVisibleTest extends BaseTest {

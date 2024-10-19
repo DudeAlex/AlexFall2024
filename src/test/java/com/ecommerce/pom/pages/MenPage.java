@@ -9,7 +9,7 @@ import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
 
-import static com.ecommerce.pom.pages.EndPoints.MEN_URL;
+import static com.ecommerce.pom.EndPoints.MEN_URL;
 
 public class MenPage extends SalesPage{
 

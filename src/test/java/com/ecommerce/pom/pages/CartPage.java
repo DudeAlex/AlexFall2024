@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 
-import static com.ecommerce.pom.pages.EndPoints.CART_URL;
+import static com.ecommerce.pom.EndPoints.CART_URL;
 
 public class CartPage extends BasePage implements Loadable {
 

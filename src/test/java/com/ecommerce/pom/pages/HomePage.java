@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 
-import static com.ecommerce.pom.pages.EndPoints.BASE_URL;
+import static com.ecommerce.pom.EndPoints.BASE_URL;
 
 public class HomePage extends PurchasePage implements Loadable {
 
