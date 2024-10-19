@@ -111,4 +111,12 @@ public class Footer extends BaseComponent {
         return new AccessoriesPage(getDriver());
     }
 
+    public void navigateToGooglePlayFromFooter (){
+        WaitUtils.visibilityOfElementLocated(getDriver(), googlePlayIcon).click();
+    }
+
+    public void navigateToAppStoreFromFooter(){
+        WaitUtils.visibilityOfElementLocated(getDriver(), appStoreIcon).click();
+    }
+
 }
