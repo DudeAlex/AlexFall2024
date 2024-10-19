@@ -1,6 +1,5 @@
 package com.ecommerce.pom.pages;
 
-import com.ecommerce.pom.Loadable;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -10,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static com.ecommerce.pom.pages.EndPoints.STORE_URL;
 
 public class StorePage extends SalesPage{
 
@@ -33,7 +34,7 @@ public class StorePage extends SalesPage{
 
     @Override
     public StorePage load() {
-        getDriver().get("https://askomdch.com/store/");
+        getDriver().get(STORE_URL);
 
         return this;
     }

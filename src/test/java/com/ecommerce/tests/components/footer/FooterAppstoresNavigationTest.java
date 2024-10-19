@@ -6,10 +6,11 @@ import com.ecommerce.utils.WaitUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static com.ecommerce.pom.pages.EndPoints.*;
+
 public class FooterAppstoresNavigationTest extends BaseTest {
     String appStoreUrl = "https://www.apple.com/in/app-store/";
     String googlePlayUrl = "https://play.google.com/store/games?device=windows";
-    String homePageUrl = "https://askomdch.com/";
 
     @Test(description = "11.1-4.1 | TC > Verify Click Footer Menu AOD # https://app.clickup.com/t/8689r628b ")
     public void testAppstoreNavigation(){
@@ -26,7 +27,7 @@ public class FooterAppstoresNavigationTest extends BaseTest {
 
         String urlPreviousWindow = driver.getCurrentUrl();
 
-        Assert.assertEquals(urlPreviousWindow,homePageUrl);
+        Assert.assertEquals(urlPreviousWindow,BASE_URL);
     }
 
     @Test(description = "11.1-4.1 | TC > Verify Click Footer Menu AOD # https://app.clickup.com/t/8689r628b ")
@@ -44,7 +45,7 @@ public class FooterAppstoresNavigationTest extends BaseTest {
 
         String urlPreviousWindow = driver.getCurrentUrl();
 
-        Assert.assertEquals(urlPreviousWindow,homePageUrl);
+        Assert.assertEquals(urlPreviousWindow,BASE_URL);
     }
 
     private void switchToNewWindow(String originalWindow){

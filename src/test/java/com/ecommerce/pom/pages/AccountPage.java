@@ -9,6 +9,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import static com.ecommerce.pom.pages.EndPoints.ACCOUNT_URL;
+
 
 public class AccountPage extends BasePage implements Loadable {
     By emailField = By.id("//input [ @ id = 'username']");
@@ -31,7 +33,7 @@ public class AccountPage extends BasePage implements Loadable {
 
     @Override
     public AccountPage load() {
-        getDriver().get("https://askomdch.com/account/");
+        getDriver().get(ACCOUNT_URL);
 
         return this;
     }
