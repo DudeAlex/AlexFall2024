@@ -6,10 +6,31 @@ import com.ecommerce.utils.WaitUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class FooterGooglePlayNavigationTest extends BaseTest {
+public class FooterAppstoresNavigationTest extends BaseTest {
     @Test(description = "11.1-4.1 | TC > Verify Click Footer Menu AOD # https://app.clickup.com/t/8689r628b ")
-    public void testAppstoresNavigation(){
-        
+    public void testAppstoreNavigation(){
+
+        String appStoreUrl = "https://www.apple.com/in/app-store/";
+        String homePageUrl = "https://askomdch.com/";
+
+        HomePage homePage = new HomePage(driver);
+        homePage.getFooter().navigateToAppStoreFromFooter();
+        String originalWindow = driver.getWindowHandle();
+        switchToNewWindow(originalWindow);
+        String urlNewWindow = driver.getCurrentUrl();
+
+        Assert.assertEquals(urlNewWindow,appStoreUrl);
+
+        driver.switchTo().window(originalWindow);
+
+        String urlPreviousWindow = driver.getCurrentUrl();
+
+        Assert.assertEquals(urlPreviousWindow,homePageUrl);
+    }
+
+    @Test(description = "11.1-4.1 | TC > Verify Click Footer Menu AOD # https://app.clickup.com/t/8689r628b ")
+    public void testGooglePlayNavigation(){
+
         String googlePlayUrl = "https://play.google.com/store/games?device=windows";
         String homePageUrl = "https://askomdch.com/";
 
