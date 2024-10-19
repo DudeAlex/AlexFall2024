@@ -5,8 +5,9 @@ import com.ecommerce.pom.Loadable;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+
+import static com.ecommerce.pom.EndPoints.CART_URL;
 
 public class CartPage extends BasePage implements Loadable {
 
@@ -27,7 +28,7 @@ public class CartPage extends BasePage implements Loadable {
     }
 
     @Override
-    public CartPage load() {getDriver().get("https://askomdch.com/cart/");
+    public CartPage load() {getDriver().get(CART_URL);
 
         return this;
     }
@@ -93,5 +94,12 @@ public class CartPage extends BasePage implements Loadable {
         actions.moveToElement(getDriver().findElement(cartIcon)).perform();
         getDriver().findElement(removePopUpButton).click();
 
+    }
+
+    public void clearTheCart(){
+        CartPage cartPage = new CartPage(getDriver());
+        if (Integer.parseInt(cartPage.getCartItemsNumber()) > 0) {
+            cartPage.removeItemsFromCart();
+        }
     }
 }
