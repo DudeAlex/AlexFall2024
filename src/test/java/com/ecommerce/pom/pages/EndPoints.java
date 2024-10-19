@@ -17,5 +17,8 @@ public class EndPoints {
     public static final String ABOUT_URL = "https://askomdch.com/about/";
     public static final String CONTACT_US_URL = "https://askomdch.com/contact-us/";
     public static final String CART_URL = "https://askomdch.com/cart/";
+    public static final String CHECKOUT_URL = "https://askomdch.com/checkout/";
+
+
 
 }
