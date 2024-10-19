@@ -2,7 +2,7 @@ package com.ecommerce.pom.pages;
 
 import org.openqa.selenium.WebDriver;
 
-import static com.ecommerce.pom.pages.EndPoints.WOMENS_SHOES_URL;
+import static com.ecommerce.pom.EndPoints.WOMENS_SHOES_URL;
 
 public class WomensShoesPage extends SalesPage{
 

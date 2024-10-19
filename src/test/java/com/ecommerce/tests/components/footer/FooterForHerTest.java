@@ -5,7 +5,7 @@ import com.ecommerce.pom.pages.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import static com.ecommerce.pom.pages.EndPoints.*;
+import static com.ecommerce.pom.EndPoints.*;
 
 public class FooterForHerTest extends BaseTest {
     @Test(description = "11.1-2.1-5 | TC > Verify Navigation Footer Menu List For Her # https://app.clickup.com/t/8689r60e5")

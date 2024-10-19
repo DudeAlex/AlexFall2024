@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 
-import static com.ecommerce.pom.pages.EndPoints.CHECKOUT_URL;
+import static com.ecommerce.pom.EndPoints.CHECKOUT_URL;
 import static org.openqa.selenium.Keys.ENTER;
 
 public class CheckoutPage extends BasePage implements Loadable {

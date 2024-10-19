@@ -5,7 +5,7 @@ import com.ecommerce.pom.pages.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import static com.ecommerce.pom.pages.EndPoints.*;
+import static com.ecommerce.pom.EndPoints.*;
 
 public class FooterQuickLinksTest extends BaseTest {
     @Test(description = "11.1-1.1-5 | TC > Verify Navigation Footer Menu List Quick Links # https://app.clickup.com/t/8689r5uyy ")

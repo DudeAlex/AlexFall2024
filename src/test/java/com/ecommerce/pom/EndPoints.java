@@ -1,4 +1,4 @@
-package com.ecommerce.pom.pages;
+package com.ecommerce.pom;
 
 public class EndPoints {
 

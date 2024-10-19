@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.ecommerce.pom.pages.EndPoints.STORE_URL;
+import static com.ecommerce.pom.EndPoints.STORE_URL;
 
 public class StorePage extends SalesPage{
 

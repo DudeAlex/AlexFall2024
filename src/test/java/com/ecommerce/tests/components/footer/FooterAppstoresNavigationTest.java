@@ -6,7 +6,7 @@ import com.ecommerce.utils.WaitUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import static com.ecommerce.pom.pages.EndPoints.*;
+import static com.ecommerce.pom.EndPoints.*;
 
 public class FooterAppstoresNavigationTest extends BaseTest {
     String appStoreUrl = "https://www.apple.com/in/app-store/";
