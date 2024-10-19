@@ -1,15 +1,13 @@
 package com.ecommerce.pom.pages;
 
-import com.ecommerce.pojo.UserData;
-import com.ecommerce.pojo.UserDataPool;
 import com.ecommerce.pom.BasePage;
 import com.ecommerce.pom.Loadable;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import java.util.List;
 
+import static com.ecommerce.pom.EndPoints.CHECKOUT_URL;
 import static org.openqa.selenium.Keys.ENTER;
 
 public class CheckoutPage extends BasePage implements Loadable {
@@ -34,7 +32,7 @@ public class CheckoutPage extends BasePage implements Loadable {
 
     @Override
     public CheckoutPage load() {
-        getDriver().get("https://askomdch.com/checkout/");
+        getDriver().get(CHECKOUT_URL);
 
         return this;
     }

@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import static com.ecommerce.pom.EndPoints.BASE_URL;
 
 public class HomePage extends PurchasePage implements Loadable {
 
@@ -21,7 +22,7 @@ public class HomePage extends PurchasePage implements Loadable {
 
     @Override
     public HomePage load() {
-        getDriver().get("https://askomdch.com/");
+        getDriver().get(BASE_URL);
 
         return this;
     }
