@@ -6,16 +6,12 @@ import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class Header {
-    private WebDriver driver;
+public class Header extends BaseComponent {
 
     public Header(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
-    public WebDriver getDriver() {
-        return driver;
-    }
 
     /**
      * header elements like links, buttons, etc.

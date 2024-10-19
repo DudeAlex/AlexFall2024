@@ -94,4 +94,11 @@ public class CartPage extends BasePage implements Loadable {
         getDriver().findElement(removePopUpButton).click();
 
     }
+
+    public void clearTheCart(){
+        CartPage cartPage = new CartPage(getDriver());
+        if (Integer.parseInt(cartPage.getCartItemsNumber()) > 0) {
+            cartPage.removeItemsFromCart();
+        }
+    }
 }

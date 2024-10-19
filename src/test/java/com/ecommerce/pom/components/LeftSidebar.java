@@ -5,23 +5,19 @@ import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class LeftSideMenu {
+public class LeftSidebar extends BaseComponent {
 
     By searchInputField = By.xpath("//input[@type='search']");
     By searchButton = By.xpath("//button[@value='Search']");
 
-    private final WebDriver driver;
-
-    public LeftSideMenu(WebDriver driver) {
-        this.driver = driver;
-    }
-    public  WebDriver getDriver() {
-        return driver;
+    public LeftSidebar(WebDriver driver) {
+        super(driver);
     }
 
     public StorePage searchProduct(String item) {
         WaitUtils.visibilityOfElementLocated(getDriver(), searchInputField).sendKeys(item);
         WaitUtils.presenceOfElementLocated(getDriver(), searchButton).click();
+
         return new StorePage(getDriver());
     }
 }
