@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import static com.ecommerce.pom.EndPoints.ACCOUNT_URL;
+import static java.sql.DriverManager.getDriver;
 
 
 public class AccountPage extends BasePage implements Loadable {
@@ -26,6 +27,7 @@ public class AccountPage extends BasePage implements Loadable {
     By welcomeNewUserText = By.xpath("//p[contains(text(),'Hello')]");
     By errorMessage = By.xpath("//ul[@role='alert']");
     By logoutLink = By.xpath("//div[@class = 'woocommerce-MyAccount-content']//a[text() = 'Log out']");
+    By accountDetailLink = By.xpath("//a[normalize-space()='Account details']");
 
     public AccountPage(WebDriver driver) {
         super(driver);
@@ -46,6 +48,12 @@ public class AccountPage extends BasePage implements Loadable {
 
     public void logIn(String email, String password) {
         getDriver().findElement(loginUsername).sendKeys(email);
+        getDriver().findElement(loginPassword).sendKeys(password);
+        getDriver().findElement(loginButton).click();
+    }
+
+    public void logInWithUserName(String userName, String password) {
+        getDriver().findElement(loginUsername).sendKeys(userName);
         getDriver().findElement(loginPassword).sendKeys(password);
         getDriver().findElement(loginButton).click();
     }
@@ -132,5 +140,8 @@ public class AccountPage extends BasePage implements Loadable {
     public String getWelcomeNewUserText() {
         return WaitUtils.visibilityOf(getDriver(), welcomeNewUserText).getText();
     }
-
+    public EditAccountPage navigateToEditAccountPage() {
+        WaitUtils.visibilityOfElementLocated(getDriver(),accountDetailLink).click();
+        return new EditAccountPage(getDriver());
+    }
 }
