@@ -4,6 +4,7 @@ import com.ecommerce.base.BaseTest;
 import com.ecommerce.pom.pages.MenPage;
 import com.ecommerce.pom.pages.StorePage;
 import com.ecommerce.pom.pages.WomenPage;
+import com.ecommerce.pom.EndPoints;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -145,5 +146,22 @@ public class LeftSidebarTest extends BaseTest {
 
         Assert.assertTrue(allContainMatch,
                 "Not all product names contain the substring: " + partialFirstCharacters);
+    }
+
+    @Test(description = "10.3-1...3-1 | TC > Women > Clear browser by categories."
+            + "# https://app.clickup.com/t/8689wk070")
+    public void closeWomenCategory() {
+
+        StorePage storePage = new StorePage(driver);
+        storePage.getHeader()
+                .navigateToWomenPage()
+                .getLeftSidebar()
+                .clearCategory();
+
+        String actualCategoryText = storePage.getLeftSidebar().getSelectedCategoryText();
+        String expectedCategoryText = "Select a category";
+
+        Assert.assertEquals(actualCategoryText, expectedCategoryText, "Category was not cleared out!");
+        Assert.assertEquals(driver.getCurrentUrl(), EndPoints.STORE_URL, "User was not redirected to the Store page");
     }
 }
