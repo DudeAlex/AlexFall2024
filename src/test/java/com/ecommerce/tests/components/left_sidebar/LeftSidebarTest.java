@@ -1,9 +1,10 @@
 package com.ecommerce.tests.components.left_sidebar;
 
 import com.ecommerce.base.BaseTest;
-import com.ecommerce.pom.EndPoints;
+import com.ecommerce.pom.pages.MenPage;
 import com.ecommerce.pom.pages.StorePage;
-import com.ecommerce.utils.WaitUtils;
+import com.ecommerce.pom.pages.WomenPage;
+import com.ecommerce.pom.EndPoints;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -19,25 +20,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class LeftSidebarTest extends BaseTest {
-
-    private static final String ITEM_CATEGORY = "jeans";
-    private static final By SHOP_NOW_BUTTON = By.xpath("//a[@href='/store']");
-    private static final By SEARCH_BOX_INPUT = By.xpath("//input[@type='search']");
-    private static final By SEARCH_BOX_SUBMIT = By.xpath("//button[@type='submit']");
-    private static final By PRODUCT_LIST = By.xpath("//ul//h2");
-    private static final By MEN_CATEGORY = By.id("menu-item-1228");
-    private static final By WOMEN_CATEGORY = By.id("menu-item-1229");
-
-    private static int countItemsContainingItemText(List<WebElement> items, String product) {
-        int count = 0;
-        for (WebElement item : items) {
-            String itemText = item.getText().toLowerCase();
-            if (itemText.contains(product.toLowerCase())) {
-                count++;
-            }
-        }
-        return count;
-    }
 
     @Test(description = "10.4-10.4-1  | TC >Search box Test> Search by key word # https://app.clickup.com/t/8689x8h18")
     public void testSearchBox() {
@@ -124,31 +106,46 @@ public class LeftSidebarTest extends BaseTest {
         }
     }
 
-    @Test(description = "10.4-8.3 | TC > Store > Verify Search Returns All Items Across Categories"
+    @Test(description = "10.4-1-3 | TC > Verify Search Returns All Items Across Categories"
             + "# https://app.clickup.com/t/8689vk47d")
     public void testVerifySearchReturnsAllItemsInAllCategories() {
-        WaitUtils.elementToBeClickable(driver, SHOP_NOW_BUTTON, 2).click();
+        final String itemCategory = "jeans";
 
-        WebElement searchBox = WaitUtils.visibilityOfElementLocated(driver, SEARCH_BOX_INPUT, 2);
-        searchBox.sendKeys(ITEM_CATEGORY);
-        WaitUtils.elementToBeClickable(driver, SEARCH_BOX_SUBMIT).click();
+        int quantityFromSearchResult = new StorePage(driver).load()
+                .getLeftSidebar().searchProduct(itemCategory, new StorePage(driver))
+                .countItemsOnPage(itemCategory);
 
-        List<WebElement> searchResultList = WaitUtils.visibilityOfAllElementsLocatedBy(driver, PRODUCT_LIST);
-        Assert.assertFalse(searchResultList.isEmpty(), "Search results are empty.");
+        int quantityFromMenPage = new MenPage(driver).load()
+                .countItemsOnPage(itemCategory);
 
-        int countItemBySearch = countItemsContainingItemText(searchResultList, ITEM_CATEGORY);
-        WaitUtils.elementToBeClickable(driver, MEN_CATEGORY).click();
+        int quantityFromWomenPage = new WomenPage(driver).load()
+                .countItemsOnPage(itemCategory);
 
-        List<WebElement> menItemsList = WaitUtils.visibilityOfAllElementsLocatedBy(driver, PRODUCT_LIST, 3);
-        int countItemInMenResult = countItemsContainingItemText(menItemsList, ITEM_CATEGORY);
-
-        WaitUtils.elementToBeClickable(driver, WOMEN_CATEGORY).click();
-        List<WebElement> womenItemsList = WaitUtils.visibilityOfAllElementsLocatedBy(driver, PRODUCT_LIST, 3);
-        int countItemInWomenResult = countItemsContainingItemText(womenItemsList, ITEM_CATEGORY);
-
-        Assert.assertEquals(countItemBySearch, countItemInMenResult + countItemInWomenResult,
+        Assert.assertEquals(quantityFromSearchResult, quantityFromMenPage + quantityFromWomenPage,
                 "Search box did not find all the items with item name '"
-                        + ITEM_CATEGORY + "' or find extra items");
+                        + itemCategory + "' or find extra items");
+    }
+
+    @Test(description = "10.4 -1-5 | TC > Verify search results with 2-character input. "
+            + "#https://app.clickup.com/t/868abp8yn")
+    public void testSearchWithTwoCharactersReturnsRelevantItems() {
+        String partialFirstCharacters = "Je";
+
+        List<String> productNameList = new StorePage(driver).load()
+                .getLeftSidebar().searchProduct(partialFirstCharacters, new StorePage(driver))
+                .getAllItemsNameList();
+
+        boolean allContainMatch = true;
+
+        for (String name : productNameList) {
+            if (!name.toLowerCase().contains(partialFirstCharacters.toLowerCase())) {
+                allContainMatch = false;
+                break;
+            }
+        }
+
+        Assert.assertTrue(allContainMatch,
+                "Not all product names contain the substring: " + partialFirstCharacters);
     }
 
     @Test(description = "10.3-1...3-1 | TC > Women > Clear browser by categories."

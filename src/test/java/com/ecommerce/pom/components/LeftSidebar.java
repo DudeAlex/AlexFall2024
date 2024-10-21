@@ -1,7 +1,5 @@
 package com.ecommerce.pom.components;
 
-import com.ecommerce.pom.Loadable;
-import com.ecommerce.pom.pages.SalesPage;
 import com.ecommerce.pom.pages.StorePage;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
@@ -40,11 +38,11 @@ public class LeftSidebar extends BaseComponent {
         super(driver);
     }
 
-    public StorePage searchProduct(String item) {
+    public <T> T searchProduct(String item, T page) {
         WaitUtils.visibilityOfElementLocated(getDriver(), searchInputField).sendKeys(item);
         WaitUtils.presenceOfElementLocated(getDriver(), searchButton).click();
 
-        return new StorePage(getDriver());
+        return page;
     }
 
     public void browseByCategory(String category) {
@@ -71,4 +69,6 @@ public class LeftSidebar extends BaseComponent {
         WaitUtils.presenceOfElementLocated(getDriver(), clearSelectionIcon).click();
         return new StorePage(getDriver());
     }
+
+
 }
