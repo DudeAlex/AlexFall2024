@@ -24,11 +24,13 @@ public class CartPage extends BasePage implements Loadable {
 
 
 
-    public CartPage(WebDriver driver) {super(driver);
+    public CartPage(WebDriver driver) {
+        super(driver);
     }
 
     @Override
-    public CartPage load() {getDriver().get(CART_URL);
+    public CartPage load() {
+        getDriver().get(CART_URL);
 
         return this;
     }

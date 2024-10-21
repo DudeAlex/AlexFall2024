@@ -20,6 +20,8 @@ public class EndPoints {
     public static final String CHECKOUT_URL = "https://askomdch.com/checkout/";
     public static final String LOST_PASSWORD_URL = "https://askomdch.com/account/lost-password/";
 
+    public static final String EDIT_ACCOUNT_URL = "https://askomdch.com/account/edit-account/";
+
 
 
 

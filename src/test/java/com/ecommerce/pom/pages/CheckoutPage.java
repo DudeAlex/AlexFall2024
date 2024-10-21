@@ -27,6 +27,7 @@ public class CheckoutPage extends BasePage implements Loadable {
     By checkYourOrderHasBeenReceivedMessage = By.xpath("//p[@class='woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received']");
 
     public CheckoutPage(WebDriver driver) {
+
         super(driver);
     }
 

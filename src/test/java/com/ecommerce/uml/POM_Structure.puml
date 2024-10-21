@@ -234,6 +234,26 @@ abstract class SalesPage{
 + SalesPage sortByPrice(String priceType)
 }
 
+class EditAccountPage {
+# accountDetailLink
+#nameField
+#lastnameField
+#currentPasswordField
+#newPasswordField
+#confirmNewPasswordField
+#saveChangesBtn
+#changesConfirmationMassage
++EditAccountPage(WebDriver driver)
++ EditAccountPage navigateToEditAccountPage()
++ EditAccountPage eddNameAndLastName()
++ EditAccountPage eddCurrentPassword()
++EditAccountPage eddNewPassword()
++EditAccountPage confirmNewPassword()
++ EditAccountPage saveChanges()
++ String getTextActualConfirmationMsg()
++ EditAccountPage returnToOldPassword()
+
+}
 class StorePage{
 # headerTitle: By
 # loopProducts: By
@@ -317,6 +337,8 @@ SalesPage <|-- WomensJeansPage
 SalesPage <|-- WomensShirtsPage
 SalesPage <|-- WomensShoesPage
 SalesPage *-- LeftSidebar
+
+AccountPage <|-- EditAccountPage
 
 
 @enduml
