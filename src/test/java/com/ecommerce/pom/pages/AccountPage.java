@@ -52,11 +52,6 @@ public class AccountPage extends BasePage implements Loadable {
         getDriver().findElement(loginButton).click();
     }
 
-    public void logInWithUserName(String userName, String password) {
-        getDriver().findElement(loginUsername).sendKeys(userName);
-        getDriver().findElement(loginPassword).sendKeys(password);
-        getDriver().findElement(loginButton).click();
-    }
     public AccountPage logout() {
         WebElement logout = WaitUtils.presenceOfElementLocated(getDriver(), logoutLink, 5);
         if (logout.isDisplayed()) {
@@ -140,8 +135,5 @@ public class AccountPage extends BasePage implements Loadable {
     public String getWelcomeNewUserText() {
         return WaitUtils.visibilityOf(getDriver(), welcomeNewUserText).getText();
     }
-    public EditAccountPage navigateToEditAccountPage() {
-        WaitUtils.visibilityOfElementLocated(getDriver(),accountDetailLink).click();
-        return new EditAccountPage(getDriver());
-    }
+
 }
