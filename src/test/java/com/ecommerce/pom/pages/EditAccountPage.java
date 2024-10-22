@@ -1,16 +1,8 @@
 package com.ecommerce.pom.pages;
 
-import com.ecommerce.base.BaseTest;
-import com.ecommerce.pom.Loadable;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
-import java.util.List;
-
-import static com.ecommerce.pom.EndPoints.CART_URL;
-import static com.ecommerce.pom.EndPoints.EDIT_ACCOUNT_URL;
-import static java.sql.DriverManager.getDriver;
 
 public class EditAccountPage extends AccountPage {
 
@@ -35,18 +27,18 @@ public class EditAccountPage extends AccountPage {
         return new EditAccountPage(getDriver());
     }
 
-    public void eddNameAndLastName() {
+    public void addNameAndLastName() {
         WaitUtils.visibilityOfElementLocated(getDriver(),nameField).clear();
         WaitUtils.visibilityOfElementLocated(getDriver(), nameField).sendKeys("FirstName");
         WaitUtils.visibilityOfElementLocated(getDriver(),lastnameField).clear();
         WaitUtils.visibilityOfElementLocated(getDriver(), lastnameField).sendKeys("LastName");
     }
 
-    public void eddCurrentPassword(String currentPass) {
+    public void addCurrentPassword(String currentPass) {
         WaitUtils.visibilityOfElementLocated(getDriver(), currentPasswordField).sendKeys(currentPass);
     }
 
-    public void eddNewPassword(String newPassword) {
+    public void addNewPassword(String newPassword) {
         WaitUtils.visibilityOfElementLocated(getDriver(), newPasswordField).sendKeys(newPassword);
     }
 
@@ -64,8 +56,8 @@ public class EditAccountPage extends AccountPage {
     }
 
     public EditAccountPage returnToOldPassword() {
-        eddCurrentPassword("456");
-        eddNewPassword("123");
+        addCurrentPassword("456");
+        addNewPassword("123");
         confirmNewPassword("123");
         saveChanges();
 
