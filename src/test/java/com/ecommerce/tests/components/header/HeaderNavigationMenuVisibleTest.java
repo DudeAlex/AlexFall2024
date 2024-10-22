@@ -98,6 +98,6 @@ public class HeaderNavigationMenuVisibleTest extends BaseTest {
     public void testCartIsDisplayed() {
         HomePage homePage = new HomePage(driver);
 
-        Assert.assertTrue(driver.findElement(homePage.getHeader().getHeaderStore()).isDisplayed()); // Cart
+        Assert.assertTrue(driver.findElement(homePage.getHeader().getHeaderCartButton()).isDisplayed()); // Cart
     }
 }
