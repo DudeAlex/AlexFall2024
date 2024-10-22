@@ -15,7 +15,7 @@ import static com.ecommerce.pom.EndPoints.CART_URL;
 public class NavigateToCartUsingFooterMenuTest extends BaseTest {
 
     @Test(description = "9.1-6-1 | TC Customer can view the cart using the quick access link in the footer # https://app.clickup.com/t/868abenum")
-    public void testNavigateToCartUsingFooterMenu() throws InterruptedException, IOException {
+    public void testNavigateToCartUsingFooterMenu() throws IOException {
         User user = UserUtils.readUserFromJson("user.json");
         HomePage homePage = new HomePage(driver);
         AccountPage accountPage = homePage.getHeader().navigateToAccountPage();
