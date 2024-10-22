@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public abstract class PurchasePage extends BasePage {
+public abstract class PurchasePage<T extends PurchasePage> extends BasePage {
 
 
     private final ProductsGrid productsGrid;
@@ -21,7 +21,7 @@ public abstract class PurchasePage extends BasePage {
         return productsGrid;
     }
 
-    public <T extends PurchasePage> T clickAddToCartButton(String targetProductName) {
+    public T clickAddToCartButton(String targetProductName) {
         List<WebElement> productList = getProductsGrid().getProductsList();
         for (WebElement product: productList) {
             String productName = product.findElement(getProductsGrid().productTitle).getText();
