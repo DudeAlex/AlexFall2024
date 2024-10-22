@@ -6,17 +6,10 @@ import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.By;
 
-public class Footer {
-
-    private WebDriver driver;
+public class Footer extends BaseComponent {
 
     public Footer(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    public WebDriver getDriver() {
-
-        return driver;
+        super(driver);
     }
 
     By quickLinksHome = By.xpath("//section[@id='nav_menu-7']//a[contains(text(),'Home')]"); // Home
@@ -116,6 +109,14 @@ public class Footer {
     public AccessoriesPage navigateToForHimAccessoriesFromFooter() {
         WaitUtils.visibilityOfElementLocated(getDriver(), forHimAccessories).click();
         return new AccessoriesPage(getDriver());
+    }
+
+    public void navigateToGooglePlayFromFooter (){
+        WaitUtils.visibilityOfElementLocated(getDriver(), googlePlayIcon).click();
+    }
+
+    public void navigateToAppStoreFromFooter(){
+        WaitUtils.visibilityOfElementLocated(getDriver(), appStoreIcon).click();
     }
 
 }

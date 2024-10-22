@@ -4,8 +4,6 @@ import com.ecommerce.base.BaseTest;
 import com.ecommerce.pojo.UserData;
 import com.ecommerce.pojo.UserDataPool;
 import com.ecommerce.pom.pages.*;
-import com.ecommerce.utils.WaitUtils;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -21,7 +19,7 @@ public class EndToEndTest  extends BaseTest {
 
         HomePage homePage = new HomePage(driver);
         StorePage storePage = homePage.getHeader().navigateToStorePage();
-        String searchResult = storePage.getLeftSideMenu().searchProduct(product).getSearchHeaderTitle();
+        String searchResult = storePage.getLeftSidebar().searchProduct(product).getSearchHeaderTitle();
         String item = storePage.getTextFromListProducts(0);
         Assert.assertEquals(searchResult, "Search results: “%s”".formatted(product));
 

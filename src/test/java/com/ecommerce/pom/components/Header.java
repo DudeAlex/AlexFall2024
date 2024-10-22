@@ -6,16 +6,12 @@ import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class Header {
-    private WebDriver driver;
+public class Header extends BaseComponent {
 
     public Header(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
-    public WebDriver getDriver() {
-        return driver;
-    }
 
     /**
      * header elements like links, buttons, etc.
@@ -75,6 +71,12 @@ public class Header {
     public CartPage navigateToCartPage() {
         WaitUtils.visibilityOfElementLocated(getDriver(), headerCartButton).click();
         return new CartPage(getDriver());
+    }
+
+    public int getAmountOfProductsOnCartIcon() {
+        String numberProductsInCart = getDriver().findElement(headerCartButton).getText();
+
+        return Integer.parseInt(numberProductsInCart);
     }
 
 }

@@ -1,11 +1,12 @@
 package com.ecommerce.pom.pages;
 
-import com.ecommerce.base.BaseTest;
 import com.ecommerce.pom.BasePage;
 import com.ecommerce.pom.Loadable;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
+import static com.ecommerce.pom.EndPoints.LOST_PASSWORD_URL;
 
 
 public class LostPasswordPage extends BasePage implements Loadable {
@@ -19,8 +20,10 @@ public class LostPasswordPage extends BasePage implements Loadable {
     }
 
     @Override
-    public void load() {
-        getDriver().get("https://askomdch.com/account/lost-password/");
+    public LostPasswordPage load() {
+        getDriver().get(LOST_PASSWORD_URL);
+
+        return this;
     }
 
 

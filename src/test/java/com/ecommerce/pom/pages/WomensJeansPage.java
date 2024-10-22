@@ -2,6 +2,8 @@ package com.ecommerce.pom.pages;
 
 import org.openqa.selenium.WebDriver;
 
+import static com.ecommerce.pom.EndPoints.WOMENS_JEANS_URL;
+
 public class WomensJeansPage extends SalesPage{
 
     public WomensJeansPage(WebDriver driver) {
@@ -9,7 +11,9 @@ public class WomensJeansPage extends SalesPage{
     }
 
     @Override
-    public void load() {
-        getDriver().get("https://askomdch.com/product-category/womens-jeans/");
+    public WomensJeansPage load() {
+        getDriver().get(WOMENS_JEANS_URL);
+
+        return this;
     }
 }

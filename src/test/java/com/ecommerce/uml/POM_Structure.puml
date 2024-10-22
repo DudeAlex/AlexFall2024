@@ -2,6 +2,11 @@
 'https://plantuml.com/class-diagram
 
 'hide fields
+abstract class BaseModel {
+- WebDriver driver
++ BaseModel(WebDriver driver)
++ WebDriver getDriver()
+}
 
 abstract class BasePage {
 - WebDriver driver
@@ -9,6 +14,17 @@ abstract class BasePage {
 + WebDriver getDriver()
 + Header getHeader()
 + Footer getFooter()
+}
+
+abstract class BaseComponent {
++ BaseComponent(WebDriver driver)
+}
+
+abstract class PurchasePage {
+- productGrid: ProductsGrid {final}
++ PurchasePage(WebDriver driver)
++ getProductGrid(): ProductsGrid
++ clickAddToCartButton(targetProductName: String): T |
 }
 
 class Header {
@@ -45,6 +61,21 @@ class Footer {
 # appStoreIcon: By
 # googlePlayIcon: By
 }
+
+class LeftSidebar{
+# searchInputField
+# searchButton
++ LeftSidebar(WebDriver driver)
++ searchProduct
+}
+
+class ProductsGrid{
+# listedItems: By
+# productAddToCartButton: By
+# productTitle: By
++ ProductsGrid(driver: WebDriver)
++ getProductList(): List<WebElement>
+
 
 class AccessoriesPage{
 # addToCartButton: By
@@ -203,6 +234,26 @@ abstract class SalesPage{
 + SalesPage sortByPrice(String priceType)
 }
 
+class EditAccountPage {
+# accountDetailLink
+#nameField
+#lastnameField
+#currentPasswordField
+#newPasswordField
+#confirmNewPasswordField
+#saveChangesBtn
+#changesConfirmationMassage
++EditAccountPage(WebDriver driver)
++ EditAccountPage navigateToEditAccountPage()
++ EditAccountPage eddNameAndLastName()
++ EditAccountPage eddCurrentPassword()
++EditAccountPage eddNewPassword()
++EditAccountPage confirmNewPassword()
++ EditAccountPage saveChanges()
++ String getTextActualConfirmationMsg()
++ EditAccountPage returnToOldPassword()
+
+}
 class StorePage{
 # headerTitle: By
 # loopProducts: By
@@ -250,6 +301,15 @@ interface Loadable {
  load();
 }
 
+BaseModel <|-- BasePage
+BaseModel <|-- BaseComponent
+
+BaseComponent <|-- Header
+BaseComponent <|-- Footer
+BaseComponent <|-- LeftSidebar
+BaseComponent <|-- ProductsGrid
+
+
 BasePage <|-- AccountPage
 BasePage <|-- CartPage
 BasePage <|-- CheckoutPage
@@ -262,6 +322,7 @@ BasePage *-- Footer
 PurchasePage <|-- HomePage
 PurchasePage <|-- ProductPage
 PurchasePage <|-- SalesPage
+PurchasePage *-- ProductsGrid
 
 SalesPage <|-- MenPage
 SalesPage <|-- WomenPage
@@ -275,5 +336,9 @@ SalesPage <|-- MensShoesPage
 SalesPage <|-- WomensJeansPage
 SalesPage <|-- WomensShirtsPage
 SalesPage <|-- WomensShoesPage
+SalesPage *-- LeftSidebar
+
+AccountPage <|-- EditAccountPage
+
 
 @enduml

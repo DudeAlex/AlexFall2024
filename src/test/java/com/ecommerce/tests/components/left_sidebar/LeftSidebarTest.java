@@ -1,6 +1,8 @@
-package com.ecommerce.tests.components.left_sidemenu;
+package com.ecommerce.tests.components.left_sidebar;
 
 import com.ecommerce.base.BaseTest;
+import com.ecommerce.pom.EndPoints;
+import com.ecommerce.pom.pages.StorePage;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class LeftSideMenuTest extends BaseTest {
+public class LeftSidebarTest extends BaseTest {
 
     private static final String ITEM_CATEGORY = "jeans";
     private static final By SHOP_NOW_BUTTON = By.xpath("//a[@href='/store']");
@@ -147,5 +149,22 @@ public class LeftSideMenuTest extends BaseTest {
         Assert.assertEquals(countItemBySearch, countItemInMenResult + countItemInWomenResult,
                 "Search box did not find all the items with item name '"
                         + ITEM_CATEGORY + "' or find extra items");
+    }
+
+    @Test(description = "10.3-1...3-1 | TC > Women > Clear browser by categories."
+            + "# https://app.clickup.com/t/8689wk070")
+    public void closeWomenCategory() {
+
+        StorePage storePage = new StorePage(driver);
+        storePage.getHeader()
+                .navigateToWomenPage()
+                .getLeftSidebar()
+                .clearCategory();
+
+        String actualCategoryText = storePage.getLeftSidebar().getSelectedCategoryText();
+        String expectedCategoryText = "Select a category";
+
+        Assert.assertEquals(actualCategoryText, expectedCategoryText, "Category was not cleared out!");
+        Assert.assertEquals(driver.getCurrentUrl(), EndPoints.STORE_URL, "User was not redirected to the Store page");
     }
 }

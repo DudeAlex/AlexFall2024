@@ -4,17 +4,16 @@ import com.ecommerce.pom.Loadable;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-import java.time.Duration;
+import static com.ecommerce.pom.EndPoints.BASE_URL;
 
 public class HomePage extends PurchasePage implements Loadable {
 
     By shopNowButton = By.xpath("//a[@class= 'wp-block-button__link']");
-    By accountButton = By.xpath("//li[@id=\"menu-item-1237\"]");
     By cartIcon = By.xpath("//div[@id=\"ast-desktop-header\"]//a[@title=\"View your shopping cart\"]//span");
     By firstProductAddToCartElementButton = By.xpath("//a[@href=\"?add-to-cart=1215\"]");
-    By accountHeaderLink = By.id("menu-item-1237");
     By resetCartButton = By.cssSelector("a.remove_from_cart_button");
 
     public HomePage(WebDriver driver) {
@@ -22,23 +21,15 @@ public class HomePage extends PurchasePage implements Loadable {
     }
 
     @Override
-    public void load() {
-        getDriver().get("https://askomdch.com/");
+    public HomePage load() {
+        getDriver().get(BASE_URL);
+
+        return this;
     }
 
     public StorePage shopNowButton() {
         WaitUtils.elementToBeClickable(getDriver(), shopNowButton).click();
         return new StorePage(getDriver());
-    }
-
-    public AccountPage navigateToAccountPage() {
-        WaitUtils.elementToBeClickable(getDriver(), accountButton, 2).click();
-        return new AccountPage(getDriver());
-    }
-
-    public CartPage navigateToCartPage() {
-        WaitUtils.elementToBeClickable(getDriver(), cartIcon, 1).click();
-        return new CartPage(getDriver());
     }
 
     public int getAmountOfProductsFromCartIcon() {
@@ -71,4 +62,20 @@ public class HomePage extends PurchasePage implements Loadable {
     public void resetCart() {
         WaitUtils.elementToBeClickable(getDriver(), resetCartButton, 2).click();
     }
+
+    public HomePage scrollToElement(WebElement webElement) {
+        new Actions(getDriver())
+                .scrollToElement(webElement)
+                .perform();
+
+        return this;
+    }
+
+    @Override
+    public HomePage clickAddToCartButton(String targetProductName) {
+       super.clickAddToCartButton(targetProductName);
+
+       return this;
+    }
+
 }

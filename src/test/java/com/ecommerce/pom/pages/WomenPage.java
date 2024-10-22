@@ -4,6 +4,8 @@ import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import static com.ecommerce.pom.EndPoints.WOMEN_URL;
+
 public class WomenPage extends SalesPage{
 
     By addToCartButton  = By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']");
@@ -23,7 +25,16 @@ public class WomenPage extends SalesPage{
     }
 
     @Override
-    public void load() {
-        getDriver().get("https://askomdch.com/product-category/women/");
+    public WomenPage load() {
+        getDriver().get(WOMEN_URL);
+
+        return this;
+    }
+
+    @Override
+    public WomenPage clickAddToCartButton(String targetProductName) {
+        super.clickAddToCartButton(targetProductName);
+
+        return this;
     }
 }

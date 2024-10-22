@@ -2,6 +2,8 @@ package com.ecommerce.pom.pages;
 
 import org.openqa.selenium.WebDriver;
 
+import static com.ecommerce.pom.EndPoints.MENS_SHIRTS_URL;
+
 public class MensShirtsPage extends SalesPage{
 
     public MensShirtsPage(WebDriver driver) {
@@ -9,7 +11,9 @@ public class MensShirtsPage extends SalesPage{
     }
 
     @Override
-    public void load() {
-        getDriver().get("https://askomdch.com/product-category/mens-shirts/");
+    public MensShirtsPage load() {
+        getDriver().get(MENS_SHIRTS_URL);
+
+        return this;
     }
 }

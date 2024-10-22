@@ -12,9 +12,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 
-public class RemoveOneProductFromTheCartByXTest extends BaseTest {
+public class EmptyCartMessageTest extends BaseTest {
 
-    @Test(description = "9.1-2-2.3 | TC Product removed by clicking the 'x' icon near the product in the cart # https://app.clickup.com/t/868a52u2t")
+    @Test(description = "9.1-9-1 | TC The cart page displays a message 'Your cart is currently empty' # https://app.clickup.com/t/868abdbhv")
     public void testRemoveOneProductFromTheCartByX() {
         User user = new User("test_test@test.test", "12345");
         HomePage homePage = new HomePage(driver);
@@ -22,21 +22,13 @@ public class RemoveOneProductFromTheCartByXTest extends BaseTest {
         accountPage.logIn(user.getEmail(), user.getPassword());
 
         CartPage cartPage = accountPage.getHeader().navigateToCartPage();
-        if (Integer.parseInt(cartPage.getCartItemsNumber()) > 0) {
-            cartPage.removeItemsFromCart();
-        }
+        cartPage.clearTheCart();
 
-        StorePage storePage = cartPage.getHeader().navigateToStorePage();
-        storePage.addToCartFromStorePage();
-        cartPage = storePage.getHeader().navigateToCartPage();
-        WaitUtils.waitForQuantityToBe(cartPage.getDriver(), By.xpath("//span[@class='count']"),"1");
-
-        Assert.assertEquals(cartPage.getCartItemsNumber(), "1");
-
-        cartPage.removeItemsFromCart();
-        WaitUtils.waitForQuantityToBe(cartPage.getDriver(), By.xpath("//span[@class='count']"),"0");
+        WaitUtils.waitForQuantityToBe(cartPage.getDriver(), By.xpath("//span[@class='count']"), "0");
 
         Assert.assertEquals(cartPage.getCartItemsNumber(), "0");
+
+        Assert.assertEquals(cartPage.getEmptyCartMessage(), "Your cart is currently empty.");
 
     }
 

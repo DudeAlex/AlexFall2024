@@ -1,15 +1,13 @@
 package com.ecommerce.pom.pages;
 
-import com.ecommerce.pojo.UserData;
-import com.ecommerce.pojo.UserDataPool;
 import com.ecommerce.pom.BasePage;
 import com.ecommerce.pom.Loadable;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import java.util.List;
 
+import static com.ecommerce.pom.EndPoints.CHECKOUT_URL;
 import static org.openqa.selenium.Keys.ENTER;
 
 public class CheckoutPage extends BasePage implements Loadable {
@@ -29,12 +27,15 @@ public class CheckoutPage extends BasePage implements Loadable {
     By checkYourOrderHasBeenReceivedMessage = By.xpath("//p[@class='woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received']");
 
     public CheckoutPage(WebDriver driver) {
+
         super(driver);
     }
 
     @Override
-    public void load() {
-        getDriver().get("https://askomdch.com/checkout/");
+    public CheckoutPage load() {
+        getDriver().get(CHECKOUT_URL);
+
+        return this;
     }
 
     public CheckoutPage inputFirstName(String firstName) {
