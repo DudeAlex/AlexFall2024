@@ -19,7 +19,7 @@ public class RemoveOneProductFromTheCartByZeroTest extends BaseTest {
         User user = new User("test_test@test.test", "12345");
         HomePage homePage = new HomePage(driver);
         AccountPage accountPage = homePage.getHeader().navigateToAccountPage();
-        accountPage.logIn(user.getEmail(), user.getPassword());
+        accountPage.logIn(user.getLogin(), user.getPassword());
         StorePage storePage = accountPage.getHeader().navigateToStorePage();
         storePage.addToCartFromStorePage();
         CartPage cartPage = storePage.getHeader().navigateToCartPage();
