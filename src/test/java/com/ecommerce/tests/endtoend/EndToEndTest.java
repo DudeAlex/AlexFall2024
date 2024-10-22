@@ -63,7 +63,7 @@ public class EndToEndTest  extends BaseTest {
     public void mockTest(){
 
         try {
-            User user = UserUtils.readUserFromJson("user.json"); // json file can not be found -> throwing an error message
+            User user = UserUtils.readUserFromJson("src/test/resources/user.json"); // json file can not be found -> throwing an error message
             Assert.assertNotNull(user);
             Assert.assertEquals(user.getLogin(), "user@example.com");
             Assert.assertEquals(user.getPassword(), "securePassword123");
