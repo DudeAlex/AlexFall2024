@@ -13,7 +13,7 @@ public class AddProductAccessoriesTest extends BaseTest {
         User user = new User("test_test@test.test", "12345");
         HomePage homePage = new HomePage(driver);
         AccountPage accountPage = homePage.getHeader().navigateToAccountPage();
-        accountPage.logIn(user.getEmail(), user.getPassword());
+        accountPage.logIn(user.getLogin(), user.getPassword());
 
         CartPage cartPage = accountPage.getHeader().navigateToCartPage();
         cartPage.clearTheCart();
