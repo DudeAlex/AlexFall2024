@@ -9,7 +9,9 @@ import com.ecommerce.utils.UserUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class EndToEndTest  extends BaseTest {
+import java.io.IOException;
+
+public class EndToEndTest extends BaseTest {
 
     @Test
     public void testProductToShoppingCart() {
@@ -53,24 +55,21 @@ public class EndToEndTest  extends BaseTest {
         String checkOrder = checkoutPage.checkYourOrderHasBeenReceivedMessage();
         Assert.assertEquals(checkOrder, yourOrderIsReceived);
 
+
     }
 
     @Test
     public void mockTest() {
-        try {
-            User user = UserUtils.readUserFromJson("user.json");
-            Assert.assertNotNull(user);
-            Assert.assertEquals("test_test@test.test", user.getLogin());
-            Assert.assertEquals("12345", user.getPassword());
 
+        try {
+            User user = UserUtils.readUserFromJson("user.json"); // json file can not be found -> throwing an error message
+            Assert.assertNotNull(user);
+            Assert.assertEquals(user.getLogin(), "test_test@test.test");
+            Assert.assertEquals(user.getPassword(), "12345");
         } catch (IOException e) {
-            Assert.fail("Failed to read user from JSON: " + e.getMessage());
+            Assert.fail("Failed to read user from JSON", e);
         }
+
     }
 
 }
-
-
-
-
-
