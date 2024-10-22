@@ -64,14 +64,13 @@ public class EndToEndTest extends BaseTest {
         try {
             User user = UserUtils.readUserFromJson("user.json");
             Assert.assertNotNull(user);
-            Assert.assertEquals("user@example.com", user.getLogin());
-            Assert.assertEquals("securePassword123", user.getPassword());
+            Assert.assertEquals("test_test@test.test", user.getLogin());
+            Assert.assertEquals("12345", user.getPassword());
 
         } catch (IOException e) {
             Assert.fail("Failed to read user from JSON: " + e.getMessage());
         }
     }
-
 
 }
 

@@ -3,7 +3,6 @@ package com.ecommerce.utils;
 import com.ecommerce.pojo.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
@@ -25,8 +24,8 @@ public class UserUtils {
         return UUID.randomUUID().toString().replace("-", "").substring(0, 10);
     }
 
-    public static User readUserFromJson(String str) throws IOException {
-        InputStream inputStream = UserUtils.class.getClassLoader().getResourceAsStream(str);
+    public static User readUserFromJson(String fileName) throws IOException {
+        InputStream inputStream = UserUtils.class.getClassLoader().getResourceAsStream(fileName);
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(inputStream, User.class);
     }
