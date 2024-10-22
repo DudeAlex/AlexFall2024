@@ -27,8 +27,6 @@ public class AccessoriesPage extends SalesPage{
         return this;
     }
 
-
-
     public List<String> collectCategories() {
         return CollectToListUtils.productsCategories(getDriver());
     }
