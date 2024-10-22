@@ -25,10 +25,9 @@ public class UserUtils {
         return UUID.randomUUID().toString().replace("-", "").substring(0, 10);
     }
 
-    public static User readUserFromJson(String filePath) throws IOException {
-
+    public static User readUserFromJson(String str) throws IOException {
+        InputStream inputStream = UserUtils.class.getClassLoader().getResourceAsStream(str);
         ObjectMapper objectMapper = new ObjectMapper();
-        InputStream inputStream = UserUtils.class.getClassLoader().getResourceAsStream(filePath);
         return objectMapper.readValue(inputStream, User.class);
     }
 
