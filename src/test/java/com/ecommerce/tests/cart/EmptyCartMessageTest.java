@@ -5,7 +5,6 @@ import com.ecommerce.pojo.User;
 import com.ecommerce.pom.pages.AccountPage;
 import com.ecommerce.pom.pages.CartPage;
 import com.ecommerce.pom.pages.HomePage;
-import com.ecommerce.pom.pages.StorePage;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.testng.Assert;
@@ -19,7 +18,7 @@ public class EmptyCartMessageTest extends BaseTest {
         User user = new User("test_test@test.test", "12345");
         HomePage homePage = new HomePage(driver);
         AccountPage accountPage = homePage.getHeader().navigateToAccountPage();
-        accountPage.logIn(user.getEmail(), user.getPassword());
+        accountPage.logIn(user.getLogin(), user.getPassword());
 
         CartPage cartPage = accountPage.getHeader().navigateToCartPage();
         cartPage.clearTheCart();

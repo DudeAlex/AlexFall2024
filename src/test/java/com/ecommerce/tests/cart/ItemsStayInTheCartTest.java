@@ -14,7 +14,7 @@ public class ItemsStayInTheCartTest extends BaseTest {
 
         User user = new User("test_test@test.test", "12345");
         AccountPage accountPage =  new AccountPage(driver);
-        accountPage.load().logIn(user.getEmail(), user.getPassword());
+        accountPage.load().logIn(user.getLogin(), user.getPassword());
 
         CartPage cartPage = accountPage.getHeader().navigateToCartPage();
         if (Integer.parseInt(cartPage.getCartItemsNumber()) > 0) {
@@ -28,7 +28,7 @@ public class ItemsStayInTheCartTest extends BaseTest {
         Assert.assertEquals(cartPage.getCartItemsNumber(), "1");
 
         cartPage.getHeader().navigateToAccountPage().logout();
-        accountPage.logIn(user.getEmail(), user.getPassword());
+        accountPage.logIn(user.getLogin(), user.getPassword());
 
         Assert.assertEquals(cartPage.getCartItemsNumber(), "1");
 
@@ -38,7 +38,7 @@ public class ItemsStayInTheCartTest extends BaseTest {
 
         User user = new User("test_test@test.test", "12345");
         AccountPage accountPage =  new AccountPage(driver);
-        accountPage.load().logIn(user.getEmail(), user.getPassword());
+        accountPage.load().logIn(user.getLogin(), user.getPassword());
 
         CartPage cartPage = accountPage.getHeader().navigateToCartPage();
         if (Integer.parseInt(cartPage.getCartItemsNumber()) > 0) {
