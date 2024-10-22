@@ -6,25 +6,26 @@ import com.ecommerce.pom.pages.AccountPage;
 import com.ecommerce.pom.pages.CartPage;
 import com.ecommerce.pom.pages.HomePage;
 import com.ecommerce.pom.pages.StorePage;
+import com.ecommerce.utils.UserUtils;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+
 
 public class RemoveOneProductFromThePopUpByXTest extends BaseTest {
 
     @Test(description = "9.1-2-2.1 | TC Product removed by clicking 'x' icon on the 'cart preview' window # https://app.clickup.com/t/868a5jk11")
-    public void testRemoveOneProductFromThePopUpByX() {
-        User user = new User("test_test@test.test", "12345");
+    public void testRemoveOneProductFromThePopUpByX() throws IOException {
+        User user = UserUtils.readUserFromJson("user.json");
         HomePage homePage = new HomePage(driver);
         AccountPage accountPage = homePage.getHeader().navigateToAccountPage();
         accountPage.logIn(user.getLogin(), user.getPassword());
 
         CartPage cartPage = accountPage.getHeader().navigateToCartPage();
-        if (Integer.parseInt(cartPage.getCartItemsNumber()) > 0) {
-            cartPage.removeItemsFromCart();
-        }
+        cartPage.clearTheCart();
 
         StorePage storePage = cartPage.getHeader().navigateToStorePage();
         storePage.addToCartFromStorePage();
