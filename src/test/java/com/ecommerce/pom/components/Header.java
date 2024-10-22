@@ -79,4 +79,39 @@ public class Header extends BaseComponent {
         return Integer.parseInt(numberProductsInCart);
     }
 
+    public By getHeaderHome() {
+        return headerHome;
+    }
+
+    public By getHeaderStore() {
+        return headerStore;
+    }
+
+    public By getHeaderMen() {
+        return headerMen;
+    }
+
+    public By getHeaderWomen() {
+        return headerWomen;
+    }
+
+    public By getHeaderAccessories() {
+        return headerAccessories;
+    }
+
+    public By getHeaderAccount() {
+        return headerAccount;
+    }
+
+    public By getHeaderAbout() {
+        return headerAbout;
+    }
+
+    public By getHeaderContactUs() {
+        return headerContactUs;
+    }
+
+    public By getHeaderCartButton() {
+        return headerCartButton;
+    }
 }
