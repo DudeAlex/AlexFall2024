@@ -9,10 +9,7 @@ import com.ecommerce.utils.UserUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-public class EndToEndTest extends BaseTest {
+public class EndToEndTest  extends BaseTest {
 
     @Test
     public void testProductToShoppingCart() {
@@ -56,7 +53,6 @@ public class EndToEndTest extends BaseTest {
         String checkOrder = checkoutPage.checkYourOrderHasBeenReceivedMessage();
         Assert.assertEquals(checkOrder, yourOrderIsReceived);
 
-
     }
 
     @Test
@@ -73,5 +69,8 @@ public class EndToEndTest extends BaseTest {
     }
 
 }
+
+
+
 
 
