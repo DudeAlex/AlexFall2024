@@ -25,7 +25,6 @@ public class ChangePasswordTest extends BaseTest {
         Assert.assertEquals(actualConfirmationMassage,expectedConfirmationMassage,"Password change was unsuccessful!");
 
         editAccountPage.returnToOldPassword();
-
         Assert.assertEquals(actualConfirmationMassage,expectedConfirmationMassage);
 
 
