@@ -9,7 +9,7 @@ import org.openqa.selenium.interactions.Actions;
 
 import static com.ecommerce.pom.EndPoints.BASE_URL;
 
-public class HomePage extends PurchasePage implements Loadable {
+public class HomePage extends PurchasePage<HomePage> implements Loadable {
 
     By shopNowButton = By.xpath("//a[@class= 'wp-block-button__link']");
     By cartIcon = By.xpath("//div[@id=\"ast-desktop-header\"]//a[@title=\"View your shopping cart\"]//span");
@@ -71,11 +71,11 @@ public class HomePage extends PurchasePage implements Loadable {
         return this;
     }
 
-    @Override
-    public HomePage clickAddToCartButton(String targetProductName) {
-       super.clickAddToCartButton(targetProductName);
-
-       return this;
-    }
+//    @Override
+//    public HomePage clickAddToCartButton(String targetProductName) {
+//       super.clickAddToCartButton(targetProductName);
+//
+//       return this;
+//    }
 
 }
