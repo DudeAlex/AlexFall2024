@@ -10,8 +10,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import static com.ecommerce.pom.EndPoints.ACCOUNT_URL;
-import static java.sql.DriverManager.getDriver;
-
 
 public class AccountPage extends BasePage implements Loadable {
     By emailField = By.id("//input [ @ id = 'username']");
@@ -27,6 +25,7 @@ public class AccountPage extends BasePage implements Loadable {
     By welcomeNewUserText = By.xpath("//p[contains(text(),'Hello')]");
     By errorMessage = By.xpath("//ul[@role='alert']");
     By logoutLink = By.xpath("//div[@class = 'woocommerce-MyAccount-content']//a[text() = 'Log out']");
+    By logoutButton = By.xpath("//li[contains(@class, 'woocommerce-MyAccount-navigation-link--customer-logout')]/a[text()='Logout']");
     By accountDetailLink = By.xpath("//a[normalize-space()='Account details']");
 
     public AccountPage(WebDriver driver) {
@@ -136,4 +135,55 @@ public class AccountPage extends BasePage implements Loadable {
         return WaitUtils.visibilityOf(getDriver(), welcomeNewUserText).getText();
     }
 
+    public By getEmailField() {
+        return emailField;
+    }
+
+    public By getPasswordField() {
+        return passwordField;
+    }
+
+    public By getLoginButton() {
+        return loginButton;
+    }
+
+    public By getLoginUsername() {
+        return loginUsername;
+    }
+
+    public By getLoginPassword() {
+        return loginPassword;
+    }
+
+    public By getRegisterUsernameInput() {
+        return registerUsernameInput;
+    }
+
+    public By getRegisterButton() {
+        return registerButton;
+    }
+
+    public By getLostPasswordLink() {
+        return lostPasswordLink;
+    }
+
+    public By getRegisterEmailAddressInput() {
+        return registerEmailAddressInput;
+    }
+
+    public By getRegisterPasswordInput() {
+        return registerPasswordInput;
+    }
+
+    public By getLogoutLink() {
+        return logoutLink;
+    }
+
+    public By getAccountDetailLink() {
+        return accountDetailLink;
+    }
+
+    public By getLogoutButton() {
+        return logoutButton;
+    }
 }
