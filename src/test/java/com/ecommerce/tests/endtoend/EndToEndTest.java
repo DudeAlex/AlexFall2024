@@ -9,17 +9,15 @@ import com.ecommerce.utils.UserUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
-
 public class EndToEndTest  extends BaseTest {
 
     @Test
-    public void testProductToShoppingCart (){
+    public void testProductToShoppingCart() {
 
-       UserData userData = UserDataPool.getFakerUserDataList(10).get(4);
-       String product = "Blue";
-       String productNameAndQuantity = "Blue Shoes  × 1";
-       String yourOrderIsReceived = "Thank you. Your order has been received.";
+        UserData userData = UserDataPool.getFakerUserDataList(10).get(4);
+        String product = "Blue";
+        String productNameAndQuantity = "Blue Shoes  × 1";
+        String yourOrderIsReceived = "Thank you. Your order has been received.";
 
         HomePage homePage = new HomePage(driver);
         StorePage storePage = homePage.getHeader().navigateToStorePage();
@@ -39,13 +37,13 @@ public class EndToEndTest  extends BaseTest {
 
         CheckoutPage checkoutPage = new CheckoutPage(driver);
         checkoutPage.inputFirstName(userData.getFirstName())
-                    .inputLastName(userData.getLastName())
-                    .inputCountry(userData.getCountry())
-                    .inputStreetAddress(userData.getAddress())
-                    .inputTown(userData.getTown())
-                    .clickBillingStateDropDown(userData.getState())
-                    .inputZip(userData.getZipCode())
-                    .inputEmail(userData.getEmailAddress());
+                .inputLastName(userData.getLastName())
+                .inputCountry(userData.getCountry())
+                .inputStreetAddress(userData.getAddress())
+                .inputTown(userData.getTown())
+                .clickBillingStateDropDown(userData.getState())
+                .inputZip(userData.getZipCode())
+                .inputEmail(userData.getEmailAddress());
 
         String productOrder = checkoutPage.productNameAndQuantity();
         Assert.assertEquals(productOrder, productNameAndQuantity);
@@ -55,25 +53,24 @@ public class EndToEndTest  extends BaseTest {
         String checkOrder = checkoutPage.checkYourOrderHasBeenReceivedMessage();
         Assert.assertEquals(checkOrder, yourOrderIsReceived);
 
-
-
     }
 
     @Test
-    public void mockTest(){
-
+    public void mockTest() {
         try {
-            User user = UserUtils.readUserFromJson("user.json"); // json file can not be found -> throwing an error message
+            User user = UserUtils.readUserFromJson("user.json");
             Assert.assertNotNull(user);
-            Assert.assertEquals(user.getLogin(), "user@example.com");
-            Assert.assertEquals(user.getPassword(), "securePassword123");
+            Assert.assertEquals("test_test@test.test", user.getLogin());
+            Assert.assertEquals("12345", user.getPassword());
+
         } catch (IOException e) {
-            Assert.fail("Failed to read user from JSON", e);
+            Assert.fail("Failed to read user from JSON: " + e.getMessage());
         }
     }
 
+}
 
 
-    }
+
 
 

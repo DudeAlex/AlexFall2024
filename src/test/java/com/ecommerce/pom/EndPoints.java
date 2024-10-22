@@ -2,6 +2,7 @@ package com.ecommerce.pom;
 
 public class EndPoints {
 
+
     public static final String BASE_URL = "https://askomdch.com/";
     public static final String STORE_URL = "https://askomdch.com/store/";
     public static final String MEN_URL = "https://askomdch.com/product-category/men/";
