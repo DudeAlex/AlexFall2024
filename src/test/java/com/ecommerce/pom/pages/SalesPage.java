@@ -22,6 +22,7 @@ public abstract class SalesPage extends PurchasePage<SalesPage> implements Loada
     By sortByPrice = By.xpath("//span[@class='byPrice']");
     By sortBy = By.xpath("//select[@name='orderby']");
     By price = By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]");
+    By allProductList = By.xpath("//ul//h2");
    // By onSaleIcon = By.xpath("//span[contains(text(),'Sale!')]");
 
     private final LeftSidebar leftSidebar;
@@ -54,6 +55,17 @@ public abstract class SalesPage extends PurchasePage<SalesPage> implements Loada
         }
 
         return actualPriceList;
+    }
+
+    private static int countItemsContainingItemText(List<WebElement> items, String product) {
+        int count = 0;
+        for (WebElement item : items) {
+            String itemText = item.getText().toLowerCase();
+            if (itemText.contains(product.toLowerCase())) {
+                count++;
+            }
+        }
+        return count;
     }
 
     public List<Boolean> areProductsOnSaleHaveCrossedPrice() {
@@ -123,4 +135,22 @@ public abstract class SalesPage extends PurchasePage<SalesPage> implements Loada
         return  WaitUtils.presenceOfElementLocated(getDriver(),saleTag).getText();
     }
 
+    public int countItemsOnPage(String itemName) {
+        List<WebElement> searchResultList = WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(), allProductList);
+        if (searchResultList.isEmpty()) {
+            throw new NoSuchElementException("Search results are empty.");
+        }
+
+        return countItemsContainingItemText(searchResultList, itemName);
+    }
+
+    public List<String> getAllItemsNameList() {
+        List<WebElement> productList = WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(), allProductList);
+        List<String> productNameList = new ArrayList<>();
+        for (WebElement item: productList){
+            productNameList.add(item.getText());
+        }
+
+        return productNameList;
+    }
 }

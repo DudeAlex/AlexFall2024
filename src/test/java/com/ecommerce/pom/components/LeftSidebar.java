@@ -1,7 +1,5 @@
 package com.ecommerce.pom.components;
 
-import com.ecommerce.pom.Loadable;
-import com.ecommerce.pom.pages.SalesPage;
 import com.ecommerce.pom.pages.StorePage;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
@@ -36,18 +34,17 @@ public class LeftSidebar extends BaseComponent {
     By womensShoes = By.xpath("//option[@value='womens-shoes']");
     By clearSelectionIcon = By.xpath("//span[@class='select2-selection__clear' and text()='×']");
 
-
     // "Filter By Price" section
 
     public LeftSidebar(WebDriver driver) {
         super(driver);
     }
 
-    public StorePage searchProduct(String item) {
+    public <T> T searchProduct(String item, T page) {
         WaitUtils.visibilityOfElementLocated(getDriver(), searchInputField).sendKeys(item);
         WaitUtils.presenceOfElementLocated(getDriver(), searchButton).click();
 
-        return new StorePage(getDriver());
+        return page;
     }
 
     public void browseByCategory(String category) {
