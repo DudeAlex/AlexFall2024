@@ -19,6 +19,4 @@ public class WomenBestSellersTest extends BaseTest {
 
         Assert.assertTrue(bestSellerslist.size() == 3);
     }
-
-
 }

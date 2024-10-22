@@ -18,6 +18,8 @@ public class LeftSidebar extends BaseComponent {
     By searchButton = By.xpath("//button[@value='Search']");
 
     // "Our Best Sellers" section
+    By bestSellerTitle = By.cssSelector(".widget.woocommerce.widget_top_rated_products >.widget-title");
+    By bestSellersItems = By.cssSelector(".product_list_widget>li");
 
     // "Browse By Categories" section
     By browseByCategoryInputField = By.xpath("//select[@id='product_cat']");
@@ -33,6 +35,7 @@ public class LeftSidebar extends BaseComponent {
     By womensShirts = By.xpath("//option[@value='womens-shirts']");
     By womensShoes = By.xpath("//option[@value='womens-shoes']");
     By clearSelectionIcon = By.xpath("//span[@class='select2-selection__clear' and text()='×']");
+
 
     // "Filter By Price" section
 
@@ -70,5 +73,12 @@ public class LeftSidebar extends BaseComponent {
     public StorePage clearCategory() {
         WaitUtils.presenceOfElementLocated(getDriver(), clearSelectionIcon).click();
         return new StorePage(getDriver());
+    }
+
+    public String getBestSellerTitle() {
+        return  WaitUtils.visibilityOfElementLocated(getDriver(), bestSellerTitle).getText();
+    }
+    public List<WebElement> getBestSellersList(){
+        return  WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(),bestSellersItems);
     }
 }
