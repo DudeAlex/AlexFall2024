@@ -25,9 +25,8 @@ public class UserUtils {
     }
 
     public static User readUserFromJson(String filePath) throws IOException {
-
+        InputStream inputStream = UserUtils.class.getClassLoader().getResourceAsStream(filePath);
         ObjectMapper objectMapper = new ObjectMapper();
-        InputStream inputStream = UserUtils.class.getResourceAsStream(filePath);
         return objectMapper.readValue(inputStream, User.class);
     }
 

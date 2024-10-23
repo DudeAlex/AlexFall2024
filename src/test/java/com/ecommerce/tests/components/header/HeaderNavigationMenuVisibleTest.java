@@ -1,6 +1,7 @@
 package com.ecommerce.tests.components.header;
 
 import com.ecommerce.base.BaseTest;
+import com.ecommerce.pom.pages.HomePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -9,7 +10,7 @@ import org.testng.annotations.*;
 
 import java.time.Duration;
 
-public class NavigationMenuVisibleTest extends BaseTest {
+public class HeaderNavigationMenuVisibleTest extends BaseTest {
 
     @BeforeClass
     public void setUpClass(){
@@ -39,55 +40,64 @@ public class NavigationMenuVisibleTest extends BaseTest {
 
     @Test(description = "0-3-1| Verify Navigation Menu Placement # https://app.clickup.com/t/8689q87dt")
     public void testHomeMenuIsDisplayed() {
+        HomePage homePage = new HomePage(driver);
 
-        Assert.assertTrue(driver.findElement(By.id("menu-item-1226")).isDisplayed()); // Home
+        Assert.assertTrue(driver.findElement(homePage.getHeader().getHeaderHome()).isDisplayed()); // Home
     }
 
     @Test(description = "0-3-1| Verify Navigation Menu Placement # https://app.clickup.com/t/8689q87dt")
     public void testStoreMenuIsDisplayed() {
+        HomePage homePage = new HomePage(driver);
 
-        Assert.assertTrue(driver.findElement(By.id("menu-item-1227")).isDisplayed()); // Store
+        Assert.assertTrue(driver.findElement(homePage.getHeader().getHeaderStore()).isDisplayed()); // Store
     }
 
     @Test(description = "0-3-1| Verify Navigation Menu Placement # https://app.clickup.com/t/8689q87dt")
     public void testMenMenuIsDisplayed() {
+        HomePage homePage = new HomePage(driver);
 
-        Assert.assertTrue(driver.findElement(By.id("menu-item-1228")).isDisplayed()); // Men
+        Assert.assertTrue(driver.findElement(homePage.getHeader().getHeaderMen()).isDisplayed()); // Men
     }
 
     @Test(description = "0-3-1| Verify Navigation Menu Placement # https://app.clickup.com/t/8689q87dt")
     public void testWomenMenuIsDisplayed() {
+        HomePage homePage = new HomePage(driver);
 
-        Assert.assertTrue(driver.findElement(By.id("menu-item-1229")).isDisplayed()); // Women
+        Assert.assertTrue(driver.findElement(homePage.getHeader().getHeaderWomen()).isDisplayed()); // Women
     }
 
     @Test(description = "0-3-1| Verify Navigation Menu Placement # https://app.clickup.com/t/8689q87dt")
     public void testAccessoriesMenuIsDisplayed() {
+        HomePage homePage = new HomePage(driver);
 
-        Assert.assertTrue(driver.findElement(By.id("menu-item-1230")).isDisplayed()); // Accessories
+        Assert.assertTrue(driver.findElement(homePage.getHeader().getHeaderAccessories()).isDisplayed()); // Accessories
     }
 
     @Test(description = "0-3-1| Verify Navigation Menu Placement # https://app.clickup.com/t/8689q87dt")
     public void testAccountMenuIsDisplayed() {
+        HomePage homePage = new HomePage(driver);
 
-        Assert.assertTrue(driver.findElement(By.id("menu-item-1237")).isDisplayed()); // Account
+        Assert.assertTrue(driver.findElement(homePage.getHeader().getHeaderAccount()).isDisplayed()); // Account
     }
 
     @Test(description = "0-3-1| Verify Navigation Menu Placement # https://app.clickup.com/t/8689q87dt")
     public void testAboutIsDisplayed(){
+        HomePage homePage = new HomePage(driver);
 
-        Assert.assertTrue(driver.findElement(By.id("menu-item-1232")).isDisplayed()); // About
+        Assert.assertTrue(driver.findElement(homePage.getHeader().getHeaderAbout()).isDisplayed()); // About
     }
 
     @Test(description = "0-3-1| Verify Navigation Menu Placement # https://app.clickup.com/t/8689q87dt")
     public void testContactUsIsDisplayed(){
+        HomePage homePage = new HomePage(driver);
 
-        Assert.assertTrue(driver.findElement(By.id("menu-item-1233")).isDisplayed()); // Contact Us
+        Assert.assertTrue(driver.findElement(homePage.getHeader().getHeaderContactUs()).isDisplayed()); // Contact Us
     }
 
     @Test(description = "0-3-1| Verify Navigation Menu Placement # https://app.clickup.com/t/8689q87dt")
     public void testCartIsDisplayed() {
+        HomePage homePage = new HomePage(driver);
 
-        Assert.assertTrue(driver.findElement(By.cssSelector("a[href='https://askomdch.com/cart/']")).isDisplayed()); // Cart
+        Assert.assertTrue(driver.findElement(homePage.getHeader().getHeaderCartButton()).isDisplayed()); // Cart
     }
 }
