@@ -2,6 +2,8 @@ package com.ecommerce.tests.components.left_sidebar;
 
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.pom.pages.MenPage;
+import com.ecommerce.pom.pages.ProductPage;
+import com.ecommerce.pom.pages.PurchasePage;
 import com.ecommerce.pom.pages.StorePage;
 import com.ecommerce.pom.pages.WomenPage;
 import com.ecommerce.pom.EndPoints;
@@ -112,7 +114,7 @@ public class LeftSidebarTest extends BaseTest {
         final String itemCategory = "jeans";
 
         int quantityFromSearchResult = new StorePage(driver).load()
-                .getLeftSidebar().searchProduct(itemCategory, new StorePage(driver))
+                .getLeftSidebar().searchProduct(itemCategory)
                 .countItemsOnPage(itemCategory);
 
         int quantityFromMenPage = new MenPage(driver).load()
@@ -131,9 +133,20 @@ public class LeftSidebarTest extends BaseTest {
     public void testSearchWithTwoCharactersReturnsRelevantItems() {
         String partialFirstCharacters = "Je";
 
-        List<String> productNameList = new StorePage(driver).load()
-                .getLeftSidebar().searchProduct(partialFirstCharacters, new StorePage(driver))
-                .getAllItemsNameList();
+        PurchasePage<?> resultPage = new StorePage(driver).load()
+                .getLeftSidebar().searchProduct(partialFirstCharacters);//неопределённый параметр типа
+
+        List<String> productNameList = new ArrayList<>();
+
+        if (resultPage instanceof StorePage) {
+            productNameList = ((StorePage) resultPage).getAllItemsNameList();
+        } else if (resultPage instanceof ProductPage) {
+
+            Assert.assertTrue(((ProductPage) resultPage).getProductNameText().contains(partialFirstCharacters));
+
+        } else {
+            throw new IllegalStateException("Unexpected page after search.");
+        }
 
         boolean allContainMatch = true;
 
