@@ -1,5 +1,6 @@
 package com.ecommerce.pom.pages;
 
+import com.ecommerce.pom.Loadable;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -12,7 +13,7 @@ import java.util.List;
 
 import static com.ecommerce.pom.EndPoints.STORE_URL;
 
-public class StorePage extends SalesPage{
+public class StorePage extends SalesPage implements Loadable {
 
     String add = "//a[@aria-label='Add “";
     String toCart = "” to your cart']";

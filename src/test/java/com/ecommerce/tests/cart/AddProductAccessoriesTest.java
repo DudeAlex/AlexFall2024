@@ -1,7 +1,7 @@
 package com.ecommerce.tests.cart;
 
 import com.ecommerce.base.BaseTest;
-import com.ecommerce.pojo.User;
+import com.ecommerce.tests.account.pojo.User;
 import com.ecommerce.pom.pages.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;

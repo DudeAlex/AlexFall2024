@@ -1,4 +1,4 @@
-package com.ecommerce.pojo;
+package com.ecommerce.tests.account.pojo;
 
 import com.github.javafaker.Faker;
 

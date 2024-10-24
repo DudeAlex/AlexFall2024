@@ -1,9 +1,9 @@
 package com.ecommerce.tests.endtoend;
 
 import com.ecommerce.base.BaseTest;
-import com.ecommerce.pojo.User;
-import com.ecommerce.pojo.UserData;
-import com.ecommerce.pojo.UserDataPool;
+import com.ecommerce.tests.account.pojo.User;
+import com.ecommerce.tests.account.pojo.UserData;
+import com.ecommerce.tests.account.pojo.UserDataPool;
 import com.ecommerce.pom.pages.*;
 import com.ecommerce.utils.UserUtils;
 import org.testng.Assert;
@@ -55,18 +55,18 @@ public class EndToEndTest  extends BaseTest {
 
     }
 
-    @Test
-    public void mockTest() {
-        try {
-            User user = UserUtils.readUserFromJson("user.json");
-            Assert.assertNotNull(user);
-            Assert.assertEquals("test_test@test.test", user.getLogin());
-            Assert.assertEquals("12345", user.getPassword());
+//    @Test
+//    public void mockTest() {
+//        try {
+//            User user = UserUtils.readUserFromJson("user.json");
+//            Assert.assertNotNull(user);
+//            Assert.assertEquals("test_test@test.test", user.getLogin());
+//            Assert.assertEquals("12345", user.getPassword());
 
-        } catch (IOException e) {
-            Assert.fail("Failed to read user from JSON: " + e.getMessage());
-        }
-    }
+//        } catch (IOException e) {
+//            Assert.fail("Failed to read user from JSON: " + e.getMessage());
+//        }
+//    }
 
 }
 

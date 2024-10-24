@@ -1,8 +1,8 @@
 package com.ecommerce.utils;
 
-import com.ecommerce.pojo.User;
+import com.ecommerce.tests.account.pojo.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.File;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;

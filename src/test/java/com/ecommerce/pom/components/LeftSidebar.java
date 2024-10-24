@@ -1,10 +1,10 @@
 package com.ecommerce.pom.components;
 
-import com.ecommerce.pom.Loadable;
 import com.ecommerce.pom.pages.SalesPage;
 import com.ecommerce.pom.pages.StorePage;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -38,6 +38,20 @@ public class LeftSidebar extends BaseComponent {
 
 
     // "Filter By Price" section
+    By minAvailableFilterPrice = By.xpath("//div[@class='price_label']//span[@class='from']");
+    By maxAvailableFilterPrice = By.xpath("//div[@class='price_label']//span[@class='to']");
+
+    public By leftSliderNod = By
+            .xpath("//div[contains(@class, 'price_slider_wrapper')]//span[contains(@class, 'ui-slider')][1]");
+    public By rightSliderNod = By
+            .xpath("//div[contains(@class, 'price_slider_wrapper')]//span[contains(@class, 'ui-slider')][2]");
+    public By filterButton = By.xpath("//button[text()='Filter']");
+
+    private final int priceFilterStep = 10; // 10$ is a min step the 'Filter by price' slider can be moved.
+
+    public int getPriceFilterStep() {
+        return this.priceFilterStep;
+    }
 
     public LeftSidebar(WebDriver driver) {
         super(driver);
@@ -81,4 +95,44 @@ public class LeftSidebar extends BaseComponent {
     public List<WebElement> getBestSellersList(){
         return  WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(),bestSellersItems);
     }
+
+
+    public int getMinAvailableFilterPrice() {
+        String minPrice = WaitUtils.visibilityOfElementLocated(getDriver(), minAvailableFilterPrice).getText();
+        minPrice = minPrice.replaceAll("[^0-9]", "");
+
+        return Integer.parseInt(minPrice);
+    }
+
+    public int getMaxAvailableFilterPrice() {
+        String maxPrice = WaitUtils.visibilityOfElementLocated(getDriver(), maxAvailableFilterPrice).getText();
+        maxPrice = maxPrice.replaceAll("[^0-9]", "");
+
+        return Integer.parseInt(maxPrice);
+    }
+
+    public long getDifferenceBetweenPriceFilterNods() {
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        WebElement leftSliderNodElement = getDriver().findElement(leftSliderNod);
+        WebElement rightSliderNodElement = getDriver().findElement(rightSliderNod);
+     // Get the left coordinate of the left slider nod
+        Long leftSliderX = ((Number) js.executeScript(
+                "return arguments[0].getBoundingClientRect().left;", leftSliderNodElement)).longValue();
+     // Get the left coordinate of the right slider nod
+        Long rightSliderX = ((Number) js.executeScript(
+                "return arguments[0].getBoundingClientRect().left;", rightSliderNodElement)).longValue();
+
+        return rightSliderX - leftSliderX;
+    }
+
+    public double calculateOneStepXOffsetForPriceFilterSlider() {
+        int minAvailablePrice = getMinAvailableFilterPrice();
+        int maxAvailablePrice = getMaxAvailableFilterPrice();
+
+        long priceRange = maxAvailablePrice - minAvailablePrice;
+        long nodsDifference = getDifferenceBetweenPriceFilterNods();
+
+        return (double) priceFilterStep * nodsDifference / priceRange;
+    }
+
 }
