@@ -24,8 +24,8 @@ public class AccountPage extends BasePage implements Loadable {
     By registerPasswordInput = By.xpath("(//input[@type='password'])[2]");
     By welcomeNewUserText = By.xpath("//p[contains(text(),'Hello')]");
     By errorMessage = By.xpath("//ul[@role='alert']");
-    By logoutLink = By.xpath("//div[@class = 'woocommerce-MyAccount-content']//a[text() = 'Log out']");
-    By logoutButton = By.xpath("//li[contains(@class, 'woocommerce-MyAccount-navigation-link--customer-logout')]/a[text()='Logout']");
+    By logoutLinkFromMainContent = By.xpath("//div[@class = 'woocommerce-MyAccount-content']//a[text() = 'Log out']");
+    By logoutLinkFromSideMenu = By.xpath("//li[contains(@class, 'woocommerce-MyAccount-navigation-link--customer-logout')]/a[text()='Logout']");
     By accountDetailLink = By.xpath("//a[normalize-space()='Account details']");
 
     public AccountPage(WebDriver driver) {
@@ -51,11 +51,16 @@ public class AccountPage extends BasePage implements Loadable {
         getDriver().findElement(loginButton).click();
     }
 
-    public AccountPage logout() {
-        WebElement logout = WaitUtils.presenceOfElementLocated(getDriver(), logoutLink, 5);
+    public AccountPage logOutFromMainContent() {
+        WebElement logout = WaitUtils.presenceOfElementLocated(getDriver(), logoutLinkFromMainContent, 5);
         if (logout.isDisplayed()) {
             logout.click();
         }
+        return this;
+    }
+
+    public AccountPage logOutFromSideMenu() {
+        WaitUtils.elementToBeClickable(getDriver(), logoutLinkFromSideMenu).click();
         return this;
     }
 
@@ -175,15 +180,15 @@ public class AccountPage extends BasePage implements Loadable {
         return registerPasswordInput;
     }
 
-    public By getLogoutLink() {
-        return logoutLink;
+    public By getLogoutLinkFromMainContent() {
+        return logoutLinkFromMainContent;
     }
 
     public By getAccountDetailLink() {
         return accountDetailLink;
     }
 
-    public By getLogoutButton() {
-        return logoutButton;
+    public By getLogoutLinkFromSideMenu() {
+        return logoutLinkFromSideMenu;
     }
 }

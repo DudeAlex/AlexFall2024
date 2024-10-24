@@ -21,10 +21,10 @@ public class RegisteredUserLoginTest extends BaseTest {
         AccountPage accountPage = new AccountPage(driver).load();
         accountPage.logIn(user.getLogin(), user.getPassword());
 
-        String linkLogoutGetText = driver.findElement(accountPage.getLogoutButton()).getText();
+        String linkLogoutGetText = driver.findElement(accountPage.getLogoutLinkFromSideMenu()).getText();
         Assert.assertEquals(linkLogoutGetText, logoutButtonText);
 
-        accountPage.logout();
+        accountPage.logOutFromMainContent();
 
         String loginButtonGetText = driver.findElement(accountPage.getLoginButton()).getText();
         Assert.assertEquals(loginButtonGetText,logInButtonText);
