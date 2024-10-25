@@ -14,8 +14,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
-
-public abstract class SalesPage extends PurchasePage<SalesPage> implements Loadable {
+public abstract class SalesPage<Page extends SalesPage> extends PurchasePage<SalesPage> implements Loadable {
 
     By singleItemContainer = By.xpath("//ul[@class='products columns-4']//li");
     By saleTag = By.xpath("//span[@class='onsale']");
