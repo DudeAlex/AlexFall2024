@@ -30,7 +30,7 @@ public class LeftSidebarTest extends BaseTest {
         String searchWord = "Blue";
         HomePage homePage = new HomePage(driver);
         StorePage storePage = homePage.clickShopNowButton();
-        storePage.getLeftSidebar().searchProduct(searchWord, new StorePage(driver));
+        storePage.getLeftSidebar().searchProduct(searchWord);
         List<String> expectedSearchResultList = storePage.getLeftSidebar().getExpectedSearchResultListWithBlue();
         List<String> actualSearchResultList = List.of(
                 "Blue Shoes",
