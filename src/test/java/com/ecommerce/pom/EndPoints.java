@@ -10,7 +10,7 @@ public class EndPoints {
     public static final String MENS_SHIRTS_URL = "https://askomdch.com/product-category/mens-shirts/";
     public static final String MENS_SHOES_URL = "https://askomdch.com/product-category/mens-shoes/";
     public static final String WOMEN_URL = "https://askomdch.com/product-category/women/";
-    public static final String WOMENS_JEANS_URL = "https://askomdch.com/product-category/women/";
+    public static final String WOMENS_JEANS_URL = "https://askomdch.com/product-category/womens-jeans/";
     public static final String WOMENS_SHIRTS_URL = "https://askomdch.com/product-category/womens-shirts/";
     public static final String WOMENS_SHOES_URL = "https://askomdch.com/product-category/womens-shoes/";
     public static final String ACCESSORIES_URL = "https://askomdch.com/product-category/accessories/";

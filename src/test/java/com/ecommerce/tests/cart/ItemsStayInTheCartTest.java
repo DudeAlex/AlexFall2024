@@ -27,7 +27,7 @@ public class ItemsStayInTheCartTest extends BaseTest {
 
         Assert.assertEquals(cartPage.getCartItemsNumber(), "1");
 
-        cartPage.getHeader().navigateToAccountPage().logout();
+        cartPage.getHeader().navigateToAccountPage().logOutFromMainContent();
         accountPage.logIn(user.getLogin(), user.getPassword());
 
         Assert.assertEquals(cartPage.getCartItemsNumber(), "1");
