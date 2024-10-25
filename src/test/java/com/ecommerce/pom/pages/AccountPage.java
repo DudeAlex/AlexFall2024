@@ -27,6 +27,7 @@ public class AccountPage extends BasePage implements Loadable {
     By logoutLinkFromMainContent = By.xpath("//div[@class = 'woocommerce-MyAccount-content']//a[text() = 'Log out']");
     By logoutLinkFromSideMenu = By.xpath("//li[contains(@class, 'woocommerce-MyAccount-navigation-link--customer-logout')]/a[text()='Logout']");
     By accountDetailLink = By.xpath("//a[normalize-space()='Account details']");
+    By addressesLink = By.xpath("//a[text() ='Addresses']");
 
     public AccountPage(WebDriver driver) {
         super(driver);
@@ -138,6 +139,11 @@ public class AccountPage extends BasePage implements Loadable {
 
     public String getWelcomeNewUserText() {
         return WaitUtils.visibilityOf(getDriver(), welcomeNewUserText).getText();
+    }
+
+    public AddressesPage clickAddressesLink (){
+        WaitUtils.elementToBeClickable(getDriver(), addressesLink).click();
+        return new AddressesPage(getDriver());
     }
 
     public By getEmailField() {
