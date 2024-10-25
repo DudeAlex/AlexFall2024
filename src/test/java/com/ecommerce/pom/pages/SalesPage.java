@@ -6,6 +6,7 @@ import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
@@ -133,4 +134,41 @@ public abstract class SalesPage extends PurchasePage<SalesPage> implements Loada
 
         return productNameList;
     }
+
+    public Page clickFilterButton() {
+        WaitUtils.presenceOfElementLocated(getDriver(), getLeftSidebar().filterButton).click();
+
+        return (Page) this;
+    }
+
+    public Page moveLeftNodOfPriceFilter(int targetMinPrice) {
+        WebElement leftSliderNodElement = getDriver().findElement(getLeftSidebar().leftSliderNod);
+
+        double xOffset = ((double) (targetMinPrice - getLeftSidebar().getMinAvailableFilterPrice()) /
+                getLeftSidebar().getPriceFilterStep()) * getLeftSidebar().calculateOneStepXOffsetForPriceFilterSlider();
+        int xOffsetInt = (int) Math.round(xOffset);
+
+        Actions actions = new Actions(getDriver());
+        actions.clickAndHold(leftSliderNodElement)
+                .moveByOffset(xOffsetInt, 0)
+                .perform();
+
+        return (Page) this;
+    }
+
+    public Page moveRightNodOfPriceFilter(int targetMaxPrice) {
+        WebElement rightSliderNodElement = getDriver().findElement(getLeftSidebar().rightSliderNod);
+
+        double xOffset = ((double) (targetMaxPrice - getLeftSidebar().getMaxAvailableFilterPrice()) /
+                getLeftSidebar().getPriceFilterStep()) * getLeftSidebar().calculateOneStepXOffsetForPriceFilterSlider();
+        int xOffsetInt = (int) Math.round(xOffset);
+
+        Actions actions = new Actions(getDriver());
+        actions.clickAndHold(rightSliderNodElement)
+                .moveByOffset(xOffsetInt, 0)
+                .perform();
+
+        return (Page) this;
+    }
+
 }
