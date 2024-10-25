@@ -14,16 +14,15 @@ import java.io.IOException;
 public class EndToEndTest extends BaseTest {
 
     @Test
-    public void testProductToShoppingCart() {
+    public void testProductToShoppingCart() throws IOException, InterruptedException {
 
-        UserData userData = UserDataPool.getFakerUserDataList(10).get(4);
         String product = "Blue";
         String productNameAndQuantity = "Blue Shoes  × 1";
         String yourOrderIsReceived = "Thank you. Your order has been received.";
 
         HomePage homePage = new HomePage(driver);
         StorePage storePage = homePage.getHeader().navigateToStorePage();
-        String searchResult = storePage.getLeftSidebar().searchProduct(product, new StorePage(driver)).getSearchHeaderTitle();
+        String searchResult = storePage.getLeftSidebar().searchProduct(product).getSearchHeaderTitle();
         String item = storePage.getTextFromListProducts(0);
         Assert.assertEquals(searchResult, "Search results: “%s”".formatted(product));
 
@@ -37,15 +36,20 @@ public class EndToEndTest extends BaseTest {
 
         cartPage.clickCheckoutButton();
 
+
+        User user = UserUtils.readUserFromJson("user1.json");
+
         CheckoutPage checkoutPage = new CheckoutPage(driver);
-        checkoutPage.inputFirstName(userData.getFirstName())
-                .inputLastName(userData.getLastName())
-                .inputCountry(userData.getCountry())
-                .inputStreetAddress(userData.getAddress())
-                .inputTown(userData.getTown())
-                .clickBillingStateDropDown(userData.getState())
-                .inputZip(userData.getZipCode())
-                .inputEmail(userData.getEmailAddress());
+        checkoutPage.inputFirstName(user.getFirstName())
+                .inputLastName(user.getLastName())
+                .inputCountry(user.getCountry())
+                .inputStreetAddress(user.getAddress())
+                .inputTown(user.getTown())
+                .clickBillingStateDropDown(user.getState())
+                .inputZip(user.getZipCode())
+                .inputEmail(user.getLogin());
+
+        Thread.sleep(4000);
 
         String productOrder = checkoutPage.productNameAndQuantity();
         Assert.assertEquals(productOrder, productNameAndQuantity);
@@ -54,7 +58,6 @@ public class EndToEndTest extends BaseTest {
 
         String checkOrder = checkoutPage.checkYourOrderHasBeenReceivedMessage();
         Assert.assertEquals(checkOrder, yourOrderIsReceived);
-
 
     }
 
@@ -69,7 +72,5 @@ public class EndToEndTest extends BaseTest {
         } catch (IOException e) {
             Assert.fail("Failed to read user from JSON", e);
         }
-
     }
-
 }

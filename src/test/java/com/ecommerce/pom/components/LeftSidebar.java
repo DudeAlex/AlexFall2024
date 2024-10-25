@@ -1,6 +1,11 @@
 package com.ecommerce.pom.components;
 
+
 import com.ecommerce.pom.pages.MenPage;
+
+import com.ecommerce.pom.pages.ProductPage;
+import com.ecommerce.pom.pages.PurchasePage;
+
 import com.ecommerce.pom.pages.StorePage;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
@@ -50,11 +55,26 @@ public class LeftSidebar extends BaseComponent {
         super(driver);
     }
 
-    public <T> T searchProduct(String item, T page) {
+    public PurchasePage<?> searchProduct(String item) {
         WaitUtils.visibilityOfElementLocated(getDriver(), searchInputField).sendKeys(item);
         WaitUtils.presenceOfElementLocated(getDriver(), searchButton).click();
 
-        return page;
+
+        if (isOnStorePage()) {
+            return new StorePage(getDriver());
+        } else if (isOnProductPage()) {
+            return new ProductPage(getDriver());
+        } else {
+            throw new IllegalStateException("Unknown page after search");
+        }
+    }
+
+    private boolean isOnStorePage() {
+        return getDriver().getCurrentUrl().contains("?s");
+    }
+
+    private boolean isOnProductPage() {
+        return getDriver().getCurrentUrl().contains("/product/");
     }
 
     public void browseByCategory(String category) {
@@ -84,6 +104,7 @@ public class LeftSidebar extends BaseComponent {
 
     public String getBestSellerTitle() {
         return WaitUtils.visibilityOfElementLocated(getDriver(), bestSellerTitle).getText();
+
     }
 
     public List<WebElement> getBestSellersList() {
@@ -125,6 +146,12 @@ public class LeftSidebar extends BaseComponent {
             actualSortedList.add(category.getText());
         }
         return actualSortedList;
+
+
+    }
+
+    public List<WebElement> getBestSellersList() {
+        return WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(), bestSellersItems);
 
     }
 
