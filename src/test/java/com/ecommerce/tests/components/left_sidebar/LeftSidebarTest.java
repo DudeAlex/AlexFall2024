@@ -1,6 +1,8 @@
 package com.ecommerce.tests.components.left_sidebar;
 
 import com.ecommerce.base.BaseTest;
+import com.ecommerce.pom.components.LeftSidebar;
+import com.ecommerce.pom.pages.HomePage;
 import com.ecommerce.pom.pages.MenPage;
 import com.ecommerce.pom.pages.StorePage;
 import com.ecommerce.pom.pages.WomenPage;
@@ -23,61 +25,47 @@ public class LeftSidebarTest extends BaseTest {
 
     @Test(description = "10.4-10.4-1  | TC >Search box Test> Search by key word # https://app.clickup.com/t/8689x8h18")
     public void testSearchBox() {
-        driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
-        WebElement searchBar = driver.findElement(By.id("woocommerce-product-search-field-0"));
-        searchBar.sendKeys("blue");
-        driver.findElement(By.xpath("//button[@value='Search']")).click();
+        String searchWord = "Blue";
+        HomePage homePage = new HomePage(driver);
+        StorePage storePage = homePage.clickShopNowButton();
+        storePage.getLeftSidebar().searchProduct(searchWord, new StorePage(driver));
+        List<String> expectedSearchResultList = storePage.getLeftSidebar().getExpectedSearchResultListWithBlue();
+        List<String> actualSearchResultList = List.of(
+                "Blue Shoes",
+                "Denim Blue Jeans",
+                "Faint Blue Jeans",
+                "Blue Denim Shorts",
+                "Basic Blue Jeans",
+                "Blue Tshirt");
 
-        List<String> expectedSearchResultList = new ArrayList<>();
-        List<WebElement> searchResult = driver.findElements(By.xpath("//h2[@class='woocommerce-loop-product__title']"));
-        for (WebElement search : searchResult) {
-            String text = search.getText();
-            if (text.contains("blue")) {
-                expectedSearchResultList.add(text);
-            }
-            for (String item : expectedSearchResultList) {
-                Assert.assertTrue(item.toLowerCase().contains("blue"), "The search result does not contain the word 'blue': " + item);
-
-                List<String> actualSearchResultList = List.of("Blue Shoes", "Denim Blue Jeans", "Faint Blue Jeans", "Blue Denim Shorts", "Basic Blue Jeans", "Blue Tshirt");
-
-                Assert.assertEquals(actualSearchResultList, expectedSearchResultList);
-            }
-        }
+        Assert.assertEquals(actualSearchResultList, expectedSearchResultList);
     }
+
 
     @Test(description = "10.4-10.4-2  | TC >Search box Test> Search by key word> No product were found # https://app.clickup.com/t/8689xwcb5")
     public void testSearchBoxNoResult() {
-        driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
-        WebElement searchBar = driver.findElement(By.id("woocommerce-product-search-field-0"));
-        searchBar.sendKeys("moon");
-        driver.findElement(By.xpath("//button[@value='Search']")).click();
-        WebElement notFoundMsg = driver.findElement(By.xpath("//p[@class='woocommerce-info woocommerce-no-products-found']"));
+        String searchWord = "moon";
+        HomePage homePage = new HomePage(driver);
+        StorePage storePage = homePage.clickShopNowButton();
+        storePage.getLeftSidebar().searchProduct(searchWord, new StorePage(driver));
+        String NotFoundMassage = storePage.getLeftSidebar().getNotFoundMessageText();
 
-        Assert.assertEquals(notFoundMsg.getText(), "No products were found matching your selection.");
+        Assert.assertEquals(NotFoundMassage, "No products were found matching your selection.");
 
     }
 
     @Test(description = "10.2-10.2-2 | TC > Leftside_Bar > Browser by categories # https://app.clickup.com/t/8689x8my5")
-    public void testBrowseByCategoriesLeftMenu() {
-        driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
-        WebElement dropdown = driver.findElement(By.id("product_cat"));
-        Select select = new Select(dropdown);
-        select.selectByIndex(2);
+    public void testBrowseByCategoriesLeftMenu() throws InterruptedException {
+        HomePage homePage = new HomePage(driver);
+        List<String> actualSortedList = homePage.clickShopNowButton().getLeftSidebar().
+                selectCategoryByIndex(2, new MenPage(driver)).
+                getLeftSidebar().getActualSortedListManCategory();
+        List<String> expectedMenSorting = new ArrayList<>(actualSortedList);
+        Collections.sort(expectedMenSorting);
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement header = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[@class='woocommerce-products-header__title page-title']")));
-
-        List<String> actualSortedList = new ArrayList<>();
-        List<WebElement> sortedList = driver.findElements(By.xpath("//span[@class='ast-woo-product-category']"));
-        for (WebElement category : sortedList) {
-            actualSortedList.add(category.getText());
-
-            List<String> expectedMenSorting = new ArrayList<>(actualSortedList);
-            Collections.sort(expectedMenSorting);
-
-            Assert.assertEquals(actualSortedList, expectedMenSorting, "Sorting by Category Dropdown Did Not Apply to 'Men' Category");
-        }
+        Assert.assertEquals(actualSortedList, expectedMenSorting, "Sorting by Category Dropdown Did Not Apply to 'Men' Category");
     }
+
 
     @Test(description = "10.3-10.3-1  | TC > Leftside_Bar > filter price  > price range # https://app.clickup.com/t/8689x9pxq")
     public void testFilterPriceCheck() {
