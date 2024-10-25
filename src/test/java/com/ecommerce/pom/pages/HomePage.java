@@ -27,7 +27,7 @@ public class HomePage extends PurchasePage<HomePage> implements Loadable {
         return this;
     }
 
-    public StorePage shopNowButton() {
+    public StorePage clickShopNowButton() {
         WaitUtils.elementToBeClickable(getDriver(), shopNowButton).click();
         return new StorePage(getDriver());
     }
