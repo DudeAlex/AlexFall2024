@@ -161,14 +161,8 @@ public class LeftSidebar extends BaseComponent {
             actualSortedList.add(category.getText());
         }
         return actualSortedList;
-
-
     }
 
-    public List<WebElement> getBestSellersList() {
-        return WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(), bestSellersItems);
-
-    }
 
     public int getMinAvailableFilterPrice() {
         String minPrice = WaitUtils.visibilityOfElementLocated(getDriver(), minAvailableFilterPrice).getText();

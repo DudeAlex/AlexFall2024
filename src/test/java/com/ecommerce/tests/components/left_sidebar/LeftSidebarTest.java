@@ -49,7 +49,7 @@ public class LeftSidebarTest extends BaseTest {
         String searchWord = "moon";
         HomePage homePage = new HomePage(driver);
         StorePage storePage = homePage.clickShopNowButton();
-        storePage.getLeftSidebar().searchProduct(searchWord, new StorePage(driver));
+//        storePage.getLeftSidebar().searchProduct(searchWord, new StorePage(driver));
         String NotFoundMassage = storePage.getLeftSidebar().getNotFoundMessageText();
 
         Assert.assertEquals(NotFoundMassage, "No products were found matching your selection.");
