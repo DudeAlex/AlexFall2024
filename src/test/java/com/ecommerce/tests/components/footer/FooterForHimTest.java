@@ -28,6 +28,5 @@ public class FooterForHimTest extends BaseTest {
         homePage.getFooter().navigateToForHimAccessoriesFromFooter();
         Assert.assertEquals(driver.getCurrentUrl(), ACCESSORIES_URL);
 
-
     }
 }

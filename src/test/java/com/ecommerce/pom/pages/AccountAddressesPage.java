@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import static com.ecommerce.pom.EndPoints.ACCOUNT_DOWNLOADS_URL;
+import static com.ecommerce.pom.EndPoints.ACCOUNT_ADDRESSES_URL;
 
 public class AccountAddressesPage extends AccountPage{
     By addBillingAddress = By.xpath("//h3[text() ='Billing address']/../a");
@@ -15,7 +15,7 @@ public class AccountAddressesPage extends AccountPage{
      }
 
     public AccountAddressesPage load(){
-        getDriver().get(ACCOUNT_DOWNLOADS_URL);
+        getDriver().get(ACCOUNT_ADDRESSES_URL);
         return this;
     }
 
