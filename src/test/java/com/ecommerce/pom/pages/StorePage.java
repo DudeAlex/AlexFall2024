@@ -1,24 +1,21 @@
 package com.ecommerce.pom.pages;
 
+import com.ecommerce.utils.UserUtils;
 import com.ecommerce.utils.WaitUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
+import org.openqa.selenium.*;
+import org.testng.Assert;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import static com.ecommerce.pom.EndPoints.STORE_URL;
 
-public class StorePage extends SalesPage{
+public class StorePage extends SalesPage {
 
     String add = "//a[@aria-label='Add “";
     String toCart = "” to your cart']";
     String productFirstPartXpathTypeName = "//a[contains(text(),'";
     String productLastPartXpathTypeName = "')]";
-
     By headerTitle = By.xpath("//h1[@class='woocommerce-products-header__title page-title']");
     By loopProducts = By.xpath("//h2[@class='woocommerce-loop-product__title']");
     By addToCartButton = By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']");
@@ -26,6 +23,9 @@ public class StorePage extends SalesPage{
     By productList = By.xpath("//ul//h2");
     By nextPageNumber = By.xpath("//a[@class='next page-numbers']");
     By firstProductAddToCartButton = By.xpath("//ul[@class=\"products columns-4\"]//a[2]");
+    By products = By.cssSelector("div.ast-woocommerce-container>ul.products");
+    By listOfProducts = By.cssSelector("div ul.products li");
+    By paginatorBtnArrowToRight = By.cssSelector("a.next");
 
 
     public StorePage(WebDriver driver) {
@@ -99,9 +99,48 @@ public class StorePage extends SalesPage{
         return WaitUtils.elementToBeClickable(getDriver(), checkItemName).getText();
     }
 
-    public void addFirstProductToCart () {
+    public void addFirstProductToCart() {
         WaitUtils.elementToBeClickable(getDriver(), firstProductAddToCartButton, 2).click();
 
     }
 
+    public void checkLabelSaleOnEveryDiscountProduct() {
+
+        boolean hasNextPage = true;
+
+        //check pagination
+        while (hasNextPage) {
+            WaitUtils.visibilityOf(getDriver(), listOfProducts, 5000);
+            List<WebElement> products = getDriver().findElements(listOfProducts);
+            int counter = 1;
+
+            //Get every product and check
+            for (int i = 0; i < products.size(); i++) {
+
+                //Check if the product has a tag named "del" then it should have a "Sale" label
+                if (products.get(i).findElements(By.tagName("del")).size() > 0) {
+
+                    WebElement firstProductPict = getDriver().findElement(By.cssSelector("ul.products li.product:nth-child(" + counter + ") a:nth-child(2)"));
+                    WebElement saleLabel = getDriver().findElement(By.cssSelector("ul.products li.product:nth-child(" + counter + ") span.onsale"));
+
+                    org.openqa.selenium.Rectangle rect1 = firstProductPict.getRect();
+                    org.openqa.selenium.Rectangle rect2 = saleLabel.getRect();
+                    boolean isOverlap = UserUtils.isOverlapping(rect1, rect2);
+                    Assert.assertTrue(isOverlap, "Sale icon doesn't overlap product picture");
+                }
+                counter += 1;
+            }
+            try {
+                WebElement nextButton = WaitUtils.presenceOfElementLocated(getDriver(), paginatorBtnArrowToRight);
+                if (nextButton.isDisplayed()) {
+                    nextButton.click();
+                } else {
+                    hasNextPage = false;
+                }
+
+            } catch (Exception e) {
+                hasNextPage = false;
+            }
+        }
+    }
 }

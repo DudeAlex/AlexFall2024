@@ -1,7 +1,4 @@
 package com.ecommerce.utils;
-
-import com.ecommerce.pojo.UserData;
-import com.ecommerce.pojo.UserDataPool;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -92,5 +89,4 @@ public class WaitUtils {
     public static Boolean waitForQuantityToBe(WebDriver driver, By by, String quantity) {
         return new WebDriverWait(driver, Duration.ofSeconds(TIMEOUTS)).until(ExpectedConditions.textToBe(by, quantity));
     }
-
 }
