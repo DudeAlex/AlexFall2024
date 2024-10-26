@@ -2,7 +2,6 @@ package com.ecommerce.utils;
 
 import com.ecommerce.pojo.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
@@ -30,5 +29,12 @@ public class UserUtils {
         return objectMapper.readValue(inputStream, User.class);
     }
 
+    public static boolean isOverlapping(org.openqa.selenium.Rectangle rect1, org.openqa.selenium.Rectangle rect2)
+    {
+        return rect1.getX() < (rect2.getX() + rect2.getWidth()) &&
+                (rect1.getX() + rect1.getWidth()) > rect2.getX() &&
+                rect1.getY() < (rect2.getY() + rect2.getHeight()) &&
+                (rect1.getY() + rect1.getHeight()) > rect2.getY();
+    }
 }
 
