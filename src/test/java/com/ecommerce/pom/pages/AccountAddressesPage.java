@@ -5,12 +5,20 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class AddressesPage extends AccountPage{
+import static com.ecommerce.pom.EndPoints.ACCOUNT_DOWNLOADS_URL;
+
+public class AccountAddressesPage extends AccountPage{
     By addBillingAddress = By.xpath("//h3[text() ='Billing address']/../a");
     By addressChangedSuccessfullyMessage = By.cssSelector(".woocommerce-notices-wrapper .woocommerce-message");
-     public AddressesPage (WebDriver driver){
+     public AccountAddressesPage(WebDriver driver){
          super(driver);
      }
+
+    public AccountAddressesPage load(){
+        getDriver().get(ACCOUNT_DOWNLOADS_URL);
+        return this;
+    }
+
      public BillingAddressPage clickAddBillingAddress(){
          WaitUtils.elementToBeClickable(getDriver(),addBillingAddress).click();
          return new BillingAddressPage(getDriver());
