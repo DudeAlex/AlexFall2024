@@ -7,9 +7,7 @@ import org.openqa.selenium.WebDriver;
 import static com.ecommerce.pom.EndPoints.ACCOUNT_ORDERS_URL;
 
 public class AccountOrdersPage extends AccountPage{
-    public AccountOrdersPage(WebDriver driver) {
-        super(driver);
-    }
+    public AccountOrdersPage(WebDriver driver) {super(driver); }
 
     public AccountOrdersPage load(){
         getDriver().get(ACCOUNT_ORDERS_URL);
