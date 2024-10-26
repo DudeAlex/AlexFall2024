@@ -141,9 +141,9 @@ public class AccountPage extends BasePage implements Loadable {
         return WaitUtils.visibilityOf(getDriver(), welcomeNewUserText).getText();
     }
 
-    public AddressesPage clickAddressesLink (){
+    public AccountAddressesPage clickAddressesLink (){
         WaitUtils.elementToBeClickable(getDriver(), addressesLink).click();
-        return new AddressesPage(getDriver());
+        return new AccountAddressesPage(getDriver());
     }
 
     public By getEmailField() {
