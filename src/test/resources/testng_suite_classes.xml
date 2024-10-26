@@ -16,7 +16,7 @@
             <class name="com.ecommerce.tests.components.footer.FooterForHerTest"/>
             <class name="com.ecommerce.tests.components.footer.FooterForHimTest"/>
             <class name="com.ecommerce.tests.components.footer.FooterQuickLinksTest"/>
-            <class name="com.ecommerce.tests.components.footer.FooterVisibleTest"/>
+            <class name="com.ecommerce.tests.components.footer.FooterVisibleEveryPagesTest"/>
         </classes>
     </test>
 

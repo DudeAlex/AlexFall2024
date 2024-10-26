@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import static com.ecommerce.pom.EndPoints.*;
 
 public class FooterForHimTest extends BaseTest {
-    @Test(description = "11.1-3.1-5 | TC > Verify Navigation Footer Menu List For Him  # https://app.clickup.com/t/8689r62er ")
+    @Test(description = "11.1-3.3-1 | TC > Verify Navigation Footer Menu List For Him  # https://app.clickup.com/t/8689r62er ")
     public void testFooterForHimNavigation(){
 
         HomePage homePage = new HomePage(driver);
@@ -27,7 +27,6 @@ public class FooterForHimTest extends BaseTest {
 
         homePage.getFooter().navigateToForHimAccessoriesFromFooter();
         Assert.assertEquals(driver.getCurrentUrl(), ACCESSORIES_URL);
-
 
     }
 }

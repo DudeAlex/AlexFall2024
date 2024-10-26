@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class BillingAddressPage extends AddressesPage {
+public class BillingAddressPage extends AccountAddressesPage {
     By firstName = By.id("billing_first_name");
     By lastname = By.id("billing_last_name");
     By country = By.id("billing_country");
@@ -23,7 +23,7 @@ public class BillingAddressPage extends AddressesPage {
    }
 
 
- public AddressesPage fillOutBillingAddressForm(){
+ public AccountAddressesPage fillOutBillingAddressForm(){
        UserData userData = UserDataPool.getFakerUserDataList(1).get(0);
 
      WebElement firstNameField = WaitUtils.elementToBeClickable(getDriver(),firstName);
@@ -52,6 +52,6 @@ public class BillingAddressPage extends AddressesPage {
      zipCodeField.clear();
      zipCodeField.sendKeys(userData.getZipCode());
      WaitUtils.elementToBeClickable(getDriver(),saveAddressButton).click();
-     return new AddressesPage(getDriver());
+     return new AccountAddressesPage(getDriver());
  }
 }

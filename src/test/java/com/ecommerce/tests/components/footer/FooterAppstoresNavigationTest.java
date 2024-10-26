@@ -12,7 +12,7 @@ public class FooterAppstoresNavigationTest extends BaseTest {
     String appStoreUrl = "https://www.apple.com/in/app-store/";
     String googlePlayUrl = "https://play.google.com/store/games?device=windows";
 
-    @Test(description = "11.1-4.1 | TC > Verify Click Footer Menu AOD # https://app.clickup.com/t/8689r628b ")
+    @Test(description = "11.1-3.4-1 | TC > Verify Navigation Footer Menu AOD # https://app.clickup.com/t/8689r628b ")
     public void testAppstoreNavigation(){
 
         HomePage homePage = new HomePage(driver);
@@ -30,7 +30,7 @@ public class FooterAppstoresNavigationTest extends BaseTest {
         Assert.assertEquals(urlPreviousWindow,BASE_URL);
     }
 
-    @Test(description = "11.1-4.1 | TC > Verify Click Footer Menu AOD # https://app.clickup.com/t/8689r628b ")
+    @Test(description = "11.1-3.4-2 | TC > Verify Navigation Footer Menu AOD # https://app.clickup.com/t/868af88we ")
     public void testGooglePlayNavigation(){
 
         HomePage homePage = new HomePage(driver);
