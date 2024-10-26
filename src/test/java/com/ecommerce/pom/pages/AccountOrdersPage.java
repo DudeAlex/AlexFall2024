@@ -4,10 +4,18 @@ import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import static com.ecommerce.pom.EndPoints.ACCOUNT_ORDERS_URL;
+
 public class AccountOrdersPage extends AccountPage{
     public AccountOrdersPage(WebDriver driver) {
         super(driver);
     }
+
+    public AccountOrdersPage load(){
+        getDriver().get(ACCOUNT_ORDERS_URL);
+        return this;
+    }
+
 
     By ordersPageButton = By.xpath("//a[@href='https://askomdch.com/account/orders/']");
     By browseProductsButton = By.xpath("//a[contains(text(),'Browse products')]");
