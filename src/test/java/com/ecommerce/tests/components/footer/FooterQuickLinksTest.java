@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import static com.ecommerce.pom.EndPoints.*;
 
 public class FooterQuickLinksTest extends BaseTest {
-    @Test(description = "11.1-1.1-5 | TC > Verify Navigation Footer Menu List Quick Links # https://app.clickup.com/t/8689r5uyy ")
+    @Test(description = "11.1-3.1-1 | TC > Verify Navigation Footer Menu List Quick Links # https://app.clickup.com/t/8689r5uyy ")
     public void testFooterForHimNavigation(){
 
         HomePage homePage = new HomePage(driver);
