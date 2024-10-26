@@ -4,12 +4,16 @@ import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class EditAccountPage extends AccountPage {
+import static com.ecommerce.pom.EndPoints.ACCOUNT_DETAILS_URL;
+
+public class AccountDetailsPage extends AccountPage {
 
 
-    public EditAccountPage(WebDriver driver) {
-        super(driver);
+    public AccountDetailsPage(WebDriver driver) {super(driver); }
 
+    public AccountDetailsPage load(){
+        getDriver().get(ACCOUNT_DETAILS_URL);
+        return this;
     }
 
     By accountDetailLink = By.xpath("//a[normalize-space()='Account details']");
@@ -22,9 +26,9 @@ public class EditAccountPage extends AccountPage {
 
     By changesConfirmationMassage = By.xpath("//div[@role='alert']");
 
-    public EditAccountPage navigateToEditAccountPage() {
+    public AccountDetailsPage navigateToEditAccountPage() {
         WaitUtils.visibilityOfElementLocated(getDriver(), accountDetailLink).click();
-        return new EditAccountPage(getDriver());
+        return new AccountDetailsPage(getDriver());
     }
 
     public void addNameAndLastName() {
@@ -46,7 +50,7 @@ public class EditAccountPage extends AccountPage {
         WaitUtils.visibilityOfElementLocated(getDriver(), confirmNewPasswordField).sendKeys(confirmNewPass);
     }
 
-    public EditAccountPage saveChanges() {
+    public AccountDetailsPage saveChanges() {
         WaitUtils.visibilityOfElementLocated(getDriver(), saveChangesBtn).click();
         return this;
     }
@@ -55,7 +59,7 @@ public class EditAccountPage extends AccountPage {
         return WaitUtils.visibilityOfElementLocated(getDriver(), changesConfirmationMassage, 10).getText();
     }
 
-    public EditAccountPage returnToOldPassword() {
+    public AccountDetailsPage returnToOldPassword() {
         addCurrentPassword("456");
         addNewPassword("123");
         confirmNewPassword("123");
