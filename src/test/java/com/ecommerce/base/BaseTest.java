@@ -12,7 +12,9 @@ public class BaseTest {
     protected WebDriver driver;
 
 
-    @BeforeMethod
+    @BeforeMethod(
+            groups = "before"
+    )
     public void setUp(){
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-search-engine-choice-screen");
@@ -23,7 +25,9 @@ public class BaseTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
     }
 
-    @AfterMethod
+    @AfterMethod(
+            groups = "after"
+    )
     public void tearDown(){
         driver.quit();
     }

@@ -1,27 +1,40 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Components Tests">
-    <test name="Footer and Header Tests">
-<!--        <groups>-->
-<!--            <run>-->
-<!--                <include name="footer"/>-->
-<!--            </run>-->
-<!--        </groups>-->
-        <classes>
 
+    <test name="Footer Tests">
+        <groups>
+            <run>
+                <include name="before"/>
+                <include name="after"/>
+                <include name="footer"/>
+            </run>
+        </groups>
+
+        <classes>
             <class name="com.ecommerce.tests.components.footer.FooterAppstoresNavigationTest"/>
             <class name="com.ecommerce.tests.components.footer.FooterForHerTest"/>
             <class name="com.ecommerce.tests.components.footer.FooterForHimTest"/>
             <class name="com.ecommerce.tests.components.footer.FooterQuickLinksTest"/>
             <class name="com.ecommerce.tests.components.footer.FooterVisibleTest"/>
+        </classes>
+    </test>
 
+    <test name="Header Tests">
+        <groups>
+            <run>
+                <include name="before"/>
+                <include name="after"/>
+                <include name="header"/>
+            </run>
+        </groups>
+
+        <classes>
             <class name="com.ecommerce.tests.components.header.CheckMenuRedirectionTests"/>
             <class name="com.ecommerce.tests.components.header.HeaderNavigationClickTest"/>
             <class name="com.ecommerce.tests.components.header.HeaderNavigationMenuVisibleTest"/>
             <class name="com.ecommerce.tests.components.header.HeaderVisibleTest"/>
             <class name="com.ecommerce.tests.components.header.NavigationMenuTest"/>
-
-
         </classes>
     </test>
 
