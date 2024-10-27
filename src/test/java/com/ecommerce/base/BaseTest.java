@@ -1,5 +1,6 @@
 package com.ecommerce.base;
 
+import com.ecommerce.pom.pages.CartPage;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -28,7 +29,15 @@ public class BaseTest {
     @AfterMethod(
             groups = "after"
     )
-    public void tearDown(){
-        driver.quit();
+    public void tearDown() {
+        CartPage cartPage = new CartPage(driver);
+        cartPage.clearCartFromAllItems();
+        if (driver != null) {
+            try {
+                driver.quit();
+            } catch (Exception e) {
+                System.out.println("Error while closing the browser: " + e.getMessage());
+            }
+        }
     }
 }

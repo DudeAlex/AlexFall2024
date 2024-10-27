@@ -2,10 +2,15 @@ package com.ecommerce.pom.pages;
 
 import com.ecommerce.pom.BasePage;
 import com.ecommerce.pom.Loadable;
+import com.ecommerce.pom.components.Header;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
+
+import java.util.List;
 
 import static com.ecommerce.pom.EndPoints.CART_URL;
 
@@ -21,6 +26,7 @@ public class CartPage extends BasePage implements Loadable {
     By returnToShopButton = By.xpath("//a[@class = 'button wc-backward']");
     By emptyCartMessage = By.xpath("//p[@class='cart-empty woocommerce-info']");
     By storePageLink = By.id("menu-item-1227");
+    By spinnerElement = By.cssSelector(".blockUI.blockOverlay");
 
 
 
@@ -103,5 +109,28 @@ public class CartPage extends BasePage implements Loadable {
         if (Integer.parseInt(cartPage.getCartItemsNumber()) > 0) {
             cartPage.removeItemsFromCart();
         }
+    }
+
+    public void clearCartFromAllItems() {
+
+        CartPage cartPage = new CartPage(getDriver());
+        cartPage.load();
+
+        if (Integer.parseInt(cartPage.getCartItemsNumber()) > 0) {
+            List<WebElement> itemList = WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(), removeButton);
+
+            while (!itemList.isEmpty()) {
+                cartPage.removeItemsFromCart();
+                WaitUtils.invisibilityOfElementLocated(getDriver(), spinnerElement);
+                itemList = WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(), removeButton);
+                if (itemList.size() == 1) {
+                    cartPage.removeItemsFromCart();
+                    WaitUtils.invisibilityOfElementLocated(getDriver(), spinnerElement);
+                    break;
+                }
+            }
+            Assert.assertEquals(cartPage.getEmptyCartMessage(), "Your cart is currently empty.", "Cart is not empty");
+        }
+
     }
 }
