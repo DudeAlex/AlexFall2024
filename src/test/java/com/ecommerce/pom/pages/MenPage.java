@@ -11,7 +11,7 @@ import java.util.List;
 
 import static com.ecommerce.pom.EndPoints.MEN_URL;
 
-public class MenPage extends SalesPage{
+public class MenPage extends SalesPage<MenPage> {
 
     By addToCartButton  = By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']");
     By cartButton = By.linkText("View cart");
@@ -25,8 +25,6 @@ public class MenPage extends SalesPage{
 
     public MenPage(WebDriver driver) {
         super(driver);
-        getLeftSidebar();
-        getProductsGrid();
     }
 
     @Override
@@ -95,13 +93,5 @@ public class MenPage extends SalesPage{
         int displayedItemCount = items.size();
         return displayedItemCount == expectedCount;
     }
-
-//    @Override
-//    public MenPage clickAddToCartButton(String targetProductName) {
-//        super.clickAddToCartButton(targetProductName);
-//
-//        return this;
-//    }
-
 }
 
