@@ -1,6 +1,7 @@
 package com.ecommerce.tests.components.header;
 
 import com.ecommerce.base.BaseTest;
+import com.ecommerce.pom.components.Header;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -14,11 +15,16 @@ import java.time.Duration;
 
 public class NavigationMenuTest extends BaseTest {
     private WebDriverWait wait;
+    private Header header;
+
+    private static final String WHITE_COLOR_ACTIVE = "rgba(255, 255, 255, 1)";
+    private static final String BLUE_COLOR_ACTIVE = "rgba(96, 43, 183, 1)";
 
     @BeforeMethod
     @Override
     public void setUp(){
         super.setUp();
+        header = new Header(driver);
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
@@ -27,83 +33,70 @@ public class NavigationMenuTest extends BaseTest {
         return driver.findElement(By.id(id));
     }
 
-    public String getActiveMenuItemColor(String menuItemId) {
-        WebElement menuItem = getMenuItemById(menuItemId);
-        menuItem.click();
-        WebElement activeMenuItem = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("li.current-menu-item a")));
-
-        return activeMenuItem.getCssValue("color");
-    }
 
     @Test(description = "10.1 | RF >  Verify active page is highlighted in the navigation bar # https://app.clickup.com/t/8689ufb6d")
     public void testHomeMenuHighlighted() {
-        // get actual color
-        String actualColor = getActiveMenuItemColor("menu-item-1226");
-        // Expected color
-        String expectedColor = "rgba(255, 255, 255, 1)";
+        String actualColor = header.getActiveMenuColor(header.getHeaderHome());
 
-        Assert.assertEquals(actualColor, expectedColor, "The 'Home' menu item should be highlighted in the expected color.");
+        Assert.assertEquals(actualColor, WHITE_COLOR_ACTIVE,
+                "The 'Home' menu item should be highlighted in the expected color.");
 
     }
-
 
     @Test(description = "10.1 | RF >  Verify active page is highlighted in the navigation bar # https://app.clickup.com/t/8689ufb6d")
     public void testStoreMenuHighlighted() {
-        String actualColor = getActiveMenuItemColor("menu-item-1227");
-        String expectedColor = "rgba(96, 43, 183, 1)";
+        String actualColor = header.getActiveMenuColor(header.getHeaderStore());
 
-        Assert.assertEquals(actualColor, expectedColor, "The 'Home' menu item should be highlighted in the expected color.");
+        Assert.assertEquals(actualColor, BLUE_COLOR_ACTIVE,
+                "The 'Store' menu item should be highlighted in the expected color.");
     }
-
-
 
     @Test(description = "10.1 | RF >  Verify active page is highlighted in the navigation bar # https://app.clickup.com/t/8689ufb6d")
     public void testMenMenuHighlighted() {
-        String actualColor = getActiveMenuItemColor("menu-item-1228");
-        String expectedColor = "rgba(96, 43, 183, 1)";
+        String actualColor = header.getActiveMenuColor(header.getHeaderMen());
 
-        Assert.assertEquals(actualColor, expectedColor, "The 'Home' menu item should be highlighted in the expected color.");
+        Assert.assertEquals(actualColor, BLUE_COLOR_ACTIVE,
+                "The 'Men' menu item should be highlighted in the expected color.");
     }
-
 
     @Test(description = "10.1 | RF >  Verify active page is highlighted in the navigation bar # https://app.clickup.com/t/8689ufb6d")
     public void testWomenMenuHighlighted() {
-        String actualColor = getActiveMenuItemColor("menu-item-1229");
-        String expectedColor = "rgba(96, 43, 183, 1)";
+        String actualColor = header.getActiveMenuColor(header.getHeaderWomen());
 
-        Assert.assertEquals(actualColor, expectedColor, "The 'Home' menu item should be highlighted in the expected color.");
+        Assert.assertEquals(actualColor, BLUE_COLOR_ACTIVE,
+                "The 'Women' menu item should be highlighted in the expected color.");
     }
 
     @Test(description = "10.1 | RF >  Verify active page is highlighted in the navigation bar # https://app.clickup.com/t/8689ufb6d")
     public void testAccessoriesMenuHighlighted() {
-        String actualColor = getActiveMenuItemColor("menu-item-1230");
-        String expectedColor = "rgba(96, 43, 183, 1)";
+        String actualColor = header.getActiveMenuColor(header.getHeaderAccessories());
 
-        Assert.assertEquals(actualColor, expectedColor, "The 'Home' menu item should be highlighted in the expected color.");
+        Assert.assertEquals(actualColor, BLUE_COLOR_ACTIVE,
+                "The 'Accessories' menu item should be highlighted in the expected color.");
     }
 
     @Test(description = "10.1 | RF >  Verify active page is highlighted in the navigation bar # https://app.clickup.com/t/8689ufb6d")
     public void testAccountMenuHighlighted() {
-        String actualColor = getActiveMenuItemColor("menu-item-1237");
-        String expectedColor = "rgba(255, 255, 255, 1)";
+        String actualColor = header.getActiveMenuColor(header.getHeaderAccount());
 
-        Assert.assertEquals(actualColor, expectedColor, "The 'Home' menu item should be highlighted in the expected color.");
+        Assert.assertEquals(actualColor, WHITE_COLOR_ACTIVE,
+                "The 'Account' menu item should be highlighted in the expected color.");
     }
 
     @Test(description = "10.1 | RF >  Verify active page is highlighted in the navigation bar # https://app.clickup.com/t/8689ufb6d")
     public void testAbout(){
-        String actualColor = getActiveMenuItemColor("menu-item-1232");
-        String expectedColor = "rgba(255, 255, 255, 1)";
+        String actualColor = header.getActiveMenuColor(header.getHeaderAbout());
 
-        Assert.assertEquals(actualColor, expectedColor, "The 'Home' menu item should be highlighted in the expected color.");
+        Assert.assertEquals(actualColor, WHITE_COLOR_ACTIVE,
+                "The 'About' menu item should be highlighted in the expected color.");
     }
 
     @Test(description = "10.1 | RF >  Verify active page is highlighted in the navigation bar # https://app.clickup.com/t/8689ufb6d")
     public void testContactUs(){
-        String actualColor = getActiveMenuItemColor("menu-item-1233");
-        String expectedColor = "rgba(255, 255, 255, 1)";
+        String actualColor = header.getActiveMenuColor(header.getHeaderContactUs());
 
-        Assert.assertEquals(actualColor, expectedColor, "The 'Home' menu item should be highlighted in the expected color.");
+        Assert.assertEquals(actualColor, WHITE_COLOR_ACTIVE,
+                "The 'ContactUs' menu item should be highlighted in the expected color.");
     }
 
     @Test(description = "10.1 - 8.2 |  Verify Cart is empty when clicking the cart icon # https://app.clickup.com/t/8689wehf2")
