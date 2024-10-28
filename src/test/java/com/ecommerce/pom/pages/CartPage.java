@@ -29,7 +29,6 @@ public class CartPage extends BasePage implements Loadable {
     By spinnerElement = By.cssSelector(".blockUI.blockOverlay");
 
 
-
     public CartPage(WebDriver driver) {
         super(driver);
     }
@@ -47,48 +46,47 @@ public class CartPage extends BasePage implements Loadable {
     }
 
 
-    public CartPage clickViewCartButton(){
+    public CartPage clickViewCartButton() {
         WaitUtils.elementToBeClickable(getDriver(), viewCart).click();
         return new CartPage(getDriver());
     }
 
 
-    public int getProductsQuantity()
-    {
+    public int getProductsQuantity() {
         return Integer.parseInt(WaitUtils.visibilityOfElementLocated(getDriver(), quantityOfProducts, 3).getAttribute("value"));
     }
 
-    public void resetValueOfProductQuantity()
-    {
+    public void resetValueOfProductQuantity() {
         getDriver().findElement(quantityOfProducts).clear();
         WaitUtils.elementToBeClickable(getDriver(), updateCartButton, 5).click();
         WaitUtils.invisibilityOfElementLocated(getDriver(), updateCartButton, 3);
     }
-    public String getCartItemsNumber(){
-       return WaitUtils.visibilityOfElementLocated(getDriver(),cartIcon).getText();
+
+    public String getCartItemsNumber() {
+        return WaitUtils.visibilityOfElementLocated(getDriver(), cartIcon).getText();
     }
 
-    public void removeItemsFromCart(){
+    public void removeItemsFromCart() {
 
-        WaitUtils.elementToBeClickable(getDriver(),removeButton).click();
+        WaitUtils.elementToBeClickable(getDriver(), removeButton).click();
     }
 
     public String getEmptyCartMessage() {
-        return WaitUtils.visibilityOfElementLocated(getDriver(),emptyCartMessage).getText();
+        return WaitUtils.visibilityOfElementLocated(getDriver(), emptyCartMessage).getText();
     }
+
     public HomePage clickReturnToShopButton() {
         WaitUtils.visibilityOfElementLocated(getDriver(), returnToShopButton).click();
         return new HomePage(getDriver());
     }
 
     public StorePage navigateToStorePage() {
-        WaitUtils.visibilityOfElementLocated(getDriver(),storePageLink).click();
+        WaitUtils.visibilityOfElementLocated(getDriver(), storePageLink).click();
 
         return new StorePage(getDriver());
     }
 
-    public void setZeroValueOfProductQuantity()
-    {
+    public void setZeroValueOfProductQuantity() {
         getDriver().findElement(quantityOfProducts).clear();
         getDriver().findElement(quantityOfProducts).sendKeys("0");
 
@@ -104,7 +102,7 @@ public class CartPage extends BasePage implements Loadable {
 
     }
 
-    public void clearTheCart(){
+    public void clearTheCart() {
         CartPage cartPage = new CartPage(getDriver());
         if (Integer.parseInt(cartPage.getCartItemsNumber()) > 0) {
             cartPage.removeItemsFromCart();
@@ -112,25 +110,26 @@ public class CartPage extends BasePage implements Loadable {
     }
 
     public void clearCartFromAllItems() {
-
         CartPage cartPage = new CartPage(getDriver());
-        cartPage.load();
+        getDriver().navigate().refresh();
 
         if (Integer.parseInt(cartPage.getCartItemsNumber()) > 0) {
             List<WebElement> itemList = WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(), removeButton);
+            int num = itemList.size();
 
-            while (!itemList.isEmpty()) {
-                cartPage.removeItemsFromCart();
+            for (int i = 0; i < num; i++) {
+                itemList.get(0).click();
                 WaitUtils.invisibilityOfElementLocated(getDriver(), spinnerElement);
-                itemList = WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(), removeButton);
                 if (itemList.size() == 1) {
-                    cartPage.removeItemsFromCart();
-                    WaitUtils.invisibilityOfElementLocated(getDriver(), spinnerElement);
                     break;
+                } else {
+                    WebElement singleXButton = WaitUtils.elementToBeClickable(getDriver(), removeButton);
+                    if (singleXButton.isDisplayed()) {
+                        itemList = WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(), removeButton);
+                    }
                 }
             }
             Assert.assertEquals(cartPage.getEmptyCartMessage(), "Your cart is currently empty.", "Cart is not empty");
         }
-
     }
 }

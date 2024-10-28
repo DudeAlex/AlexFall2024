@@ -10,8 +10,6 @@ import java.util.List;
 
 public class WaitUtils {
 
-    private static final By SPINNER_ELEMENT = By.cssSelector(".button.product_type_simple.add_to_cart_button.ajax_add_to_cart.loading");
-
     private static final long TIMEOUTS = 10;
 
     public static WebElement visibilityOfElementLocated(WebDriver driver, By by, long timeout) {
@@ -92,7 +90,4 @@ public class WaitUtils {
         return new WebDriverWait(driver, Duration.ofSeconds(TIMEOUTS)).until(ExpectedConditions.textToBe(by, quantity));
     }
 
-    public static void waitForAddToCartSpinnerToDisappear(WebDriver driver) {
-        WaitUtils.invisibilityOfElementLocated(driver, SPINNER_ELEMENT);
-    }
 }

@@ -3,11 +3,9 @@ package com.ecommerce.pom.pages;
 import com.ecommerce.pom.BasePage;
 import com.ecommerce.pom.Loadable;
 import com.ecommerce.utils.WaitUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+
+import java.sql.Time;
 
 import static com.ecommerce.pom.EndPoints.ACCOUNT_URL;
 
@@ -53,9 +51,13 @@ public class AccountPage extends BasePage implements Loadable {
     }
 
     public AccountPage logOutFromMainContent() {
-        WebElement logout = WaitUtils.presenceOfElementLocated(getDriver(), logoutLinkFromMainContent, 5);
-        if (logout.isDisplayed()) {
-            logout.click();
+        try {
+            WebElement logoutLink = WaitUtils.presenceOfElementLocated(getDriver(), logoutLinkFromMainContent, 2);
+            if (logoutLink.isDisplayed()) {
+                logoutLink.click();
+            }
+        } catch (TimeoutException e) {
+
         }
         return this;
     }

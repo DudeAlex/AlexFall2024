@@ -1,5 +1,6 @@
 package com.ecommerce.base;
 
+import com.ecommerce.pom.pages.AccountPage;
 import com.ecommerce.pom.pages.CartPage;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.WebDriver;
@@ -31,7 +32,13 @@ public class BaseTest {
     )
     public void tearDown() {
         CartPage cartPage = new CartPage(driver);
+        cartPage.load();
         cartPage.clearCartFromAllItems();
+
+        AccountPage accountPage = new AccountPage(driver);
+        accountPage.load();
+        accountPage.logOutFromMainContent();
+
         if (driver != null) {
             try {
                 driver.quit();

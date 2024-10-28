@@ -2,6 +2,7 @@ package com.ecommerce.tests.cart;
 
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.pom.pages.CartPage;
+import com.ecommerce.pom.pages.MenPage;
 import com.ecommerce.pom.pages.StorePage;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
@@ -16,45 +17,45 @@ public class RemoveAllItemsFromCartTest extends BaseTest {
         storePage.load();
 
         storePage.chooseAnItemByClickingAddToCart("Anchor Bracelet");
-        WaitUtils.waitForAddToCartSpinnerToDisappear(driver);
+        storePage.addToCartSpinnerDisappears();
 
         storePage.chooseAnItemByClickingAddToCart("Basic Blue Jeans");
-        WaitUtils.waitForAddToCartSpinnerToDisappear(driver);
+        storePage.addToCartSpinnerDisappears();
 
         storePage.chooseAnItemByClickingAddToCart("Black Over-the-shoulder Handbag");
-        WaitUtils.waitForAddToCartSpinnerToDisappear(driver);
+        storePage.addToCartSpinnerDisappears();
 
         storePage.chooseAnItemByClickingAddToCart("Blue Denim Shorts");
-        WaitUtils.waitForAddToCartSpinnerToDisappear(driver);
+        storePage.addToCartSpinnerDisappears();
 
         storePage.chooseAnItemByClickingAddToCart("Blue Shoes");
-        WaitUtils.waitForAddToCartSpinnerToDisappear(driver);
+        storePage.addToCartSpinnerDisappears();
 
         storePage.chooseAnItemByClickingAddToCart("Blue Tshirt");
-        WaitUtils.waitForAddToCartSpinnerToDisappear(driver);
+        storePage.addToCartSpinnerDisappears();
 
         storePage.chooseAnItemByClickingAddToCart("Boho Bangle Bracelet");
-        WaitUtils.waitForAddToCartSpinnerToDisappear(driver);
+        storePage.addToCartSpinnerDisappears();
 
         storePage.chooseAnItemByClickingAddToCart("Dark Brown Jeans");
-        WaitUtils.waitForAddToCartSpinnerToDisappear(driver);
+        storePage.addToCartSpinnerDisappears();
 
         WaitUtils.elementToBeClickable(driver, By.xpath("//li/a[@class = 'next page-numbers']")).click();
 
         storePage.chooseAnItemByClickingAddToCart("Dark Grey Jeans");
-        WaitUtils.waitForAddToCartSpinnerToDisappear(driver);
+        storePage.addToCartSpinnerDisappears();
 
         storePage.chooseAnItemByClickingAddToCart("Denim Blue Jeans");
-        WaitUtils.waitForAddToCartSpinnerToDisappear(driver);
+        storePage.addToCartSpinnerDisappears();
 
         storePage.chooseAnItemByClickingAddToCart("Faint Blue Jeans");
-        WaitUtils.waitForAddToCartSpinnerToDisappear(driver);
+        storePage.addToCartSpinnerDisappears();
 
         storePage.chooseAnItemByClickingAddToCart("Green Tshirt");
-        WaitUtils.waitForAddToCartSpinnerToDisappear(driver);
+        storePage.addToCartSpinnerDisappears();
 
         storePage.chooseAnItemByClickingAddToCart("Red Shoes");
-        WaitUtils.waitForAddToCartSpinnerToDisappear(driver);
+        storePage.addToCartSpinnerDisappears();
 
         CartPage cartPage = new CartPage(driver);
 
