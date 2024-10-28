@@ -24,7 +24,7 @@ public class BaseTest {
 
         driver.get("https://askomdch.com/");
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
+        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
     }
 
     @AfterMethod(

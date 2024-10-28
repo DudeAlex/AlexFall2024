@@ -92,6 +92,7 @@ public class StorePage extends SalesPage {
         String chooseAnItemString = add + item + toCart;
         By chooseAnItem = By.xpath(chooseAnItemString);
         WaitUtils.elementToBeClickable(getDriver(), chooseAnItem).click();
+        WaitUtils.invisibilityOfElementLocated(getDriver(), spinnerElement);
         return this;
     }
 
@@ -146,8 +147,8 @@ public class StorePage extends SalesPage {
         }
     }
 
-    public StorePage addToCartSpinnerDisappears() {
-        WaitUtils.invisibilityOfElementLocated(getDriver(), spinnerElement);
+    public StorePage clickNextPageButton() {
+        WaitUtils.elementToBeClickable(getDriver(), nextPageNumber).click();
         return this;
     }
 }
