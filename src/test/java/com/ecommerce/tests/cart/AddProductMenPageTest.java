@@ -18,7 +18,7 @@ public class AddProductMenPageTest extends BaseTest {
         accountPage.logIn(user.getLogin(), user.getPassword());
 
         CartPage cartPage = accountPage.getHeader().navigateToCartPage();
-        cartPage.clearTheCartFromOneItem();
+        cartPage.clearCart();
 
         MenPage menPage = accountPage.getHeader().navigateToMenPage();
         menPage.addToCartFromManPage();
