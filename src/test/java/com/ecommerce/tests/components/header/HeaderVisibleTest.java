@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 public class HeaderVisibleTest extends BaseTest {
-    @Test(description = "10.1-1-1 | Verify Header Placement # https://app.clickup.com/t/8689zuu09 ")
+    @Test(description = "10.1-1-1 | TC Verify Header Placement # https://app.clickup.com/t/8689zuu09 ")
     public void testHeaderVisible() {
 
         WebElement header = driver.findElement(By.tagName("header"));
