@@ -19,7 +19,7 @@ public class AddProductAccessoriesTest extends BaseTest {
         accountPage.logIn(user.getLogin(), user.getPassword());
 
         CartPage cartPage = accountPage.getHeader().navigateToCartPage();
-        cartPage.clearTheCart();
+        cartPage.clearTheCartFromOneItem();
 
         AccessoriesPage accessoriesPage = accountPage.getHeader().navigateToAccessoriesPage();
         accessoriesPage.addToCartFromAccessoriesPage();

@@ -6,13 +6,9 @@ import com.ecommerce.pom.pages.CartPage;
 
 import com.ecommerce.utils.DriverManagerUtil;
 
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-
-import java.time.Duration;
 
 
 public class BaseTest {
@@ -34,11 +30,11 @@ public class BaseTest {
     public void tearDown() {
         CartPage cartPage = new CartPage(driver);
         cartPage.load();
-        cartPage.clearCartFromAllItems();
+        cartPage.clearCart();
 
         AccountPage accountPage = new AccountPage(driver);
         accountPage.load();
-        accountPage.logOutFromMainContent();
+        accountPage.logOutUser();
 
         if (driver != null) {
             try {
