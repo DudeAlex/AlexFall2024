@@ -8,6 +8,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import java.time.Duration;
+
 
 public class BaseTest {
     protected WebDriver driver;
@@ -23,7 +25,6 @@ public class BaseTest {
 
         driver.get("https://askomdch.com/");
         driver.manage().window().maximize();
-        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
     }
 
     @AfterMethod(
@@ -36,7 +37,7 @@ public class BaseTest {
 
         AccountPage accountPage = new AccountPage(driver);
         accountPage.load();
-        accountPage.logOutUser();
+        accountPage.logOutFromMainContent();
 
         if (driver != null) {
             try {
