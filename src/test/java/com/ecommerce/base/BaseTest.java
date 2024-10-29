@@ -1,5 +1,6 @@
 package com.ecommerce.base;
 
+import com.ecommerce.utils.DriverManagerUtil;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -16,10 +17,7 @@ public class BaseTest {
             groups = "before"
     )
     public void setUp(){
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-search-engine-choice-screen");
-        driver = new ChromeDriver(options);  // Используем ChromeOptions напрямую
-
+        driver = DriverManagerUtil.getWebdriver();
         driver.get("https://askomdch.com/");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
