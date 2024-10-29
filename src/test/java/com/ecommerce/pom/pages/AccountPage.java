@@ -51,7 +51,7 @@ public class AccountPage extends BasePage implements Loadable {
         getDriver().findElement(loginButton).click();
     }
 
-    public AccountPage logOutFromMainContent() {
+    public AccountPage logOutUser() {
 
         List<WebElement> listLogOut;
         List<WebElement> listLogInTable;
@@ -74,19 +74,6 @@ public class AccountPage extends BasePage implements Loadable {
             }
         }
         throw new TimeoutException("Unable to logout");
-
-//        try {
-//            WebElement logInTableElement = WaitUtils.presenceOfElementLocated(getDriver(), logInTable, 2);
-//            if (logInTableElement.isDisplayed()) {
-//                return this;
-//            }
-//        } catch (TimeoutException e) {
-//            WebElement logoutLink = WaitUtils.presenceOfElementLocated(getDriver(), logoutLinkFromMainContent, 2);
-//            if (logoutLink.isDisplayed()) {
-//                logoutLink.click();
-//            }
-//        }
-//        return this;
     }
 
     public AccountPage logOutFromSideMenu() {

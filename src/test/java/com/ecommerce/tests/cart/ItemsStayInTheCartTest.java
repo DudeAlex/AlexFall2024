@@ -19,7 +19,7 @@ public class ItemsStayInTheCartTest extends BaseTest {
         accountPage.load().logIn(user.getLogin(), user.getPassword());
 
         CartPage cartPage = accountPage.getHeader().navigateToCartPage();
-        cartPage.clearTheCart();
+        cartPage.clearTheCartFromOneItem();
 
         StorePage storePage = accountPage.getHeader().navigateToStorePage();
         storePage.addToCartFromStorePage();
@@ -27,7 +27,7 @@ public class ItemsStayInTheCartTest extends BaseTest {
 
         Assert.assertEquals(cartPage.getCartItemsNumber(), "1");
 
-        cartPage.getHeader().navigateToAccountPage().logOutFromMainContent();
+        cartPage.getHeader().navigateToAccountPage().logOutUser();
         accountPage.logIn(user.getLogin(), user.getPassword());
 
         Assert.assertEquals(cartPage.getCartItemsNumber(), "1");
@@ -40,7 +40,7 @@ public class ItemsStayInTheCartTest extends BaseTest {
         accountPage.load().logIn(user.getLogin(), user.getPassword());
 
         CartPage cartPage = accountPage.getHeader().navigateToCartPage();
-        cartPage.clearTheCart();
+        cartPage.clearTheCartFromOneItem();
 
         StorePage storePage = accountPage.getHeader().navigateToStorePage();
         storePage.addToCartFromStorePage();

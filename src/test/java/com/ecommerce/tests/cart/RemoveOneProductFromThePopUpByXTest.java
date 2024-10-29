@@ -25,7 +25,7 @@ public class RemoveOneProductFromThePopUpByXTest extends BaseTest {
         accountPage.logIn(user.getLogin(), user.getPassword());
 
         CartPage cartPage = accountPage.getHeader().navigateToCartPage();
-        cartPage.clearTheCart();
+        cartPage.clearTheCartFromOneItem();
 
         StorePage storePage = cartPage.getHeader().navigateToStorePage();
         storePage.addToCartFromStorePage();

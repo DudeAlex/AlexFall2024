@@ -2,7 +2,6 @@ package com.ecommerce.pom.pages;
 
 import com.ecommerce.pom.BasePage;
 import com.ecommerce.pom.Loadable;
-import com.ecommerce.pom.components.Header;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -102,38 +101,14 @@ public class CartPage extends BasePage implements Loadable {
 
     }
 
-    public void clearTheCart() {
+    public void clearTheCartFromOneItem() {
         CartPage cartPage = new CartPage(getDriver());
         if (Integer.parseInt(cartPage.getCartItemsNumber()) > 0) {
             cartPage.removeItemsFromCart();
         }
     }
 
-    public void clearCartFromAllItems1() {
-        CartPage cartPage = new CartPage(getDriver());
-        getDriver().navigate().refresh();
-
-        if (Integer.parseInt(cartPage.getCartItemsNumber()) > 0) {
-            List<WebElement> itemList = WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(), removeButton);
-            int num = itemList.size();
-
-            for (int i = 0; i < num; i++) {
-                itemList.get(0).click();
-                WaitUtils.invisibilityOfElementLocated(getDriver(), spinnerElement);
-                if (itemList.size() == 1) {
-                    break;
-                } else {
-                    WebElement singleXButton = WaitUtils.elementToBeClickable(getDriver(), removeButton);
-                    if (singleXButton.isDisplayed()) {
-                        itemList = WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(), removeButton);
-                    }
-                }
-            }
-            Assert.assertEquals(cartPage.getEmptyCartMessage(), "Your cart is currently empty.", "Cart is not empty");
-        }
-    }
-
-    public void clearCartFromAllItems() {
+    public void clearCart() {
 
         CartPage cartPage = new CartPage(getDriver());
         getDriver().navigate().refresh();

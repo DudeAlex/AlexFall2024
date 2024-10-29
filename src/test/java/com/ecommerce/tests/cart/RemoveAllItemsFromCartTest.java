@@ -2,8 +2,6 @@ package com.ecommerce.tests.cart;
 
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.pom.pages.*;
-import com.ecommerce.utils.WaitUtils;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -38,27 +36,8 @@ public class RemoveAllItemsFromCartTest extends BaseTest {
         CartPage cartPage = new CartPage(driver);
         cartPage.load();
 
-        cartPage.clearCartFromAllItems();
+        cartPage.clearCart();
 
         Assert.assertEquals(cartPage.getEmptyCartMessage(), "Your cart is currently empty.", "Cart is not empty");
-    }
-
-    @Test
-    public void testNotLoggedIn() {
-        CartPage cartPage = new CartPage(driver);
-        cartPage.load();
-        System.out.println(driver.getCurrentUrl());
-
-    }
-    @Test
-    public void testLoggedIn() {
-        AccountPage accountPage = new AccountPage(driver);
-        accountPage.load();
-        accountPage.logIn("aaa", "111");
-
-        CartPage cartPage = new CartPage(driver);
-        cartPage.load();
-        System.out.println(driver.getCurrentUrl());
-
     }
 }
