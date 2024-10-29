@@ -20,7 +20,7 @@ public class AddProductStorePageTest extends BaseTest {
         accountPage.logIn(user.getLogin(), user.getPassword());
 
         CartPage cartPage = accountPage.getHeader().navigateToCartPage();
-        cartPage.clearTheCartFromOneItem();
+        cartPage.clearCart();
 
         StorePage storePage = accountPage.getHeader().navigateToStorePage();
         storePage.addToCartFromStorePage();
