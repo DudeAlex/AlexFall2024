@@ -17,14 +17,10 @@ public class AddProductAccessoriesTest extends BaseTest {
         HomePage homePage = new HomePage(driver);
         AccountPage accountPage = homePage.getHeader().navigateToAccountPage();
         accountPage.logIn(user.getLogin(), user.getPassword());
-
-        CartPage cartPage = accountPage.getHeader().navigateToCartPage();
-        cartPage.clearTheCartFromOneItem();
-
         AccessoriesPage accessoriesPage = accountPage.getHeader().navigateToAccessoriesPage();
         accessoriesPage.addToCartFromAccessoriesPage();
-        cartPage = accessoriesPage.getHeader().navigateToCartPage();
-        Thread.sleep(2000);
+        CartPage cartPage = accessoriesPage.getHeader().navigateToCartPage();
+
         Assert.assertEquals(cartPage.getCartItemsNumber(), "1");
 
     }
