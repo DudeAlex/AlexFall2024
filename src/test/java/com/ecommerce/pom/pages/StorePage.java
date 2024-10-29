@@ -103,26 +103,4 @@ public class StorePage extends SalesPage implements SearchResultPage {
         WaitUtils.elementToBeClickable(getDriver(), firstProductAddToCartButton, 2).click();
 
     }
-
-//    public List<String> getAllItemsNameList() {
-//        List<WebElement> productList = WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(), allProductList);
-//        List<String> productNameList = new ArrayList<>();
-//        for (WebElement item : productList) {
-//            productNameList.add(item.getText());
-//        }
-//        return productNameList;
-//    }
-//
-//    @Override
-//    public boolean containsSubstringInProductNames(String substring) {
-//        for (String name : getAllItemsNameList()) {
-//            if (!name.toLowerCase().contains(substring.toLowerCase())) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
-
-
-
 }
