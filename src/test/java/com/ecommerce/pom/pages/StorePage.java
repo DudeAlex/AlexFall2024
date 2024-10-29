@@ -4,6 +4,7 @@ import com.ecommerce.utils.UserUtils;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.*;
 import org.testng.Assert;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,6 +27,7 @@ public class StorePage extends SalesPage {
     By products = By.cssSelector("div.ast-woocommerce-container>ul.products");
     By listOfProducts = By.cssSelector("div ul.products li");
     By paginatorBtnArrowToRight = By.cssSelector("a.next");
+    By spinnerElement = By.cssSelector(".button.product_type_simple.add_to_cart_button.ajax_add_to_cart.loading");
 
 
     public StorePage(WebDriver driver) {
@@ -90,6 +92,7 @@ public class StorePage extends SalesPage {
         String chooseAnItemString = add + item + toCart;
         By chooseAnItem = By.xpath(chooseAnItemString);
         WaitUtils.elementToBeClickable(getDriver(), chooseAnItem).click();
+        WaitUtils.invisibilityOfElementLocated(getDriver(), spinnerElement);
         return this;
     }
 
@@ -142,5 +145,10 @@ public class StorePage extends SalesPage {
                 hasNextPage = false;
             }
         }
+    }
+
+    public StorePage clickNextPageButton() {
+        WaitUtils.elementToBeClickable(getDriver(), nextPageNumber).click();
+        return this;
     }
 }
