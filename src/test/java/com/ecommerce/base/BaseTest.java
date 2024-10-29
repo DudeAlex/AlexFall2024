@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import java.time.Duration;
 
 
 public class BaseTest {
@@ -37,7 +36,7 @@ public class BaseTest {
 
         AccountPage accountPage = new AccountPage(driver);
         accountPage.load();
-        accountPage.logOutFromMainContent();
+        accountPage.logOutUser();
 
         if (driver != null) {
             try {

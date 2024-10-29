@@ -42,4 +42,23 @@ public class RemoveAllItemsFromCartTest extends BaseTest {
 
         Assert.assertEquals(cartPage.getEmptyCartMessage(), "Your cart is currently empty.", "Cart is not empty");
     }
+
+    @Test
+    public void testNotLoggedIn() {
+        CartPage cartPage = new CartPage(driver);
+        cartPage.load();
+        System.out.println(driver.getCurrentUrl());
+
+    }
+    @Test
+    public void testLoggedIn() {
+        AccountPage accountPage = new AccountPage(driver);
+        accountPage.load();
+        accountPage.logIn("aaa", "111");
+
+        CartPage cartPage = new CartPage(driver);
+        cartPage.load();
+        System.out.println(driver.getCurrentUrl());
+
+    }
 }

@@ -5,8 +5,6 @@ import com.ecommerce.pom.Loadable;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.*;
 
-import java.sql.Time;
-
 import static com.ecommerce.pom.EndPoints.ACCOUNT_URL;
 
 public class AccountPage extends BasePage implements Loadable {
@@ -50,14 +48,18 @@ public class AccountPage extends BasePage implements Loadable {
         getDriver().findElement(loginButton).click();
     }
 
-    public AccountPage logOutFromMainContent() {
+    public AccountPage logOutUser() {
+        By logInTable = By.cssSelector(".woocommerce-form.woocommerce-form-login.login");
         try {
+            WebElement logInTableElement = WaitUtils.presenceOfElementLocated(getDriver(), logInTable, 2);
+            if (logInTableElement.isDisplayed()) {
+                return this;
+            }
+        } catch (TimeoutException e) {
             WebElement logoutLink = WaitUtils.presenceOfElementLocated(getDriver(), logoutLinkFromMainContent, 2);
             if (logoutLink.isDisplayed()) {
                 logoutLink.click();
             }
-        } catch (TimeoutException e) {
-
         }
         return this;
     }
