@@ -12,7 +12,7 @@ import java.util.List;
 
 import static com.ecommerce.pom.EndPoints.STORE_URL;
 
-public class StorePage extends SalesPage{
+public class StorePage extends SalesPage implements SearchResultPage {
 
     String add = "//a[@aria-label='Add “";
     String toCart = "” to your cart']";
@@ -103,5 +103,26 @@ public class StorePage extends SalesPage{
         WaitUtils.elementToBeClickable(getDriver(), firstProductAddToCartButton, 2).click();
 
     }
+
+//    public List<String> getAllItemsNameList() {
+//        List<WebElement> productList = WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(), allProductList);
+//        List<String> productNameList = new ArrayList<>();
+//        for (WebElement item : productList) {
+//            productNameList.add(item.getText());
+//        }
+//        return productNameList;
+//    }
+//
+//    @Override
+//    public boolean containsSubstringInProductNames(String substring) {
+//        for (String name : getAllItemsNameList()) {
+//            if (!name.toLowerCase().contains(substring.toLowerCase())) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+
+
 
 }

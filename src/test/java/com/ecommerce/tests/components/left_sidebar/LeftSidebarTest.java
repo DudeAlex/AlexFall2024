@@ -1,24 +1,18 @@
 package com.ecommerce.tests.components.left_sidebar;
 
 import com.ecommerce.base.BaseTest;
-import com.ecommerce.pom.components.LeftSidebar;
 import com.ecommerce.pom.pages.HomePage;
 import com.ecommerce.pom.pages.MenPage;
-import com.ecommerce.pom.pages.ProductPage;
-import com.ecommerce.pom.pages.PurchasePage;
+import com.ecommerce.pom.pages.SearchResultPage;
 import com.ecommerce.pom.pages.StorePage;
 import com.ecommerce.pom.pages.WomenPage;
 import com.ecommerce.pom.EndPoints;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -49,7 +43,7 @@ public class LeftSidebarTest extends BaseTest {
         String searchWord = "moon";
         HomePage homePage = new HomePage(driver);
         StorePage storePage = homePage.clickShopNowButton();
-//        storePage.getLeftSidebar().searchProduct(searchWord, new StorePage(driver));
+        storePage.getLeftSidebar().searchProduct(searchWord);
         String NotFoundMassage = storePage.getLeftSidebar().getNotFoundMessageText();
 
         Assert.assertEquals(NotFoundMassage, "No products were found matching your selection.");
@@ -119,33 +113,12 @@ public class LeftSidebarTest extends BaseTest {
     @Test(description = "10.4 -1-5 | TC > Verify search results with 2-character input. "
             + "#https://app.clickup.com/t/868abp8yn")
     public void testSearchWithTwoCharactersReturnsRelevantItems() {
-        String partialFirstCharacters = "Je";
+        String partialFirstCharacters = "je";
 
-        PurchasePage<?> resultPage = new StorePage(driver).load()
-                .getLeftSidebar().searchProduct(partialFirstCharacters);//неопределённый параметр типа
+        SearchResultPage resultPage = new StorePage(driver).load()
+                .getLeftSidebar().searchProduct(partialFirstCharacters);
 
-        List<String> productNameList = new ArrayList<>();
-
-        if (resultPage instanceof StorePage) {
-            productNameList = ((StorePage) resultPage).getAllItemsNameList();
-        } else if (resultPage instanceof ProductPage) {
-
-            Assert.assertTrue(((ProductPage) resultPage).getProductNameText().contains(partialFirstCharacters));
-
-        } else {
-            throw new IllegalStateException("Unexpected page after search.");
-        }
-
-        boolean allContainMatch = true;
-
-        for (String name : productNameList) {
-            if (!name.toLowerCase().contains(partialFirstCharacters.toLowerCase())) {
-                allContainMatch = false;
-                break;
-            }
-        }
-
-        Assert.assertTrue(allContainMatch,
+        Assert.assertTrue(resultPage.containsSubstringInProductNames(partialFirstCharacters),
                 "Not all product names contain the substring: " + partialFirstCharacters);
     }
 

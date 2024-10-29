@@ -134,6 +134,15 @@ public abstract class SalesPage<Page extends SalesPage> extends PurchasePage<Sal
         return productNameList;
     }
 
+    public boolean containsSubstringInProductNames(String substring) {
+        for (String name : getAllItemsNameList()) {
+            if (!name.toLowerCase().contains(substring.toLowerCase())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public Page clickFilterButton() {
         WaitUtils.presenceOfElementLocated(getDriver(), getLeftSidebar().filterButton).click();
 
@@ -168,6 +177,26 @@ public abstract class SalesPage<Page extends SalesPage> extends PurchasePage<Sal
                 .perform();
 
         return (Page) this;
+    }
+
+    public int countItemsOnPage(String itemName) {
+        List<WebElement> searchResultList = WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(), allProductList);
+        if (searchResultList.isEmpty()) {
+            throw new java.util.NoSuchElementException("Search results are empty.");
+        }
+
+        return countItemsContainingItemText(searchResultList, itemName);
+    }
+
+    private static int countItemsContainingItemText(List<WebElement> items, String product) {
+        int count = 0;
+        for (WebElement item : items) {
+            String itemText = item.getText().toLowerCase();
+            if (itemText.contains(product.toLowerCase())) {
+                count++;
+            }
+        }
+        return count;
     }
 
 }

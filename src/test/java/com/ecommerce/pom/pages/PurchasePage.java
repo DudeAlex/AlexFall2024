@@ -28,7 +28,7 @@ public abstract class PurchasePage<Page extends PurchasePage> extends BasePage {
 
     public Page clickAddToCartButton(String targetProductName) {
         List<WebElement> productList = getProductsGrid().getProductsList();
-        for (WebElement product: productList) {
+        for (WebElement product : productList) {
             String productName = product.findElement(getProductsGrid().productTitle).getText();
             if (productName.equals(targetProductName)) {
                 product.findElement(getProductsGrid().productAddToCartButton).click();
@@ -36,26 +36,6 @@ public abstract class PurchasePage<Page extends PurchasePage> extends BasePage {
         }
 
         return (Page) this;
-    }
-
-    private static int countItemsContainingItemText(List<WebElement> items, String product) {
-        int count = 0;
-        for (WebElement item : items) {
-            String itemText = item.getText().toLowerCase();
-            if (itemText.contains(product.toLowerCase())) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    public int countItemsOnPage(String itemName) {
-        List<WebElement> searchResultList = WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(), allProductList);
-        if (searchResultList.isEmpty()) {
-            throw new NoSuchElementException("Search results are empty.");
-        }
-
-        return countItemsContainingItemText(searchResultList, itemName);
     }
 
     public String getSearchHeaderTitle() {
