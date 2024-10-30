@@ -22,7 +22,7 @@ public class AddProductAccessoriesTest extends BaseTest {
         cartPage.clearCart();
 
         AccessoriesPage accessoriesPage = accountPage.getHeader().navigateToAccessoriesPage();
-        accessoriesPage.addToCartFromAccessoriesPage();
+        accessoriesPage.clickFirstAddToCartButtonOnProductsGrid();
         cartPage = accessoriesPage.getHeader().navigateToCartPage();
 
         Assert.assertEquals(cartPage.getCartItemsNumber(), "1");

@@ -17,7 +17,7 @@ public class CartPage extends BasePage implements Loadable {
 
     By checkoutButton = By.xpath("//a[@href='https://askomdch.com/checkout/']");
     By viewCart = (By.xpath("//a[@title='View cart']"));
-    By quantityOfProducts = By.xpath("//input[@type=\"number\"]");
+    By quantityOfProducts = By.xpath("//input[@type='number']");
     By updateCartButton = By.xpath("//button[@name=\"update_cart\"]");
     By cartIcon = By.xpath("//div/header/div[1]/div[1]/div/div/div/div[2]/div[2]/div/div[1]/a/div/span");
     By removeButton = By.xpath("//a[@class='remove']");

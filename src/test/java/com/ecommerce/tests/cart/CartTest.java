@@ -155,14 +155,17 @@ public class CartTest extends BaseTest {
         accountPage.getHeader().navigateToStorePage();
         StorePage storePage = new StorePage(driver);
         int amountProductsInCart = homePage.getAmountOfProductsFromCartIcon();
+        System.out.println(amountProductsInCart);
         for (int i = 0; i < QUANTITY_OF_PRODUCTS; i++) {
             storePage.addFirstProductToCart();
         }
         int amountProductsInCartAfterAppending = homePage.getAmountOfProductsFromCartIconAfterIncrease(QUANTITY_OF_PRODUCTS);
+        System.out.println(amountProductsInCartAfterAppending);
         Assert.assertEquals(amountProductsInCart + QUANTITY_OF_PRODUCTS, amountProductsInCartAfterAppending, "The product wasn't added to cart");
         homePage.getHeader().navigateToCartPage();
         CartPage cartPage = new CartPage(driver);
         int productsQuantityInCart = cartPage.getProductsQuantity();
+        System.out.println(productsQuantityInCart);
         Assert.assertEquals(amountProductsInCartAfterAppending, productsQuantityInCart, "The product wasn't added to cart");
         cartPage.resetValueOfProductQuantity();
     }
@@ -186,6 +189,7 @@ public class CartTest extends BaseTest {
         homePage.getHeader().navigateToCartPage();
         CartPage cartPage = new CartPage(driver);
         int productsQuantityInCart = cartPage.getProductsQuantity();
+        System.out.println(productsQuantityInCart);
         Assert.assertTrue(productsQuantityInCart > 1, "The product wasn't added to cart");
 //        Assert.assertEquals(amountProductsInCartAfterAppending, productsQuantityInCart, "The product wasn't added to cart");
         cartPage.resetValueOfProductQuantity();

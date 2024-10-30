@@ -14,6 +14,7 @@ public abstract class PurchasePage<Page extends PurchasePage> extends BasePage {
 
     By allProductList = By.xpath("//ul//h2");
     By headerTitle = By.xpath("//h1[@class='woocommerce-products-header__title page-title']");
+    By addToCartFirstProductOnPageButton = By.xpath("//ul[contains(@class, 'products columns')]//li[1]//a[contains(@class, 'button')]");
 
     private final ProductsGrid productsGrid;
 
@@ -62,4 +63,9 @@ public abstract class PurchasePage<Page extends PurchasePage> extends BasePage {
         return WaitUtils.visibilityOf(getDriver(), headerTitle).getText();
     }
 
+    public Page clickFirstAddToCartButtonOnProductsGrid() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), addToCartFirstProductOnPageButton).click();
+
+        return (Page) this;
+    }
 }
