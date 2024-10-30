@@ -3,11 +3,9 @@ package com.ecommerce.pom.pages;
 import com.ecommerce.pom.BasePage;
 import com.ecommerce.pom.Loadable;
 import com.ecommerce.utils.WaitUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+
+import java.util.List;
 
 import static com.ecommerce.pom.EndPoints.ACCOUNT_URL;
 
@@ -28,6 +26,7 @@ public class AccountPage extends BasePage implements Loadable {
     By logoutLinkFromSideMenu = By.xpath("//li[contains(@class, 'woocommerce-MyAccount-navigation-link--customer-logout')]/a[text()='Logout']");
     By accountDetailLink = By.xpath("//a[normalize-space()='Account details']");
     By addressesLink = By.xpath("//a[text() ='Addresses']");
+    By logInTable = By.cssSelector(".woocommerce-form.woocommerce-form-login.login");
 
     public AccountPage(WebDriver driver) {
         super(driver);
@@ -52,12 +51,29 @@ public class AccountPage extends BasePage implements Loadable {
         getDriver().findElement(loginButton).click();
     }
 
-    public AccountPage logOutFromMainContent() {
-        WebElement logout = WaitUtils.presenceOfElementLocated(getDriver(), logoutLinkFromMainContent, 5);
-        if (logout.isDisplayed()) {
-            logout.click();
+    public AccountPage logOutUser() {
+
+        List<WebElement> listLogOut;
+        List<WebElement> listLogInTable;
+
+        for (int i = 0; i < 8; i++) {
+            listLogOut = getDriver().findElements(logoutLinkFromMainContent);
+            listLogInTable = getDriver().findElements(logInTable);
+
+            if (listLogOut.size() > 0) {
+                listLogOut.get(0).click();
+                return this;
+            }
+            if (listLogInTable.size() > 0) {
+                return this;
+            }
+            try {
+                Thread.sleep(250);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
-        return this;
+        throw new TimeoutException("Unable to logout");
     }
 
     public AccountPage logOutFromSideMenu() {

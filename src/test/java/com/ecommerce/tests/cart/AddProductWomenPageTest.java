@@ -19,7 +19,7 @@ public class AddProductWomenPageTest extends BaseTest {
         accountPage.logIn(user.getLogin(), user.getPassword());
 
         CartPage cartPage = accountPage.getHeader().navigateToCartPage();
-        cartPage.clearTheCart();
+        cartPage.clearCart();
 
         WomenPage womenPage = accountPage.getHeader().navigateToWomenPage();
         womenPage.addToCartFromWomenPage();

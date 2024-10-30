@@ -24,7 +24,7 @@ public class RegisteredUserLoginTest extends BaseTest {
         String linkLogoutGetText = driver.findElement(accountPage.getLogoutLinkFromSideMenu()).getText();
         Assert.assertEquals(linkLogoutGetText, logoutButtonText);
 
-        accountPage.logOutFromMainContent();
+        accountPage.logOutUser();
 
         String loginButtonGetText = driver.findElement(accountPage.getLoginButton()).getText();
         Assert.assertEquals(loginButtonGetText,logInButtonText);

@@ -38,63 +38,63 @@ public class HeaderNavigationMenuVisibleTest extends BaseTest {
     public void tearDown(){
     }
 
-    @Test(description = "0-3-1| Verify Navigation Menu Placement # https://app.clickup.com/t/8689q87dt")
+    @Test(description = "0-3-1| Verify header menu content # https://app.clickup.com/t/8689q87dt")
     public void testHomeMenuIsDisplayed() {
         HomePage homePage = new HomePage(driver);
 
         Assert.assertTrue(driver.findElement(homePage.getHeader().getHeaderHome()).isDisplayed()); // Home
     }
 
-    @Test(description = "0-3-1| Verify Navigation Menu Placement # https://app.clickup.com/t/8689q87dt")
+    @Test(description = "0-3-1| Verify header menu content # https://app.clickup.com/t/8689q87dt")
     public void testStoreMenuIsDisplayed() {
         HomePage homePage = new HomePage(driver);
 
         Assert.assertTrue(driver.findElement(homePage.getHeader().getHeaderStore()).isDisplayed()); // Store
     }
 
-    @Test(description = "0-3-1| Verify Navigation Menu Placement # https://app.clickup.com/t/8689q87dt")
+    @Test(description = "0-3-1| Verify header menu content # https://app.clickup.com/t/8689q87dt")
     public void testMenMenuIsDisplayed() {
         HomePage homePage = new HomePage(driver);
 
         Assert.assertTrue(driver.findElement(homePage.getHeader().getHeaderMen()).isDisplayed()); // Men
     }
 
-    @Test(description = "0-3-1| Verify Navigation Menu Placement # https://app.clickup.com/t/8689q87dt")
+    @Test(description = "0-3-1| Verify header menu content # https://app.clickup.com/t/8689q87dt")
     public void testWomenMenuIsDisplayed() {
         HomePage homePage = new HomePage(driver);
 
         Assert.assertTrue(driver.findElement(homePage.getHeader().getHeaderWomen()).isDisplayed()); // Women
     }
 
-    @Test(description = "0-3-1| Verify Navigation Menu Placement # https://app.clickup.com/t/8689q87dt")
+    @Test(description = "0-3-1| Verify header menu content # https://app.clickup.com/t/8689q87dt")
     public void testAccessoriesMenuIsDisplayed() {
         HomePage homePage = new HomePage(driver);
 
         Assert.assertTrue(driver.findElement(homePage.getHeader().getHeaderAccessories()).isDisplayed()); // Accessories
     }
 
-    @Test(description = "0-3-1| Verify Navigation Menu Placement # https://app.clickup.com/t/8689q87dt")
+    @Test(description = "0-3-1| Verify header menu content # https://app.clickup.com/t/8689q87dt")
     public void testAccountMenuIsDisplayed() {
         HomePage homePage = new HomePage(driver);
 
         Assert.assertTrue(driver.findElement(homePage.getHeader().getHeaderAccount()).isDisplayed()); // Account
     }
 
-    @Test(description = "0-3-1| Verify Navigation Menu Placement # https://app.clickup.com/t/8689q87dt")
+    @Test(description = "0-3-1| Verify header menu content # https://app.clickup.com/t/8689q87dt")
     public void testAboutIsDisplayed(){
         HomePage homePage = new HomePage(driver);
 
         Assert.assertTrue(driver.findElement(homePage.getHeader().getHeaderAbout()).isDisplayed()); // About
     }
 
-    @Test(description = "0-3-1| Verify Navigation Menu Placement # https://app.clickup.com/t/8689q87dt")
+    @Test(description = "0-3-1| Verify header menu content # https://app.clickup.com/t/8689q87dt")
     public void testContactUsIsDisplayed(){
         HomePage homePage = new HomePage(driver);
 
         Assert.assertTrue(driver.findElement(homePage.getHeader().getHeaderContactUs()).isDisplayed()); // Contact Us
     }
 
-    @Test(description = "0-3-1| Verify Navigation Menu Placement # https://app.clickup.com/t/8689q87dt")
+    @Test(description = "0-3-1| Verify header menu content # https://app.clickup.com/t/8689q87dt")
     public void testCartIsDisplayed() {
         HomePage homePage = new HomePage(driver);
 

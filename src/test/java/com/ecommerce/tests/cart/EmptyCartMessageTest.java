@@ -24,7 +24,7 @@ public class EmptyCartMessageTest extends BaseTest {
         accountPage.logIn(user.getLogin(), user.getPassword());
 
         CartPage cartPage = accountPage.getHeader().navigateToCartPage();
-        cartPage.clearTheCart();
+        cartPage.clearTheCartFromOneItem();
 
         WaitUtils.waitForQuantityToBe(cartPage.getDriver(), By.xpath("//span[@class='count']"), "0");
 
