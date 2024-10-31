@@ -14,9 +14,6 @@ import java.util.List;
 import static com.ecommerce.pom.EndPoints.*;
 
 public class CartTest extends BaseTest {
-
-    private int QUANTITY_OF_PRODUCTS = 2;
-
     @DataProvider(name = "numberToUpdateData")
     public Object[][] numberStrToUpdateData() {
         return new Object[][] {
@@ -83,7 +80,7 @@ public class CartTest extends BaseTest {
     }
 
     @Test(description = "9.1_2_2.4 | TC > Cart > Remove multiple products by clicking x buttons # https://app.clickup.com/t/8689p8y04")
-    public void testAddRemoveMultipleItemsInCart() throws InterruptedException {
+    public void testAddRemoveMultipleItemsInCart() {
         new HomePage(driver).getHeader().navigateToStorePage();
 
         List<WebElement> products = driver.findElements(By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']"));
@@ -146,7 +143,7 @@ public class CartTest extends BaseTest {
     }
 
     @Test(description = "9.1-1.5 | TC Add the same product to the cart (add a product twice) from the Store page")
-    public void testAddTheSameProductToTheCartFromStorePage() throws InterruptedException {
+    public void testAddTheSameProductToTheCartFromStorePage() {
        HomePage homePage = new HomePage(driver);
        AccountPage accountPage = homePage.getHeader()
                .navigateToAccountPage()
@@ -167,57 +164,49 @@ public class CartTest extends BaseTest {
         Assert.assertEquals((cartPage.getProductPrice() * cartPage.getProductsQuantity()), cartPage.getProductSubtotal());
     }
 
-    @Test(description = "9.1-3-3.1.2 | TC > Cart > Add the same product to the cart from the Home page # https://app.clickup.com/t/8689zkdvk")
-    public void testAddTheSameProductToTheCartFromHomePage(){
+    @Test(description = "9.1-1.6 | TC Add the same product to the cart (add a product twice) from the Home page")
+    public void testAddTheSameProductToTheCartFromHomePage() {
         HomePage homePage = new HomePage(driver);
-        homePage.getHeader().navigateToAccountPage();
-        AccountPage accountPage = new AccountPage(driver);
-        accountPage.logIn();
-        accountPage.getHeader().navigateToHomePage();
-        int amountProductsInCart = homePage.getAmountOfProductsFromCartIcon();
-        homePage.goToProduct();
-        for (int i = 0; i < QUANTITY_OF_PRODUCTS; i++) {
-            homePage.addFirstProductToCart();
-        }
-        homePage.goToCartIcon();
-        int amountProductsInCartAfterAppending = homePage.getAmountOfProductsFromCartIconAfterIncrease(QUANTITY_OF_PRODUCTS);
-//        Assert.assertEquals(amountProductsInCart + QUANTITY_OF_PRODUCTS, amountProductsInCartAfterAppending, "The product wasn't added to cart");
-        Assert.assertTrue(amountProductsInCartAfterAppending > 1, "The product wasn't added to cart");
-        homePage.getHeader().navigateToCartPage();
-        CartPage cartPage = new CartPage(driver);
-        int productsQuantityInCart = cartPage.getProductsQuantity();
-        System.out.println(productsQuantityInCart);
-        Assert.assertTrue(productsQuantityInCart > 1, "The product wasn't added to cart");
-//        Assert.assertEquals(amountProductsInCartAfterAppending, productsQuantityInCart, "The product wasn't added to cart");
-        cartPage.resetValueOfProductQuantity();
+        homePage.getHeader()
+                .navigateToAccountPage()
+                .logInUsingConfigUtils()
+                .assertLogin()
+                .getHeader()
+                .navigateToHomePage();
+
+        Assert.assertEquals(driver.getCurrentUrl(), BASE_URL);
+        Assert.assertEquals(homePage.getHeader().getAmountOfProductsOnCartIcon(), 0);
+
+        homePage.addproductToCartNumberOfTimes(2);
+        WaitUtils.waitForQuantityToBe(homePage.getDriver(), homePage.getHeader().getHeaderCartButton(), "2");
+
+        Assert.assertEquals(homePage.getHeader().getAmountOfProductsOnCartIcon(), 2);
+        CartPage cartPage = homePage.getHeader().navigateToCartPage();
+
+        Assert.assertEquals(cartPage.getProductsQuantity(), 2);
+        Assert.assertEquals((cartPage.getProductPrice() * cartPage.getProductsQuantity()), cartPage.getProductSubtotal());
     }
 
-    @Test(description = "9.1-3-3.1.3 | TC > Cart > Add the same product to the cart from the Men page # https://app.clickup.com/t/8689zkdvk")
-    public void testAddTheSameProductToTheCartFromMenPage(){
+    @Test(description = "9.1-1.7 | TC Add the same product to the cart (add a product twice) from the Men page")
+    public void testAddTheSameProductToTheCartFromMenPage() {
         HomePage homePage = new HomePage(driver);
-        homePage.getHeader().navigateToAccountPage();
-        AccountPage accountPage = new AccountPage(driver);
-        accountPage.logIn();
-        accountPage.getHeader().navigateToMenPage();
-        int amountProductsInCart = homePage.getAmountOfProductsFromCartIcon();
-//        if (amountProductsInCart != 0){
-//            homePage.goToCartIcon();
-//            homePage.resetCart();
-//        }
-        MenPage menPage = new MenPage(driver);
-        menPage.goToProduct();
-        for (int i = 0; i < QUANTITY_OF_PRODUCTS; i++) {
-            menPage.addFirstProductToCart();
-        }
-        menPage.goToCartIcon();
-        int amountProductsInCartAfterAppending = homePage.getAmountOfProductsFromCartIconAfterIncrease(QUANTITY_OF_PRODUCTS);
-//        Assert.assertEquals(amountProductsInCart + QUANTITY_OF_PRODUCTS, amountProductsInCartAfterAppending, "The product wasn't added to cart");
-        Assert.assertTrue(amountProductsInCartAfterAppending > 1, "The product wasn't added to cart");
-        homePage.getHeader().navigateToCartPage();
-        CartPage cartPage = new CartPage(driver);
-        int productsQuantityInCart = cartPage.getProductsQuantity();
-        Assert.assertTrue(productsQuantityInCart > 1, "The product wasn't added to cart");
-//        Assert.assertEquals(amountProductsInCartAfterAppending, productsQuantityInCart, "The product wasn't added to cart");
-        cartPage.resetValueOfProductQuantity();
+        MenPage menPage = homePage.getHeader()
+                .navigateToAccountPage()
+                .logInUsingConfigUtils()
+                .assertLogin()
+                .getHeader()
+                .navigateToMenPage();
+
+        Assert.assertEquals(driver.getCurrentUrl(), MEN_URL);
+        Assert.assertEquals(homePage.getHeader().getAmountOfProductsOnCartIcon(), 0);
+
+        menPage.addproductToCartNumberOfTimes(2);
+        WaitUtils.waitForQuantityToBe(homePage.getDriver(), menPage.getHeader().getHeaderCartButton(), "2");
+
+        Assert.assertEquals(menPage.getHeader().getAmountOfProductsOnCartIcon(), 2);
+        CartPage cartPage = menPage.getHeader().navigateToCartPage();
+
+        Assert.assertEquals(cartPage.getProductsQuantity(), 2);
+        Assert.assertEquals((cartPage.getProductPrice() * cartPage.getProductsQuantity()), cartPage.getProductSubtotal());
     }
 }
