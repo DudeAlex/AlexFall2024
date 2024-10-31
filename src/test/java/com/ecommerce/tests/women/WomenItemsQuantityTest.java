@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 public class WomenItemsQuantityTest extends BaseTest {
 
-    @Test
+    @Test (description = "4.10 - 1 | TC Verify number of all products on Women matches product quantity # https://app.clickup.com/t/8689p8y99")
     public void testQuantityOfItems() {
 
         WomenPage womenPage = new WomenPage(driver);
