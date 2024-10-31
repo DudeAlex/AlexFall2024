@@ -5,14 +5,13 @@ import com.ecommerce.pom.pages.*;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import javax.swing.*;
-import java.time.Duration;
 import java.util.List;
+
+import static com.ecommerce.pom.EndPoints.*;
 
 public class CartTest extends BaseTest {
 
@@ -146,28 +145,26 @@ public class CartTest extends BaseTest {
         Thread.sleep(2000);
     }
 
-    @Test(description = "9.1-3-3.1.1 | TC > Cart > Add the same product to the cart from the Store page # https://app.clickup.com/t/8689zkdvk")
-    public void testAddTheSameProductToTheCartFromStorePage() {
-        HomePage homePage = new HomePage(driver);
-        homePage.getHeader().navigateToAccountPage();
-        AccountPage accountPage = new AccountPage(driver);
-        accountPage.logIn();
-        accountPage.getHeader().navigateToStorePage();
-        StorePage storePage = new StorePage(driver);
-        int amountProductsInCart = homePage.getAmountOfProductsFromCartIcon();
-        System.out.println(amountProductsInCart);
-        for (int i = 0; i < QUANTITY_OF_PRODUCTS; i++) {
-            storePage.addFirstProductToCart();
-        }
-        int amountProductsInCartAfterAppending = homePage.getAmountOfProductsFromCartIconAfterIncrease(QUANTITY_OF_PRODUCTS);
-        System.out.println(amountProductsInCartAfterAppending);
-        Assert.assertEquals(amountProductsInCart + QUANTITY_OF_PRODUCTS, amountProductsInCartAfterAppending, "The product wasn't added to cart");
-        homePage.getHeader().navigateToCartPage();
-        CartPage cartPage = new CartPage(driver);
-        int productsQuantityInCart = cartPage.getProductsQuantity();
-        System.out.println(productsQuantityInCart);
-        Assert.assertEquals(amountProductsInCartAfterAppending, productsQuantityInCart, "The product wasn't added to cart");
-        cartPage.resetValueOfProductQuantity();
+    @Test(description = "9.1-1.5 | TC Add the same product to the cart (add a product twice) from the Store page")
+    public void testAddTheSameProductToTheCartFromStorePage() throws InterruptedException {
+       HomePage homePage = new HomePage(driver);
+       AccountPage accountPage = homePage.getHeader()
+               .navigateToAccountPage()
+               .logInUsingConfigUtils()
+               .assertLogin();
+
+        StorePage storePage = accountPage.getHeader().navigateToStorePage();
+        Assert.assertEquals(driver.getCurrentUrl(), STORE_URL);
+        Assert.assertEquals(storePage.getHeader().getAmountOfProductsOnCartIcon(), 0);
+
+        storePage.addproductToCartNumberOfTimes(2);
+        WaitUtils.waitForQuantityToBe(storePage.getDriver(), storePage.getHeader().getHeaderCartButton(), "2");
+
+        Assert.assertEquals(storePage.getHeader().getAmountOfProductsOnCartIcon(), 2);
+        CartPage cartPage = storePage.getHeader().navigateToCartPage();
+
+        Assert.assertEquals(cartPage.getProductsQuantity(), 2);
+        Assert.assertEquals((cartPage.getProductPrice() * cartPage.getProductsQuantity()), cartPage.getProductSubtotal());
     }
 
     @Test(description = "9.1-3-3.1.2 | TC > Cart > Add the same product to the cart from the Home page # https://app.clickup.com/t/8689zkdvk")

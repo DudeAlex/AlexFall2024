@@ -86,8 +86,7 @@ public class WaitUtils {
         return new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.textToBe(by, String.valueOf(initialValue + quantity)));
     }
 
-    public static Boolean waitForQuantityToBe(WebDriver driver, By by, String quantity) {
+    public static boolean waitForQuantityToBe(WebDriver driver, By by, String quantity) {
         return new WebDriverWait(driver, Duration.ofSeconds(TIMEOUTS)).until(ExpectedConditions.textToBe(by, quantity));
     }
-
 }

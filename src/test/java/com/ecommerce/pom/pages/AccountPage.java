@@ -2,6 +2,7 @@ package com.ecommerce.pom.pages;
 
 import com.ecommerce.pom.BasePage;
 import com.ecommerce.pom.Loadable;
+import com.ecommerce.utils.ConfigUtil;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.*;
 
@@ -28,6 +29,7 @@ public class AccountPage extends BasePage implements Loadable {
     By addressesLink = By.xpath("//a[text() ='Addresses']");
     By logInTable = By.cssSelector(".woocommerce-form.woocommerce-form-login.login");
 
+
     public AccountPage(WebDriver driver) {
         super(driver);
     }
@@ -49,6 +51,17 @@ public class AccountPage extends BasePage implements Loadable {
         getDriver().findElement(loginUsername).sendKeys(email);
         getDriver().findElement(loginPassword).sendKeys(password);
         getDriver().findElement(loginButton).click();
+    }
+
+    public AccountPage logInUsingConfigUtils() {
+        String userLogin = ConfigUtil.getProperty("userLogin");
+        String userPassword = ConfigUtil.getProperty("userPassword");
+
+        getDriver().findElement(loginUsername).sendKeys(userLogin);
+        getDriver().findElement(loginPassword).sendKeys(userPassword);
+        getDriver().findElement(loginButton).click();
+
+        return this;
     }
 
     public AccountPage logOutUser() {
@@ -160,6 +173,17 @@ public class AccountPage extends BasePage implements Loadable {
     public AccountAddressesPage clickAddressesLink (){
         WaitUtils.elementToBeClickable(getDriver(), addressesLink).click();
         return new AccountAddressesPage(getDriver());
+    }
+
+    public AccountPage assertLogin() {
+        List<WebElement> logoutLink = WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(), logoutLinkFromMainContent, 2);
+        if (logoutLink.isEmpty()) {
+            throw new AssertionError("User was not logged-in");
+        } else {
+            System.out.println("Login was successful");
+        }
+
+        return this;
     }
 
     public By getEmailField() {

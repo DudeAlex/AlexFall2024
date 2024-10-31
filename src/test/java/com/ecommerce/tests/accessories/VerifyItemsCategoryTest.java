@@ -2,7 +2,6 @@ package com.ecommerce.tests.accessories;
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.pom.pages.AccessoriesPage;
 import com.ecommerce.pom.pages.HomePage;
-import com.ecommerce.pom.pages.MenPage;
 import com.ecommerce.pom.pages.StorePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -26,8 +25,8 @@ public class VerifyItemsCategoryTest extends BaseTest {
         StorePage storePage = new StorePage(driver).load();
 
         AccessoriesPage accessoriesPage = storePage.getHeader().navigateToAccessoriesPage();
-        accessoriesPage.clickFirstAddToCartButtonOnProductsGrid();
+        accessoriesPage.addFirstProductOnPageToCart();
 
-        storePage.getHeader().navigateToAccessoriesPage().clickFirstAddToCartButtonOnProductsGrid();
+        storePage.getHeader().navigateToAccessoriesPage().addFirstProductOnPageToCart();
     }
 }

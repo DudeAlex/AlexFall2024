@@ -27,13 +27,27 @@ public abstract class PurchasePage<Page extends PurchasePage> extends BasePage {
         return productsGrid;
     }
 
-    public Page clickAddToCartButton(String targetProductName) {
+    public Page addProductToCart(String targetProductName) {
         List<WebElement> productList = getProductsGrid().getProductsList();
         for (WebElement product: productList) {
             String productName = product.findElement(getProductsGrid().productTitle).getText();
             if (productName.equals(targetProductName)) {
                 product.findElement(getProductsGrid().productAddToCartButton).click();
             }
+        }
+
+        return (Page) this;
+    }
+
+    public Page addFirstProductOnPageToCart() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), addToCartFirstProductOnPageButton).click();
+
+        return (Page) this;
+    }
+
+    public Page addproductToCartNumberOfTimes(int numberOfTimes) {
+        for(int i = 0; i < numberOfTimes; i++) {
+            addFirstProductOnPageToCart();
         }
 
         return (Page) this;
@@ -61,11 +75,5 @@ public abstract class PurchasePage<Page extends PurchasePage> extends BasePage {
 
     public String getSearchHeaderTitle() {
         return WaitUtils.visibilityOf(getDriver(), headerTitle).getText();
-    }
-
-    public Page clickFirstAddToCartButtonOnProductsGrid() {
-        WaitUtils.visibilityOfElementLocated(getDriver(), addToCartFirstProductOnPageButton).click();
-
-        return (Page) this;
     }
 }
