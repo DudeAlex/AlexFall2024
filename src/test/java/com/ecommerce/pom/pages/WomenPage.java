@@ -10,6 +10,7 @@ public class WomenPage extends SalesPage{
 
     By addToCartButton  = By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']");
     By cartButton = By.linkText("View cart");
+    By itemsResultNumber = By.cssSelector(".woocommerce-result-count");
 
     public WomenPage(WebDriver driver) {
         super(driver);
@@ -36,5 +37,10 @@ public class WomenPage extends SalesPage{
         super.addProductToCart(targetProductName);
 
         return this;
+    }
+    public int getPageResultCount() {
+        String result = WaitUtils.presenceOfElementLocated(getDriver(), itemsResultNumber).getText();
+        result = result.replaceAll("[A-Za-z\\s]", "");
+        return Integer.parseInt(result);
     }
 }
