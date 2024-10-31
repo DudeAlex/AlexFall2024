@@ -36,7 +36,7 @@ public abstract class SalesPage<Page extends SalesPage> extends PurchasePage<Sal
         return leftSidebar;
     }
 
-    private List<Double> getAllProductsPriceList() {
+    public List<Double> getAllProductsPriceList() {
         List<WebElement> priceTextList = getDriver().findElements(price);
         List<String> priceStrings = new ArrayList<>();
         for (WebElement priceElement : priceTextList) {
