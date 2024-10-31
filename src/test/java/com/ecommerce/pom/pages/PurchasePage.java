@@ -62,4 +62,8 @@ public abstract class PurchasePage<Page extends PurchasePage> extends BasePage {
         return WaitUtils.visibilityOf(getDriver(), headerTitle).getText();
     }
 
+    public int getNumberOfProductsOnPage() {
+        List<WebElement> itemsList = WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(), allProductList);
+        return itemsList.size();
+    }
 }
