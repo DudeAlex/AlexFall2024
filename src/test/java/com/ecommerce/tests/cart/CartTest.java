@@ -21,11 +21,13 @@ public class CartTest extends BaseTest {
         };
     }
 
-    @Test(description = "9.1_3_3.4 | TC > Cart - Update the Cart By typing the number inside of the Quantity input field # https://app.clickup.com/t/8689u7hd6",
+    @Test(description = "9.1-3.4 | TC Update the Cart By typing the number inside of the Quantity input field",
     dataProvider = "numberToUpdateData")
-    public void testUpdateQuantityInCart(String numbeerToSet, int priceIncreeaseToCheck) {
-        new HomePage(driver).getHeader().navigateToStorePage();
-        new StorePage(driver).addToCartFromStorePage();
+    public void testUpdateQuantityInCart(String numberToSet) {
+
+//    public void testUpdateQuantityInCart(String numberToSet, int priceIncreeaseToCheck) {
+        new HomePage(driver).getHeader().navigateToStorePage().addFirstProductOnPageToCart();
+//        new StorePage(driver).addToCartFromStorePage();
 
         WebElement viewCart = driver.findElement(By.linkText("View cart"));
         String viewCartText = viewCart.getText();
@@ -45,7 +47,7 @@ public class CartTest extends BaseTest {
         WebElement quantity = driver.findElement(By.xpath("//input[@class='input-text qty text']"));
         quantity.click();
         quantity.clear();
-        quantity.sendKeys(numbeerToSet);
+        quantity.sendKeys(numberToSet);
 
         String updatedPriceString = driver.findElement(By.xpath("//td[@class = 'product-subtotal']/span[@class='woocommerce-Price-amount amount']")).getText();
         driver.findElement(By.xpath("//button[@name='update_cart']")).click();
