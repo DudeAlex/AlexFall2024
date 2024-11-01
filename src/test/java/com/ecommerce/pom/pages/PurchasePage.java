@@ -14,6 +14,7 @@ public abstract class PurchasePage<Page extends PurchasePage> extends BasePage {
 
     By allProductList = By.xpath("//ul//h2");
     By headerTitle = By.xpath("//h1[@class='woocommerce-products-header__title page-title']");
+    By addToCartFirstProductOnPageButton = By.xpath("//ul[contains(@class, 'products columns')]//li[1]//a[contains(@class, 'button')]");
 
     private final ProductsGrid productsGrid;
 
@@ -26,13 +27,27 @@ public abstract class PurchasePage<Page extends PurchasePage> extends BasePage {
         return productsGrid;
     }
 
-    public Page clickAddToCartButton(String targetProductName) {
+    public Page addProductToCart(String targetProductName) {
         List<WebElement> productList = getProductsGrid().getProductsList();
         for (WebElement product: productList) {
             String productName = product.findElement(getProductsGrid().productTitle).getText();
             if (productName.equals(targetProductName)) {
                 product.findElement(getProductsGrid().productAddToCartButton).click();
             }
+        }
+
+        return (Page) this;
+    }
+
+    public Page addFirstProductOnPageToCart() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), addToCartFirstProductOnPageButton).click();
+
+        return (Page) this;
+    }
+
+    public Page addproductToCartNumberOfTimes(int numberOfTimes) {
+        for(int i = 0; i < numberOfTimes; i++) {
+            addFirstProductOnPageToCart();
         }
 
         return (Page) this;

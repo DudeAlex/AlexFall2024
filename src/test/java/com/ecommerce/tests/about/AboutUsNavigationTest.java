@@ -23,4 +23,8 @@ public class AboutUsNavigationTest extends BaseTest {
         Assert.assertEquals(aboutUsHeader, "About Us");
     }
 
+    public void getPagesTitles() {
+
+    }
+
 }

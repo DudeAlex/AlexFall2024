@@ -11,7 +11,7 @@ import java.util.List;
 
 import static com.ecommerce.pom.EndPoints.STORE_URL;
 
-public class StorePage extends SalesPage {
+public class StorePage extends SalesPage<StorePage> {
 
     String add = "//a[@aria-label='Add “";
     String toCart = "” to your cart']";

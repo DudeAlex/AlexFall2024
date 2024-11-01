@@ -19,8 +19,8 @@ public class AddAnyProductToCartTest extends BaseTest {
         HomePage homePage = new HomePage(driver);
         homePage.load();
 
-        homePage.clickAddToCartButton("Blue Shoes");
-        homePage.clickAddToCartButton("Basic Blue Jeans");
+        homePage.addProductToCart("Blue Shoes");
+        homePage.addProductToCart("Basic Blue Jeans");
 
         homePage.scrollToElement(driver.findElement(By
                 .xpath("//div[@id='ast-desktop-header']//span[@class='count']")));
@@ -36,8 +36,8 @@ public class AddAnyProductToCartTest extends BaseTest {
         MenPage menPage = new MenPage(driver);
         menPage.load();
 
-        menPage.clickAddToCartButton("Green Tshirt");
-        menPage.clickAddToCartButton("Red Shoes");
+        menPage.addProductToCart("Green Tshirt");
+        menPage.addProductToCart("Red Shoes");
 
         Thread.sleep(1000);
 

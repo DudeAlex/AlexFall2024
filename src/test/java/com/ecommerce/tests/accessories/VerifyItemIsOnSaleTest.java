@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class VerifyItemIsOnSale extends BaseTest {
+public class VerifyItemIsOnSaleTest extends BaseTest {
 
     @Test(description = "5.2-3-1 | TC > Accessories > Verify items on sale #https://app.clickup.com/t/868a7y2ax")
     public void testVerifyItemIsOnSale() {
