@@ -29,6 +29,12 @@ public class CartPage extends BasePage implements Loadable {
     By cartFirstProductPrice = By.xpath("(//td[@data-title='Price'])[1]//bdi");
     By cartFirstProductSubtotal = By.xpath("(//td[@data-title='Subtotal'])[1]//bdi");
 
+//    public By getCartFirstProductQuantity() {
+//        return cartFirstProductQuantity;
+//    }
+
+    By cartFirstProductQuantity = By.xpath("(//input[@title='Qty'])[1]");
+
 
     public CartPage(WebDriver driver) {
         super(driver);
@@ -57,11 +63,13 @@ public class CartPage extends BasePage implements Loadable {
                 return Integer.parseInt(WaitUtils.visibilityOfElementLocated(getDriver(), quantityOfProducts, 3).getAttribute("value"));
     }
 
+    //        the method written for the first product in the cart
     public int getProductPrice() {
         String productPrice = WaitUtils.visibilityOfElementLocated(getDriver(),cartFirstProductPrice,2).getText();
         return Integer.parseInt(productPrice.replace("$", "").split("\\.")[0]);
     }
 
+    //        the method written for the first product in the cart
     public int getProductSubtotal() {
         String productSubtotal = WaitUtils.visibilityOfElementLocated(getDriver(), cartFirstProductSubtotal, 2).getText();
         return Integer.parseInt(productSubtotal.replace("$", "").split("\\.")[0]);
@@ -141,6 +149,13 @@ public class CartPage extends BasePage implements Loadable {
                 }
             }
             Assert.assertEquals(cartPage.getEmptyCartMessage(), "Your cart is currently empty.", "Cart is not empty");
+        }
+
+//        the method written for the first product in the cart
+        public CartPage clearCartQuantityField() {
+            WaitUtils.presenceOfElementLocated(getDriver(), cartFirstProductQuantity,2).clear();
+
+            return this;
         }
 
 

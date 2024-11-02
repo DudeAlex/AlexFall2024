@@ -25,7 +25,7 @@ public class Header extends BaseComponent {
     By headerAccount = By.id("menu-item-1237"); // Header Account
     By headerAbout = By.id("menu-item-1232"); // Header About
     By headerContactUs = By.id("menu-item-1233"); // Header Contact Us
-    By headerCartButton = By.xpath("(//span[@class='count'])[1]"); // Header Cart
+    By headerCartIcon = By.xpath("(//span[@class='count'])[1]"); // Header Cart
     By activeMenuItem = By.cssSelector("li.current-menu-item a"); // Active element of heade menu
 
 
@@ -72,12 +72,12 @@ public class Header extends BaseComponent {
     }
 
     public CartPage navigateToCartPage() {
-        WaitUtils.visibilityOfElementLocated(getDriver(), headerCartButton).click();
+        WaitUtils.visibilityOfElementLocated(getDriver(), headerCartIcon).click();
         return new CartPage(getDriver());
     }
 
     public int getAmountOfProductsOnCartIcon() {
-        String numberProductsInCart = getDriver().findElement(headerCartButton).getText();
+        String numberProductsInCart = getDriver().findElement(headerCartIcon).getText();
 
         return Integer.parseInt(numberProductsInCart);
     }
@@ -126,8 +126,8 @@ public class Header extends BaseComponent {
         return headerContactUs;
     }
 
-    public By getHeaderCartButton() {
-        return headerCartButton;
+    public By getHeaderCartIcon() {
+        return headerCartIcon;
     }
 
     public By getActiveMenuItem() {return activeMenuItem;}

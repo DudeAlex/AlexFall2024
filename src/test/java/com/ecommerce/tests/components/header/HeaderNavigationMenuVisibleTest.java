@@ -2,7 +2,6 @@ package com.ecommerce.tests.components.header;
 
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.pom.pages.HomePage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
@@ -98,6 +97,6 @@ public class HeaderNavigationMenuVisibleTest extends BaseTest {
     public void testCartIsDisplayed() {
         HomePage homePage = new HomePage(driver);
 
-        Assert.assertTrue(driver.findElement(homePage.getHeader().getHeaderCartButton()).isDisplayed()); // Cart
+        Assert.assertTrue(driver.findElement(homePage.getHeader().getHeaderCartIcon()).isDisplayed()); // Cart
     }
 }

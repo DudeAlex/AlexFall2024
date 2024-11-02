@@ -1,6 +1,8 @@
 package com.ecommerce.pom;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 
 public abstract class BaseModel {
 
@@ -14,6 +16,14 @@ public abstract class BaseModel {
 
     public WebDriver getDriver() {
         return driver;
+    }
+
+    public <T> T goToWebElement(By locator, T pageOrComponent) {
+        new Actions(getDriver())
+                .moveToElement(getDriver().findElement(locator))
+                .perform();
+
+        return pageOrComponent;
     }
 }
 
