@@ -45,14 +45,12 @@ public class CartPage extends BasePage implements Loadable {
         return new CheckoutPage(getDriver());
     }
 
-
     public CartPage clickViewCartButton() {
         WaitUtils.elementToBeClickable(getDriver(), viewCart).click();
         return new CartPage(getDriver());
     }
 
-
-    //        the method written for the first product in the cart
+    //        the method is written for the first product in the cart
     public int getProductQuantityInt() {
         String productQuantity = WaitUtils.visibilityOfElementLocated(getDriver(),
                 cartFirstProductQuantityField, 2).getAttribute("value");
@@ -61,7 +59,7 @@ public class CartPage extends BasePage implements Loadable {
                 return Integer.parseInt(productQuantity);
     }
 
-    //        the method written for the first product in the cart
+    //        the method is written for the first product in the cart
     public int getProductPriceInt() {
         String productPrice = WaitUtils.visibilityOfElementLocated(getDriver(),cartFirstProductPrice,2).getText();
         return Integer.parseInt(productPrice.replace("$", "").split("\\.")[0]);
@@ -150,7 +148,7 @@ public class CartPage extends BasePage implements Loadable {
             Assert.assertEquals(cartPage.getEmptyCartMessage(), "Your cart is currently empty.", "Cart is not empty");
         }
 
-//        the method written for the first product in the cart
+//        the method is written for the first product in the cart
         public CartPage clearCartQuantityField() {
             WaitUtils.presenceOfElementLocated(getDriver(), cartFirstProductQuantityField,2).clear();
 

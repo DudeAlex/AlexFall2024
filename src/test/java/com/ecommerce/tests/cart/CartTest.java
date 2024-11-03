@@ -85,7 +85,7 @@ public class CartTest extends BaseTest {
             product.click();
             counter++;
             final String finalCounter2 = counter.toString();
-            WaitUtils.visibilityOfElementLocated(driver, By.xpath("//div[@class='ast-cart-menu-wrap']/span[contains(text(), " + finalCounter2));
+            WaitUtils.visibilityOfElementLocated(driver, By.xpath("//div[@class='ast-cart-menu-wrap']/span[contains(text(), '" + finalCounter2 + "')]"));
         }
         WebElement viewCart = driver.findElement(By.linkText("View cart"));
         String viewCartText = viewCart.getText();
