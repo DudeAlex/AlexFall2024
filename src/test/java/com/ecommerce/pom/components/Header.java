@@ -14,10 +14,6 @@ public class Header extends BaseComponent {
         super(driver);
     }
 
-
-    /**
-     * header elements like links, buttons, etc.
-     */
     By headerHome = By.id("menu-item-1226"); // Header Home
     By headerStore = By.id("menu-item-1227"); // Header Store
     By headerMen = By.id("menu-item-1228"); // Header Men
@@ -28,7 +24,6 @@ public class Header extends BaseComponent {
     By headerContactUs = By.id("menu-item-1233"); // Header Contact Us
     By headerCartIcon = By.xpath("(//span[@class='count'])[1]"); // Header Cart
     By activeMenuItem = By.cssSelector("li.current-menu-item a"); // Active element of heade menu
-    By viewCartButton = By.linkText("View cart");
 
 
     public HomePage navigateToHomePage(){
