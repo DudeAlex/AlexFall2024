@@ -89,4 +89,12 @@ public class WaitUtils {
     public static boolean waitForQuantityToBe(WebDriver driver, By by, String quantity) {
         return new WebDriverWait(driver, Duration.ofSeconds(TIMEOUTS)).until(ExpectedConditions.textToBe(by, quantity));
     }
+
+    public static boolean waitForValueAttributeChanged(WebDriver driver, By selector, String attributeName,
+                                                       String expectedValue) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUTS));
+
+//        return wait.until(ExpectedConditions.attributeToBe(selector, attributeName, expectedValue));
+        return wait.until(driver1 -> driver.findElement(selector).getAttribute(attributeName).equals(expectedValue));
+    }
 }

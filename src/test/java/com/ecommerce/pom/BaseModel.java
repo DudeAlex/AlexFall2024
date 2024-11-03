@@ -11,19 +11,11 @@ public abstract class BaseModel {
     public BaseModel(WebDriver driver){
 
         this.driver = driver;
-
     }
 
     public WebDriver getDriver() {
         return driver;
     }
 
-    public <T> T goToWebElement(By locator, T pageOrComponent) {
-        new Actions(getDriver())
-                .moveToElement(getDriver().findElement(locator))
-                .perform();
-
-        return pageOrComponent;
-    }
 }
 

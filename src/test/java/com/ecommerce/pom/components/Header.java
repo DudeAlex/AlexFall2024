@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import javax.swing.*;
+
 public class Header extends BaseComponent {
 
     public Header(WebDriver driver) {
@@ -92,6 +94,10 @@ public class Header extends BaseComponent {
 
         // return the color of active element
         return activeItem.getCssValue("color");
+    }
+
+    public void moveToCartIcon() {
+        Action
     }
 
     public By getHeaderHome() {
