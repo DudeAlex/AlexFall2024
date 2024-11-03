@@ -38,11 +38,6 @@ public class MenPage extends SalesPage<MenPage> {
         return CollectToListUtils.productsCategories(getDriver());
     }
 
-    public MenPage addToCartFromManPage() {
-        WaitUtils.visibilityOfElementLocated(getDriver(), addToCartButton).click();
-        return this;
-    }
-
     public CartPage clickCartPage() {
         WaitUtils.visibilityOfElementLocated(getDriver(), cartButton).click();
         return new CartPage(getDriver());
