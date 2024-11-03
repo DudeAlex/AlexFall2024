@@ -150,7 +150,7 @@ public class CartTest extends BaseTest {
         Assert.assertEquals(driver.getCurrentUrl(), STORE_URL);
         Assert.assertEquals(storePage.getHeader().getAmountOfProductsOnCartIcon(), 0);
 
-        storePage.addproductToCartNumberOfTimes(2);
+        storePage.addProductToCartNumberOfTimes(2);
         WaitUtils.waitForQuantityToBe(storePage.getDriver(), storePage.getHeader().getHeaderCartIcon(), "2");
 
         Assert.assertEquals(storePage.getHeader().getAmountOfProductsOnCartIcon(), 2);
@@ -173,7 +173,7 @@ public class CartTest extends BaseTest {
         Assert.assertEquals(driver.getCurrentUrl(), BASE_URL);
         Assert.assertEquals(homePage.getHeader().getAmountOfProductsOnCartIcon(), 0);
 
-        homePage.addproductToCartNumberOfTimes(2);
+        homePage.addProductToCartNumberOfTimes(2);
         WaitUtils.waitForQuantityToBe(homePage.getDriver(), homePage.getHeader().getHeaderCartIcon(), "2");
 
         Assert.assertEquals(homePage.getHeader().getAmountOfProductsOnCartIcon(), 2);
@@ -196,7 +196,7 @@ public class CartTest extends BaseTest {
         Assert.assertEquals(driver.getCurrentUrl(), MEN_URL);
         Assert.assertEquals(homePage.getHeader().getAmountOfProductsOnCartIcon(), 0);
 
-        menPage.addproductToCartNumberOfTimes(2);
+        menPage.addProductToCartNumberOfTimes(2);
         WaitUtils.waitForQuantityToBe(homePage.getDriver(), menPage.getHeader().getHeaderCartIcon(), "2");
 
         Assert.assertEquals(menPage.getHeader().getAmountOfProductsOnCartIcon(), 2);

@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 import static com.ecommerce.pom.EndPoints.MENS_SHIRTS_URL;
 
-public class MensShirtsPage extends SalesPage{
+public class MensShirtsPage extends SalesPage<MensShirtsPage> {
 
     public MensShirtsPage(WebDriver driver) {
         super(driver);

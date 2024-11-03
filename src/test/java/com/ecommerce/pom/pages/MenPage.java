@@ -13,8 +13,6 @@ import java.util.List;
 import static com.ecommerce.pom.EndPoints.MEN_URL;
 
 public class MenPage extends SalesPage<MenPage> {
-    By cartButton = By.linkText("View cart");
-    By cartIcon = By.xpath("//div[@id=\"ast-desktop-header\"]//a[@title=\"View your shopping cart\"]//span");
     By pageHeader = By.tagName("h1");
     By menQtyInFilter = By.xpath("//select[@id='product_cat']/option[@selected='selected']");
     By menQtyOnPage = By.cssSelector(".ast-woocommerce-container ul li");
@@ -34,11 +32,6 @@ public class MenPage extends SalesPage<MenPage> {
 
     public List<String> collectCategories() {
         return CollectToListUtils.productsCategories(getDriver());
-    }
-
-    public CartPage clickCartPage() {
-        WaitUtils.visibilityOfElementLocated(getDriver(), cartButton).click();
-        return new CartPage(getDriver());
     }
 
     public String verifyHeaderText(){

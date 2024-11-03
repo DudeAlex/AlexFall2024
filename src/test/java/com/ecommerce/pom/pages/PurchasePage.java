@@ -41,13 +41,13 @@ public abstract class PurchasePage<Page extends PurchasePage> extends BasePage {
         return (Page) this;
     }
 
-    public Page addFirstProductOnPageToCart() {
+    public <Page extends PurchasePage> Page addFirstProductOnPageToCart() {
         WaitUtils.visibilityOfElementLocated(getDriver(), addToCartFirstProductOnPageButton).click();
 
         return (Page) this;
     }
 
-    public Page addproductToCartNumberOfTimes(int numberOfTimes) {
+    public Page addProductToCartNumberOfTimes(int numberOfTimes) {
         for(int i = 0; i < numberOfTimes; i++) {
             addFirstProductOnPageToCart();
         }
