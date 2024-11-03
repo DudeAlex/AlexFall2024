@@ -6,6 +6,7 @@ import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -14,7 +15,8 @@ public abstract class PurchasePage<Page extends PurchasePage> extends BasePage {
 
     By allProductList = By.xpath("//ul//h2");
     By headerTitle = By.xpath("//h1[@class='woocommerce-products-header__title page-title']");
-    By addToCartFirstProductOnPageButton = By.xpath("//ul[contains(@class, 'products columns')]//li[1]//a[contains(@class, 'button')]");
+    By addToCartFirstProductOnPageButton = By.xpath(
+            "//ul[contains(@class, 'products columns')]//li[1]//a[contains(@class, 'button')]");
 
     private final ProductsGrid productsGrid;
 
@@ -80,5 +82,12 @@ public abstract class PurchasePage<Page extends PurchasePage> extends BasePage {
     public int getNumberOfProductsOnPage() {
         List<WebElement> itemsList = WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(), allProductList);
         return itemsList.size();
+    }
+    public Page goToProduct(){
+        new Actions(getDriver())
+                .moveToElement(getDriver().findElement(addToCartFirstProductOnPageButton))
+                .perform();
+
+        return (Page) this;
     }
 }

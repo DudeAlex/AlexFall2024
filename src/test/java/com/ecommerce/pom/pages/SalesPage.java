@@ -170,4 +170,5 @@ public abstract class SalesPage<Page extends SalesPage> extends PurchasePage<Sal
         return (Page) this;
     }
 
+    public abstract WomenPage load();
 }

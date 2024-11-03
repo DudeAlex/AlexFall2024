@@ -13,19 +13,20 @@ public class AddProductWomenPageTest extends BaseTest {
 
     @Test(description = "9.1-1-1.3 | TC Add a product from the 'Women' page # https://app.clickup.com/t/868a40bz6")
     public void testAddProductWomenPage() throws IOException {
-        User user = UserUtils.readUserFromJson("user.json");
         HomePage homePage = new HomePage(driver);
-        AccountPage accountPage = homePage.getHeader().navigateToAccountPage();
-        accountPage.logIn(user.getLogin(), user.getPassword());
-
-        CartPage cartPage = accountPage.getHeader().navigateToCartPage();
-        cartPage.clearCart();
-
-        WomenPage womenPage = accountPage.getHeader().navigateToWomenPage();
-        womenPage.addToCartFromWomenPage();
-        cartPage = womenPage.getHeader().navigateToCartPage();
+        CartPage cartPage = homePage.getHeader()
+                .navigateToAccountPage()
+                .logInUsingConfigUtils()
+                .assertLogin()
+                .getHeader()
+                .navigateToCartPage()
+                .clearCart()
+                .getHeader()
+                .navigateToWomenPage()
+                .addFirstProductOnPageToCart()
+                .getHeader()
+                .navigateToCartPage();
 
         Assert.assertEquals(cartPage.getCartItemsNumber(),"1");
-
     }
 }
