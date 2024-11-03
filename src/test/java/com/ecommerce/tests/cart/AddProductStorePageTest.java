@@ -23,7 +23,7 @@ public class AddProductStorePageTest extends BaseTest {
         cartPage.clearCart();
 
         StorePage storePage = accountPage.getHeader().navigateToStorePage();
-        storePage.addToCartFromStorePage();
+        storePage.addFirstProductOnPageToCart();
         cartPage = storePage.getHeader().navigateToCartPage();
 
         Assert.assertEquals(cartPage.getCartItemsNumber(), "1");

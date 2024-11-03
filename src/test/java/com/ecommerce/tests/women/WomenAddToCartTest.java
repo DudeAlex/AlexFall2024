@@ -16,7 +16,7 @@ public class WomenAddToCartTest extends BaseTest {
         womenPage.addToCartFromWomenPage();
 
         CartPage cartPage = womenPage.clickCartPage();
-        int product = cartPage.getProductsQuantity();
+        int product = cartPage.getProductQuantityInt();
 
         Assert.assertEquals(product, 1, "Quantity of items in cart is not 1");
     }
