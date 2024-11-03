@@ -27,18 +27,7 @@ public class CartPage extends BasePage implements Loadable {
     By cartFirstProductPrice = By.xpath("(//td[@data-title='Price'])[1]//bdi");
     By cartFirstProductSubtotal = By.xpath("(//td[@data-title='Subtotal'])[1]//bdi");
     By cartFirstProductQuantityField = By.xpath("(//input[@title='Qty'])[1]");
-
-    public By getCartFirstProductPrice() {
-        return cartFirstProductPrice;
-    }
-
-    public By getCartFirstProductSubtotal() {
-        return cartFirstProductSubtotal;
-    }
-
-    public By getCartFirstProductQuantityField() {
-        return cartFirstProductQuantityField;
-    }
+    By itemRemovedMessage = By.xpath("//div[@role='alert']");
 
     public CartPage(WebDriver driver) {
         super(driver);
@@ -94,9 +83,10 @@ public class CartPage extends BasePage implements Loadable {
         return WaitUtils.visibilityOfElementLocated(getDriver(), cartIcon).getText();
     }
 
-    public void removeItemsFromCart() {
-
+    public CartPage removeItemsFromCart() {
         WaitUtils.elementToBeClickable(getDriver(), removeButton).click();
+
+        return this;
     }
 
     public String getEmptyCartMessage() {
@@ -172,6 +162,11 @@ public class CartPage extends BasePage implements Loadable {
                 .sendKeys(productQuantity + Keys.ENTER);
 
         return this;
+        }
+
+        public String getItemRemovedMessage() {
+
+        return WaitUtils.visibilityOfElementLocated(getDriver(),itemRemovedMessage,2).getText();
         }
 
 }

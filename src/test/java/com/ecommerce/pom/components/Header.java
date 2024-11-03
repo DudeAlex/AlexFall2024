@@ -6,8 +6,7 @@ import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import javax.swing.*;
+import org.openqa.selenium.interactions.Actions;
 
 public class Header extends BaseComponent {
 
@@ -29,6 +28,7 @@ public class Header extends BaseComponent {
     By headerContactUs = By.id("menu-item-1233"); // Header Contact Us
     By headerCartIcon = By.xpath("(//span[@class='count'])[1]"); // Header Cart
     By activeMenuItem = By.cssSelector("li.current-menu-item a"); // Active element of heade menu
+    By viewCartButton = By.linkText("View cart");
 
 
     public HomePage navigateToHomePage(){
@@ -96,8 +96,10 @@ public class Header extends BaseComponent {
         return activeItem.getCssValue("color");
     }
 
-    public void moveToCartIcon() {
-        Action
+    public void goToCartIcon() {
+        new Actions(getDriver()).moveToElement(getDriver()
+                .findElement(headerCartIcon))
+                .perform();
     }
 
     public By getHeaderHome() {

@@ -22,6 +22,15 @@ public class CartTest extends BaseTest {
         };
     }
 
+    @DataProvider(name = "itemToRemoveFromCart")
+    public Object[][] itemName() {
+        return new Object[][] {
+                {"Blue Denim Shorts"},
+                {"Boho Bangle Bracelet"},
+                {"Black Over-the-shoulder Handbag"}
+        };
+    }
+
     @Test(description = "9.1-3.4 | TC Update the Cart By typing the number inside of the Quantity input field",
     dataProvider = "numberToUpdateData")
     public void testUpdateQuantityInCart(String numberToSet) throws InterruptedException {
@@ -48,22 +57,22 @@ public class CartTest extends BaseTest {
         Assert.assertEquals(cartPage.getProductSubtotalInt(), expectedSubtotal);
     }
 
-    @Test(description = "9.1-2.3 | TC Remove single item by clicking the 'x' icon near the product in the cart")
-    public void testAddAndRemoveSingleItemFromCart() {
-        new HomePage(driver).getHeader()
+    @Test(description = "9.1-2.3 | TC Remove single item by clicking the 'x' icon near the product in the cart",
+    dataProvider = "itemToRemoveFromCart")
+    public void testAddAndRemoveSingleItemFromCart(String itemName) {
+         HomePage homePage = new HomePage(driver);
+         homePage.getHeader()
                 .navigateToStorePage()
-                .addProductToCart("Blue Denim Shorts");
+                .addProductToCart(itemName);
 
-        WebElement viewCart = driver.findElement(By.linkText("View cart"));
-        String viewCartText = viewCart.getText();
+        WaitUtils.waitForQuantityToBe(driver, homePage.getHeader().getHeaderCartIcon(), "1" );
+        String itemRemovedMessage = homePage.getHeader()
+                .navigateToCartPage()
+                .removeItemsFromCart()
+                .getItemRemovedMessage();
 
-        Assert.assertEquals(viewCartText, "View cart");
-
-        viewCart.click();
-        driver.findElement(By.xpath("//a[@class = 'remove']")).click();
-
-        String itemRemovedMassage = driver.findElement(By.xpath("//*[contains(text(),'removed')]")).getText();
-        Assert.assertTrue(itemRemovedMassage.contains("removed"));
+        Assert.assertTrue(itemRemovedMessage.contains("removed") &
+                itemRemovedMessage.contains(itemName));
     }
 
     @Test(description = "9.1_2_2.4 | TC > Cart > Remove multiple products by clicking x buttons # https://app.clickup.com/t/8689p8y04")
@@ -76,7 +85,7 @@ public class CartTest extends BaseTest {
             product.click();
             counter++;
             final String finalCounter2 = counter.toString();
-            WaitUtils.visibilityOfElementLocated(driver, By.xpath("//div[@class='ast-cart-menu-wrap']/span[contains(text(), '" + finalCounter2 +"')]"));
+            WaitUtils.visibilityOfElementLocated(driver, By.xpath("//div[@class='ast-cart-menu-wrap']/span[contains(text(), " + finalCounter2));
         }
         WebElement viewCart = driver.findElement(By.linkText("View cart"));
         String viewCartText = viewCart.getText();
