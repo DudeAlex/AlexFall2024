@@ -11,6 +11,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,9 @@ public class LeftSidebar extends BaseComponent {
     By bestSellersItems = By.cssSelector(".product_list_widget>li");
 
     // "Browse By Categories" section
+    By browseByCategoriesTitle = By.cssSelector(".widget.woocommerce.widget_product_categories h2");
     By browseByCategoryInputField = By.xpath("//select[@id='product_cat']");
+    By defaultDisplayedCategory = By.cssSelector("#select2-product_cat-container");
     By noCategory = By.xpath("//option[contains(text(),'Select a category')]");
     By accessories = By.xpath("//option[@value='accessories']");
     By men = By.xpath("//option[@value='men']");
@@ -200,6 +203,25 @@ public class LeftSidebar extends BaseComponent {
     }
     public By getLeftSliderHandle(){
         return leftSliderNod ;
+    }
+
+    public By getBrowseByCategoriesTitle() {
+        return browseByCategoriesTitle;
+    }
+
+    // Makes 'x' appear in browse by categories field by clicking a Browse by Category text
+    public void activateXIconByClickingTitle() {
+        WaitUtils.visibilityOfElementLocated(getDriver(), browseByCategoriesTitle).click();
+    }
+
+    public String getDefaultBrowseByCategoriesText(WebDriver driver) {
+
+        WebElement defaultCategoryTextDisplayed = WaitUtils.visibilityOfElementLocated(driver, defaultDisplayedCategory);
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        return (String)((JavascriptExecutor)driver).executeScript("return arguments[0].childNodes[1].textContent;", defaultCategoryTextDisplayed);
+
+        // this method can be used for Men, Women and Accessories page where default text is displayed in Browse By Category Field
     }
 }
 
