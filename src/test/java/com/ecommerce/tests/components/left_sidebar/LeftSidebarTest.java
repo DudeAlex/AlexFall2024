@@ -1,6 +1,7 @@
 package com.ecommerce.tests.components.left_sidebar;
 
 import com.ecommerce.base.BaseTest;
+import com.ecommerce.data.Product;
 import com.ecommerce.pom.components.LeftSidebar;
 import com.ecommerce.pom.pages.HomePage;
 import com.ecommerce.pom.pages.MenPage;
@@ -71,30 +72,16 @@ public class LeftSidebarTest extends BaseTest {
 
     @Test(description = "10.3-10.3-1  | TC > Leftside_Bar > filter price  > price range # https://app.clickup.com/t/8689x9pxq")
     public void testFilterPriceCheck() {
-        driver.findElement(By.xpath("//a[@class='wp-block-button__link']")).click();
-
-        WebElement priceFilter = driver.findElement(By.xpath("//span[@tabindex='0' and contains(@class, 'ui-slider-handle') and @style='left: 100%;']"));
-        Actions actions = new Actions(driver);
-        actions.dragAndDropBy(priceFilter, -150, 0).perform();
-        WebElement filterBtn = driver.findElement(By.xpath("//button[normalize-space()='Filter']"));
-        filterBtn.click();
-
-        List<WebElement> filterPrice = driver.findElements(By.xpath("//span[@class='price']/*[not(@aria-hidden='true')]"));
-        List<Double> expectingFilteringPricePage = new ArrayList<>();
-        for (WebElement price : filterPrice) {
-            String priceText = price.getText().replace("$", "");
-            Double filteringPriceValue = Double.parseDouble(priceText);
-            expectingFilteringPricePage.add(filteringPriceValue);
-
-            boolean allPricesUnderSixty = true;
-            for (Double expectPrice : expectingFilteringPricePage) {
-                if (expectPrice > 60) {
-                    allPricesUnderSixty = false;
-                }
-                Assert.assertTrue(allPricesUnderSixty, "Filter by price doesn't filter the price accordingly");
-            }
+        StorePage storePage = new StorePage(driver);
+        storePage.load();
+        storePage.moveRightNodOfPriceFilter(60).clickFilterButton();
+        List<Product> storePageAfterFiltering = storePage.getProductsGrid().getAllProductsOnPage();
+        for (Product product : storePageAfterFiltering) {
+            Assert.assertTrue(product.getPrice() <= 60);
+            Assert.assertTrue(storePageAfterFiltering.contains(product));
         }
     }
+
 
     @Test(description = "10.4-1-3 | TC > Verify Search Returns All Items Across Categories"
             + "# https://app.clickup.com/t/8689vk47d")
@@ -115,6 +102,7 @@ public class LeftSidebarTest extends BaseTest {
                 "Search box did not find all the items with item name '"
                         + itemCategory + "' or find extra items");
     }
+
 
     @Test(description = "10.4 -1-5 | TC > Verify search results with 2-character input. "
             + "#https://app.clickup.com/t/868abp8yn")
@@ -166,3 +154,4 @@ public class LeftSidebarTest extends BaseTest {
         Assert.assertEquals(driver.getCurrentUrl(), EndPoints.STORE_URL, "User was not redirected to the Store page");
     }
 }
+
