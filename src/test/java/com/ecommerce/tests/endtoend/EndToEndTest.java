@@ -26,7 +26,7 @@ public class EndToEndTest extends BaseTest {
         String item = storePage.getTextFromListProducts(0);
         Assert.assertEquals(searchResult, "Search results: “%s”".formatted(product));
 
-        storePage.chooseAnItemByClickingAddToCart(item);
+        storePage.addProductToCart(item);
 
         CartPage cartPage = new CartPage(driver);
         cartPage.clickViewCartButton();
@@ -58,7 +58,6 @@ public class EndToEndTest extends BaseTest {
 
         String checkOrder = checkoutPage.checkYourOrderHasBeenReceivedMessage();
         Assert.assertEquals(checkOrder, yourOrderIsReceived);
-
     }
 
     @Test

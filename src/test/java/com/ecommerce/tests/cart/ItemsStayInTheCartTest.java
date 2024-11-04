@@ -21,8 +21,10 @@ public class ItemsStayInTheCartTest extends BaseTest {
         CartPage cartPage = accountPage.getHeader().navigateToCartPage();
         cartPage.clearTheCartFromOneItem();
 
-        StorePage storePage = accountPage.getHeader().navigateToStorePage();
-        storePage.addToCartFromStorePage();
+        StorePage storePage = accountPage.getHeader()
+                .navigateToStorePage()
+                .addFirstProductOnPageToCart();
+
         cartPage = storePage.getHeader().navigateToCartPage();
 
         Assert.assertEquals(cartPage.getCartItemsNumber(), "1");
@@ -43,7 +45,7 @@ public class ItemsStayInTheCartTest extends BaseTest {
         cartPage.clearTheCartFromOneItem();
 
         StorePage storePage = accountPage.getHeader().navigateToStorePage();
-        storePage.addToCartFromStorePage();
+        storePage.addFirstProductOnPageToCart();
         cartPage = storePage.getHeader().navigateToCartPage();
 
         Assert.assertEquals(cartPage.getCartItemsNumber(), "1");

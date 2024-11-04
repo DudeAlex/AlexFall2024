@@ -24,7 +24,7 @@ public class RemoveOneProductFromTheCartByZeroTest extends BaseTest {
         AccountPage accountPage = homePage.getHeader().navigateToAccountPage();
         accountPage.logIn(user.getLogin(), user.getPassword());
         StorePage storePage = accountPage.getHeader().navigateToStorePage();
-        storePage.addToCartFromStorePage();
+        storePage.addFirstProductOnPageToCart();
         CartPage cartPage = storePage.getHeader().navigateToCartPage();
         cartPage.setZeroValueOfProductQuantity();
         WaitUtils.waitForQuantityToBe(cartPage.getDriver(), By.xpath("//span[@class='count']"),"0");

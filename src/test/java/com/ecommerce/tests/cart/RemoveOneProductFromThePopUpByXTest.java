@@ -28,7 +28,7 @@ public class RemoveOneProductFromThePopUpByXTest extends BaseTest {
         cartPage.clearTheCartFromOneItem();
 
         StorePage storePage = cartPage.getHeader().navigateToStorePage();
-        storePage.addToCartFromStorePage();
+        storePage.addFirstProductOnPageToCart();
         WaitUtils.waitForQuantityToBe(cartPage.getDriver(), By.xpath("//div/header/div[1]/div[1]/div/div/div/div[2]/div[2]/div/div[1]/a/div/span"),"1");
 
         Assert.assertEquals(cartPage.getCartItemsNumber(), "1");

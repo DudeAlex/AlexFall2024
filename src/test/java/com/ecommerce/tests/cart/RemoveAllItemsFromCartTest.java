@@ -16,22 +16,22 @@ public class RemoveAllItemsFromCartTest extends BaseTest {
         StorePage storePage = new StorePage(driver);
         storePage.load();
 
-        storePage.chooseAnItemByClickingAddToCart("Anchor Bracelet");
-        storePage.chooseAnItemByClickingAddToCart("Basic Blue Jeans");
-        storePage.chooseAnItemByClickingAddToCart("Black Over-the-shoulder Handbag");
-        storePage.chooseAnItemByClickingAddToCart("Blue Denim Shorts");
-        storePage.chooseAnItemByClickingAddToCart("Blue Shoes");
-        storePage.chooseAnItemByClickingAddToCart("Blue Tshirt");
-        storePage.chooseAnItemByClickingAddToCart("Boho Bangle Bracelet");
-        storePage.chooseAnItemByClickingAddToCart("Dark Brown Jeans");
+        storePage.addProductToCart("Anchor Bracelet");
+        storePage.addProductToCart("Basic Blue Jeans");
+        storePage.addProductToCart("Black Over-the-shoulder Handbag");
+        storePage.addProductToCart("Blue Denim Shorts");
+        storePage.addProductToCart("Blue Shoes");
+        storePage.addProductToCart("Blue Tshirt");
+        storePage.addProductToCart("Boho Bangle Bracelet");
+        storePage.addProductToCart("Dark Brown Jeans");
 
         storePage.clickNextPageButton();
 
-        storePage.chooseAnItemByClickingAddToCart("Dark Grey Jeans");
-        storePage.chooseAnItemByClickingAddToCart("Denim Blue Jeans");
-        storePage.chooseAnItemByClickingAddToCart("Faint Blue Jeans");
-        storePage.chooseAnItemByClickingAddToCart("Green Tshirt");
-        storePage.chooseAnItemByClickingAddToCart("Red Shoes");
+        storePage.addProductToCart("Dark Grey Jeans");
+        storePage.addProductToCart("Denim Blue Jeans");
+        storePage.addProductToCart("Faint Blue Jeans");
+        storePage.addProductToCart("Green Tshirt");
+        storePage.addProductToCart("Red Shoes");
 
         CartPage cartPage = new CartPage(driver);
         cartPage.load();

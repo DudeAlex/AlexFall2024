@@ -28,7 +28,7 @@ public class RemoveOneProductFromTheCartByXTest extends BaseTest {
         cartPage.clearTheCartFromOneItem();
 
         StorePage storePage = cartPage.getHeader().navigateToStorePage();
-        storePage.addToCartFromStorePage();
+        storePage.addFirstProductOnPageToCart();
         cartPage = storePage.getHeader().navigateToCartPage();
         WaitUtils.waitForQuantityToBe(cartPage.getDriver(), By.xpath("//span[@class='count']"),"1");
 
