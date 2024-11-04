@@ -70,6 +70,7 @@ public class Header extends BaseComponent {
 
     public CartPage navigateToCartPage() {
         WaitUtils.visibilityOfElementLocated(getDriver(), headerCartIcon).click();
+
         return new CartPage(getDriver());
     }
 

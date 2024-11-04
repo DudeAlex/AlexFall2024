@@ -12,7 +12,6 @@ import static com.ecommerce.pom.EndPoints.BASE_URL;
 public class HomePage extends PurchasePage<HomePage> implements Loadable {
 
     By shopNowButton = By.xpath("//a[@class= 'wp-block-button__link']");
-    By resetCartButton = By.cssSelector("a.remove_from_cart_button");
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -28,10 +27,6 @@ public class HomePage extends PurchasePage<HomePage> implements Loadable {
     public StorePage clickShopNowButton() {
         WaitUtils.elementToBeClickable(getDriver(), shopNowButton).click();
         return new StorePage(getDriver());
-    }
-
-    public void resetCart() {
-        WaitUtils.elementToBeClickable(getDriver(), resetCartButton, 2).click();
     }
 
     public HomePage scrollToElement(WebElement webElement) {

@@ -1,28 +1,18 @@
 package com.ecommerce.pom.pages;
 
+import com.ecommerce.pom.Loadable;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import static com.ecommerce.pom.EndPoints.WOMEN_URL;
 
-public class WomenPage extends SalesPage{
+public class WomenPage extends SalesPage<WomenPage> {
 
-    By addToCartButton  = By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']");
-    By cartButton = By.linkText("View cart");
     By itemsResultNumber = By.cssSelector(".woocommerce-result-count");
 
-    public WomenPage(WebDriver driver) {
+        public WomenPage(WebDriver driver) {
         super(driver);
-    }
-
-    public WomenPage addToCartFromWomenPage() {
-        WaitUtils.visibilityOfElementLocated(getDriver(), addToCartButton).click();
-        return this;
-    }
-    public CartPage clickCartPage() {
-        WaitUtils.visibilityOfElementLocated(getDriver(), cartButton).click();
-        return new CartPage(getDriver());
     }
 
     @Override
@@ -32,12 +22,6 @@ public class WomenPage extends SalesPage{
         return this;
     }
 
-    @Override
-    public WomenPage addProductToCart(String targetProductName) {
-        super.addProductToCart(targetProductName);
-
-        return this;
-    }
     public int getPageResultCount() {
         String result = WaitUtils.presenceOfElementLocated(getDriver(), itemsResultNumber).getText();
         result = result.replaceAll("[A-Za-z\\s]", "");

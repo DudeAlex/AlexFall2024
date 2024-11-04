@@ -14,21 +14,14 @@ import static com.ecommerce.pom.EndPoints.STORE_URL;
 
 public class StorePage extends SalesPage<StorePage> implements Loadable {
 
-    String add = "//a[@aria-label='Add “";
-    String toCart = "” to your cart']";
     String productFirstPartXpathTypeName = "//a[contains(text(),'";
     String productLastPartXpathTypeName = "')]";
     By headerTitle = By.xpath("//h1[@class='woocommerce-products-header__title page-title']");
     By loopProducts = By.xpath("//h2[@class='woocommerce-loop-product__title']");
-    By addToCartButton = By.xpath("//div[@class='astra-shop-summary-wrap']//a[text()='Add to cart']");
-    By cartButton = By.xpath("//div/header/div[1]/div[1]/div/div/div/div[2]/div[2]/div/div[1]/a/div/span");
     By productList = By.xpath("//ul//h2");
     By nextPageNumber = By.xpath("//a[@class='next page-numbers']");
-    By firstProductAddToCartButton = By.xpath("//ul[@class=\"products columns-4\"]//a[2]");
-    By products = By.cssSelector("div.ast-woocommerce-container>ul.products");
     By listOfProducts = By.cssSelector("div ul.products li");
     By paginatorBtnArrowToRight = By.cssSelector("a.next");
-    By spinnerElement = By.cssSelector(".button.product_type_simple.add_to_cart_button.ajax_add_to_cart.loading");
 
 
     public StorePage(WebDriver driver) {
@@ -71,16 +64,6 @@ public class StorePage extends SalesPage<StorePage> implements Loadable {
         return items.get(number).getText();
     }
 
-    public StorePage addToCartFromStorePage() {
-        WaitUtils.visibilityOfElementLocated(getDriver(), addToCartButton).click();
-        return this;
-    }
-
-    public CartPage clickCartPage() {
-        WaitUtils.visibilityOfElementLocated(getDriver(), cartButton).click();
-        return new CartPage(getDriver());
-    }
-
     public boolean areItemsInAlphabeticalOrder() {
         List<String> allItemList = getAllItemsFromAllPages(productList, getDriver()); // Получаем все элементы
         List<String> alphabeticalAllItemList = new ArrayList<>(allItemList); // Создаем копию списка
@@ -89,23 +72,10 @@ public class StorePage extends SalesPage<StorePage> implements Loadable {
         return allItemList.equals(alphabeticalAllItemList);
     }
 
-    public StorePage chooseAnItemByClickingAddToCart(String item) {
-        String chooseAnItemString = add + item + toCart;
-        By chooseAnItem = By.xpath(chooseAnItemString);
-        WaitUtils.elementToBeClickable(getDriver(), chooseAnItem).click();
-        WaitUtils.invisibilityOfElementLocated(getDriver(), spinnerElement);
-        return this;
-    }
-
     public String checkProductNameOnCartPage(String item) {
         String checkProductNameOnCartPageString = productFirstPartXpathTypeName + item + productLastPartXpathTypeName;
         By checkItemName = By.xpath(checkProductNameOnCartPageString);
         return WaitUtils.elementToBeClickable(getDriver(), checkItemName).getText();
-    }
-
-    public void addFirstProductToCart() {
-        WaitUtils.elementToBeClickable(getDriver(), firstProductAddToCartButton, 2).click();
-
     }
 
     public void checkLabelSaleOnEveryDiscountProduct() {

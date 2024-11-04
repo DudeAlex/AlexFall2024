@@ -26,7 +26,7 @@ public class NumberOfProductIsShownInTheIconTest extends BaseTest {
         cartPage.clearTheCartFromOneItem();
 
         StorePage storePage = cartPage.getHeader().navigateToStorePage();
-        storePage.addToCartFromStorePage();
+        storePage.addFirstProductOnPageToCart();
         cartPage = storePage.getHeader().navigateToCartPage();
 
         Assert.assertEquals(cartPage.getCartItemsNumber(), "1");

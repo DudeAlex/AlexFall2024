@@ -119,11 +119,16 @@ public class CartTest extends BaseTest {
         }
 
             @Test(description = "9.2_1.1  | TC > Cart > Checkout # https://app.clickup.com/t/868a31pxz")
-    public void testCheckout() throws InterruptedException {
-        String notice = new HomePage(driver)
+    public void testCheckout() {
+         new HomePage(driver)
                 .getHeader().navigateToStorePage()
-                .addToCartFromStorePage()
-                .clickCartPage()
+                .addFirstProductOnPageToCart();
+
+         StorePage storePage = new StorePage(driver);
+         WaitUtils.waitForQuantityToBe(driver, storePage.getHeader().getHeaderCartIcon(), "1");
+
+         String notice = storePage.getHeader()
+                .navigateToCartPage()
                 .clickCheckoutButton()
                 .inputFirstName("Evgenii")
                 .inputLastName("Averianov")
@@ -135,7 +140,6 @@ public class CartTest extends BaseTest {
                 .clickPlaceOrderButton()
                 .collectNotice();
         Assert.assertEquals(notice, "Thank you. Your order has been received.");
-        Thread.sleep(2000);
     }
 
     @Test(description = "9.1-1.5 | TC Add the same product to the cart (add a product twice) from the Store page")
@@ -150,8 +154,8 @@ public class CartTest extends BaseTest {
         Assert.assertEquals(driver.getCurrentUrl(), STORE_URL);
         Assert.assertEquals(storePage.getHeader().getAmountOfProductsOnCartIcon(), 0);
 
-        storePage.addproductToCartNumberOfTimes(2);
-        WaitUtils.waitForQuantityToBe(storePage.getDriver(), storePage.getHeader().getHeaderCartIcon(), "2");
+        storePage.addProductToCartNumberOfTimes(2);
+        WaitUtils.waitForQuantityToBe(driver, storePage.getHeader().getHeaderCartIcon(), "2");
 
         Assert.assertEquals(storePage.getHeader().getAmountOfProductsOnCartIcon(), 2);
         CartPage cartPage = storePage.getHeader().navigateToCartPage();
@@ -173,8 +177,8 @@ public class CartTest extends BaseTest {
         Assert.assertEquals(driver.getCurrentUrl(), BASE_URL);
         Assert.assertEquals(homePage.getHeader().getAmountOfProductsOnCartIcon(), 0);
 
-        homePage.addproductToCartNumberOfTimes(2);
-        WaitUtils.waitForQuantityToBe(homePage.getDriver(), homePage.getHeader().getHeaderCartIcon(), "2");
+        homePage.addProductToCartNumberOfTimes(2);
+        WaitUtils.waitForQuantityToBe(driver, homePage.getHeader().getHeaderCartIcon(), "2");
 
         Assert.assertEquals(homePage.getHeader().getAmountOfProductsOnCartIcon(), 2);
         CartPage cartPage = homePage.getHeader().navigateToCartPage();
@@ -196,8 +200,8 @@ public class CartTest extends BaseTest {
         Assert.assertEquals(driver.getCurrentUrl(), MEN_URL);
         Assert.assertEquals(homePage.getHeader().getAmountOfProductsOnCartIcon(), 0);
 
-        menPage.addproductToCartNumberOfTimes(2);
-        WaitUtils.waitForQuantityToBe(homePage.getDriver(), menPage.getHeader().getHeaderCartIcon(), "2");
+        menPage.addProductToCartNumberOfTimes(2);
+        WaitUtils.waitForQuantityToBe(driver, menPage.getHeader().getHeaderCartIcon(), "2");
 
         Assert.assertEquals(menPage.getHeader().getAmountOfProductsOnCartIcon(), 2);
         CartPage cartPage = menPage.getHeader().navigateToCartPage();
