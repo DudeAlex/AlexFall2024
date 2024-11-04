@@ -10,6 +10,7 @@ import static com.ecommerce.pom.EndPoints.ACCOUNT_ADDRESSES_URL;
 public class AccountAddressesPage extends AccountPage{
     By addBillingAddress = By.xpath("//h3[text() ='Billing address']/../a");
     By addressChangedSuccessfullyMessage = By.cssSelector(".woocommerce-notices-wrapper .woocommerce-message");
+    By addShippingAddress = By.xpath("//a[@href='https://askomdch.com/account/edit-address/shipping/']");
      public AccountAddressesPage(WebDriver driver){
          super(driver);
      }
@@ -26,5 +27,10 @@ public class AccountAddressesPage extends AccountPage{
      public String getAddressChangedMessage(){
          WebElement addressBox = WaitUtils.visibilityOfElementLocated(getDriver(), addressChangedSuccessfullyMessage);
          return addressBox.getText();
+     }
+
+     public ShippingAddressPage clickAddShippingAddress() {
+         WaitUtils.elementToBeClickable(getDriver(),addShippingAddress).click();
+         return new ShippingAddressPage(getDriver());
      }
 }

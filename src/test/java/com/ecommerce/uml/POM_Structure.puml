@@ -103,6 +103,31 @@ class AccountPage {
 + LostPasswordPage navigateToLostPasswordPage()
 }
 
+class ShippingAddressPage {
+# firstName: By
+#lastname:By
+#country :By
+#streetAddress : By
+#town: By
+#state: By
+#zipCode : By
+#saveAddressButton :By
++AccountAddressesPage fillOutShippingAddressForm()
+
+
+}
+
+class AccountAddressesPage {
+#addBillingAddress : By
+#addressChangedSuccessfullyMessage:By
+#addShippingAddress:By
++ load()
++ BillingAddressPage clickAddBillingAddress()
++ String getAddressChangedMessage()
++ ShippingAddressPage clickAddShippingAddress()
+
+}
+
 class CartPage {
 # checkoutButton: By
 # cartIcon: By
