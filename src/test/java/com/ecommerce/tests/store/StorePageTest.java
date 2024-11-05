@@ -91,14 +91,14 @@ public class StorePageTest extends BaseTest {
         StorePage storePage = new StorePage(driver);
         storePage.load();
         LeftSidebar leftSidebar = new LeftSidebar(driver);
-        JSExecutorUtils.scrollIntoView(driver, leftSidebar.getBrowseByCategoryInputField());
-        leftSidebar.browseByCategory("Men");
+        leftSidebar.scrollToBrowseByCategories()
+                   .browseByCategory("Men");
 
         List<WebElement> priceElement = storePage.getAllProductsPriceElements();
         List <String> labelList = storePage.getProductsGrid().getProductCategoryLabel();
 
-        priceElement.forEach(x ->
-            Assert.assertTrue(x.isDisplayed(), "The price is not displayed"));
+        priceElement.forEach(price ->
+            Assert.assertTrue(price.isDisplayed(), "The price is not displayed"));
 
         labelList.forEach(label ->
         Assert.assertEquals("Men", label, "Displayed category does not match selected 'Men' category"));
