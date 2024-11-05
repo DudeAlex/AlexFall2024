@@ -1,7 +1,10 @@
 package com.ecommerce.tests.store;
 
 import com.ecommerce.base.BaseTest;
+import com.ecommerce.pom.components.LeftSidebar;
 import com.ecommerce.pom.pages.HomePage;
+import com.ecommerce.pom.pages.StorePage;
+import com.ecommerce.utils.JSExecutorUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -61,21 +64,14 @@ public class StorePageTest extends BaseTest {
     @Test(description = "2.11-1.1 | TC > Store > See item's price.https://app.clickup.com/t/8689u8av6")
 
     public void testCheckPrices() {
-        driver.findElement(By.xpath("//li[@id = 'menu-item-1227']/a[@href = 'https://askomdch.com/store/']")).click();
 
-        WebElement listOfItems = driver.findElement(By.xpath("//ul[@class='products columns-4']"));
-        List<WebElement> listOfItemsSize = driver.findElements(By.xpath("//ul[@class='products columns-4']/li"));
-        int totalItemsOnPage = listOfItemsSize.size();
-
-        List<WebElement> listOfPricesOnSale = listOfItems.findElements(By.xpath("//ul[@class='products columns-4']//span[@class='price']/ins"));
-        List<WebElement> listOfPricesWithoutSale = listOfItems.findElements(By.xpath("//ul[@class='products columns-4']//span[@class='price'][not(del[@aria-hidden='true'])]"));
-
-        List<String> allPricesList = new ArrayList<>();
-        listOfPricesOnSale.forEach(x -> allPricesList.add(x.getText()));
-        listOfPricesWithoutSale.forEach(x -> allPricesList.add(x.getText()));
+        StorePage storePage = new StorePage(driver);
+        storePage.load();
+        int totalItemsOnPage = storePage.getProductsGrid().getProductsList().size();
+        int allPricesList = storePage.getAllProductsPriceList().size();
 
         // the quantity of items should match the quantity of items on the Store page
-        Assert.assertEquals(allPricesList.size(), totalItemsOnPage,
+        Assert.assertEquals(allPricesList, totalItemsOnPage,
                 "The quantity of prices does not match the quantity of items on the Store page.");
     }
 
@@ -89,39 +85,23 @@ public class StorePageTest extends BaseTest {
         Assert.assertTrue(isAlphabeticalOrder, "Items are not in alphabetical order");
     }
 
-    @Test(description = "2.11-1.2 |TC > Store > See itemion's price in Browse by category # https://app.clickup.com/t/8689yq16m")
+    @Test(description = "2.11-1.2 |TC > Store > See item's price in Browse by category # https://app.clickup.com/t/8689yq16m")
     public void checkPricesBrowseByCategory() {
 
-        driver.findElement(By.xpath("//a[@href='/store']")).click();
-        WebElement browseByCategoryField = driver.findElement(By.cssSelector("#product_cat"));
+        StorePage storePage = new StorePage(driver);
+        storePage.load();
+        LeftSidebar leftSidebar = new LeftSidebar(driver);
+        JSExecutorUtils.scrollIntoView(driver, leftSidebar.getBrowseByCategoryInputField());
+        leftSidebar.browseByCategory("Men");
 
-        // scroll down to the Browse category field
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView(true);", browseByCategoryField);
+        List<WebElement> priceElement = storePage.getAllProductsPriceElements();
+        List <String> labelList = storePage.getProductsGrid().getProductCategoryLabel();
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOf(browseByCategoryField));
+        priceElement.forEach(x ->
+            Assert.assertTrue(x.isDisplayed(), "The price is not displayed"));
 
-        // Select the "Men" category
-        Select select = new Select(browseByCategoryField);
-        select.selectByValue("men");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ast-woocommerce-container .products")));
-
-        List<WebElement> allItems = driver.findElements(By.cssSelector(".ast-woocommerce-container .products >li"));
-        List<WebElement> priceElement = driver.findElements(By.xpath("//span[@class='price']/*[self::ins or self::span]"));
-
-        //  assert that the price is displayed on the item
-        priceElement.forEach(x -> {
-            Assert.assertTrue(x.isDisplayed(), "The price is not displayed");
-        });
-        // assert that the displayed category is correct and string price is not empty or null
-        allItems.forEach(item -> {
-            String categoryMenText = item.findElement(By.cssSelector(".astra-shop-summary-wrap .ast-woo-product-category")).getText();
-            String priceOnItem = item.findElement(By.xpath(".//span[@class='price']/ins | .//span[@class='price']/span")).getText();
-
-            Assert.assertEquals("Men", categoryMenText, "Displayed category does not match selected 'Men' category");
-            Assert.assertTrue(!priceOnItem.isEmpty() && priceOnItem != null, " The price String is Empty or null ");
-        });
+        labelList.forEach(label ->
+        Assert.assertEquals("Men", label, "Displayed category does not match selected 'Men' category"));
     }
 }
 

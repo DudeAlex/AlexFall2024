@@ -209,6 +209,10 @@ public class LeftSidebar extends BaseComponent {
         return browseByCategoriesTitle;
     }
 
+    public By getBrowseByCategoryInputField(){
+        return browseByCategoryInputField;
+    }
+
     // Makes 'x' appear in browse by categories field by clicking a Browse by Category text
     public void activateXIconByClickingTitle() {
         WaitUtils.visibilityOfElementLocated(getDriver(), browseByCategoriesTitle).click();
