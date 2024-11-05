@@ -23,6 +23,8 @@ public class ProductsGrid extends BaseComponent {
     private final By priceAfterDiscount = By.xpath(".//ins ");
     private final By priceBeforeDiscount = By.xpath(".//del");
 
+    private final By productCategoryLabel = By.cssSelector(".astra-shop-summary-wrap .ast-woo-product-category");
+
     public List<WebElement> getProductsList() {
 
         return getDriver().findElements(listedItems);
@@ -52,6 +54,13 @@ public class ProductsGrid extends BaseComponent {
 
         return allProductsOnPage;
     }
-
-
+    public List <String> getProductCategoryLabel(){
+        List <WebElement> productlist = getProductsList();
+        List<String> categoryLabels = new ArrayList<>();
+        productlist.forEach(label ->{
+            String categoryLabelText = label.findElement(productCategoryLabel).getText();
+            categoryLabels.add(categoryLabelText);
+        });
+       return categoryLabels;
+    }
 }
