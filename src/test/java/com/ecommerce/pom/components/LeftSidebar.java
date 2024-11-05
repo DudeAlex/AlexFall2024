@@ -5,6 +5,7 @@ import com.ecommerce.pom.pages.ProductPage;
 import com.ecommerce.pom.pages.PurchasePage;
 
 import com.ecommerce.pom.pages.StorePage;
+import com.ecommerce.utils.JSExecutorUtils;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -209,10 +210,6 @@ public class LeftSidebar extends BaseComponent {
         return browseByCategoriesTitle;
     }
 
-    public By getBrowseByCategoryInputField(){
-        return browseByCategoryInputField;
-    }
-
     // Makes 'x' appear in browse by categories field by clicking a Browse by Category text
     public void activateXIconByClickingTitle() {
         WaitUtils.visibilityOfElementLocated(getDriver(), browseByCategoriesTitle).click();
@@ -226,6 +223,10 @@ public class LeftSidebar extends BaseComponent {
         return (String)((JavascriptExecutor)driver).executeScript("return arguments[0].childNodes[1].textContent;", defaultCategoryTextDisplayed);
 
         // this method can be used for Men, Women and Accessories page where default text is displayed in Browse By Category Field
+    }
+    public LeftSidebar scrollToBrowseByCategories(){
+        JSExecutorUtils.scrollIntoView(getDriver(), browseByCategoryInputField);
+       return this;
     }
 }
 
