@@ -4,6 +4,8 @@ package com.ecommerce.pom.components;
 import com.ecommerce.pom.pages.ProductPage;
 import com.ecommerce.pom.pages.PurchasePage;
 
+import com.ecommerce.pom.Loadable;
+import com.ecommerce.pom.pages.SalesPage;
 import com.ecommerce.pom.pages.StorePage;
 import com.ecommerce.utils.JSExecutorUtils;
 import com.ecommerce.utils.WaitUtils;
@@ -15,6 +17,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 
 import java.util.ArrayList;
+import java.util.List;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+
 import java.util.List;
 
 public class LeftSidebar extends BaseComponent {
@@ -71,7 +77,7 @@ public class LeftSidebar extends BaseComponent {
         super(driver);
     }
 
-    public PurchasePage<?> searchProduct(String item) {
+    public PurchasePage<?> searchProduct(String item){
         WaitUtils.visibilityOfElementLocated(getDriver(), searchInputField).sendKeys(item);
         WaitUtils.presenceOfElementLocated(getDriver(), searchButton).click();
 
