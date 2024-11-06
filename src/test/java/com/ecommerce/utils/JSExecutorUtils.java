@@ -11,4 +11,9 @@ public class JSExecutorUtils {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView(true);", element );
     }
+
+    public static void scrollToOneThirdOfPage(WebDriver driver) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight * 0.3);");
+    }
 }
