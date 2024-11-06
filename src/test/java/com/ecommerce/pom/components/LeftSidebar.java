@@ -77,7 +77,7 @@ public class LeftSidebar extends BaseComponent {
         super(driver);
     }
 
-    public StorePage searchProduct(String item) {
+    public PurchasePage<?> searchProduct(String item){
         WaitUtils.visibilityOfElementLocated(getDriver(), searchInputField).sendKeys(item);
         WaitUtils.presenceOfElementLocated(getDriver(), searchButton).click();
 
