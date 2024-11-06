@@ -2,7 +2,6 @@ package com.ecommerce.tests.components.left_sidebar;
 
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.data.Product;
-import com.ecommerce.pom.components.LeftSidebar;
 import com.ecommerce.pom.pages.HomePage;
 import com.ecommerce.pom.pages.MenPage;
 import com.ecommerce.pom.pages.ProductPage;
@@ -10,16 +9,8 @@ import com.ecommerce.pom.pages.PurchasePage;
 import com.ecommerce.pom.pages.StorePage;
 import com.ecommerce.pom.pages.WomenPage;
 import com.ecommerce.pom.EndPoints;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
