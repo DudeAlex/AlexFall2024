@@ -145,6 +145,7 @@ public class LeftSidebarTest extends BaseTest {
         storePage.getHeader()
                 .navigateToWomenPage()
                 .getLeftSidebar()
+                .scrollToBrowseByCategories()
                 .clearCategory();
 
         String actualCategoryText = storePage.getLeftSidebar().getSelectedCategoryText();
