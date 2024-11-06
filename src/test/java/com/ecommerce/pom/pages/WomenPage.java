@@ -32,8 +32,11 @@ public class WomenPage extends SalesPage<WomenPage> {
     }
     public String getImageAttribute(String attribute) {
         WebElement image = WaitUtils.visibilityOfElementLocated(getDriver(), denimBlueJeansImage);
+        if (image.isDisplayed()) {
         String attributeOfImage = image.getAttribute(attribute);
         return attributeOfImage;
+        }
+        return "Image is not displayed";
     }
 
     public void scrollToOneThirdOfWomenPage() {
