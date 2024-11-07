@@ -11,8 +11,8 @@ import java.util.List;
 import static com.ecommerce.pom.EndPoints.ACCOUNT_URL;
 
 public class AccountPage extends BasePage implements Loadable {
-    By emailField = By.id("//input [ @ id = 'username']");
-    By passwordField = By.id("//input [ @ id = 'password']");
+    By emailField = By.id("//input[@id='username']");
+    By passwordField = By.id("//input[@id='password']");
     By loginButton = By.xpath("//button[@class='woocommerce-button button woocommerce-form-login__submit' and text()='Log in']");
     By loginUsername = By.xpath("//input[@id=\"username\"]");
     By loginPassword = By.xpath("//input[@id=\"password\"]");
@@ -23,10 +23,10 @@ public class AccountPage extends BasePage implements Loadable {
     By registerPasswordInput = By.xpath("(//input[@type='password'])[2]");
     By welcomeNewUserText = By.xpath("//p[contains(text(),'Hello')]");
     By errorMessage = By.xpath("//ul[@role='alert']");
-    By logoutLinkFromMainContent = By.xpath("//div[@class = 'woocommerce-MyAccount-content']//a[text() = 'Log out']");
+    By logoutLinkFromMainContent = By.xpath("//div[@class='woocommerce-MyAccount-content']//a[text()='Log out']");
     By logoutLinkFromSideMenu = By.xpath("//li[contains(@class, 'woocommerce-MyAccount-navigation-link--customer-logout')]/a[text()='Logout']");
     By accountDetailLink = By.xpath("//a[normalize-space()='Account details']");
-    By addressesLink = By.xpath("//a[text() ='Addresses']");
+    By addressesLink = By.xpath("//a[text()='Addresses']");
     By logInTable = By.cssSelector(".woocommerce-form.woocommerce-form-login.login");
 
 
@@ -59,6 +59,35 @@ public class AccountPage extends BasePage implements Loadable {
 
         getDriver().findElement(loginUsername).sendKeys(userLogin);
         getDriver().findElement(loginPassword).sendKeys(userPassword);
+        getDriver().findElement(loginButton).click();
+
+        return this;
+    }
+
+    public AccountPage logInUsingConfigUtilsWithParameters(String userLogin, String userPassword) {
+        String userLoginType = ConfigUtil.getProperty(userLogin);
+        String userPasswordType = ConfigUtil.getProperty(userPassword);
+
+        getDriver().findElement(loginUsername).sendKeys(userLoginType);
+        getDriver().findElement(loginPassword).sendKeys(userPasswordType);
+        getDriver().findElement(loginButton).click();
+
+        return this;
+    }
+
+    public AccountPage logInUsingConfigUtilsWithUserLoginOnly(String userLogin) {
+        String userLoginType = ConfigUtil.getProperty(userLogin);
+
+        getDriver().findElement(loginUsername).sendKeys(userLoginType);
+        getDriver().findElement(loginButton).click();
+
+        return this;
+    }
+
+    public AccountPage logInUsingConfigUtilsWithPasswordOnly(String userPassword) {
+        String userPasswordType = ConfigUtil.getProperty(userPassword);
+
+        getDriver().findElement(loginPassword).sendKeys(userPasswordType);
         getDriver().findElement(loginButton).click();
 
         return this;
