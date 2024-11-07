@@ -61,28 +61,4 @@ public class LoginFormTest extends BaseTest {
         Assert.assertEquals(actualErrorMsg, invalidEmailErrorMsg);
         Assert.assertTrue(accountPage.isWelcomeTextInvisible());
     }
-
-//    @Test
-//    public void invalidEmailErrorMessage() {
-//        String invalidEmailErrorMsg = "Unknown email address. Check again or try your username.";
-//        String invalidEmail = "q@gmai.co";
-//        String password = "1111";
-//
-//        driver.findElement(By.xpath("//a[contains(text(), 'Account')]")).click();
-//        driver.findElement(By.xpath("//input[@id='username']")).sendKeys(invalidEmail);
-//        driver.findElement(By.xpath("//input[@id='password']")).sendKeys(password);
-//        driver.findElement(By.xpath("//button[@name='login']")).click();
-//        String errorText = driver.findElement(By.xpath("//ul[@class='woocommerce-error']")).getText();
-//
-//        Assert.assertEquals(errorText, invalidEmailErrorMsg);
-//    }
-
-
-
-
-
-
-
-
-
 }
