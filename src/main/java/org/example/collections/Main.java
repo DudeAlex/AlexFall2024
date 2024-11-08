@@ -1,5 +1,7 @@
 package org.example.collections;
 
+import org.checkerframework.checker.units.qual.C;
+
 import java.text.CollationElementIterator;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,23 +15,24 @@ public class Main {
 
 
         List<Product> ourProducts = new ArrayList<>();
-        ourProducts.add(new Product("CJeans", 10, 8.99));
-        ourProducts.add(new Product("BHat", 5, 6.69));
-        ourProducts.add(new Product("AGloves", 2, 12.99));
+        ourProducts.add(new Product("AZJeans", 10, 8.99));
+        ourProducts.add(new Product("ABHat", 5, 6.69));
+        ourProducts.add(new Product("ACGloves", 2, 12.99));
 
         Product product = new Product("BHat", 4, 8.59);
 
      //   System.out.println(ourProducts.contains(product));
 
-      //  Collections.sort(ourProducts);
+     //  Collections.sort(ourProducts);
 
 //        CompareById compareId = new CompareById();
 //        Collections.sort(ourProducts, compareId);
 
-        CompareByNameLength compareNameLength = new CompareByNameLength();
-        Collections.sort(ourProducts, compareNameLength);
+//        CompareByNameLength compareNameLength = new CompareByNameLength();
+//        Collections.sort(ourProducts, compareNameLength);
 
-
+        CompareByName compareByName = new CompareByName();
+        Collections.sort(ourProducts, compareByName);
 
 
         System.out.println(ourProducts);

@@ -55,13 +55,15 @@ public class Product implements Comparable<Product>{
 
     public int compareTo(Product otherProduct) {
         // Compare by product price (ascending order)
-        if (this.productPrice < otherProduct.productPrice) {
-            return -1;  // Current product is cheaper
-        } else if (this.productPrice > otherProduct.productPrice) {
-            return 1;   // Current product is more expensive
-        } else {
-            return 0;   // Prices are the same
-        }
+      return  Double.compare(this.productPrice, otherProduct.productPrice);
+
+//        if (this.productPrice < otherProduct.productPrice) {
+//            return -1;  // Current product is cheaper
+//        } else if (this.productPrice > otherProduct.productPrice) {
+//            return 1;   // Current product is more expensive
+//        } else {
+//            return 0;   // Prices are the same
+//        }
     }
 
     @Override
