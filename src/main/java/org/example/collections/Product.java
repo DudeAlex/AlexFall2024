@@ -2,7 +2,7 @@ package org.example.collections;
 
 import java.util.Objects;
 
-public class Product {
+public class Product implements Comparable<Product>{
     private int id;
     private String productName;
     private double productPrice;
@@ -51,4 +51,27 @@ public class Product {
     public int hashCode() {
         return Objects.hash(id, productName, productPrice);
     }
+
+
+    public int compareTo(Product otherProduct) {
+        // Compare by product price (ascending order)
+        if (this.productPrice < otherProduct.productPrice) {
+            return -1;  // Current product is cheaper
+        } else if (this.productPrice > otherProduct.productPrice) {
+            return 1;   // Current product is more expensive
+        } else {
+            return 0;   // Prices are the same
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", productName='" + productName + '\'' +
+                ", productPrice=" + productPrice +
+                '}';
+    }
 }
+
+

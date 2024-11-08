@@ -13,13 +13,26 @@ public class Main {
 
 
         List<Product> ourProducts = new ArrayList<>();
-        ourProducts.add(new Product("CJeans", 10, 5.99));
-        ourProducts.add(new Product("BHat", 5, 8.69));
+        ourProducts.add(new Product("CJeans", 10, 8.99));
+        ourProducts.add(new Product("BHat", 5, 6.69));
         ourProducts.add(new Product("AGloves", 2, 12.99));
 
         Product product = new Product("BHat", 4, 8.59);
 
-        System.out.println(ourProducts.contains(product));
+     //   System.out.println(ourProducts.contains(product));
+
+      //  Collections.sort(ourProducts);
+
+//        CompareById compareId = new CompareById();
+//        Collections.sort(ourProducts, compareId);
+
+        CompareByNameLength compareNameLength = new CompareByNameLength();
+        Collections.sort(ourProducts, compareNameLength);
+
+
+
+
+        System.out.println(ourProducts);
 
 
 //        Product prod1 = new Product("CJeans", 10, 5.99);
