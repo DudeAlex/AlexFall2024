@@ -3,10 +3,7 @@ package org.example.collections;
 import org.checkerframework.checker.units.qual.C;
 
 import java.text.CollationElementIterator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Main {
 
@@ -21,18 +18,35 @@ public class Main {
 
         Product product = new Product("BHat", 4, 8.59);
 
-     //   System.out.println(ourProducts.contains(product));
+        //   System.out.println(ourProducts.contains(product));
 
-     //  Collections.sort(ourProducts);
+        //  Collections.sort(ourProducts);
 
 //        CompareById compareId = new CompareById();
 //        Collections.sort(ourProducts, compareId);
 
-//        CompareByNameLength compareNameLength = new CompareByNameLength();
-//        Collections.sort(ourProducts, compareNameLength);
+//        CompareByNameLength compareNameLength = new CompareByNameLength(); -> leading into the next line
+  //      Collections.sort(ourProducts, new CompareByNameLength());
 
-        CompareByName compareByName = new CompareByName();
-        Collections.sort(ourProducts, compareByName);
+        //  CompareByName compareByName = new CompareByName(); -> leading into the next line
+//        Collections.sort(ourProducts, new Comparator<Product>() {
+//            @Override
+//            public int compare(Product o1, Product o2) {
+//                return String.CASE_INSENSITIVE_ORDER.compare(o1.getProductName(), o2.getProductName());
+//            }
+//        });
+
+      //  Collections.sort(ourProducts, (o1, o2) -> String.CASE_INSENSITIVE_ORDER.compare(o1.getProductName(), o2.getProductName()));
+//        Collections.sort(ourProducts, (o1, o2) -> Double.compare(o1.getProductPrice(), o2.getProductPrice()));
+//        Collections.sort(ourProducts, Comparator.comparingDouble(Product::getProductPrice));
+
+//        Collections.sort(ourProducts, (o1, o2) -> Integer.compare(o1.getId(), o2.getId()));
+//        Collections.sort(ourProducts, (Comparator.comparingInt(Product::getId)));
+
+
+       // Collections.sort(ourProducts, (o1, o2) -> Integer.compare(o1.getProductName().length(), o2.getProductName().length()));
+        Collections.sort(ourProducts, Comparator.comparingInt(o -> o.getProductName().length()));
+
 
 
         System.out.println(ourProducts);
@@ -57,14 +71,7 @@ public class Main {
 //        System.out.println(int1.equals(int2));
 
 
-
-
-
-
-    //    Collections.sort(ourProducts);
-
-
-
+        //    Collections.sort(ourProducts);
 
 
 //        List<String> productNames = new ArrayList<>();

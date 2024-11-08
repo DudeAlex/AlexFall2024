@@ -2,7 +2,7 @@ package org.example.collections;
 
 import java.util.Comparator;
 
-public class CompareByName implements Comparator<Product> {
+public class CompareByNameArchive implements Comparator<Product> {
 
 
     @Override
