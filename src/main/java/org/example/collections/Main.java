@@ -26,7 +26,7 @@ public class Main {
 //        Collections.sort(ourProducts, compareId);
 
 //        CompareByNameLength compareNameLength = new CompareByNameLength(); -> leading into the next line
-  //      Collections.sort(ourProducts, new CompareByNameLength());
+        //      Collections.sort(ourProducts, new CompareByNameLength());
 
         //  CompareByName compareByName = new CompareByName(); -> leading into the next line
 //        Collections.sort(ourProducts, new Comparator<Product>() {
@@ -36,7 +36,7 @@ public class Main {
 //            }
 //        });
 
-      //  Collections.sort(ourProducts, (o1, o2) -> String.CASE_INSENSITIVE_ORDER.compare(o1.getProductName(), o2.getProductName()));
+        Collections.sort(ourProducts, (o1, o2) -> String.CASE_INSENSITIVE_ORDER.compare(o1.getProductName(), o2.getProductName()));
 //        Collections.sort(ourProducts, (o1, o2) -> Double.compare(o1.getProductPrice(), o2.getProductPrice()));
 //        Collections.sort(ourProducts, Comparator.comparingDouble(Product::getProductPrice));
 
@@ -44,9 +44,8 @@ public class Main {
 //        Collections.sort(ourProducts, (Comparator.comparingInt(Product::getId)));
 
 
-       // Collections.sort(ourProducts, (o1, o2) -> Integer.compare(o1.getProductName().length(), o2.getProductName().length()));
+        // Collections.sort(ourProducts, (o1, o2) -> Integer.compare(o1.getProductName().length(), o2.getProductName().length()));
         Collections.sort(ourProducts, Comparator.comparingInt(o -> o.getProductName().length()));
-
 
 
         System.out.println(ourProducts);

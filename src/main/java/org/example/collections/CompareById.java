@@ -2,13 +2,12 @@ package org.example.collections;
 
 import java.util.Comparator;
 
-public class CompareById implements Comparator <Product> {
+public class CompareById implements Comparator<Product> {
 
 
     @Override
     public int compare(Product o1, Product o2) {
-
-     return   Integer.compare(o1.getId(), o2.getId());
+        return Integer.compare(o1.getId(), o2.getId());
 
 //        if (o1.getId() < o2.getId()) {
 //            return -1;  // Current product is cheaper
@@ -17,5 +16,5 @@ public class CompareById implements Comparator <Product> {
 //        } else {
 //            return 0;   // Prices are the same
 //        }
-   }
+    }
 }
