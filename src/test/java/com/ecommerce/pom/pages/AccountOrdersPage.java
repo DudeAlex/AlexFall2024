@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 
 import static com.ecommerce.pom.EndPoints.ACCOUNT_ORDERS_URL;
 
-public class AccountOrdersPage extends AccountPage{
+public class AccountOrdersPage extends AccountPage {//extends AccountLoginUserPage
     public AccountOrdersPage(WebDriver driver) {super(driver); }
 
     public AccountOrdersPage load(){
@@ -15,7 +15,7 @@ public class AccountOrdersPage extends AccountPage{
     }
 
 
-    By ordersPageButton = By.xpath("//a[@href='https://askomdch.com/account/orders/']");
+    By ordersPageButton = By.xpath("//a[@href='https://askomdch.com/account/orders/']");////a[normalize-space()='Orders']
     By browseProductsButton = By.xpath("//a[contains(text(),'Browse products')]");
     By noOrdersMadeText = By.xpath("//*[@id=\"post-1235\"]/div/div[2]/div/div[2]/div/div[2]");
     By ordersTable = By.xpath("//table[@class='woocommerce-orders-table woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_orders account-orders-table']");

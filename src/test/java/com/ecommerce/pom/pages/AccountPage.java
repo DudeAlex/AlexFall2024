@@ -119,7 +119,7 @@ public class AccountPage extends BasePage implements Loadable {
     }
 
     public AccountPage logOutFromSideMenu() {
-        WaitUtils.elementToBeClickable(getDriver(), logoutLinkFromSideMenu).click();
+        WaitUtils.elementToBeClickable(getDriver(), logoutLinkFromSideMenu).click();//*******in AccountLoginUserPage
         return this;
     }
 
@@ -176,7 +176,7 @@ public class AccountPage extends BasePage implements Loadable {
     public AccountPage clickRegisterButton() {
         getDriver().findElement(registerButton).click();
 
-        return this;
+        return this;    //******************************************* return new AccountLoginUserPage
     }
 
     public String getValidationMessage() {
@@ -197,11 +197,11 @@ public class AccountPage extends BasePage implements Loadable {
 
     public String getWelcomeNewUserText() {
         return WaitUtils.visibilityOf(getDriver(), welcomeNewUserText).getText();
-    }
+    }//***************************************************               in AccountLoginUserPage
 
     public AccountAddressesPage clickAddressesLink (){
         WaitUtils.elementToBeClickable(getDriver(), addressesLink).click();
-        return new AccountAddressesPage(getDriver());
+        return new AccountAddressesPage(getDriver());//*************    *********************** already in Dashboard
     }
 
     public AccountPage assertLogin() {
@@ -212,7 +212,7 @@ public class AccountPage extends BasePage implements Loadable {
             System.out.println("Login was successful");
         }
 
-        return this;
+        return this;//********************************************************** In AccountLoginUserPage
     }
 
     public By getEmailField() {
