@@ -57,11 +57,12 @@ public class LeftSidebar extends BaseComponent {
     By menCategorySearchHeader = By.xpath("//h1[@class='woocommerce-products-header__title page-title']");
 
     By searchResultMenCategory = By.xpath("//span[@class='ast-woo-product-category']");
-    By headerFilterByPriceText = By.xpath("//*[@id='woocommerce_price_filter-3']/h2");
+
 
     // "Filter By Price" section
     By minAvailableFilterPrice = By.xpath("//div[@class='price_label']//span[@class='from']");
     By maxAvailableFilterPrice = By.xpath("//div[@class='price_label']//span[@class='to']");
+    By headerFilterByPriceText = By.xpath("//*[@id='woocommerce_price_filter-3']/h2");
 
     public By leftSliderNod = By
             .xpath("//div[contains(@class, 'price_slider_wrapper')]//span[contains(@class, 'ui-slider')][1]");
