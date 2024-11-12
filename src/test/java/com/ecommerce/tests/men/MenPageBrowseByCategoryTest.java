@@ -27,6 +27,14 @@ public class MenPageBrowseByCategoryTest extends BaseTest {
 
     public void testBrowseByCategoryFilterOptions(){
 
+        MenPage menPage = new MenPage(driver).load();
+        menPage.clickOnFilterBrowseByCategoryButton();
+
+        menPage.bro
+
+
+        Assert.assertEquals();
+
     }
 
 }

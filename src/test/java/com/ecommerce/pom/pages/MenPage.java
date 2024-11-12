@@ -71,5 +71,28 @@ public class MenPage extends SalesPage<MenPage> {
         String browseByCategoryFilterText = getDriver().findElement(browseByCategoryFilterTextField).getText();
         return browseByCategoryFilterText;
     }
+
+//    public List<String> browseByCategoryMenFilterOptions(){
+//        List<WebElement> browseByCategoryOptions = WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(), browseByCategoryFilterOptions);
+//
+//        for(WebElement browseByCategory : browseByCategoryOptions) {
+//            if(browseByCategory != null){
+//                browseByCategory.co;
+//            }
+//        }
+//
+//
+//        return browseByCategoryMenFilterOptions();
+//    }
+
+    public void clickOnFilterBrowseByCategoryButton(){
+        new Actions(getDriver()).moveToElement(getDriver().findElement(browseByCategoryFilterField)).perform();
+        WaitUtils.elementToBeClickable(getDriver(), browseByCategoryFilterField).click();
+    }
+
+    public void removeBrowseByCategoryFilter(){
+        new Actions(getDriver()).moveToElement(getDriver().findElement(removeBrowseByCategoryFilterButton)).perform();
+        WaitUtils.elementToBeClickable(getDriver(), removeBrowseByCategoryFilterButton).click();
+    }
 }
 
