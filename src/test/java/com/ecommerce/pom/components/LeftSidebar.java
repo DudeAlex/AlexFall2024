@@ -13,6 +13,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 
@@ -56,6 +57,7 @@ public class LeftSidebar extends BaseComponent {
     By menCategorySearchHeader = By.xpath("//h1[@class='woocommerce-products-header__title page-title']");
 
     By searchResultMenCategory = By.xpath("//span[@class='ast-woo-product-category']");
+    By headerFilterByPriceText = By.xpath("//*[@id='woocommerce_price_filter-3']/h2");
 
     // "Filter By Price" section
     By minAvailableFilterPrice = By.xpath("//div[@class='price_label']//span[@class='from']");
@@ -237,6 +239,11 @@ public class LeftSidebar extends BaseComponent {
     public LeftSidebar scrollToBrowseByCategories(){
         JSExecutorUtils.scrollIntoView(getDriver(), browseByCategoryInputField);
        return this;
+    }
+
+    public void clickOnHeaderFilterByPriceText(){
+        Actions actions = new Actions(getDriver());
+        actions.moveToElement(WaitUtils.visibilityOfElementLocated(getDriver(), headerFilterByPriceText)).click().perform();
     }
 }
 

@@ -18,6 +18,10 @@ public class MenPage extends SalesPage<MenPage> {
     By menQtyOnPage = By.cssSelector(".ast-woocommerce-container ul li");
     By priceFilter = By.cssSelector("#woocommerce_price_filter-3 .price_label");
     By menItems = By.cssSelector(".ast-woo-product-category");
+    By browseByCategoryFilterTextField = By.xpath("//*[@id='woocommerce_price_filter-3']/h2");
+    By browseByCategoryFilterField = By.xpath("//span[@aria-labelledby='select2-product_cat-container']");
+    By browseByCategoryFilterOptions = By.xpath("//option[contains(text(), 'Men')]");
+    By removeBrowseByCategoryFilterButton = By.xpath("//span[@class='select2-selection__clear']");
 
     public MenPage(WebDriver driver) {
         super(driver);
@@ -61,6 +65,11 @@ public class MenPage extends SalesPage<MenPage> {
         List<WebElement> items = getDriver().findElements(menItems);
         int displayedItemCount = items.size();
         return displayedItemCount == expectedCount;
+    }
+
+    public String getBrowseByCategoryFilterText(){
+        String browseByCategoryFilterText = getDriver().findElement(browseByCategoryFilterTextField).getText();
+        return browseByCategoryFilterText;
     }
 }
 
