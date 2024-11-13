@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 
 import static com.ecommerce.pom.EndPoints.ACCOUNT_ORDERS_URL;
 
-public class AccountOrdersPage extends AccountPage {//extends AccountLoginUserPage
+public class AccountOrdersPage extends AccountLoginUserPage {//extends AccountLoginUserPage
     public AccountOrdersPage(WebDriver driver) {super(driver); }
 
     public AccountOrdersPage load(){

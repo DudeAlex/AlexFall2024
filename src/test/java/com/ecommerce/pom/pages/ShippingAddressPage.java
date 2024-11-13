@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class ShippingAddressPage extends AccountAddressesPage {
+public class ShippingAddressPage extends AccountLoginUserPage {
     By firstName = By.id("shipping_first_name");
     By lastname = By.id("shipping_last_name");
     By country = By.id("shipping_country");

@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver;
 import static com.ecommerce.pom.EndPoints.LOST_PASSWORD_URL;
 
 
-public class LostPasswordPage extends BasePage implements Loadable {
+public class LostPasswordPage extends AccountLoginUserPage implements Loadable {
 
     By emailInputToResetPassword = By.xpath("//input[@id='user_login']");
     By resetPasswordBtn = By.xpath("//button[@value='Reset password']");

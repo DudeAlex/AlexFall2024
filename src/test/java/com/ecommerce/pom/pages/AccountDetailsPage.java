@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 
 import static com.ecommerce.pom.EndPoints.ACCOUNT_DETAILS_URL;
 
-public class AccountDetailsPage extends AccountPage {
+public class AccountDetailsPage extends AccountLoginUserPage {
 
 
     public AccountDetailsPage(WebDriver driver) {super(driver); }
