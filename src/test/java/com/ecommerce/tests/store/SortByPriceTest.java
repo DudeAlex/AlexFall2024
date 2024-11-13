@@ -74,7 +74,12 @@ public class SortByPriceTest extends BaseTest {
 
      List<Product> allProductsList_highToLowPriceSorting = storePage.getAllProductsInStoreAfterSorting();
 
+ // sorting products in the 'default sorting' list by prices from high to low using java methods
      allProductsList_defaultSorting.sort(Comparator.reverseOrder());
+
+/*  compare products in the list sorted by java with the list created by sorting at the website.
+    if all the products are the same and have the same sorting order assertion will pass.
+ */
 
      for(int i = 0; i < allProductsList_defaultSorting.size(); i++) {
          Product product_1 = allProductsList_highToLowPriceSorting.get(i);
