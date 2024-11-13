@@ -21,7 +21,6 @@ public class AccountPageOrderHistoryTest extends BaseTest{
             accountPage.load();
             accountPage.logIn("anyemail@gmail.com", "Testing1");
 
-
             AccountOrdersPage accountOrdersPage = new AccountOrdersPage(driver);
             accountOrdersPage.navigateToAccountOrdersPage();
 

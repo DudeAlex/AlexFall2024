@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 
 import static com.ecommerce.pom.EndPoints.ACCOUNT_ADDRESSES_URL;
 
-public class AccountAddressesPage extends AccountPage{
+public class AccountAddressesPage extends AccountLoginUserPage {
     By addBillingAddress = By.xpath("//h3[text() ='Billing address']/../a");
     By addressChangedSuccessfullyMessage = By.cssSelector(".woocommerce-notices-wrapper .woocommerce-message");
     By addShippingAddress = By.xpath("//a[@href='https://askomdch.com/account/edit-address/shipping/']");
