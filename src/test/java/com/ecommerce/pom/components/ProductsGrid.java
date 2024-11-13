@@ -54,6 +54,7 @@ public class ProductsGrid extends BaseComponent {
 
         return allProductsOnPage;
     }
+
     public List <String> getProductCategoryLabel(){
         List <WebElement> productlist = getProductsList();
         List<String> categoryLabels = new ArrayList<>();

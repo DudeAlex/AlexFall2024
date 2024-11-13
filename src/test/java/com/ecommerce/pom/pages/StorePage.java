@@ -1,9 +1,11 @@
 package com.ecommerce.pom.pages;
 
+import com.ecommerce.data.Product;
 import com.ecommerce.pom.Loadable;
 import com.ecommerce.utils.UserUtils;
 import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 import java.util.ArrayList;
@@ -19,9 +21,13 @@ public class StorePage extends SalesPage<StorePage> implements Loadable {
     By headerTitle = By.xpath("//h1[@class='woocommerce-products-header__title page-title']");
     By loopProducts = By.xpath("//h2[@class='woocommerce-loop-product__title']");
     By productList = By.xpath("//ul//h2");
-    By nextPageNumber = By.xpath("//a[@class='next page-numbers']");
+    By nextPageArrow = By.xpath("//a[@class='next page-numbers']");
+    By previousPageArrow = By.xpath("//a[@class='prev page-numbers']");
     By listOfProducts = By.cssSelector("div ul.products li");
     By paginatorBtnArrowToRight = By.cssSelector("a.next");
+    By iconNumberSecondPage = By.xpath("//a[@class='page-numbers' and text()='2']");
+    By iconNumberFirstPage = By.xpath("//a[@class='page-numbers' and text()='1']");
+    By DropdownListSortBy = By.xpath("//select[@name='orderby']");
 
 
     public StorePage(WebDriver driver) {
@@ -46,7 +52,7 @@ public class StorePage extends SalesPage<StorePage> implements Loadable {
             }
 
             try {
-                WebElement nextPageArrow = driver.findElement(nextPageNumber);
+                WebElement nextPageArrow = driver.findElement(this.nextPageArrow);
                 nextPageArrow.click();
             } catch (NoSuchElementException e) {
                 hasNextPage = false;
@@ -118,8 +124,50 @@ public class StorePage extends SalesPage<StorePage> implements Loadable {
         }
     }
 
+
+
+    public List<Product> getAllProductsInStore() {
+        List<Product> allProductsInStoreList = getProductsGrid().getAllProductsOnPage();
+        clickNextPageButton();
+        allProductsInStoreList.addAll(getProductsGrid().getAllProductsOnPage());
+
+        return allProductsInStoreList;
+    }
+
+    public List<Product> getAllProductsInStoreAfterSorting() {
+        List<Product> allProductsInStoreList = getProductsGrid().getAllProductsOnPage();
+        clickNextPageButton();
+        allProductsInStoreList.addAll(getProductsGrid().getAllProductsOnPage());
+
+        return allProductsInStoreList;
+    }
+
     public StorePage clickNextPageButton() {
-        WaitUtils.elementToBeClickable(getDriver(), nextPageNumber).click();
+        WaitUtils.elementToBeClickable(getDriver(), nextPageArrow).click();
+        return this;
+    }
+
+    public StorePage clickPreviousPageButton() {
+//        WaitUtils.elementToBeClickable(getDriver(), previousPageArrow).click();
+        WaitUtils.elementToBeClickable(getDriver(), iconNumberFirstPage).click();
+        return this;
+    }
+
+    public StorePage clickFirstPageIcon() {
+        WaitUtils.elementToBeClickable(getDriver(), iconNumberFirstPage).click();
+        return this;
+    }
+
+    public StorePage clickSecondPageIcon() {
+        WaitUtils.elementToBeClickable(getDriver(), iconNumberSecondPage).click();
+        return this;
+    }
+
+    public StorePage selectSortingOrder(String sortingOrder) {
+        WebElement dropDown = WaitUtils.presenceOfElementLocated(getDriver(), DropdownListSortBy);
+        Select select = new Select(dropDown);
+        select.selectByVisibleText(sortingOrder);
+
         return this;
     }
 }
