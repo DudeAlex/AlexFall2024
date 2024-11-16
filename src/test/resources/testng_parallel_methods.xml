@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Parallel Methods Suite" parallel="methods" thread-count="3">
+    <test name="Parallel Specific Methods Test">
+        <classes>
+            <class name="com.ecommerce.tests.components.left_sidebar.LeftSidebarTest">
+                <methods>
+                    <include name="testSearchWithTwoCharactersReturnsRelevantItems"/>
+                </methods>
+            </class>
+            <class name="com.ecommerce.tests.store.StorePageTest">
+                <methods>
+                    <include name="testVerifyItemsAlphabeticalOrder"/>
+                </methods>
+            </class>
+            <class name="com.ecommerce.tests.men.FilterByPriceTest">
+                <methods>
+                    <include name="testFilterNodMoves"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
+
