@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
-<suite name="ParallelMethodsSuite" parallel="methods" thread-count="4">
+<suite name="ParallelMethodsSuite" parallel="methods" thread-count="2">
     <test name="ParallelMethodExecution">
         <classes>
             <class name="com.ecommerce.tests.men.FilterByPriceTest" />
