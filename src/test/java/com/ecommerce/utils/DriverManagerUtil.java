@@ -14,13 +14,19 @@ public class DriverManagerUtil {
         if (browser.equals("chrome")) {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--disable-search-engine-choice-screen");
-            driver = new ChromeDriver(options);
+            driver = ThreadLocalWebDriver.initializeDriver(browser, options);
+
         } else if (browser.equals("firefox")) {
             FirefoxOptions options = new FirefoxOptions();
             options.addArguments("--disable-search-engine-choice-screen");
-            driver = new FirefoxDriver(options);
+            driver = ThreadLocalWebDriver.initializeDriver(browser, options);
+
         }
 
         return driver;
     }
+
+
+
+
 }

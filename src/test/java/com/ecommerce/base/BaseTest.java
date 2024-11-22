@@ -4,8 +4,10 @@ package com.ecommerce.base;
 import com.ecommerce.pom.pages.AccountPage;
 import com.ecommerce.pom.pages.CartPage;
 
+import com.ecommerce.utils.ConfigUtil;
 import com.ecommerce.utils.DriverManagerUtil;
 
+import com.ecommerce.utils.ThreadLocalWebDriver;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -15,18 +17,14 @@ public class BaseTest {
     protected WebDriver driver;
 
 
-    @BeforeMethod(
-            groups = "before"
-    )
+    @BeforeMethod(groups = "before")
     public void setUp(){
         driver = DriverManagerUtil.getWebdriver();
-        driver.get("https://askomdch.com/");
+        driver.get(ConfigUtil.getProperty("baseUrl"));
         driver.manage().window().maximize();
     }
 
-    @AfterMethod(
-            groups = "after"
-    )
+    @AfterMethod(groups = "after")
     public void tearDown() {
         CartPage cartPage = new CartPage(driver);
         cartPage.load();
@@ -35,6 +33,8 @@ public class BaseTest {
         AccountPage accountPage = new AccountPage(driver);
         accountPage.load();
         accountPage.logOutUser();
+
+        ThreadLocalWebDriver.removeDriver();
 
         if (driver != null) {
             try {

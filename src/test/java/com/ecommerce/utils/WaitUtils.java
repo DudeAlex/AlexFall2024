@@ -10,7 +10,7 @@ import java.util.List;
 
 public class WaitUtils {
 
-    private static final long TIMEOUTS = 10;
+    private static final long TIMEOUTS = Long.parseLong(ConfigUtil.getProperty("timeout"));
 
     public static WebElement visibilityOfElementLocated(WebDriver driver, By by, long timeout) {
 
