@@ -5,6 +5,7 @@
         <parameter name="browser" value="chrome"/>
         <classes>
             <class name="com.ecommerce.tests.endtoend.EndToEndTest"/>
+            <class name="com.ecommerce.tests.about.AboutUsOurTeamTest"/>
         </classes>
     </test>
 
