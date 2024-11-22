@@ -9,8 +9,9 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 public class DriverManagerUtil {
     private static WebDriver driver;
 
-    public static WebDriver getWebdriver() {
-        String browser = ConfigUtil.getProperty("browser");
+    public static WebDriver getWebdriver(String browser) {
+        if(browser.isEmpty()) browser = ConfigUtil.getProperty("browser");
+
         if (browser.equals("chrome")) {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--disable-search-engine-choice-screen");
