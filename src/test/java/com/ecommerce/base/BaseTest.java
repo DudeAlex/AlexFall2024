@@ -9,6 +9,7 @@ import com.ecommerce.utils.ThreadLocalWebDriver;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 
@@ -18,7 +19,7 @@ public class BaseTest {
 
     @Parameters("browser")
     @BeforeMethod(groups = "before")
-    public void setUp(String browser){
+    public void setUp(@Optional("chrome") String browser){
         driver = DriverManagerUtil.getWebdriver(browser);
         driver.get(ConfigUtil.getProperty("baseUrl"));
         driver.manage().window().maximize();
