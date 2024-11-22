@@ -17,7 +17,7 @@ public class HeaderNavigationClickTest extends BaseTest {
      */
     @BeforeClass
     @Override
-    public void setUp(){
+    public void setUp(String browser){
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-search-engine-choice-screen");
         driver = new ChromeDriver(options);

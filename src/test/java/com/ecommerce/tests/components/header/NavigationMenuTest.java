@@ -22,8 +22,8 @@ public class NavigationMenuTest extends BaseTest {
 
     @BeforeMethod
     @Override
-    public void setUp(){
-        super.setUp();
+    public void setUp(String browser){
+        super.setUp(browser);
         header = new Header(driver);
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }

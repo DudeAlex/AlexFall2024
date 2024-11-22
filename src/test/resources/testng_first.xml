@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Selenium Test Suite">
     <test name="Selenium Tests">
+        <parameter name="browser" value="firefox"/>
         <classes>
             <class name="com.ecommerce.tests.endtoend.EndToEndTest"/>
         </classes>
