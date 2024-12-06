@@ -58,19 +58,26 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Allure TestNG Adapter -->
+        <!-- Allure Commandline (Optional for generating the report locally) -->
+<!--        <dependency>-->
+<!--            <groupId>io.qameta.allure</groupId>-->
+<!--            <artifactId>allure-commandline</artifactId>-->
+<!--            <version>2.15.0</version> &lt;!&ndash; Or the latest version &ndash;&gt;-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-junit4 -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-testng</artifactId>
-            <version>2.20.1</version> <!-- Use the latest version -->
+            <artifactId>allure-junit4</artifactId>
+            <version>2.28.1</version>
             <scope>test</scope>
         </dependency>
 
-        <!-- Allure Commandline (Optional for generating the report locally) -->
+        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-junit5 -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-commandline</artifactId>
-            <version>2.15.0</version> <!-- Or the latest version -->
+            <artifactId>allure-junit5</artifactId>
+            <version>2.28.1</version>
             <scope>test</scope>
         </dependency>
 
@@ -95,6 +102,14 @@
                     <version>${aspectj.version}</version>
                 </dependency>
             </dependencies>
+        </plugin>
+        <plugin>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-maven</artifactId>
+            <version>2.12.0</version>
+            <configuration>
+                <reportVersion>2.29.0</reportVersion>
+            </configuration>
         </plugin>
     </plugins>
     </build>
