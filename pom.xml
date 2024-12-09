@@ -12,7 +12,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <aspectj.version>1.9.20.1</aspectj.version>
+        <aspectj.version>1.9.19</aspectj.version>
     </properties>
 
     <dependencies>
@@ -95,14 +95,13 @@
                     -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                 </argLine>
             </configuration>
-            <dependencies>
-                <dependency>
+        </plugin>
+            <plugin>
                     <groupId>org.aspectj</groupId>
                     <artifactId>aspectjweaver</artifactId>
                     <version>${aspectj.version}</version>
-                </dependency>
-            </dependencies>
-        </plugin>
+            </plugin>
+
         <plugin>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-maven</artifactId>
