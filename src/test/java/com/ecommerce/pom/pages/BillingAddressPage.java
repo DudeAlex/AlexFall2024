@@ -15,7 +15,7 @@ public class BillingAddressPage extends AccountAddressesPage {
     By town = By.id("billing_city");
     By state = By.id("billing_state");
     By zipCode = By.id("billing_postcode");
-    By email = By.id("billing_email");
+
     By saveAddressButton = By.xpath("//button[@type ='submit']");
 
    public BillingAddressPage (WebDriver driver){
