@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.ecommerce.pom.EndPoints.MEN_URL;
@@ -18,6 +19,10 @@ public class MenPage extends SalesPage<MenPage> {
     By menQtyOnPage = By.cssSelector(".ast-woocommerce-container ul li");
     By priceFilter = By.cssSelector("#woocommerce_price_filter-3 .price_label");
     By menItems = By.cssSelector(".ast-woo-product-category");
+    By browseByCategoryFilterTextField = By.xpath("//*[@id='woocommerce_price_filter-3']/h2");
+    By browseByCategoryFilterField = By.cssSelector(".select2.select2-container.select2-.container--default.select2-container--below");
+    By browseByCategoryFilterOptions = By.xpath("//li[contains(@class,'select2-results__option')]");
+    By removeBrowseByCategoryFilterButton = By.xpath("//span[@class='select2-selection__clear']");
 
     public MenPage(WebDriver driver) {
         super(driver);
@@ -61,6 +66,35 @@ public class MenPage extends SalesPage<MenPage> {
         List<WebElement> items = getDriver().findElements(menItems);
         int displayedItemCount = items.size();
         return displayedItemCount == expectedCount;
+    }
+
+    public String getBrowseByCategoryFilterText(){
+        String browseByCategoryFilterText = getDriver().findElement(browseByCategoryFilterTextField).getText();
+        return browseByCategoryFilterText;
+    }
+
+    public List<String> browseByCategoryMenFilterOptions(){
+        List<WebElement> browseByCategoryOptions = WaitUtils.visibilityOfAllElementsLocatedBy(getDriver(), browseByCategoryFilterOptions);
+        List<String> men = new ArrayList<>();
+
+        for(WebElement browseByCategory : browseByCategoryOptions) {
+            String currentText = browseByCategory.getText();
+            if(currentText.contains("Men")){
+               men.add(currentText);
+            }
+        }
+
+        return men;
+    }
+
+    public void clickOnFilterBrowseByCategoryButton(){
+        new Actions(getDriver()).moveToElement(getDriver().findElement(browseByCategoryFilterField)).perform();
+        WaitUtils.elementToBeClickable(getDriver(), browseByCategoryFilterField).click();
+    }
+
+    public void removeBrowseByCategoryFilter(){
+        new Actions(getDriver()).moveToElement(getDriver().findElement(removeBrowseByCategoryFilterButton)).perform();
+        WaitUtils.elementToBeClickable(getDriver(), removeBrowseByCategoryFilterButton).click();
     }
 }
 
