@@ -40,4 +40,6 @@ build/
 
 ### project ###
 /.allure/
+/.screenshots/*
+!/.screenshots/.gitkeep
 

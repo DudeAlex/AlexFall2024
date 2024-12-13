@@ -5,8 +5,10 @@ import com.ecommerce.pom.pages.HomePage;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
 
+import java.lang.reflect.Method;
 import java.time.Duration;
 
 public class HeaderNavigationClickTest extends BaseTest {
@@ -36,7 +38,7 @@ public class HeaderNavigationClickTest extends BaseTest {
     }
     @AfterClass
     @Override
-    public void tearDown(){
+    public void tearDown(Method method, ITestResult testResult){
         driver.quit();
     }
 
