@@ -6,13 +6,36 @@ import com.ecommerce.pojo.UserData;
 import com.ecommerce.pojo.UserDataPool;
 import com.ecommerce.pom.pages.*;
 import com.ecommerce.utils.UserUtils;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
+import io.qameta.allure.Link;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Step;
+import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
+import io.qameta.allure.testng.Tag;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 
+@Epic("User - Account Purchase - Buy Product")
 public class EndToEndTest extends BaseTest {
 
+    @Description("Non Logged In user ordering a product")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Place order")
+    @Story("As a non logged in user, I can add a product to my cart, fill out user form and place an order")
+    @Link(name = "Documentation", url = "https://clickup.com")
+    @Issue("JIRA-123")
+    @TmsLink("TMS-456")
+    @Owner("Mihai Bordei")
+    @Tag("Regression")
+    @Tag("Smoke")
     @Test
     public void testProductToShoppingCart() throws IOException, InterruptedException {
 

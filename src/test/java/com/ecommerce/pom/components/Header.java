@@ -3,6 +3,7 @@ package com.ecommerce.pom.components;
 import com.ecommerce.pom.AboutPage;
 import com.ecommerce.pom.pages.*;
 import com.ecommerce.utils.WaitUtils;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,6 +32,7 @@ public class Header extends BaseComponent {
         return new HomePage(getDriver());
     }
 
+    @Step("Navigate to Store Page")
     public StorePage navigateToStorePage() {
         WaitUtils.visibilityOfElementLocated(getDriver(), headerStore).click();
 
