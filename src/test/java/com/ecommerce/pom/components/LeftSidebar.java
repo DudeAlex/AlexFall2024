@@ -9,6 +9,7 @@ import com.ecommerce.pom.pages.SalesPage;
 import com.ecommerce.pom.pages.StorePage;
 import com.ecommerce.utils.JSExecutorUtils;
 import com.ecommerce.utils.WaitUtils;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -77,6 +78,7 @@ public class LeftSidebar extends BaseComponent {
         super(driver);
     }
 
+    @Step("Search product {item}")
     public PurchasePage<?> searchProduct(String item){
         WaitUtils.visibilityOfElementLocated(getDriver(), searchInputField).sendKeys(item);
         WaitUtils.presenceOfElementLocated(getDriver(), searchButton).click();
