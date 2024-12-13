@@ -5,12 +5,16 @@ import com.ecommerce.pom.pages.CartPage;
 import com.ecommerce.utils.ConfigUtil;
 import com.ecommerce.utils.DriverManagerUtil;
 
+import com.ecommerce.utils.ProjectUtils;
 import com.ecommerce.utils.ThreadLocalWebDriver;
 import org.openqa.selenium.WebDriver;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
+
+import java.lang.reflect.Method;
 
 
 public class BaseTest {
@@ -26,7 +30,10 @@ public class BaseTest {
     }
 
     @AfterMethod(groups = "after")
-    public void tearDown() {
+    public void tearDown(Method method, ITestResult testResult) {
+        if (!testResult.isSuccess()) {
+            ProjectUtils.takeScreenshot(driver, testResult.getTestClass().getRealClass().getSimpleName(), testResult.getName());
+        }
         CartPage cartPage = new CartPage(driver);
         cartPage.load();
         cartPage.clearCart();

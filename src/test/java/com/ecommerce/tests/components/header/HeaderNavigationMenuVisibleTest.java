@@ -5,8 +5,10 @@ import com.ecommerce.pom.pages.HomePage;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
 
+import java.lang.reflect.Method;
 import java.time.Duration;
 
 public class HeaderNavigationMenuVisibleTest extends BaseTest {
@@ -34,7 +36,7 @@ public class HeaderNavigationMenuVisibleTest extends BaseTest {
 
     @AfterMethod
     @Override
-    public void tearDown(){
+    public void tearDown(Method method, ITestResult testResult){
     }
 
     @Test(description = "0-3-1| Verify header menu content # https://app.clickup.com/t/8689q87dt")
