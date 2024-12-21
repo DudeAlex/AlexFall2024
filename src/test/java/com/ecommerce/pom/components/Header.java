@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
 
 public class Header extends BaseComponent {
 
@@ -25,6 +26,8 @@ public class Header extends BaseComponent {
     By headerContactUs = By.id("menu-item-1233"); // Header Contact Us
     By headerCartIcon = By.xpath("(//span[@class='count'])[1]"); // Header Cart
     By activeMenuItem = By.cssSelector("li.current-menu-item a"); // Active element of heade menu
+    @FindBy(xpath = "//li[@id = 'menu-item-1233']")
+    WebElement linkContactUs;
 
 
     public HomePage navigateToHomePage(){
@@ -67,6 +70,10 @@ public class Header extends BaseComponent {
 
     public ContactUsPage navigateToContactUsPage() {
         WaitUtils.visibilityOfElementLocated(getDriver(), headerContactUs).click();
+        return new ContactUsPage(getDriver());
+    }
+    public ContactUsPage goToContactUsPage() {
+        linkContactUs.click();
         return new ContactUsPage(getDriver());
     }
 
